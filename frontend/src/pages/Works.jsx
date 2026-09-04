@@ -68,6 +68,60 @@ const websites = [
   },
 ];
 
+const saasProducts = [
+  {
+    id: "crm",
+    title: "All-in-One CRM for Smarter Business Management",
+    category: "CRM & Business Management",
+    badge: "Cloud CRM Platform",
+    domain: "company.risewithmedia.com",
+    url: "https://company.risewithmedia.com",
+    pitch: "Manage leads, customers, sales, tasks, team performance, and business operations from one powerful CRM platform.",
+    accent: "from-[#06b6d4] to-[#0891b2]",
+    tagBg: "bg-[#06b6d4]/10 text-[#06b6d4] border-[#06b6d4]/20",
+    features: [
+      "Lead & Customer Management",
+      "Sales & Follow-up Tracking",
+      "Task & Team Management",
+      "Reports & Analytics",
+      "Role-Based Access",
+      "Real-Time Dashboard",
+    ],
+    stats: [
+      { label: "Lead Pipeline", val: "1,280+ Leads" },
+      { label: "Sales Tracked", val: "₹24.5L Deals" },
+      { label: "Task Automation", val: "99.4% On-Time" },
+    ],
+    flow: ["Lead Captured", "Smart Follow-Up", "Deal Closed"],
+  },
+  {
+    id: "hms",
+    title: "All-in-One Hospital Management System for Smarter Healthcare",
+    category: "Hospital Management & Billing",
+    badge: "Healthcare & Hospital ERP",
+    domain: "hms.risewithmedia.com",
+    url: "https://hms.risewithmedia.com",
+    pitch: "Manage patients, doctors, appointments, billing, pharmacy, laboratory, staff, and hospital operations from one powerful HMS platform.",
+    accent: "from-[#0891b2] to-[#0f172a]",
+    tagBg: "bg-[#0891b2]/10 text-[#0891b2] border-[#0891b2]/20",
+    features: [
+      "Patient & Registration Management",
+      "Doctor, Appointment & Token Management",
+      "OPD & IPD Management",
+      "Billing & Payment Management",
+      "Pharmacy, Laboratory & Radiology",
+      "Role-Based Access & Permissions",
+      "Real-Time Dashboard & Reports",
+    ],
+    stats: [
+      { label: "OPD & IPD", val: "450+ Patients" },
+      { label: "Doctor Tokens", val: "24 Active OPDs" },
+      { label: "Billing & Lab", val: "100% Automated" },
+    ],
+    flow: ["Token Gen", "Doctor OPD", "Lab & Pharmacy", "Discharge & Bill"],
+  },
+];
+
 const adCreatives = [
   {
     id: 1,
@@ -108,7 +162,7 @@ const stats = [
   { num: "5×",  label: "Average ROI"            },
 ];
 
-const categories = ["All", "Reels", "Websites", "Ad Campaigns"];
+const categories = ["All", "SaaS Products", "Websites", "Reels", "Ad Campaigns"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -135,13 +189,14 @@ function SectionHeader({ badge, title, subtitle }) {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
     <motion.div ref={ref} initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-      className="text-center mb-10 md:mb-14">
+      className="text-center mb-12 md:mb-16">
       <motion.div variants={fadeUp}
-        className="inline-flex items-center gap-2 bg-[#dff6ff]/60 text-[#06b6d4] text-xs font-bold px-4 py-2 rounded-full mb-4">
+        className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-3 shadow-sm">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
         {badge}
       </motion.div>
-      <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-black text-[#0f172a] mb-3">{title}</motion.h2>
-      {subtitle && <motion.p variants={fadeUp} custom={2} className="text-[#0f172a]/50 max-w-lg mx-auto text-sm px-4">{subtitle}</motion.p>}
+      <motion.h2 variants={fadeUp} custom={1} className="text-2xl sm:text-4xl font-black text-[#0f172a] uppercase tracking-tight mb-2">{title}</motion.h2>
+      {subtitle && <motion.p variants={fadeUp} custom={2} className="text-[#64748b] max-w-lg mx-auto text-sm px-4 leading-relaxed font-normal">{subtitle}</motion.p>}
     </motion.div>
   );
 }
@@ -162,114 +217,274 @@ function LaptopCard({ site, i }) {
       onTouchStart={() => setHovering(true)}
       onTouchEnd={() => setTimeout(() => setHovering(false), 1500)}
     >
-      <div className={`absolute -inset-4 bg-gradient-to-br ${site.color} opacity-0 group-hover:opacity-40 blur-2xl rounded-3xl transition-all duration-700`} />
+      <div className={`absolute -inset-4 bg-gradient-to-br ${site.color} opacity-0 group-hover:opacity-30 blur-2xl rounded-3xl transition-all duration-700`} />
 
-      <div className="relative bg-white border border-[#dff6ff]/70 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-2xl group-hover:shadow-[#06b6d4]/10 transition-all duration-500">
-        <div className="bg-[#164e63] px-3 sm:px-5 pt-3 sm:pt-5 pb-0">
-          <div className="bg-[#082f49] rounded-t-xl overflow-hidden border border-white/5">
-            <div className="flex items-center gap-1.5 px-2 sm:px-3 py-2 bg-[#334155] border-b border-white/5">
-              <div className="w-2 h-2 rounded-full bg-red-500/80" />
-              <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
-              <div className="w-2 h-2 rounded-full bg-green-500/80" />
-              <div className="flex-1 mx-2 sm:mx-3 flex items-center gap-2 bg-white/5 rounded-full px-2 sm:px-3 py-0.5">
-                <svg className="w-2.5 h-2.5 text-[#06b6d4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>
-                </svg>
-                <span className="text-white/30 text-[8px] sm:text-[9px] font-mono truncate">
-                  {site.url ? site.url.replace("https://", "") : "yourwebsite.com"}
-                </span>
-              </div>
-              <div className="flex gap-1 opacity-40 shrink-0">
-                {[...Array(3)].map((_, k) => <div key={k} className="w-1 h-1 rounded-full bg-white" />)}
-              </div>
-            </div>
-
-            <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
-              {site.thumbnail ? (
-                <img src={site.thumbnail} alt={site.title} className="w-full h-full object-cover object-top" loading="lazy" />
-              ) : (
-                <div className={`w-full h-full bg-gradient-to-br ${site.color} flex flex-col items-center justify-center gap-3`}>
-                  <div className="w-full h-full p-3 flex flex-col gap-2 opacity-70">
-                    <div className="flex items-center justify-between">
-                      <div className="w-16 h-2 bg-white/50 rounded-full" />
-                      <div className="flex gap-1.5">
-                        {[1,2,3,4].map(k => <div key={k} className="w-6 h-1.5 bg-white/40 rounded-full" />)}
-                      </div>
-                    </div>
-                    <div className="flex-1 flex gap-2 mt-1">
-                      <div className="flex-1 flex flex-col gap-1.5 justify-center">
-                        <motion.div className="w-3/4 h-2.5 bg-white/70 rounded-full"
-                          animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity }} />
-                        <motion.div className="w-1/2 h-2 bg-white/50 rounded-full"
-                          animate={{ opacity: [0.4, 0.8, 0.4] }} transition={{ duration: 2, delay: 0.3, repeat: Infinity }} />
-                        <motion.div className="w-20 h-4 bg-white/60 rounded-lg mt-2"
-                          animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, delay: 0.6, repeat: Infinity }} />
-                      </div>
-                      <div className="w-1/3 bg-white/20 rounded-lg flex items-center justify-center">
-                        <motion.span className="text-2xl"
-                          animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2.5, repeat: Infinity }}>
-                          {site.emoji}
-                        </motion.span>
-                      </div>
-                    </div>
-                    <div className="flex gap-1.5">
-                      {[...Array(3)].map((_, k) => (
-                        <motion.div key={k} className="flex-1 h-6 bg-white/25 rounded-lg"
-                          animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 2, delay: k * 0.2, repeat: Infinity }} />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-sm text-white/60 text-[8px] px-2 py-0.5 rounded-full font-mono">
-                    Add screenshot →
-                  </div>
+      <div className="relative bg-white border border-[#dff6ff] rounded-[26px] overflow-hidden shadow-sm hover:shadow-xl hover:border-[#06b6d4]/40 transition-all duration-500 flex flex-col justify-between">
+        <div>
+          <div className="bg-[#164e63] px-3 sm:px-5 pt-3 sm:pt-5 pb-0">
+            <div className="bg-[#082f49] rounded-t-xl overflow-hidden border border-white/5">
+              <div className="flex items-center gap-1.5 px-2 sm:px-3 py-2 bg-[#334155] border-b border-white/5">
+                <div className="w-2 h-2 rounded-full bg-red-500/80" />
+                <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+                <div className="w-2 h-2 rounded-full bg-green-500/80" />
+                <div className="flex-1 mx-2 sm:mx-3 flex items-center gap-2 bg-white/5 rounded-full px-2 sm:px-3 py-0.5">
+                  <svg className="w-2.5 h-2.5 text-[#06b6d4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <rect x="5" y="11" width="14" height="11" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>
+                  </svg>
+                  <span className="text-white/30 text-[8px] sm:text-[9px] font-mono truncate">
+                    {site.url ? site.url.replace("https://", "") : "yourwebsite.com"}
+                  </span>
                 </div>
-              )}
+                <div className="flex gap-1 opacity-40 shrink-0">
+                  {[...Array(3)].map((_, k) => <div key={k} className="w-1 h-1 rounded-full bg-white" />)}
+                </div>
+              </div>
 
-              <AnimatePresence>
-                {hovering && (
-                  <motion.div
-                    className="absolute inset-0 bg-[#06b6d4]/80 backdrop-blur-sm flex items-center justify-center"
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}>
-                    <motion.a
-                      href={site.url || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-white text-[#06b6d4] font-black text-xs px-5 py-2.5 rounded-xl shadow-xl flex items-center gap-2"
-                      initial={{ scale: 0.85, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.85, opacity: 0 }}
-                      transition={{ duration: 0.2 }}>
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                      </svg>
-                      Visit Live Site →
-                    </motion.a>
-                  </motion.div>
+              <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
+                {site.thumbnail ? (
+                  <img src={site.thumbnail} alt={site.title} className="w-full h-full object-cover object-top" loading="lazy" />
+                ) : (
+                  <div className={`w-full h-full bg-gradient-to-br ${site.color} flex flex-col items-center justify-center gap-3`}>
+                    <div className="w-full h-full p-3 flex flex-col gap-2 opacity-70">
+                      <div className="flex items-center justify-between">
+                        <div className="w-16 h-2 bg-white/50 rounded-full" />
+                        <div className="flex gap-1.5">
+                          {[1,2,3,4].map(k => <div key={k} className="w-6 h-1.5 bg-white/40 rounded-full" />)}
+                        </div>
+                      </div>
+                      <div className="flex-1 flex gap-2 mt-1">
+                        <div className="flex-1 flex flex-col gap-1.5 justify-center">
+                          <motion.div className="w-3/4 h-2.5 bg-white/70 rounded-full"
+                            animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity }} />
+                          <motion.div className="w-1/2 h-2 bg-white/50 rounded-full"
+                            animate={{ opacity: [0.4, 0.8, 0.4] }} transition={{ duration: 2, delay: 0.3, repeat: Infinity }} />
+                          <motion.div className="w-20 h-4 bg-white/60 rounded-lg mt-2"
+                            animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, delay: 0.6, repeat: Infinity }} />
+                        </div>
+                        <div className="w-1/3 bg-white/20 rounded-lg flex items-center justify-center">
+                          <motion.span className="text-2xl"
+                            animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2.5, repeat: Infinity }}>
+                            {site.emoji}
+                          </motion.span>
+                        </div>
+                      </div>
+                      <div className="flex gap-1.5">
+                        {[...Array(3)].map((_, k) => (
+                          <motion.div key={k} className="flex-1 h-6 bg-white/25 rounded-lg"
+                            animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 2, delay: k * 0.2, repeat: Infinity }} />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-sm text-white/60 text-[8px] px-2 py-0.5 rounded-full font-mono">
+                      Add screenshot →
+                    </div>
+                  </div>
                 )}
-              </AnimatePresence>
+
+                <AnimatePresence>
+                  {hovering && (
+                    <motion.div
+                      className="absolute inset-0 bg-[#06b6d4]/85 backdrop-blur-sm flex items-center justify-center"
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}>
+                      <motion.a
+                        href={site.url || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-[#0f172a] font-black text-xs px-5 py-2.5 rounded-full shadow-xl border border-[#0f172a]/20 flex items-center gap-2 hover:bg-[#0f172a] hover:text-white transition-colors"
+                        initial={{ scale: 0.85, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.85, opacity: 0 }}
+                        transition={{ duration: 0.2 }}>
+                        <span>Visit Live Site</span>
+                        <span>→</span>
+                      </motion.a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
+            <div className="h-2.5 sm:h-3 bg-gradient-to-r from-[#2a2a3e] via-[#3a3a50] to-[#2a2a3e] rounded-b-sm mx-1" />
           </div>
-          <div className="h-2.5 sm:h-3 bg-gradient-to-r from-[#2a2a3e] via-[#3a3a50] to-[#2a2a3e] rounded-b-sm mx-1" />
+
+          <div className="bg-gradient-to-b from-[#e8e9f0] to-[#d8d9e4] px-5 py-2.5 sm:py-3 flex items-center justify-center">
+            <div className="w-14 sm:w-16 h-1 bg-[#c0c2d0] rounded-full" />
+          </div>
         </div>
 
-        <div className="bg-gradient-to-b from-[#e8e9f0] to-[#d8d9e4] px-5 py-2.5 sm:py-3 flex items-center justify-center">
-          <div className="w-14 sm:w-16 h-1 bg-[#c0c2d0] rounded-full" />
-        </div>
-
-        <div className="px-4 sm:px-5 py-4 border-t border-[#dff6ff]/50">
-          <div className="flex items-start justify-between gap-2">
-            <div className="min-w-0">
-              <span className="text-[10px] font-bold text-[#0f172a] uppercase tracking-wider">{site.type}</span>
-              <h3 className="font-black text-sm sm:text-base text-[#0f172a] mt-0.5 leading-tight">{site.title}</h3>
+        {/* Card Footer with 3x3 dots */}
+        <div className="px-5 py-5 border-t border-[#dff6ff]/60 flex items-end justify-between gap-3">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-[10px] font-black text-[#06b6d4] uppercase tracking-wider">{site.type}</span>
+              <span className="bg-[#f0fbff] border border-[#dff6ff] text-[#0f172a] text-[10px] font-black px-2 py-0.5 rounded-full whitespace-nowrap">{site.metric}</span>
             </div>
-            <span className="bg-[#06b6d4]/10 text-[#06b6d4] text-xs font-black px-2 sm:px-2.5 py-1 rounded-lg shrink-0 whitespace-nowrap">{site.metric}</span>
+            <h3 className="font-bold text-base text-[#0f172a] leading-snug group-hover:text-[#0891b2] transition-colors">{site.title}</h3>
+            <div className="flex flex-wrap gap-1.5 mt-2.5">
+              {site.tags.map((tag) => (
+                <span key={tag} className="text-[10px] font-semibold bg-[#f7fcff] border border-[#dff6ff] text-[#64748b] px-2.5 py-0.5 rounded-full">{tag}</span>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-1.5 mt-3">
-            {site.tags.map((tag) => (
-              <span key={tag} className="text-[10px] font-semibold bg-[#dff6ff]/60 text-[#06b6d4] px-2 sm:px-2.5 py-1 rounded-full">{tag}</span>
+
+          {/* Signature 3x3 dot matrix */}
+          <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity shrink-0 pb-1">
+            {[...Array(9)].map((_, idx) => (
+              <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
             ))}
           </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── SaaS Product Card ────────────────────────────────────────────────
+function SaasCard({ product, i, onDemoClick }) {
+  return (
+    <motion.div
+      className="group relative flex flex-col justify-between bg-white border border-[#dff6ff] rounded-[28px] p-7 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#06b6d4]/40 transition-all duration-500 overflow-hidden"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.55, delay: i * 0.12 }}
+    >
+      <div>
+        {/* Browser Top Bar */}
+        <div className="bg-[#0f172a] rounded-2xl p-3 sm:p-4 mb-6 border border-white/10 shadow-inner">
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ef4444]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#10b981]" />
+            </div>
+
+            <a
+              href={product.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 max-w-[260px] sm:max-w-[320px] mx-auto flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-3 py-1 text-[11px] font-mono text-white/70 hover:text-white transition-all truncate"
+              title={`Visit ${product.domain}`}
+            >
+              <svg className="w-3 h-3 text-[#06b6d4] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <rect x="5" y="11" width="14" height="11" rx="2" />
+                <path d="M8 11V7a4 4 0 018 0v4" />
+              </svg>
+              <span className="truncate">{product.domain}</span>
+              <svg className="w-2.5 h-2.5 text-white/40 shrink-0 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+
+            <div className="flex items-center gap-1 shrink-0">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider hidden sm:inline">Live</span>
+            </div>
+          </div>
+
+          {/* Minimalist Dashboard UI Preview */}
+          <div className="bg-[#1e293b]/70 rounded-xl p-3 sm:p-4 border border-white/5 backdrop-blur-sm">
+            <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/5">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#06b6d4]" />
+                <span className="text-xs font-bold text-white tracking-wide">{product.badge}</span>
+              </div>
+              <span className="text-[10px] font-semibold text-[#06b6d4] bg-[#06b6d4]/10 border border-[#06b6d4]/20 px-2 py-0.5 rounded-md">
+                Cloud Architecture
+              </span>
+            </div>
+
+            {/* Quick KPI stats */}
+            <div className="grid grid-cols-3 gap-2 mb-3">
+              {product.stats.map((s, idx) => (
+                <div key={idx} className="bg-white/5 rounded-lg p-2 text-center border border-white/5">
+                  <div className="text-[9px] sm:text-[10px] text-white/50 truncate font-medium">{s.label}</div>
+                  <div className="text-xs sm:text-sm font-black text-white mt-0.5 truncate">{s.val}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Micro process flow */}
+            <div className="flex items-center justify-between gap-1 pt-1 text-[9px] sm:text-[10px] text-white/40 font-medium">
+              {product.flow.map((step, sIdx) => (
+                <div key={sIdx} className="flex items-center gap-1">
+                  <span className="text-[#06b6d4]">✓</span>
+                  <span className="truncate">{step}</span>
+                  {sIdx < product.flow.length - 1 && <span className="text-white/20 ml-1">→</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Category Badge & Title */}
+        <div className="mb-4">
+          <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border mb-3 ${product.tagBg}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-current" />
+            {product.category}
+          </span>
+          <h3 className="text-xl sm:text-2xl font-black text-[#0f172a] leading-snug mb-2 group-hover:text-[#0891b2] transition-colors">
+            {product.title}
+          </h3>
+          <p className="text-sm text-[#64748b] leading-relaxed font-normal">
+            {product.pitch}
+          </p>
+        </div>
+
+        {/* Key Features Minimalist Checklist */}
+        <div className="mb-8 pt-4 border-t border-[#dff6ff]/70">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xs font-black uppercase tracking-wider text-[#0f172a]/50">Key Features:</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+            {product.features.map((feature, fIdx) => (
+              <div key={fIdx} className="flex items-start gap-2 text-xs sm:text-[13px] text-[#334155]">
+                <span className="w-4 h-4 rounded-full bg-[#dff6ff] text-[#06b6d4] flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5">
+                  ✓
+                </span>
+                <span className="font-medium leading-snug">{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Action Buttons & Signature 3x3 Dots */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-5 border-t border-[#dff6ff]/60">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+          <motion.a
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#06b6d4] hover:bg-[#0891b2] text-white font-black text-xs sm:text-sm uppercase tracking-wider py-3.5 px-6 rounded-full border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none flex items-center justify-center gap-2 transition-all"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span>Launch Platform</span>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </motion.a>
+
+          <motion.button
+            onClick={() => onDemoClick(product)}
+            className="bg-[#f7fcff] border border-[#dff6ff] hover:border-[#06b6d4] text-[#0f172a] font-bold text-xs sm:text-sm py-3.5 px-5 rounded-full flex items-center justify-center gap-2 hover:bg-white transition-all shadow-sm"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span>Request Demo Access</span>
+          </motion.button>
+        </div>
+
+        {/* 3x3 Dot Pattern */}
+        <div className="hidden sm:grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity self-center">
+          {[...Array(9)].map((_, idx) => (
+            <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
+          ))}
         </div>
       </div>
     </motion.div>
@@ -458,6 +673,33 @@ function LeadModal({ isOpen, onClose }) {
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState("");
 
+  // Lock background scroll and listen for Escape key when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.paddingRight = "";
+    };
+  }, [isOpen, onClose]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -492,12 +734,23 @@ function LeadModal({ isOpen, onClose }) {
 
   return (
     <AnimatePresence>
-      <motion.div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center sm:px-4"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <div className="absolute inset-0 bg-black/75 backdrop-blur-md" onClick={onClose} />
+      <motion.div
+        className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center sm:px-4 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onTouchMove={(e) => {
+          if (e.target === e.currentTarget) e.preventDefault();
+        }}
+      >
+        <div
+          className="absolute inset-0 bg-black/75 backdrop-blur-md"
+          onClick={onClose}
+          onTouchMove={(e) => e.preventDefault()}
+        />
 
         <motion.div
-          className="relative bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl w-full sm:max-w-md p-6 sm:p-8 z-10 overflow-hidden max-h-[95vh] overflow-y-auto"
+          className="relative bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl w-full sm:max-w-md p-6 sm:p-8 z-10 overflow-hidden max-h-[95vh] overflow-y-auto overscroll-contain"
           initial={{ scale: 0.9, opacity: 0, y: 30 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 30 }}
@@ -587,13 +840,18 @@ function StatsStrip() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.div ref={ref} initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-      className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-16 sm:mb-20">
+      className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 mb-16 sm:mb-20">
       {stats.map((s, i) => (
         <motion.div key={i} variants={fadeUp} custom={i}
-          className="bg-white border border-[#dff6ff] rounded-2xl p-4 sm:p-5 text-center shadow-sm hover:shadow-md hover:border-[#06b6d4]/30 transition-all duration-300"
-          whileHover={{ y: -3 }}>
-          <div className="text-2xl sm:text-3xl font-black text-[#06b6d4] mb-1">{s.num}</div>
-          <div className="text-[#0f172a]/50 text-[11px] sm:text-xs font-medium">{s.label}</div>
+          className="group bg-white border border-[#dff6ff] rounded-[24px] p-5 sm:p-6 text-center shadow-sm hover:shadow-md hover:border-[#06b6d4]/40 transition-all duration-300 relative overflow-hidden"
+          whileHover={{ y: -4 }}>
+          <div className="text-3xl sm:text-4xl font-black text-[#06b6d4] tracking-tight mb-1">{s.num}</div>
+          <div className="text-[#64748b] text-xs font-semibold">{s.label}</div>
+          <div className="absolute bottom-2 right-2 grid grid-cols-3 gap-0.5 opacity-20 group-hover:opacity-60 transition-opacity">
+            {[...Array(9)].map((_, idx) => (
+              <span key={idx} className="w-1 h-1 rounded-full bg-[#06b6d4]" />
+            ))}
+          </div>
         </motion.div>
       ))}
     </motion.div>
@@ -612,8 +870,9 @@ export default function Works() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const showReels = activeFilter === "All" || activeFilter === "Reels";
+  const showSaas  = activeFilter === "All" || activeFilter === "SaaS Products";
   const showWebs  = activeFilter === "All" || activeFilter === "Websites";
+  const showReels = activeFilter === "All" || activeFilter === "Reels";
   const showAds   = activeFilter === "All" || activeFilter === "Ad Campaigns";
 
   return (
@@ -630,24 +889,28 @@ export default function Works() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-[#dff6ff]/60 text-[#06b6d4] text-xs font-bold px-4 py-2 rounded-full mb-5">
-            ✦ Portfolio
+            className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+            Curated Portfolio
           </motion.div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] mb-4 sm:mb-5 px-2">
-            Our Creative <span className="text-[#06b6d4]">Work</span>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#0f172a] uppercase tracking-tight mb-3 px-2">
+            OUR WORK
           </h1>
-          <p className="text-[#0f172a]/50 text-base sm:text-lg max-w-xl mx-auto mb-8 sm:mb-10 px-4">
-            Real results for real brands. Browse our portfolio of reels, websites, and ad campaigns.
+          <p className="text-lg sm:text-xl font-serif italic text-[#06b6d4] mb-3">
+            Real results for growing brands across media, web & SaaS technology.
+          </p>
+          <p className="text-[#64748b] text-sm sm:text-base max-w-xl mx-auto mb-8 sm:mb-10 px-4 leading-relaxed font-normal">
+            Explore our verified deliverables — high-retention reels, custom SaaS platforms, high-converting websites, and performance marketing.
           </p>
 
-          <div className="flex flex-wrap gap-2 justify-center px-4">
+          <div className="flex flex-wrap gap-2.5 justify-center px-4">
             {categories.map((cat) => (
               <motion.button key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 ${
                   activeFilter === cat
-                    ? "bg-[#06b6d4] text-white shadow-lg shadow-[#06b6d4]/25"
-                    : "bg-[#f7fcff] border border-[#dff6ff] text-[#0f172a]/60 hover:border-[#06b6d4]/40"
+                    ? "bg-[#06b6d4] text-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]"
+                    : "bg-[#f7fcff] border-2 border-[#dff6ff] text-[#0f172a]/65 hover:border-[#0f172a]/40"
                 }`}
                 whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                 {cat}
@@ -659,12 +922,30 @@ export default function Works() {
         {/* ── Stats Strip ─────────────────────────────────────────── */}
         <StatsStrip />
 
+        {/* ── SAAS PRODUCTS ────────────────────────────────────── */}
+        <AnimatePresence>
+          {showSaas && (
+            <motion.div key="saas" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <SectionHeader
+                badge="Cloud Platforms"
+                title="Proprietary SaaS Solutions"
+                subtitle="High-performance cloud software platforms built to automate, manage, and scale business and healthcare operations."
+              />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-24">
+                {saasProducts.map((product, i) => (
+                  <SaasCard key={product.id} product={product} i={i} onDemoClick={() => setModalOpen(true)} />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* ── REELS ─────────────────────────────────────────────── */}
         <AnimatePresence>
           {showReels && (
             <motion.div key="reels" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <SectionHeader
-                badge="🎬 Video Content"
+                badge="Video Content"
                 title="Reel Portfolio"
                 subtitle="Short-form videos that captured millions of views across platforms."
               />
@@ -697,7 +978,7 @@ export default function Works() {
           {showWebs && (
             <motion.div key="websites" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <SectionHeader
-                badge="💻 Web Development"
+                badge="Web Development"
                 title="Website Projects"
                 subtitle="High-converting websites and funnels built with precision."
               />
@@ -715,43 +996,54 @@ export default function Works() {
           {showAds && (
             <motion.div key="ads" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <SectionHeader
-                badge="📣 Performance Marketing"
+                badge="Performance Marketing"
                 title="Ad Creative Designs"
                 subtitle="Scroll-stopping creatives that drive real conversions."
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 sm:mb-24">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-16 sm:mb-24">
                 {adCreatives.map((ad, i) => (
                   <motion.div key={ad.id}
-                    className="rounded-2xl overflow-hidden border border-[#dff6ff]/60 bg-white shadow-lg shadow-[#67e8f9]/10 hover:shadow-xl hover:shadow-[#06b6d4]/15 transition-all duration-500 group"
+                    className="rounded-[26px] overflow-hidden border border-[#dff6ff] bg-white shadow-sm hover:shadow-xl hover:border-[#06b6d4]/40 transition-all duration-500 group flex flex-col justify-between"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
                     whileHover={{ y: -6 }}>
-                    <div className={`h-40 sm:h-52 relative overflow-hidden`}>
-                      {ad.image ? (
-                        <img src={ad.image} alt={ad.title} className="w-full h-full object-cover object-top" loading="lazy" />
-                      ) : (
-                        <div className={`w-full h-full bg-gradient-to-br ${ad.color} flex items-center justify-center`}>
-                          <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-white/10" />
-                          <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-white/10" />
-                          <motion.span className="text-5xl sm:text-6xl relative z-10"
-                            whileHover={{ scale: 1.15, rotate: [-2, 2, -2, 0] }}
-                            transition={{ duration: 0.4 }}>
-                            {ad.emoji}
-                          </motion.span>
+                    <div>
+                      <div className={`h-44 sm:h-52 relative overflow-hidden`}>
+                        {ad.image ? (
+                          <img src={ad.image} alt={ad.title} className="w-full h-full object-cover object-top" loading="lazy" />
+                        ) : (
+                          <div className={`w-full h-full bg-gradient-to-br ${ad.color} flex items-center justify-center`}>
+                            <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-white/10" />
+                            <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-white/10" />
+                            <motion.span className="text-5xl sm:text-6xl relative z-10"
+                              whileHover={{ scale: 1.15, rotate: [-2, 2, -2, 0] }}
+                              transition={{ duration: 0.4 }}>
+                              {ad.emoji}
+                            </motion.span>
+                          </div>
+                        )}
+                        <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white border border-[#0f172a]/10 text-[#0f172a] font-black text-xs sm:text-sm px-3 py-1 rounded-full shadow-md">
+                          {ad.metric}
                         </div>
-                      )}
-                      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/95 backdrop-blur-sm text-[#0f172a] font-black text-xs sm:text-sm px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-md">
-                        {ad.metric}
+                        <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 bg-[#0f172a]/80 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1 rounded-full">
+                          {ad.platform}
+                        </div>
                       </div>
-                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 bg-[#0f172a]/55 backdrop-blur-sm text-white text-xs font-semibold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
-                        {ad.platform}
+                      <div className="p-5 sm:p-6">
+                        <span className="text-[10px] font-black text-[#06b6d4] uppercase tracking-wider">{ad.brand}</span>
+                        <h3 className="font-bold text-base sm:text-lg text-[#0f172a] mt-1 group-hover:text-[#0891b2] transition-colors">{ad.title}</h3>
                       </div>
                     </div>
-                    <div className="p-4 sm:p-6">
-                      <span className="text-xs font-bold text-[#0f172a] uppercase tracking-wider">{ad.brand}</span>
-                      <h3 className="font-black text-base sm:text-lg text-[#0f172a] mt-1">{ad.title}</h3>
+
+                    <div className="px-5 pb-5 pt-3 border-t border-[#dff6ff]/60 flex items-center justify-between">
+                      <span className="text-xs font-bold text-[#06b6d4]">Meta Ads Strategy</span>
+                      <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
+                        {[...Array(9)].map((_, idx) => (
+                          <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
+                        ))}
+                      </div>
                     </div>
                   </motion.div>
                 ))}

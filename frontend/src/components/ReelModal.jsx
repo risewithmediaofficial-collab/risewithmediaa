@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -10,6 +10,33 @@ const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 export default function ReelModal({ isOpen, onClose }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  // Lock background scroll and listen for Escape key when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.paddingRight = "";
+    };
+  }, [isOpen, onClose]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -50,15 +77,19 @@ export default function ReelModal({ isOpen, onClose }) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
         >
           {/* Backdrop */}
           <motion.div
             className="absolute inset-0 bg-[#0f172a]/70 backdrop-blur-sm"
             onClick={handleClose}
+            onTouchMove={(e) => e.preventDefault()}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -66,7 +97,7 @@ export default function ReelModal({ isOpen, onClose }) {
 
           {/* Modal */}
           <motion.div
-            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 z-10"
+            className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 z-10 max-h-[95vh] overflow-y-auto overscroll-contain"
             initial={{ scale: 0.85, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}

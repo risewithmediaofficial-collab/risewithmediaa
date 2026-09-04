@@ -51,110 +51,261 @@ function AnimatedCounter({ end, suffix = "" }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-// ─── Hero ────────────────────────────────────────────────────────────
+// ─── Hero (MarkitUp Inspired Split Layout) ──────────────────────────
 function Hero({ setPage }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#f0fbff] via-[#f7fcff] to-[#dff6ff] z-0" />
-
-      {/* Animated blobs */}
-      <motion.div
-        className="absolute top-[-80px] left-[-80px] w-[420px] h-[420px] rounded-full bg-[#06b6d4]/20 blur-[80px]"
-        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-[-60px] right-[-60px] w-[340px] h-[340px] rounded-full bg-[#dff6ff]/60 blur-[70px]"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      />
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-white pt-32 pb-20 lg:pt-36 lg:pb-24">
+      {/* Background ambient tint */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f7fcff] via-[#f0fbff]/60 to-white pointer-events-none" />
 
       {/* Grid overlay */}
       <div
-        className="absolute inset-0 z-0 opacity-[0.035]"
+        className="absolute inset-0 z-0 opacity-[0.035] pointer-events-none"
         style={{
           backgroundImage: "linear-gradient(#06b6d4 1px,transparent 1px),linear-gradient(90deg,#06b6d4 1px,transparent 1px)",
-          backgroundSize: "50px 50px",
+          backgroundSize: "46px 46px",
         }}
       />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-32 sm:pt-36 pb-20">
-        {/* Badge */}
-        <motion.div variants={fadeUp} initial="hidden" animate="show" custom={0}
-          className="inline-flex items-center gap-2 bg-[#06b6d4]/10 border border-[#06b6d4]/25 text-[#06b6d4] px-5 py-2 rounded-full text-sm font-semibold mb-8">
-          <span className="w-2 h-2 bg-[#06b6d4] rounded-full animate-pulse" />
-         Premium Digital Marketing Agency
-        </motion.div>
+      <motion.div style={{ y, opacity }} className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
-        {/* Main Heading */}
-        <motion.h1 variants={fadeUp} initial="hidden" animate="show" custom={1}
-          className="text-5xl md:text-7xl font-black text-[#0f172a] leading-[1.05] tracking-tight mb-6">
-          We Build Brands<br />
-          <span className="bg-gradient-to-r from-[#06b6d4] via-[#67e8f9] to-[#0f172a] bg-clip-text text-transparent">
-            That Convert.
-          </span>
-        </motion.h1>
+          {/* ─── LEFT COLUMN: Title & Connected CTA ─────────────────── */}
+          <motion.div variants={stagger} initial="hidden" animate="show" className="lg:col-span-7 flex flex-col items-start text-left">
 
-        {/* Subheading */}
-        <motion.p variants={fadeUp} initial="hidden" animate="show" custom={2}
-          className="text-[#6b7280] text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-          Rise With Media helps businesses grow with social media marketing, Meta ads, websites, reels, and data-driven execution across every region.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div variants={fadeUp} initial="hidden" animate="show" custom={3}
-          className="flex flex-wrap gap-4 justify-center mb-16">
-          <motion.button
-            onClick={() => setPage("contact")}
-            className="group bg-[#06b6d4] text-white px-8 py-4 rounded-2xl font-bold text-base shadow-2xl shadow-[#06b6d4]/30 hover:bg-[#0891b2] transition-all duration-300 flex items-center gap-2"
-            whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            Get Free Strategy Call
-            <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
-          </motion.button>
-          <motion.button
-            onClick={() => setPage("works")}
-            className="bg-white text-[#0f172a] px-8 py-4 rounded-2xl font-bold text-base border border-[#dff6ff] hover:border-[#06b6d4] hover:bg-white transition-all duration-300 shadow-sm"
-            whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            View Our Work
-          </motion.button>
-        </motion.div>
-
-        {/* Social proof bar */}
-        <motion.div variants={stagger} initial="hidden" animate="show"
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-          {[
-            { num: "30", suffix: "+", label: "Projects Done" },
-            { num: "10", suffix: "+", label: "Brands Served" },
-            { num: "1", suffix: "M+", label: "Views Generated" },
-            { num: "5", suffix: "×", label: "Avg. ROI" },
-          ].map((stat, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i}
-              className="bg-white/80 backdrop-blur-sm border border-[#dff6ff] rounded-2xl p-4 shadow-sm">
-              <div className="text-2xl font-black text-[#0f172a]">
-                <AnimatedCounter end={stat.num} suffix={stat.suffix} />
-              </div>
-              <div className="text-[#6b7280] text-xs mt-0.5">{stat.label}</div>
+            {/* Kicker Text (MarkitUp clean text style without rounded border) */}
+            <motion.div
+              variants={fadeUp}
+              className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#0f172a] mb-4 flex items-center gap-1.5"
+            >
+              <span>HELLO WORLD,</span>
+              <span className="text-[#06b6d4]">WE ARE</span>
             </motion.div>
-          ))}
-        </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
-          className="mt-16 flex flex-col items-center gap-2">
-          <span className="text-[#9ca3af] text-xs tracking-widest uppercase">Scroll</span>
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-0.5 h-7 bg-gradient-to-b from-[#06b6d4] to-transparent rounded-full" />
-        </motion.div>
+            {/* Massive Display Title */}
+            <motion.h1
+              variants={fadeUp}
+              custom={1}
+              className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#0f172a] uppercase tracking-tight leading-[1.04] mb-3"
+            >
+              RISE WITH MEDIA
+            </motion.h1>
+
+            {/* Stylized Cursive Subhead Accent */}
+            <motion.div
+              variants={fadeUp}
+              custom={2}
+              className="text-lg sm:text-2xl font-serif italic font-medium text-[#06b6d4] mb-5 flex items-center gap-3"
+            >
+              <span className="w-8 h-px bg-[#06b6d4]/40" />
+              <span>We Build Brands That Convert</span>
+              <span className="w-8 h-px bg-[#06b6d4]/40" />
+            </motion.div>
+
+            {/* Concise Pitch */}
+            <motion.p
+              variants={fadeUp}
+              custom={3}
+              className="text-[#64748b] text-base sm:text-lg max-w-xl mb-7 leading-relaxed font-normal"
+            >
+              Rise With Media helps businesses grow with social media marketing, Meta ads, websites, reels, and data-driven execution across every region.
+            </motion.p>
+
+            {/* Social Links Row (Refined Neo-Brutalist Micro-Pills) */}
+            <motion.div variants={fadeUp} custom={4} className="flex items-center gap-3 sm:gap-3.5 mb-8">
+              <a
+                href="https://www.instagram.com/risewithmedia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram"
+                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+              <a
+                href="https://wa.me/919345254648"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WhatsApp"
+                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.97.53 1.871.821 2.796.821 3.183 0 5.768-2.586 5.769-5.766.001-3.182-2.585-5.767-5.769-5.767zm7.545 5.767c-.002 4.163-3.387 7.548-7.55 7.548-1.282 0-2.476-.324-3.525-.889l-4.501 1.18 1.201-4.387c-.66-1.1-1.037-2.39-1.037-3.752 0-4.162 3.385-7.547 7.55-7.547 4.162 0 7.547 3.385 7.547 7.547z" />
+                </svg>
+              </a>
+              <a
+                href="mailto:hello@risewithmedia.com"
+                title="Email Us"
+                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/risewithmedia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+              </a>
+            </motion.div>
+
+            {/* Connected Pill CTA (MarkitUp Signature Seamless Circuit) */}
+            <motion.div variants={fadeUp} custom={5} className="flex items-center">
+              {/* Primary Pill Button */}
+              <button
+                onClick={() => setPage("contact")}
+                className="relative z-10 h-12 sm:h-14 px-7 sm:px-8 rounded-full border-2 border-[#0f172a] bg-white text-[#0f172a] font-black text-xs sm:text-sm tracking-wider uppercase shadow-[3px_3px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#0f172a] transition-all duration-200 inline-flex items-center justify-center shrink-0"
+              >
+                <span>GET STRATEGY CALL</span>
+              </button>
+
+              {/* Seamless Connecting Bridge */}
+              <div className="w-8 sm:w-12 h-[2px] bg-[#0f172a] shrink-0" />
+
+              {/* Secondary Action with Matching Height and Precision SVG Arrow */}
+              <button
+                onClick={() => setPage("works")}
+                className="h-12 sm:h-14 pl-4 sm:pl-5 text-xs sm:text-sm font-black uppercase tracking-wider text-[#0f172a] hover:text-[#06b6d4] transition-colors inline-flex items-center gap-2 group/work whitespace-nowrap shrink-0"
+              >
+                <span className="border-b-2 border-transparent group-hover/work:border-[#06b6d4] transition-all pb-0.5">
+                  VIEW OUR WORK
+                </span>
+                <svg
+                  className="w-3.5 h-3.5 text-[#0f172a] group-hover/work:text-[#06b6d4] group-hover/work:translate-x-1 transition-all shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            </motion.div>
+          </motion.div>
+
+          {/* ─── RIGHT COLUMN: Circular Focal Graphic & Floating Badges ── */}
+          <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
+
+            {/* Focal Circle Canvas */}
+            <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] lg:w-[440px] lg:h-[440px] rounded-full bg-gradient-to-tr from-[#dff6ff] via-[#f0fbff] to-white shadow-[0_20px_50px_rgba(6,182,212,0.14)] flex items-center justify-center p-6">
+
+              {/* Concentric inner orbit ring */}
+              <div className="absolute inset-4 rounded-full border border-dashed border-[#06b6d4]/20 pointer-events-none" />
+
+              {/* Center Growth Display Card */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative z-10 w-full max-w-[270px] bg-white border border-[#dff6ff] rounded-[24px] p-5 shadow-xl text-left"
+              >
+                <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#dff6ff]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#06b6d4] animate-pulse" />
+                    <span className="text-xs font-black text-[#0f172a] tracking-tight">Growth Velocity</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-[#06b6d4] bg-[#f0fbff] border border-[#dff6ff] px-2 py-0.5 rounded-full">
+                    Live Engine
+                  </span>
+                </div>
+
+                {/* Sparkline & Metric */}
+                <div className="mb-3">
+                  <div className="text-[11px] font-medium text-[#64748b]">Total Audience Reach</div>
+                  <div className="text-2xl font-black text-[#0f172a] tracking-tight mt-0.5 flex items-baseline gap-2">
+                    <span>1.4M+</span>
+                    <span className="text-xs font-bold text-emerald-500">↑ 340%</span>
+                  </div>
+                </div>
+
+                {/* Minimal bar chart illustration */}
+                <div className="flex items-end justify-between gap-1.5 h-12 pt-2 border-t border-[#f0fbff]">
+                  {[35, 52, 65, 45, 80, 92, 100].map((h, idx) => (
+                    <div key={idx} className="flex-1 bg-[#dff6ff] hover:bg-[#06b6d4] rounded-t transition-colors h-full flex items-end">
+                      <div className="w-full bg-[#06b6d4] rounded-t transition-all" style={{ height: `${h}%` }} />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Decorative 3x3 Dot Matrix Top-Right */}
+              <div className="absolute -top-3 -right-3 grid grid-cols-3 gap-1.5 opacity-35">
+                {[...Array(9)].map((_, i) => (
+                  <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#0f172a]" />
+                ))}
+              </div>
+
+              {/* Decorative 3x3 Dot Matrix Bottom-Left */}
+              <div className="absolute -bottom-3 -left-3 grid grid-cols-3 gap-1.5 opacity-35">
+                {[...Array(9)].map((_, i) => (
+                  <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+                ))}
+              </div>
+
+              {/* Floating Neo-Brutalist Pill Badge 1 (Top Left) */}
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-4 -left-4 sm:-left-8 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
+              >
+                <span>⭐</span>
+                <span>30+ Happy Clients</span>
+              </motion.div>
+
+              {/* Floating Neo-Brutalist Pill Badge 2 (Top Right) */}
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute top-8 -right-4 sm:-right-8 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
+              >
+                <span>🚀</span>
+                <span>1M+ Views Generated</span>
+              </motion.div>
+
+              {/* Floating Neo-Brutalist Pill Badge 3 (Bottom Left) */}
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -bottom-4 -left-3 sm:-left-6 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
+              >
+                <span>📈</span>
+                <span>5× Average ROI</span>
+              </motion.div>
+
+              {/* Floating Neo-Brutalist Pill Badge 4 (Bottom Right) */}
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                className="absolute bottom-6 -right-3 sm:-right-8 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
+              >
+                <span>⚡</span>
+                <span>SaaS & Web Engineered</span>
+              </motion.div>
+            </div>
+          </div>
+
+        </div>
       </motion.div>
     </section>
   );
 }
+
 // ─── Ticker / Trust Bar ──────────────────────────────────────────────
 function TrustBar() {
   const logos = [
@@ -174,7 +325,14 @@ function TrustBar() {
   ];
 
   return (
-    <div className="bg-white border-y border-[#dff6ff] py-8 overflow-hidden">
+    <div className="bg-white border-y border-[#dff6ff] py-9 overflow-hidden">
+      <div className="text-center mb-6">
+        <span className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#0f172a]/60 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+          Trusted by 20+ Growing Brands
+        </span>
+      </div>
+
       {/* Fade edges */}
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
@@ -184,19 +342,19 @@ function TrustBar() {
           {[0, 1, 2].map((setIndex) => (
             <div
               key={setIndex}
-              className="flex items-center flex-shrink-0 animate-marquee"
+              className="flex items-center flex-shrink-0 animate-marquee pr-[56px]"
               style={{ gap: "56px" }}
             >
               {logos.map((logo, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 flex items-center justify-center px-3"
+                  className="flex-shrink-0 flex items-center justify-center px-4 py-2.5 rounded-2xl bg-white border border-[#dff6ff] shadow-sm hover:border-[#06b6d4]/40 transition-all duration-300"
                   title={logo.name}
                 >
                   <img
                     src={logo.src}
                     alt={logo.name}
-                    className="h-14 w-auto max-w-[160px] object-contain opacity-100"
+                    className="h-12 w-auto max-w-[150px] object-contain opacity-95 hover:opacity-100 transition-opacity"
                   />
                 </div>
               ))}
@@ -218,105 +376,233 @@ function TrustBar() {
   );
 }
 
-// ─── Services ────────────────────────────────────────────────────────
-const services = [
+// ─── What We Build / Services (MarkitUp Inspired) ─────────────────────
+const servicesData = [
   {
-    icon: "🎬", title: "Content & Social Media",
-    pitch: "We handle end-to-end content creation from shoot to post.",
-    items: ["Reels / Shorts Creation", "Long-form Videos", "Posters & Creatives", "Capturing Video + Editing", "Caption + Hashtags", "Posting & Scheduling", "Monthly Content Calendar"],
-    dark: false,
+    num: "01",
+    category: "CONTENT & SOCIAL",
+    subtitle: "Make Your Brand Seen",
+    description: "We turn ideas into content people stop, watch and remember. High-retention reels, shorts, creative design, and monthly strategy.",
+    tag: "Instagram, YouTube & more",
   },
   {
-    icon: "💻", title: "Website & Funnel Development",
-    pitch: "We build websites that convert visitors into leads.",
-    items: ["Business Websites", "Landing Pages", "Sales Funnels", "Portfolio Sites", "Basic SEO Setup"],
-    dark: false,
+    num: "02",
+    category: "WEB & CONVERSION",
+    subtitle: "Turn Visitors Into Customers",
+    description: "Your website shouldn't just look good. We build high-converting websites, landing pages, and funnels engineered for real action.",
+    tag: "Websites, Funnels & SEO",
   },
   {
-    icon: "📈", title: "Performance Marketing",
-    pitch: "We run data-driven ads to bring leads and sales.",
-    items: ["Meta Ads (FB + IG)", "Lead Campaigns", "Retargeting Ads", "Analytics + Optimization"],
-    dark: false,
+    num: "03",
+    category: "PERFORMANCE MARKETING",
+    subtitle: "Reach The Right Audience",
+    description: "We combine scroll-stopping creative, precision targeting, and data to turn ad spend into qualified leads, sales, and sustainable ROAS.",
+    tag: "Meta Ads & Lead Gen",
+  },
+  {
+    num: "04",
+    category: "SAAS & TECHNOLOGY",
+    subtitle: "Build The System Behind You",
+    description: "We build the technology that powers your growth. Custom CRM, ERP, and automated workflows that help businesses scale effortlessly.",
+    tag: "Custom SaaS & CRM",
   },
 ];
 
-function ServicesSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+// ─── Minimalist MarkitUp Service Card ────────────────────────────────
+function MarkitUpCard({ service, index }) {
   return (
-    <section className="bg-white py-24 px-6" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="text-center mb-16">
-          <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">
-            What We Do
-          </motion.p>
-          <motion.h2 variants={fadeUp} custom={1}
-            className="text-4xl md:text-5xl font-black text-[#0f172a] mb-4">
-            Services Built for Real Business Growth
+    <motion.div
+      variants={fadeUp}
+      custom={index}
+      className="group relative bg-white border border-[#dff6ff]/80 rounded-[28px] p-8 sm:p-9 shadow-[0_10px_35px_-15px_rgba(6,182,212,0.08)] hover:shadow-[0_20px_45px_-12px_rgba(6,182,212,0.18)] hover:border-[#06b6d4]/40 transition-all duration-500 flex flex-col justify-between"
+      whileHover={{ y: -6 }}
+    >
+      <div>
+        {/* Top: Category Title & Number */}
+        <div className="flex items-center justify-between gap-2 mb-4">
+          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#06b6d4]">
+            {service.category}
+          </span>
+          <span className="text-xs font-mono font-bold text-[#0f172a]/20 group-hover:text-[#06b6d4] transition-colors">
+            {service.num}
+          </span>
+        </div>
+
+        {/* Subtitle */}
+        <h3 className="text-xl sm:text-[1.35rem] font-bold text-[#0f172a] mb-4 leading-snug group-hover:text-[#0891b2] transition-colors">
+          {service.subtitle}
+        </h3>
+
+        {/* Clean Pitch Description */}
+        <p className="text-[#64748b] text-sm leading-relaxed mb-8 font-normal">
+          {service.description}
+        </p>
+      </div>
+
+      {/* Bottom Row: Tag & 3x3 Dot Grid Pattern (Signature MarkitUp) */}
+      <div className="pt-5 border-t border-[#dff6ff]/60 flex items-end justify-between gap-3">
+        <span className="text-[11px] font-semibold text-[#0f172a]/60 bg-[#f7fcff] border border-[#dff6ff] px-3 py-1.5 rounded-full truncate">
+          {service.tag}
+        </span>
+
+        {/* Signature 3x3 geometric dot pattern */}
+        <div className="grid grid-cols-3 gap-1.5 opacity-30 group-hover:opacity-100 transition-all shrink-0">
+          {[...Array(9)].map((_, i) => (
+            <span
+              key={i}
+              className="w-1.5 h-1.5 rounded-full border border-[#0f172a] group-hover:border-[#06b6d4] group-hover:bg-[#06b6d4] transition-all"
+            />
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── What We Build Section (Streamlined & Minimalist) ─────────────────
+function ServicesSection({ setPage }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section className="bg-[#f7fcff] py-24 sm:py-28 px-6 lg:px-10 relative overflow-hidden" ref={ref} id="services">
+      {/* Subtle ambient blur */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[250px] bg-[#06b6d4]/8 blur-[100px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Minimal Section Heading */}
+        <motion.div
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
+          variants={stagger}
+          className="text-center mb-16 sm:mb-20"
+        >
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center gap-2 bg-white border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.22em] px-4 py-1.5 rounded-full mb-4 shadow-sm"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4] animate-pulse" />
+            What We Build
+          </motion.div>
+
+          <motion.h2
+            variants={fadeUp}
+            custom={1}
+            className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3"
+          >
+            Our Services
           </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-[#6b7280] max-w-2xl mx-auto">
-            We support brands with measurable digital growth strategies built for real business results — not vanity metrics.
+
+          <motion.p
+            variants={fadeUp}
+            custom={2}
+            className="text-lg font-serif italic text-[#06b6d4] mb-3"
+          >
+            We engineer attention that translates directly into revenue.
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            custom={3}
+            className="text-[#64748b] text-sm sm:text-base max-w-lg mx-auto leading-relaxed"
+          >
+            From scroll-stopping reels to high-converting funnels and automated SaaS, we build the entire digital growth machine for your brand.
           </motion.p>
         </motion.div>
 
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-3 gap-6">
-          {services.map((s, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i}
-              className="group bg-[#f7fcff] border border-[#dff6ff] rounded-3xl p-7 hover:border-[#06b6d4]/40 hover:shadow-lg hover:shadow-[#06b6d4]/8 transition-all duration-400"
-              whileHover={{ y: -4 }}>
-              <div className="text-4xl mb-4">{s.icon}</div>
-              <h3 className="text-lg font-bold text-[#0f172a] mb-2">{s.title}</h3>
-              <p className="text-[#6b7280] text-sm mb-5">{s.pitch}</p>
-              <ul className="space-y-2">
-                {s.items.map((item, j) => (
-                  <li key={j} className="flex items-center gap-2 text-sm text-[#374151]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4] flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+        {/* 4 Clean Minimalist Cards */}
+        <motion.div
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
+          variants={stagger}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {servicesData.map((service, i) => (
+            <MarkitUpCard
+              key={service.num}
+              service={service}
+              index={i}
+            />
           ))}
         </motion.div>
+
+        {/* Clean Call to Action */}
+        {setPage && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="text-center mt-12 sm:mt-16"
+          >
+            <button
+              onClick={() => setPage("contact")}
+              className="inline-flex items-center gap-2 bg-[#06b6d4] hover:bg-[#0891b2] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-8 py-4 rounded-full border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_#0f172a] transition-all"
+            >
+              <span>Discuss Your Project</span>
+              <span>→</span>
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
 }
 
-// ─── How It Works ────────────────────────────────────────────────────
+// ─── How It Works (MarkitUp Numbered Process) ─────────────────────────
 function HowItWorks() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const steps = [
-    { icon: "📞", title: "Free Strategy Call", desc: "We learn your business, goals, and challenges in a 30-min call — no pressure, no sales pitch." },
-    { icon: "🗺️", title: "Custom Growth Plan", desc: "We build a tailored strategy with clear milestones and expected outcomes specific to you." },
-    { icon: "⚡", title: "Execution Begins", desc: "Our team starts creating, publishing, and optimizing. You see real work within 72 hours." },
-    { icon: "📊", title: "Results & Scaling", desc: "We track KPIs weekly, refine what works, and scale the winning campaigns." },
+    { num: "01", icon: "📞", title: "Free Strategy Call", desc: "We learn your business, goals, and challenges in a 30-min call — no pressure, no sales pitch." },
+    { num: "02", icon: "🗺️", title: "Custom Growth Plan", desc: "We build a tailored strategy with clear milestones and expected outcomes specific to you." },
+    { num: "03", icon: "⚡", title: "Execution Begins", desc: "Our team starts creating, publishing, and optimizing. You see real deliverables within 72 hours." },
+    { num: "04", icon: "📊", title: "Results & Scaling", desc: "We track KPIs weekly, refine what converts, and scale the winning campaigns." },
   ];
   return (
-    <section ref={ref} className="bg-[#f7fcff] py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+    <section ref={ref} className="bg-white py-24 sm:py-28 px-6 lg:px-10">
+      <div className="max-w-6xl mx-auto">
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">Our Process</motion.p>
-          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-[#0f172a] mb-4">How We Work</motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-[#6b7280] max-w-md mx-auto">A simple, proven process to get you from zero to consistent growth.</motion.p>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+            Our Process
+          </motion.div>
+          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
+            How We Work
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
+            A simple, proven process to get you from zero to consistent growth.
+          </motion.p>
         </motion.div>
 
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-4 gap-6 relative">
-          <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-[#dff6ff] to-transparent" />
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i} className="text-center relative">
-              <div className="relative mx-auto w-20 h-20 rounded-2xl bg-white border border-[#dff6ff] shadow-sm flex items-center justify-center text-3xl mb-4">
-                {step.icon}
-                <div className="absolute -top-2 -right-2 bg-[#06b6d4] text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center shadow">
-                  {i + 1}
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              custom={i}
+              className="group bg-[#f7fcff] border border-[#dff6ff] rounded-[26px] p-7 shadow-sm hover:shadow-lg hover:border-[#06b6d4]/40 hover:bg-white transition-all duration-400 flex flex-col justify-between"
+              whileHover={{ y: -5 }}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-2xl font-black font-mono text-[#06b6d4]">{step.num}</span>
+                  <div className="w-10 h-10 rounded-2xl bg-white border border-[#dff6ff] flex items-center justify-center text-xl shadow-sm">
+                    {step.icon}
+                  </div>
+                </div>
+                <h3 className="text-[#0f172a] font-bold text-base mb-2 group-hover:text-[#0891b2] transition-colors">{step.title}</h3>
+                <p className="text-[#64748b] text-sm leading-relaxed font-normal">{step.desc}</p>
+              </div>
+
+              {/* Signature 3x3 dot matrix */}
+              <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
+                <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
+                  {[...Array(9)].map((_, idx) => (
+                    <span key={idx} className="w-1 h-1 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
+                  ))}
                 </div>
               </div>
-              <h3 className="text-[#0f172a] font-bold mb-2 text-sm">{step.title}</h3>
-              <p className="text-[#6b7280] text-sm leading-relaxed">{step.desc}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -341,7 +627,10 @@ function AISection() {
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
           className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">Premium Service</motion.p>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-white/10 border border-white/15 px-4 py-1.5 rounded-full text-xs font-bold text-[#06b6d4] uppercase tracking-widest mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+              SaaS & Automations
+            </motion.div>
             <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
               AI Automation<br />& CRM Solutions
             </motion.h2>
@@ -401,37 +690,56 @@ function AISection() {
   );
 }
 
-// ─── Results ─────────────────────────────────────────────────────────
+// ─── Results (MarkitUp Styled Metric Cards) ───────────────────────────
 function ResultsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const cases = [
-    { client: "School", metric: "340", suffix: "%", label: "Revenue Growth in 60 Days", tag: "Meta Ads + Content" },
-    { client: "Bridal", metric: "120", suffix: "+", label: "Qualified Leads / Month", tag: "Lead Gen + Automation" },
-    { client: "Coaching Business", metric: "28", suffix: "L+", label: "Views in 60 Days", tag: "Short-Form Content" },
+    { client: "School Brand", metric: "340", suffix: "%", label: "Revenue Growth in 60 Days", tag: "Meta Ads + Content" },
+    { client: "Bridal Studio", metric: "120", suffix: "+", label: "Qualified Leads / Month", tag: "Lead Gen + Automation" },
+    { client: "Coaching Business", metric: "28", suffix: "L+", label: "Organic Views in 60 Days", tag: "Short-Form Content" },
   ];
   return (
-    <section ref={ref} className="bg-white py-24 px-6">
+    <section ref={ref} className="bg-[#f7fcff] py-24 sm:py-28 px-6 lg:px-10">
       <div className="max-w-5xl mx-auto">
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">Real Results</motion.p>
-          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-[#0f172a] mb-4">Numbers That Speak</motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-[#6b7280] max-w-md mx-auto">Not claims — actual results from real clients across industries.</motion.p>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-white border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+            Real Results
+          </motion.div>
+          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
+            Numbers That Speak
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
+            Not claims — actual metrics delivered for real clients.
+          </motion.p>
         </motion.div>
+
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
           className="grid md:grid-cols-3 gap-6">
           {cases.map((c, i) => (
             <motion.div key={i} variants={fadeUp} custom={i}
-              className="group bg-[#f7fcff] border border-[#dff6ff] rounded-3xl p-8 hover:border-[#06b6d4]/40 hover:shadow-lg hover:shadow-[#06b6d4]/8 transition-all duration-400"
-              whileHover={{ y: -5 }}>
-              <div className="inline-flex items-center bg-white border border-[#dff6ff] rounded-full px-3 py-1 text-xs text-[#6b7280] mb-6 shadow-sm">
-                {c.tag}
+              className="group bg-white border border-[#dff6ff] rounded-[28px] p-8 hover:border-[#06b6d4]/40 hover:shadow-xl hover:shadow-[#06b6d4]/10 transition-all duration-400 flex flex-col justify-between"
+              whileHover={{ y: -6 }}>
+              <div>
+                <div className="inline-flex items-center bg-[#f7fcff] border border-[#dff6ff] rounded-full px-3.5 py-1 text-xs font-semibold text-[#0f172a]/60 mb-6 shadow-sm">
+                  {c.tag}
+                </div>
+                <div className="text-5xl font-black text-[#06b6d4] tracking-tight mb-2">
+                  <AnimatedCounter end={c.metric} suffix={c.suffix} />
+                </div>
+                <p className="text-[#64748b] text-sm mb-4 font-normal">{c.label}</p>
+                <p className="text-[#0f172a] font-bold text-sm">{c.client}</p>
               </div>
-              <div className="text-4xl font-black text-[#06b6d4] mb-1">
-                <AnimatedCounter end={c.metric} suffix={c.suffix} />
+
+              {/* 3x3 Dot Pattern */}
+              <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
+                <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
+                  {[...Array(9)].map((_, idx) => (
+                    <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
+                  ))}
+                </div>
               </div>
-              <p className="text-[#6b7280] text-sm mb-4">{c.label}</p>
-              <p className="text-[#0f172a] font-semibold text-sm">{c.client}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -440,7 +748,7 @@ function ResultsSection() {
   );
 }
 
-// ─── Why Us ──────────────────────────────────────────────────────────
+// ─── Why Us (MarkitUp Grid Cards) ────────────────────────────────────
 function WhyUs() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -453,21 +761,41 @@ function WhyUs() {
     { icon: "🌐", title: "Multi-Channel Expertise", desc: "From Instagram to Google Ads — we manage your entire digital presence." },
   ];
   return (
-    <section ref={ref} className="bg-[#f7fcff] py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+    <section ref={ref} className="bg-white py-24 sm:py-28 px-6 lg:px-10">
+      <div className="max-w-6xl mx-auto">
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">Why Us</motion.p>
-          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-[#0f172a] mb-4">What Makes Us Different</motion.h2>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+            Why Us
+          </motion.div>
+          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
+            What Makes Us Different
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
+            Built for performance, transparency, and relentless execution.
+          </motion.p>
         </motion.div>
+
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-3 gap-5">
+          className="grid md:grid-cols-3 gap-6">
           {reasons.map((r, i) => (
             <motion.div key={i} variants={fadeUp} custom={i}
-              className="group bg-white border border-[#dff6ff] rounded-2xl p-6 hover:border-[#06b6d4]/40 hover:shadow-md transition-all duration-300"
-              whileHover={{ y: -3 }}>
-              <div className="text-3xl mb-3">{r.icon}</div>
-              <h3 className="text-[#0f172a] font-bold mb-2">{r.title}</h3>
-              <p className="text-[#6b7280] text-sm leading-relaxed">{r.desc}</p>
+              className="group bg-[#f7fcff] border border-[#dff6ff] rounded-[26px] p-7 hover:border-[#06b6d4]/40 hover:bg-white hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+              whileHover={{ y: -4 }}>
+              <div>
+                <div className="text-3xl mb-4">{r.icon}</div>
+                <h3 className="text-[#0f172a] font-bold text-base mb-2 group-hover:text-[#0891b2] transition-colors">{r.title}</h3>
+                <p className="text-[#64748b] text-sm leading-relaxed font-normal">{r.desc}</p>
+              </div>
+
+              {/* 3x3 Dot Pattern */}
+              <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
+                <div className="grid grid-cols-3 gap-1 opacity-20 group-hover:opacity-100 transition-opacity">
+                  {[...Array(9)].map((_, idx) => (
+                    <span key={idx} className="w-1 h-1 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -476,39 +804,71 @@ function WhyUs() {
   );
 }
 
-// ─── Testimonials ────────────────────────────────────────────────────
+// ─── Testimonials (MarkitUp Avatar with Quote Badge) ─────────────────
 function Testimonials() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const reviews = [
-    { name: "Ahkila", role: "Founder, Krin Brin School", text: "Within 3 months we went from 0 to 4 lakh in monthly revenue. The team just gets it — strategy, execution, everything." },
-    { name: "Saranya", role: "Founder, saranyaelitebridalstudio", text: "I was getting 45 leads a month. Now I get 10+ qualified leads monthly. The WhatsApp automation alone saved me hours." },
-    { name: "Prem Charlesr", role: "Founder , Allinov", text: "I've hired agencies before — these guys are a completely different level." },
+    { name: "Ahkila", role: "Retail Brand Founder", text: "Within 3 months we went from 0 to 4 lakh in monthly revenue. The team just gets it — strategy, execution, everything." },
+    { name: "Saranya", role: "Bridal Studio Owner", text: "I was getting 4-5 leads a month. Now I get 10+ qualified leads monthly. The WhatsApp automation alone saved me hours." },
+    { name: "Prem Charles", role: "EdTech Director", text: "I've hired agencies before — these guys are a completely different level. Professional, fast, and metric-focused." },
   ];
   return (
-    <section ref={ref} className="bg-white py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+    <section ref={ref} className="bg-[#f7fcff] py-24 sm:py-28 px-6 lg:px-10">
+      <div className="max-w-6xl mx-auto">
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">Testimonials</motion.p>
-          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-[#0f172a] mb-4">What Clients Say</motion.h2>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-white border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+            Testimonials
+          </motion.div>
+          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
+            What Clients Say
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
+            Real feedback from business leaders we've helped scale.
+          </motion.p>
         </motion.div>
+
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
           className="grid md:grid-cols-3 gap-6">
           {reviews.map((r, i) => (
             <motion.div key={i} variants={fadeUp} custom={i}
-              className="bg-[#f7fcff] border border-[#dff6ff] rounded-3xl p-7 hover:border-[#06b6d4]/40 hover:shadow-md transition-all duration-300"
-              whileHover={{ y: -4 }}>
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, j) => <span key={j} className="text-yellow-400 text-sm">★</span>)}
-              </div>
-              <p className="text-[#374151] text-sm leading-relaxed mb-6">"{r.text}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#06b6d4] to-[#dff6ff] flex items-center justify-center text-white font-bold text-sm">
-                  {r.name[0]}
+              className="group bg-white border border-[#dff6ff] rounded-[28px] p-8 hover:border-[#06b6d4]/40 hover:shadow-xl hover:shadow-[#06b6d4]/10 transition-all duration-400 flex flex-col justify-between"
+              whileHover={{ y: -5 }}>
+              <div>
+                {/* Avatar with MarkitUp overlapping quote badge */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#06b6d4] to-[#dff6ff] flex items-center justify-center text-white font-black text-base shadow-sm">
+                      {r.name[0]}
+                    </div>
+                    {/* Quote bubble badge */}
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#0f172a] text-[#06b6d4] flex items-center justify-center text-[11px] font-black border-2 border-white shadow-xs">
+                      "
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[#0f172a] font-bold text-sm">{r.name}</p>
+                    <p className="text-[#64748b] text-xs">{r.role}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[#0f172a] font-semibold text-sm">{r.name}</p>
-                  <p className="text-[#9ca3af] text-xs">{r.role}</p>
+
+                {/* Stars */}
+                <div className="flex gap-1 mb-4 text-amber-400 text-xs">
+                  {[...Array(5)].map((_, j) => <span key={j}>★</span>)}
+                </div>
+
+                <p className="text-[#334155] text-sm leading-relaxed font-normal">
+                  "{r.text}"
+                </p>
+              </div>
+
+              {/* Signature 3x3 dot matrix */}
+              <div className="pt-6 mt-6 border-t border-[#dff6ff]/60 flex justify-end">
+                <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
+                  {[...Array(9)].map((_, idx) => (
+                    <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -526,34 +886,43 @@ function FAQ() {
   const [open, setOpen] = useState(null);
   const faqs = [
     { q: "How quickly will I see results?", a: "Most clients see measurable traction within 30–45 days. For paid ads, results can be visible within the first week of running campaigns." },
-    { q: "Do you work with All businesses?", a: "Absolutely. We work with businesses of all sizes — from solo founders to Large-sized companies. Our process adapts to any budget." },
-    { q: "What industries do you work with?", a: "E-commerce, real estate, coaching, SaaS, fashion, food & beverage, and more. Our strategy adapts to any industry." },
-    { q: "Can I cancel anytime?", a: "Yes. All plans are month-to-month with no long-term contracts. We believe in earning your business every single month." },
-    { q: "What do you need from me to get started?", a: "Very little. We do a 30-min onboarding call, collect your brand assets, and handle the rest. We're built to minimize effort on your end." },
+    { q: "Do you work with all business sizes?", a: "Absolutely. We work with businesses of all sizes — from early-stage founders to established medium-scale enterprises. Our process adapts to your budget and growth targets." },
+    { q: "What industries do you work with?", a: "Retail, fashion, healthcare, education, SaaS, real estate, manufacturing, and food products. Our strategy engine adapts to any industry." },
+    { q: "Can I cancel anytime?", a: "Yes. All our plans are month-to-month with no long-term contracts. We believe in earning your business every single month." },
+    { q: "What do you need from me to get started?", a: "Very little. We do a 30-min onboarding call, gather your existing brand assets, and handle the entire strategy and execution for you." },
   ];
   return (
-    <section ref={ref} className="bg-[#f7fcff] py-24 px-6">
+    <section ref={ref} className="bg-white py-24 sm:py-28 px-6">
       <div className="max-w-3xl mx-auto">
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.p variants={fadeUp} className="text-[#06b6d4] text-sm font-bold tracking-widest uppercase mb-3">FAQ</motion.p>
-          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-[#0f172a] mb-4">Common Questions</motion.h2>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+            FAQ
+          </motion.div>
+          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
+            Common Questions
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
+            Clear answers to everything you need to know before getting started.
+          </motion.p>
         </motion.div>
+
         <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="space-y-3">
           {faqs.map((faq, i) => (
             <motion.div key={i} variants={fadeUp} custom={i}
-              className="border border-[#dff6ff] rounded-2xl overflow-hidden bg-white">
+              className="border border-[#dff6ff] rounded-2xl overflow-hidden bg-[#f7fcff] hover:border-[#06b6d4]/40 transition-colors">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full text-left px-6 py-5 flex items-center justify-between text-[#0f172a] font-semibold hover:bg-[#f7fcff] transition-colors">
-                {faq.q}
+                className="w-full text-left px-6 py-5 flex items-center justify-between text-[#0f172a] font-bold text-sm sm:text-base hover:bg-white transition-colors">
+                <span>{faq.q}</span>
                 <motion.span animate={{ rotate: open === i ? 45 : 0 }} transition={{ duration: 0.25 }}
-                  className="text-[#06b6d4] text-xl flex-shrink-0 ml-4">+</motion.span>
+                  className="text-[#06b6d4] text-xl flex-shrink-0 ml-4 font-mono font-bold">+</motion.span>
               </button>
               <AnimatePresence>
                 {open === i && (
                   <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>
-                    <p className="px-6 pb-5 text-[#6b7280] text-sm leading-relaxed">{faq.a}</p>
+                    <p className="px-6 pb-5 text-[#64748b] text-sm leading-relaxed border-t border-[#dff6ff]/50 pt-3 bg-white font-normal">{faq.a}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -565,30 +934,33 @@ function FAQ() {
   );
 }
 
-// ─── CTA Strip ───────────────────────────────────────────────────────
+// ─── CTA Strip (MarkitUp Neo-Brutalist Pill) ───────────────────────────
 function CTAStrip({ setPage }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
     <section ref={ref} className="bg-[#0f172a] py-24 px-6 relative overflow-hidden">
-      <div className="absolute top-[-60px] left-1/2 -translate-x-1/2 w-[500px] h-[260px] bg-[#06b6d4]/10 rounded-full blur-[100px]" />
+      <div className="absolute top-[-60px] left-1/2 -translate-x-1/2 w-[500px] h-[260px] bg-[#06b6d4]/15 rounded-full blur-[100px]" />
       <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
         className="max-w-3xl mx-auto text-center relative z-10">
-        <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-black text-white mb-4">
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
           Ready to Scale Your Brand?
         </motion.h2>
-        <motion.p variants={fadeUp} custom={1} className="text-[#9ca3af] mb-10 max-w-md mx-auto">
-          Book a free strategy call and get a custom growth plan for your business.
+        <motion.p variants={fadeUp} custom={1} className="text-lg font-serif italic text-[#67e8f9] mb-4">
+          Book a free strategy session with our core team.
         </motion.p>
-        <motion.button variants={fadeUp} custom={2}
+        <motion.p variants={fadeUp} custom={2} className="text-[#9ca3af] mb-10 max-w-md mx-auto text-sm leading-relaxed">
+          We'll analyze your current digital presence, pinpoint gaps, and outline a tailored execution roadmap.
+        </motion.p>
+        <motion.button variants={fadeUp} custom={3}
           onClick={() => setPage("contact")}
-          className="bg-white text-[#06b6d4] px-10 py-4 rounded-2xl font-black text-base shadow-xl hover:shadow-2xl transition-all duration-300"
-          whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+          className="bg-[#06b6d4] text-white px-9 py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider border-2 border-white shadow-[4px_4px_0px_#ffffff] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#ffffff] transition-all"
+          whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
           Book Free Strategy Call →
         </motion.button>
-        <motion.div variants={fadeUp} custom={3} className="flex flex-wrap items-center justify-center gap-6 mt-8">
-          {["30-min call", "Custom plan", "No commitment"].map((item, i) => (
-            <span key={i} className="flex items-center gap-1.5 text-[#9ca3af] text-sm">
+        <motion.div variants={fadeUp} custom={4} className="flex flex-wrap items-center justify-center gap-6 mt-10">
+          {["30-min call", "Custom roadmap", "Zero commitment"].map((item, i) => (
+            <span key={i} className="flex items-center gap-1.5 text-[#9ca3af] text-xs font-semibold">
               <span className="text-[#06b6d4]">✓</span> {item}
             </span>
           ))}
@@ -604,7 +976,7 @@ export default function Home({ setPage }) {
     <main className="overflow-x-hidden">
       <Hero setPage={setPage} />
       <TrustBar />
-      <ServicesSection />
+      <ServicesSection setPage={setPage} />
       <HowItWorks />
       <AISection />
       <ResultsSection />

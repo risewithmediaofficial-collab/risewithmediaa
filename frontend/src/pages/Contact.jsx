@@ -100,7 +100,7 @@ function InputField({ label, name, type = "text", value, onChange, placeholder, 
 function PillSelector({ label, name, options, value, onChange, required }) {
   return (
     <div>
-      <label className="text-xs font-bold text-[#0f172a]/45 uppercase tracking-wider mb-2 block">
+      <label className="text-xs font-black text-[#0f172a]/50 uppercase tracking-wider mb-2.5 block">
         {label} {required && <span className="text-[#06b6d4]">*</span>}
       </label>
       <div className="flex flex-wrap gap-2">
@@ -109,10 +109,10 @@ function PillSelector({ label, name, options, value, onChange, required }) {
             key={s}
             type="button"
             onClick={() => onChange({ target: { name, value: s } })}
-            className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-bold border transition-all duration-200 ${
               value === s
-                ? "bg-[#06b6d4] text-white border-[#06b6d4] shadow-md shadow-[#06b6d4]/20"
-                : "bg-[#f0fbff] text-[#0f172a]/55 border-[#dff6ff] hover:border-[#06b6d4]/40 hover:text-[#06b6d4]"
+                ? "bg-[#06b6d4] text-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]"
+                : "bg-[#f7fcff] text-[#0f172a]/65 border border-[#dff6ff] hover:border-[#06b6d4] hover:text-[#06b6d4]"
             }`}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}>
@@ -171,89 +171,100 @@ export default function Contact() {
   return (
     <div className="pt-28 sm:pt-32 pb-20 min-h-screen bg-white relative overflow-hidden">
 
-      {/* Background blobs */}
+      {/* Subtle background ambient tint */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#dff6ff]/25 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/4 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#06b6d4]/8 rounded-full blur-[100px] translate-x-1/3 translate-y-1/4 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-          {/* ─── LEFT PANEL ─────────────────────────────────────────── */}
+          {/* ─── LEFT PANEL: Timeline Channels (MarkitUp Aesthetic) ─── */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            className="lg:col-span-5"
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
 
-            <div className="inline-flex items-center gap-2 bg-[#dff6ff]/60 text-[#06b6d4] text-xs font-bold px-4 py-2 rounded-full mb-6">
-              ✦ Get in Touch
+            <div className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-6 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
+              Let's Talk
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-black text-[#0f172a] leading-tight mb-5">
-              Let's Grow Your<br />
-              <span className="bg-gradient-to-r from-[#06b6d4] to-[#0f172a] bg-clip-text text-transparent">
-                Business.
-              </span>
+            <h1 className="text-4xl sm:text-6xl font-black text-[#0f172a] uppercase tracking-tight leading-[1.05] mb-3">
+              START A PROJECT
             </h1>
-            <p className="text-[#0f172a]/50 text-lg leading-relaxed max-w-md mb-10">
-              Ready to transform your digital presence? Tell us about your business and we'll craft a custom strategy to accelerate your growth.
+
+            <p className="text-lg sm:text-xl font-serif italic text-[#06b6d4] mb-4">
+              Tell us what you're looking to build or scale.
             </p>
 
-            <div className="flex gap-4 mb-10 flex-wrap">
+            <p className="text-[#64748b] text-base leading-relaxed mb-8 font-normal">
+              Ready to transform your digital presence? Share your business goals and we'll craft a custom execution strategy within 24 hours.
+            </p>
+
+            <div className="flex gap-3 mb-10 flex-wrap">
               {trustPoints.map((t, i) => (
                 <motion.div key={i}
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + i * 0.1 }}
-                  className="flex items-center gap-2 bg-[#f7fcff] border border-[#dff6ff] rounded-full px-4 py-2">
-                  <span className="text-sm">{t.icon}</span>
-                  <span className="text-xs font-bold text-[#0f172a]/60">{t.text}</span>
+                  className="flex items-center gap-2 bg-[#f7fcff] border border-[#dff6ff] rounded-full px-4 py-1.5">
+                  <span className="text-xs">{t.icon}</span>
+                  <span className="text-xs font-bold text-[#0f172a]/70">{t.text}</span>
                 </motion.div>
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 mb-10">
+            {/* Vertical Timeline Node List (MarkitUp Style) */}
+            <div className="relative pl-6 mb-10 space-y-6">
+              {/* Timeline continuous connector vertical bar */}
+              <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-[#dff6ff]" />
+
               {contactInfo.map((info, i) => (
                 <motion.div
                   key={info.label}
-                  className={`flex items-center gap-4 bg-gradient-to-r ${info.color} border border-[#dff6ff]/60 rounded-2xl p-4`}
+                  className="relative flex items-center gap-4 group"
                   initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 + i * 0.1 }}
-                  whileHover={{ x: 5 }}>
-                  <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#06b6d4] shrink-0">
+                >
+                  {/* Timeline circular node */}
+                  <div className="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] flex items-center justify-center text-[#06b6d4] shrink-0 group-hover:bg-[#06b6d4] group-hover:text-white transition-all">
                     {info.icon}
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-[#0f172a]/40 uppercase tracking-wider mb-0.5">{info.label}</p>
+                    <p className="text-[10px] font-black text-[#06b6d4] uppercase tracking-wider mb-0.5">{info.label}</p>
                     {info.href ? (
-                      <a href={info.href} className="font-semibold text-[#0f172a] text-sm hover:text-[#06b6d4] transition-colors">
+                      <a href={info.href} className="font-bold text-[#0f172a] text-sm hover:text-[#06b6d4] transition-colors">
                         {info.value}
                       </a>
                     ) : (
-                      <p className="font-semibold text-[#0f172a] text-sm">{info.value}</p>
+                      <p className="font-bold text-[#0f172a] text-sm">{info.value}</p>
                     )}
                   </div>
                 </motion.div>
               ))}
             </div>
 
+            {/* Direct WhatsApp Action Button */}
             <motion.a
               href="https://wa.me/919345254648?text=Hi%20RiseWithMedia!%20I%20would%20like%20to%20know%20more%20about%20your%20services."
               target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25D366] text-white px-6 py-3.5 rounded-xl font-bold shadow-lg shadow-[#25D366]/25 hover:bg-[#1fba59] transition-all duration-300"
-              whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              className="inline-flex items-center gap-2.5 bg-[#25D366] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-7 py-4 rounded-full border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_#0f172a] transition-all"
+              whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
               </svg>
-              Chat on WhatsApp
+              <span>Chat on WhatsApp</span>
             </motion.a>
           </motion.div>
 
-          {/* ─── RIGHT: FORM ─────────────────────────────────────────── */}
+          {/* ─── RIGHT PANEL: FORM (MarkitUp Card) ─────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            className="lg:col-span-7"
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}>
 
-            <div className="bg-white rounded-3xl border border-[#dff6ff]/60 shadow-2xl shadow-[#67e8f9]/20 p-8 md:p-10">
+            <div className="bg-white rounded-[28px] border border-[#dff6ff] shadow-sm hover:shadow-xl p-8 sm:p-10 relative overflow-hidden transition-all duration-400">
               <AnimatePresence mode="wait">
 
                 {/* ── Success State ── */}
@@ -265,22 +276,21 @@ export default function Contact() {
                     exit={{ opacity: 0, scale: 0.85 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}>
                     <motion.div
-                      className="w-24 h-24 rounded-full bg-gradient-to-br from-[#0f172a] to-[#06b6d4] flex items-center justify-center shadow-xl shadow-[#0f172a]/30"
-                      initial={{ scale: 0, rotate: -30 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}>
-                      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
+                      className="w-20 h-20 rounded-full bg-gradient-to-tr from-[#06b6d4] to-[#dff6ff] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] flex items-center justify-center text-white"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}>
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                         <polyline points="20 6 9 17 4 12"/>
                       </svg>
                     </motion.div>
                     <div>
-                      <h3 className="font-black text-2xl text-[#0f172a] mb-3">Message Sent! 🎉</h3>
-                      <p className="text-[#0f172a]/50 leading-relaxed text-sm">
-                        Thank you for reaching out! Our team will get back to you within 24 hours with a custom growth strategy.
+                      <h3 className="font-black text-2xl text-[#0f172a] uppercase tracking-tight mb-2">Message Received! 🎉</h3>
+                      <p className="text-[#64748b] leading-relaxed text-sm max-w-sm">
+                        Thank you for reaching out! Our team will review your requirements and respond within 24 hours.
                       </p>
                     </div>
                     <motion.button onClick={() => setStatus("idle")}
-                      className="bg-[#06b6d4] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#0891b2] transition-colors"
+                      className="bg-[#06b6d4] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:bg-[#0891b2] transition-all"
                       whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                       Send Another Message
                     </motion.button>
@@ -291,26 +301,33 @@ export default function Contact() {
                     className="flex flex-col gap-5"
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
-                    <div className="mb-1">
-                      <h2 className="font-black text-2xl text-[#0f172a] mb-1">Start Your Journey</h2>
-                      <p className="text-sm text-[#0f172a]/40">We respond within 24 hours. Fields marked * are required.</p>
+                    <div className="mb-2 pb-4 border-b border-[#dff6ff]/60 flex items-center justify-between">
+                      <div>
+                        <h2 className="font-black text-xl sm:text-2xl text-[#0f172a] uppercase tracking-tight">Project Enquiry</h2>
+                        <p className="text-xs text-[#64748b] mt-0.5">We respond within 24 hours. Fields marked * are required.</p>
+                      </div>
+                      <div className="hidden sm:grid grid-cols-3 gap-1 opacity-25">
+                        {[...Array(9)].map((_, idx) => (
+                          <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a]" />
+                        ))}
+                      </div>
                     </div>
 
                     {/* Name + Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <InputField label="Full Name" name="name" value={form.name} onChange={handleChange} placeholder="John Doe" required />
-                      <InputField label="Email Address" name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@company.com" required />
+                      <InputField label="Full Name" name="name" value={form.name} onChange={handleChange} placeholder="Rahul Kumar" required />
+                      <InputField label="Email Address" name="email" type="email" value={form.email} onChange={handleChange} placeholder="rahul@example.com" required />
                     </div>
 
                     {/* Phone + Business Name */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <InputField label="Phone Number" name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210" required />
-                      <InputField label="Business Name" name="business_name" value={form.business_name} onChange={handleChange} placeholder="Your Company Ltd." required />
+                      <InputField label="Business Name" name="business_name" value={form.business_name} onChange={handleChange} placeholder="Your Brand / Company" required />
                     </div>
 
                     {/* Service pills */}
                     <PillSelector
-                      label="Service Interested"
+                      label="Service Needed"
                       name="service"
                       options={services}
                       value={form.service}
@@ -330,19 +347,19 @@ export default function Contact() {
 
                     {/* Message */}
                     <div className="relative">
-                      <label className="text-xs font-bold text-[#0f172a]/45 uppercase tracking-wider mb-1.5 block">
+                      <label className="text-xs font-black text-[#0f172a]/50 uppercase tracking-wider mb-1.5 block">
                         Your Message <span className="text-[#06b6d4]">*</span>
                       </label>
                       <textarea
                         name="message"
                         value={form.message}
                         onChange={handleChange}
-                        placeholder="Tell us about your business and goals..."
+                        placeholder="Tell us about your business, what you've tried so far, and your targets..."
                         required
                         rows={4}
-                        className="w-full px-4 py-3.5 rounded-xl bg-[#f0fbff] border border-[#dff6ff] focus:border-[#06b6d4] focus:ring-2 focus:ring-[#06b6d4]/15 outline-none text-sm text-[#0f172a] transition-all placeholder:text-[#0f172a]/25 font-medium resize-none"
+                        className="w-full px-4 py-3.5 rounded-2xl bg-[#f0fbff] border border-[#dff6ff] focus:border-[#06b6d4] focus:ring-2 focus:ring-[#06b6d4]/15 outline-none text-sm text-[#0f172a] transition-all placeholder:text-[#0f172a]/30 font-medium resize-none"
                       />
-                      <div className="absolute bottom-3.5 right-3.5 text-[10px] text-[#0f172a]/25 font-medium">
+                      <div className="absolute bottom-3.5 right-3.5 text-[10px] text-[#0f172a]/30 font-medium">
                         {form.message.length}/500
                       </div>
                     </div>
@@ -351,38 +368,36 @@ export default function Contact() {
                     <AnimatePresence>
                       {status === "error" && (
                         <motion.p initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                          className="text-red-500 text-xs text-center bg-red-50 border border-red-100 rounded-xl p-3">
-                          Something went wrong. Please try again or contact us via WhatsApp.
+                          className="text-red-500 text-xs text-center bg-red-50 border border-red-100 rounded-xl p-3 font-medium">
+                          Something went wrong. Please try again or message us directly on WhatsApp.
                         </motion.p>
                       )}
                     </AnimatePresence>
 
-                    {/* Submit */}
+                    {/* Submit Button (MarkitUp Neo-Brutalist Pill) */}
                     <motion.button
                       type="submit"
                       disabled={status === "loading"}
-                      className="w-full bg-[#06b6d4] text-white py-4 rounded-xl font-black text-base shadow-xl shadow-[#06b6d4]/25 hover:bg-[#0891b2] transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2 mt-1"
-                      whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      className="w-full bg-[#06b6d4] hover:bg-[#0891b2] text-white py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_#0f172a] transition-all disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
+                      whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
                       {status === "loading" ? (
                         <>
                           <svg className="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeOpacity="0.3"/>
                             <path d="M12 3a9 9 0 019 9"/>
                           </svg>
-                          Sending...
+                          <span>Sending...</span>
                         </>
                       ) : (
                         <>
-                          Send Message
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                          </svg>
+                          <span>Submit Project Request</span>
+                          <span>→</span>
                         </>
                       )}
                     </motion.button>
 
-                    <p className="text-center text-xs text-[#0f172a]/30">
-                      By submitting, you agree to receive communication from RiseWithMedia.
+                    <p className="text-center text-xs text-[#0f172a]/40 mt-1">
+                      By submitting, you agree to receive a custom proposal from Rise With Media.
                     </p>
                   </motion.form>
                 )}
@@ -393,26 +408,24 @@ export default function Contact() {
       </div>
 
       {/* ─── Bottom CTA ───────────────────────────────────────────── */}
-      <div className="max-w-3xl mx-auto px-6 mt-10">
+      <div className="max-w-3xl mx-auto px-6 mt-12">
         <motion.div
-          className="bg-gradient-to-br from-[#dff6ff]/40 to-[#67e8f9]/20 rounded-3xl p-10 text-center border border-[#dff6ff]/60"
+          className="bg-white rounded-[28px] p-8 sm:p-10 text-center border border-[#dff6ff] shadow-sm relative overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}>
-          <h3 className="font-black text-2xl text-[#0f172a] mb-3">Prefer a Call?</h3>
-          <p className="text-[#0f172a]/50 mb-6 text-sm leading-relaxed">
-            Book a free 30-minute strategy session. We'll analyze your business and share a growth plan — no strings attached.
+          <h3 className="font-black text-2xl sm:text-3xl text-[#0f172a] uppercase tracking-tight mb-2">Prefer a Quick Call?</h3>
+          <p className="text-[#64748b] mb-6 text-sm sm:text-base leading-relaxed max-w-md mx-auto">
+            Book a 30-minute free growth consultation. We'll analyze your marketing and share honest suggestions.
           </p>
           <motion.a
             href="https://wa.me/919345254648?text=Hi%2C%20I%27d%20like%20to%20book%20a%20free%20strategy%20call."
             target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#06b6d4] transition-colors duration-300"
-            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-            Book Free Strategy Call
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
+            className="inline-flex items-center gap-2 bg-[#06b6d4] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_#0f172a] transition-all"
+            whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <span>Book Free Strategy Call</span>
+            <span>→</span>
           </motion.a>
         </motion.div>
       </div>
