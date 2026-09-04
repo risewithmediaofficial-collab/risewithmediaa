@@ -1,0 +1,8 @@
+{
+  "name": "risewithmediaa",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix frontend run build",
+    "deploy": "npx wrangler deploy"
+  }
+}
