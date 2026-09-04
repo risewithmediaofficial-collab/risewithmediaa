@@ -1,6 +1,5 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import TestimonialSlider from "../components/TestimonialSlider";
+import ScrollSection from "../components/ScrollSection";
+// Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
 import KrinBrinlogo from "../assets/clientlogo/krinbrinlogo.png";
 import Savlologo from "../assets/clientlogo/savlologo.png";
@@ -31,200 +30,207 @@ const allClients = [
   { name: "Dakshine", src: dakshinelogo },
 ];
 
-// Split into two rows
-const clientsRow1 = allClients.slice(0, 7);
-const clientsRow2 = allClients.slice(7);
-
 const stats = [
-  { num: "30+", label: "Projects Completed", icon: "📁" },
-  { num: "20+", label: "Brands Served", icon: "🏆" },
-  { num: "1M+", label: "Views Generated", icon: "👁️" },
-  { num: "5+", label: "Industries Served", icon: "🌐" },
+  { num: "30+", label: "PROJECTS COMPLETED" },
+  { num: "20+", label: "BRANDS SCALED" },
+  { num: "1.4M+", label: "AUDIENCE REACH" },
+  { num: "5.3×", label: "AVERAGE ROAS" },
 ];
 
-const industries = [
-  "Real Estate", "Fashion & Retail", "Healthcare", "Education",
-  "Food & Beverage", "Technology", "Fitness", "Hospitality",
+const clientReviews = [
+  {
+    name: "Ahkila",
+    initial: "A",
+    company: "Krin Brin School",
+    role: "Founder",
+    quote: "Within 3 months we went from 0 to 4 lakh in monthly revenue. The team just gets it — strategy, execution, everything.",
+    bg: "from-[#12b7d4] to-[#0284c7]",
+  },
+  {
+    name: "Saranya",
+    initial: "S",
+    company: "saranyaelitebridalstudio",
+    role: "Founder",
+    quote: "I was getting 45 leads a month. Now I get 10+ qualified leads monthly. The WhatsApp automation alone saved me hours.",
+    bg: "from-[#12b7d4] to-[#0ea5c0]",
+  },
+  {
+    name: "Prem Charlesr",
+    initial: "P",
+    company: "Allinov",
+    role: "Founder",
+    quote: "I've hired agencies before — these guys are a completely different level.",
+    bg: "from-[#12b7d4] to-[#38bdf8]",
+  },
 ];
 
-// ─── Marquee Row with Logo Images ────────────────────────────────────
-function MarqueeRow({ clients, direction = 1, speed = 28 }) {
-  const duplicated = [...clients, ...clients, ...clients];
-  return (
-    <div className="relative overflow-hidden py-3">
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-      <motion.div
-        className="flex gap-6 w-max"
-        animate={{ x: direction === 1 ? ["0%", "-33.33%"] : ["-33.33%", "0%"] }}
-        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}>
-        {duplicated.map((client, i) => (
-          <div
-            key={`${client.name}-${i}`}
-            className="flex items-center justify-center px-6 py-4 rounded-[22px] border border-[#dff6ff] bg-white flex-shrink-0 hover:border-[#06b6d4]/40 hover:shadow-md transition-all duration-300"
-            style={{ minWidth: "150px" }}
-            title={client.name}
-          >
-            <img
-              src={client.src}
-              alt={client.name}
-              className="h-12 w-auto max-w-[130px] object-contain opacity-95 hover:opacity-100 transition-opacity"
-            />
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
-
-export default function Clients() {
-  const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
+export default function Clients({ setPage }) {
+  const tickerLogos = [...allClients, ...allClients];
 
   return (
-    <div className="pt-28 sm:pt-32 pb-20 min-h-screen bg-white">
-
-      {/* ─── Page Header ──────────────────────────────────────────── */}
-      <div className="text-center max-w-4xl mx-auto px-6 py-14 sm:py-18">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}>
-          <div className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            Client Network
-          </div>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            TRUSTED BY <span className="text-[#06b6d4]">GROWING BRANDS</span>
-          </h1>
-          <p className="text-lg sm:text-xl font-serif italic text-[#06b6d4] mb-4">
-            We partner with businesses to build high-performance digital engines.
-          </p>
-          <p className="text-[#64748b] text-base max-w-xl mx-auto leading-relaxed font-normal">
-            From regional market leaders to ambitious direct-to-consumer businesses, see who relies on Rise With Media for predictable digital scaling.
-          </p>
-        </motion.div>
-      </div>
-
-      {/* ─── MARQUEE CLIENT LOGOS ─────────────────────────────────── */}
-      <motion.div
-        className="mb-4"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}>
-        <MarqueeRow clients={clientsRow1} direction={1} speed={30} />
-      </motion.div>
-      <motion.div
-        className="mb-16 sm:mb-20"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.5 }}>
-        <MarqueeRow clients={clientsRow2} direction={-1} speed={26} />
-      </motion.div>
-
-      {/* ─── Divider / Pill Badge ─────────────────────────────────── */}
-      <div className="max-w-xl mx-auto px-6 mb-20">
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[#dff6ff]" />
-          <span className="bg-[#f0fbff] border border-[#dff6ff] text-[#0f172a] text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-xs">
-            20+ Brands & Counting
+    <main className="bg-white pt-20 sm:pt-[88px]">
+      
+      {/* ─────────────────────────────────────────────────────────────────
+          HEADER
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea]">
+        <div className="rush-container text-center">
+          <span className="tag-bubble-cyan mb-4">
+            Network & Partners
           </span>
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#dff6ff]" />
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Manrope'] mb-4">
+            Trusted by Visionaries,<br />
+            Admired by the <span className="text-[#12b7d4]">Best</span>
+          </h1>
+          <p className="font-script text-2xl sm:text-3xl text-[#555555]">
+            Powering South India’s most ambitious consumer & retail brands.
+          </p>
         </div>
-      </div>
+      </ScrollSection>
 
-      {/* ─── STATS SECTION (Neo-Brutalist MarkitUp Style) ──────────── */}
-      <div className="bg-[#0f172a] relative overflow-hidden py-24 sm:py-28">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#06b6d4]/15 blur-[100px] pointer-events-none" />
+      {/* ─────────────────────────────────────────────────────────────────
+          KEY STATS
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-14 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((st, i) => (
+              <div key={i} className="text-center p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors">
+                <div className="text-3xl sm:text-5xl font-black text-black font-['Manrope'] mb-2">
+                  {st.num}
+                </div>
+                <div className="text-xs font-bold uppercase tracking-widest text-[#777777]">
+                  {st.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </ScrollSection>
 
-        <div ref={statsRef} className="relative max-w-6xl mx-auto px-6 lg:px-10">
-          <motion.div className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }} animate={statsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-              By The Numbers
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-3">
-              Results That Speak
+      {/* ─────────────────────────────────────────────────────────────────
+          CLIENT LOGOS GRID
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Manrope']">
+              Client Portfolio
             </h2>
-            <p className="text-lg font-serif italic text-[#67e8f9]">
-              Measurable milestones achieved across all active client accounts.
-            </p>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
-              <motion.div key={stat.label}
-                className="group relative text-center p-8 rounded-[26px] bg-white border-2 border-[#0f172a] shadow-[4px_4px_0px_#06b6d4] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#06b6d4] transition-all duration-300 flex flex-col justify-between"
-                initial={{ opacity: 0, y: 40 }}
-                animate={statsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1 }}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+            {allClients.map((client, idx) => (
+              <div
+                key={idx}
+                className="h-28 rounded-2xl border border-[#eaeaea] bg-white flex items-center justify-center p-5 hover:border-[#12b7d4] transition-all duration-300 group cursor-pointer"
+                title={client.name}
+              >
+                <img
+                  src={client.src}
+                  alt={client.name}
+                  className="max-h-12 w-auto max-w-[130px] object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SMOOTH LOGO TICKER
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-12 border-b border-[#eaeaea] overflow-hidden">
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+          <div className="animate-rush-ticker flex items-center gap-8">
+            {tickerLogos.map((client, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-center px-6 py-3 rounded-2xl border border-[#eaeaea] bg-white flex-shrink-0"
+              >
+                <img
+                  src={client.src}
+                  alt={client.name}
+                  className="h-9 w-auto max-w-[120px] object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          CLIENT REVIEWS (The Rush Republic Card Layout)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          
+          <div className="max-w-3xl mb-12">
+            <span className="tag-bubble-cyan mb-3">
+              Direct Feedback
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Manrope']">
+              What Founders Say
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {clientReviews.map((rev, i) => (
+              <div
+                key={i}
+                className="rounded-3xl border border-[#eaeaea] p-8 flex flex-col justify-between hover:border-[#12b7d4] transition-all bg-white"
+              >
                 <div>
-                  <div className="text-3xl mb-3">{stat.icon}</div>
-                  <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-2 tracking-tight">
-                    {stat.num}
+                  {/* 5 Stars Rating */}
+                  <div className="flex items-center gap-1 mb-5 text-[#12b7d4] text-sm">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                   </div>
-                  <p className="text-[#64748b] text-sm font-semibold">{stat.label}</p>
+
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${rev.bg} flex items-center justify-center text-white text-xl font-black font-['Manrope'] shadow-sm flex-shrink-0`}>
+                      {rev.initial}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-base text-black font-['Manrope']">
+                        {rev.name}
+                      </h4>
+                      <p className="text-xs text-[#777777]">
+                        {rev.role}, {rev.company}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-[#444444] leading-relaxed">
+                    "{rev.quote}"
+                  </p>
                 </div>
 
-                {/* Signature 3x3 dot matrix */}
-                <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
-                  <div className="grid grid-cols-3 gap-1 opacity-20 group-hover:opacity-100 transition-opacity">
-                    {[...Array(9)].map((_, idx) => (
-                      <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
-                    ))}
-                  </div>
+                <div className="mt-8 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-bold text-[#888888]">
+                  <span>Verified Client Partner</span>
+                  <span className="text-[#12b7d4]">★★★★★</span>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* ─── TESTIMONIALS ─────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 sm:py-28">
-        <motion.div className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <div className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            Testimonials
+          {/* Bottom CTA */}
+          <div className="mt-16 text-center">
+            <button
+              onClick={() => setPage("contact")}
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-4 cursor-pointer"
+            >
+              Partner With Us →
+            </button>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            What Our Clients Say
-          </h2>
-          <p className="text-lg font-serif italic text-[#06b6d4] mb-3">
-            Direct feedback from founders who trust our execution.
-          </p>
-          <p className="text-[#64748b] max-w-md mx-auto text-sm font-normal leading-relaxed">
-            Real words from real business owners who partnered with Rise With Media for sustainable growth.
-          </p>
-        </motion.div>
 
-        <TestimonialSlider />
-      </div>
-
-      {/* ─── INDUSTRIES STRIP (Neo-brutalist Pills) ────────────────── */}
-      <div className="bg-[#f7fcff] border-t border-b border-[#dff6ff] py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-center text-xs font-black text-[#0f172a]/40 uppercase tracking-[0.2em] mb-8">
-            Industries We Serve
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-            {industries.map((ind, i) => (
-              <motion.span key={ind}
-                className="bg-white border-2 border-[#0f172a] text-[#0f172a] text-xs sm:text-sm font-black px-6 py-3 rounded-full shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none hover:bg-[#f0fbff] transition-all cursor-default"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                whileHover={{ scale: 1.03 }}>
-                {ind}
-              </motion.span>
-            ))}
-          </div>
         </div>
-      </div>
+      </ScrollSection>
 
-    </div>
+    </main>
   );
 }

@@ -1,34 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", key: "home" },
-  { label: "Our Work", key: "works" },
+  { label: "Case Studies", key: "works" },
   { label: "Clients", key: "clients" },
   { label: "Contact", key: "contact" },
 ];
 
-function BrandMark() {
-  return (
-    <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-lg shadow-[#06b6d4]/15 ring-1 ring-[#dff6ff]">
-      <img
-        src="/logo.png"
-        alt="Rise With Media"
-        className="h-8 w-8 object-contain"
-      />
-    </div>
-  );
-}
-
 export default function Navbar({ page, setPage }) {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const handleNav = (key) => {
     setPage(key);
@@ -36,125 +17,133 @@ export default function Navbar({ page, setPage }) {
   };
 
   return (
-    <motion.nav
-      className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8"
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div
-        className={`mx-auto max-w-7xl rounded-[24px] border transition-all duration-500 ${
-          scrolled
-            ? "bg-white/88 border-[#dff6ff] backdrop-blur-2xl shadow-[0_20px_70px_-30px_rgba(6,182,212,0.22)]"
-            : "bg-white/65 border-white/60 backdrop-blur-xl shadow-[0_12px_40px_-30px_rgba(15,23,42,0.35)]"
-        }`}
-      >
-        <div className="flex h-[78px] items-center justify-between gap-4 px-4 sm:px-5 lg:px-6">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#eaeaea]">
+      <div className="rush-container">
+        <div className="flex h-20 sm:h-[88px] items-center justify-between">
+          
+          {/* Brand Logo */}
           <button
             onClick={() => handleNav("home")}
-            className="flex items-center gap-3 text-left"
+            className="flex items-center gap-3.5 text-left group cursor-pointer"
             aria-label="Go to home"
           >
-            <BrandMark />
+            <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center overflow-hidden rounded-2xl bg-white border border-[#eaeaea] shadow-xs group-hover:border-[#12b7d4] transition-all duration-300 p-2 sm:p-2.5">
+              <img
+                src="/logo.png"
+                alt="Rise With Media"
+                className="h-full w-full object-contain group-hover:scale-105 transition-transform"
+              />
+            </div>
             <div className="leading-tight">
-              <span className="block text-lg font-black tracking-tight text-[#0f172a] sm:text-[1.1rem]">
-                Rise<span className="text-[#06b6d4]">WithMedia</span>
-              </span>
-              <span className="hidden text-[10px] font-semibold uppercase tracking-[0.24em] text-[#0f172a]/45 min-[440px]:block">
-                Digital Growth Studio
+              <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Manrope']">
+                Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </div>
           </button>
 
-          <div className="hidden md:flex items-center gap-1 rounded-full border border-[#dff6ff] bg-[#f7fcff]/90 p-1.5 shadow-inner shadow-white/80">
-            {navLinks.map((link) => (
-              <button
-                key={link.key}
-                onClick={() => handleNav(link.key)}
-                className={`rounded-full px-4 lg:px-5 py-2 text-sm font-semibold transition-all duration-300 ${
-                  page === link.key
-                    ? "bg-white text-[#06b6d4] shadow-sm shadow-[#06b6d4]/15"
-                    : "text-[#0f172a]/65 hover:text-[#06b6d4]"
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10" aria-label="Main Navigation">
+            {navLinks.map((link) => {
+              const isActive = page === link.key;
+              return (
+                <button
+                  key={link.key}
+                  onClick={() => handleNav(link.key)}
+                  className={`text-sm transition-colors cursor-pointer relative py-2 ${
+                    isActive ? "text-[#12b7d4] font-black" : "text-[#555555] hover:text-[#12b7d4] font-bold"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#12b7d4]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </nav>
 
+          {/* Right CTA Button */}
           <div className="hidden md:flex items-center gap-3">
-            <span className="hidden xl:inline text-xs font-semibold text-[#0f172a]/50">
-              Let’s grow your brand
-            </span>
-            <motion.button
+            <button
               onClick={() => handleNav("contact")}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#06b6d4] to-[#0891b2] px-5 lg:px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#06b6d4]/25"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
+              className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-7 py-3 hover:bg-[#12b7d4] hover:text-white transition-all shadow-xs"
             >
-              Free Strategy Call
-              <span className="text-base">→</span>
-            </motion.button>
+              Contact
+            </button>
           </div>
 
-          <motion.button
-            className="md:hidden inline-flex h-11 w-11 flex-col items-center justify-center gap-1 rounded-2xl border border-[#dff6ff] bg-[#f7fcff] text-[#0f172a] shadow-sm"
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden flex h-11 w-11 sm:h-12 sm:w-12 flex-col items-center justify-center gap-1.5 rounded-xl border border-[#eaeaea] bg-white text-[#000000] cursor-pointer hover:border-[#12b7d4] transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
-            whileTap={{ scale: 0.95 }}
           >
-            <motion.span
-              className="block h-0.5 w-5 rounded-full bg-current"
-              animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+            <span
+              className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${
+                menuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
             />
-            <motion.span
-              className="block h-0.5 w-5 rounded-full bg-current"
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+            <span
+              className={`block h-0.5 w-5 bg-current transition-opacity duration-300 ${
+                menuOpen ? "opacity-0" : ""
+              }`}
             />
-            <motion.span
-              className="block h-0.5 w-5 rounded-full bg-current"
-              animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+            <span
+              className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${
+                menuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
             />
-          </motion.button>
+          </button>
         </div>
-
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              className="border-t border-[#dff6ff] px-4 pb-4 pt-3 md:hidden"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25 }}
-            >
-              <div className="flex flex-col gap-2">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.key}
-                    onClick={() => handleNav(link.key)}
-                    className={`rounded-2xl px-4 py-3 text-left text-sm font-semibold transition-all duration-300 ${
-                      page === link.key
-                        ? "bg-[#f0fbff] text-[#06b6d4]"
-                        : "text-[#0f172a]/80 hover:bg-[#f7fcff]"
-                    }`}
-                  >
-                    {link.label}
-                  </button>
-                ))}
-
-                <motion.button
-                  onClick={() => handleNav("contact")}
-                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#06b6d4] to-[#0891b2] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#06b6d4]/20"
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Free Strategy Call
-                  <span>→</span>
-                </motion.button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
-    </motion.nav>
+
+      {/* Mobile Drawer Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="border-b border-[#eaeaea] bg-white px-6 py-6 md:hidden shadow-lg"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <button
+                  key={link.key}
+                  onClick={() => handleNav(link.key)}
+                  className={`text-left py-3 text-base font-bold uppercase tracking-wide border-b border-[#f5f5f5] transition-colors ${
+                    page === link.key ? "text-[#12b7d4] pl-3 border-l-2 border-l-[#12b7d4] bg-[#e6f9fc]/50" : "text-[#555555] hover:text-[#12b7d4]"
+                  }`}
+                >
+                  {link.label}
+                </button>
+              ))}
+
+              <div className="pt-4 flex flex-col gap-2.5">
+                <button
+                  onClick={() => handleNav("contact")}
+                  className="btn-rush-black w-full text-center py-3.5 text-xs uppercase tracking-wider hover:bg-[#12b7d4]"
+                >
+                  Contact Us
+                </button>
+                <a
+                  href="https://wa.me/919345254648"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-rush-cyan w-full text-center py-3.5 text-xs uppercase tracking-wider"
+                >
+                  WhatsApp Quick Chat
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

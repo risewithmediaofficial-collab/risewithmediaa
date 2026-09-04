@@ -1,6 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence, useInView } from "framer-motion";
-import ServiceCard from "../components/ServiceCard";
+import { motion, AnimatePresence } from "framer-motion";
+import emailjs from "@emailjs/browser";
+import ScrollSection from "../components/ScrollSection";
+
+// Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
 import KrinBrinlogo from "../assets/clientlogo/krinbrinlogo.png";
 import Savlologo from "../assets/clientlogo/savlologo.png";
@@ -15,975 +18,1242 @@ import malartraderslogo from "../assets/clientlogo/malartraderslogo.png";
 import kandhancarslogo from "../assets/clientlogo/kandhancarslogo.png";
 import dakshinelogo from "../assets/clientlogo/dakshinelogo.png";
 
+// Media Assets
+import reel1 from "../assets/clientvideos/1.mp4";
+import reel2 from "../assets/clientvideos/2.mp4";
+import screenshot1 from "../assets/clientweb/1.png";
+import screenshot2 from "../assets/clientweb/2.png";
+import campaign1 from "../assets/clientcampaign/1.png";
+import campaign2 from "../assets/clientcampaign/2.png";
+import campaign3 from "../assets/clientcampaign/3.png";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_s15r115";
+const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
+const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
 
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
-};
-
-// ─── Animated Counter ────────────────────────────────────────────────
-function AnimatedCounter({ end, suffix = "" }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const num = parseFloat(end);
-    const duration = 1600;
-    const step = (num / duration) * 16;
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= num) { setCount(num); clearInterval(timer); }
-      else setCount(Math.floor(start));
-    }, 16);
-    return () => clearInterval(timer);
-  }, [inView, end]);
-  return <span ref={ref}>{count}{suffix}</span>;
-}
-
-// ─── Hero (MarkitUp Inspired Split Layout) ──────────────────────────
-function Hero({ setPage }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-white pt-32 pb-20 lg:pt-36 lg:pb-24">
-      {/* Background ambient tint */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#f7fcff] via-[#f0fbff]/60 to-white pointer-events-none" />
-
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.035] pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(#06b6d4 1px,transparent 1px),linear-gradient(90deg,#06b6d4 1px,transparent 1px)",
-          backgroundSize: "46px 46px",
-        }}
-      />
-
-      <motion.div style={{ y, opacity }} className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-
-          {/* ─── LEFT COLUMN: Title & Connected CTA ─────────────────── */}
-          <motion.div variants={stagger} initial="hidden" animate="show" className="lg:col-span-7 flex flex-col items-start text-left">
-
-            {/* Kicker Text (MarkitUp clean text style without rounded border) */}
-            <motion.div
-              variants={fadeUp}
-              className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#0f172a] mb-4 flex items-center gap-1.5"
-            >
-              <span>HELLO WORLD,</span>
-              <span className="text-[#06b6d4]">WE ARE</span>
-            </motion.div>
-
-            {/* Massive Display Title */}
-            <motion.h1
-              variants={fadeUp}
-              custom={1}
-              className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#0f172a] uppercase tracking-tight leading-[1.04] mb-3"
-            >
-              RISE WITH MEDIA
-            </motion.h1>
-
-            {/* Stylized Cursive Subhead Accent */}
-            <motion.div
-              variants={fadeUp}
-              custom={2}
-              className="text-lg sm:text-2xl font-serif italic font-medium text-[#06b6d4] mb-5 flex items-center gap-3"
-            >
-              <span className="w-8 h-px bg-[#06b6d4]/40" />
-              <span>We Build Brands That Convert</span>
-              <span className="w-8 h-px bg-[#06b6d4]/40" />
-            </motion.div>
-
-            {/* Concise Pitch */}
-            <motion.p
-              variants={fadeUp}
-              custom={3}
-              className="text-[#64748b] text-base sm:text-lg max-w-xl mb-7 leading-relaxed font-normal"
-            >
-              Rise With Media helps businesses grow with social media marketing, Meta ads, websites, reels, and data-driven execution across every region.
-            </motion.p>
-
-            {/* Social Links Row (Refined Neo-Brutalist Micro-Pills) */}
-            <motion.div variants={fadeUp} custom={4} className="flex items-center gap-3 sm:gap-3.5 mb-8">
-              <a
-                href="https://www.instagram.com/risewithmedia/"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Instagram"
-                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
-              <a
-                href="https://wa.me/919345254648"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="WhatsApp"
-                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.97.53 1.871.821 2.796.821 3.183 0 5.768-2.586 5.769-5.766.001-3.182-2.585-5.767-5.769-5.767zm7.545 5.767c-.002 4.163-3.387 7.548-7.55 7.548-1.282 0-2.476-.324-3.525-.889l-4.501 1.18 1.201-4.387c-.66-1.1-1.037-2.39-1.037-3.752 0-4.162 3.385-7.547 7.55-7.547 4.162 0 7.547 3.385 7.547 7.547z" />
-                </svg>
-              </a>
-              <a
-                href="mailto:hello@risewithmedia.com"
-                title="Email Us"
-                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.linkedin.com/company/risewithmedia/"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="LinkedIn"
-                className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white flex items-center justify-center text-[#0f172a] transition-all duration-200"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-              </a>
-            </motion.div>
-
-            {/* Connected Pill CTA (MarkitUp Signature Seamless Circuit) */}
-            <motion.div variants={fadeUp} custom={5} className="flex items-center">
-              {/* Primary Pill Button */}
-              <button
-                onClick={() => setPage("contact")}
-                className="relative z-10 h-12 sm:h-14 px-7 sm:px-8 rounded-full border-2 border-[#0f172a] bg-white text-[#0f172a] font-black text-xs sm:text-sm tracking-wider uppercase shadow-[3px_3px_0px_#0f172a] hover:bg-[#06b6d4] hover:text-white hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#0f172a] transition-all duration-200 inline-flex items-center justify-center shrink-0"
-              >
-                <span>GET STRATEGY CALL</span>
-              </button>
-
-              {/* Seamless Connecting Bridge */}
-              <div className="w-8 sm:w-12 h-[2px] bg-[#0f172a] shrink-0" />
-
-              {/* Secondary Action with Matching Height and Precision SVG Arrow */}
-              <button
-                onClick={() => setPage("works")}
-                className="h-12 sm:h-14 pl-4 sm:pl-5 text-xs sm:text-sm font-black uppercase tracking-wider text-[#0f172a] hover:text-[#06b6d4] transition-colors inline-flex items-center gap-2 group/work whitespace-nowrap shrink-0"
-              >
-                <span className="border-b-2 border-transparent group-hover/work:border-[#06b6d4] transition-all pb-0.5">
-                  VIEW OUR WORK
-                </span>
-                <svg
-                  className="w-3.5 h-3.5 text-[#0f172a] group-hover/work:text-[#06b6d4] group-hover/work:translate-x-1 transition-all shrink-0"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
-            </motion.div>
-          </motion.div>
-
-          {/* ─── RIGHT COLUMN: Circular Focal Graphic & Floating Badges ── */}
-          <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
-
-            {/* Focal Circle Canvas */}
-            <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] lg:w-[440px] lg:h-[440px] rounded-full bg-gradient-to-tr from-[#dff6ff] via-[#f0fbff] to-white shadow-[0_20px_50px_rgba(6,182,212,0.14)] flex items-center justify-center p-6">
-
-              {/* Concentric inner orbit ring */}
-              <div className="absolute inset-4 rounded-full border border-dashed border-[#06b6d4]/20 pointer-events-none" />
-
-              {/* Center Growth Display Card */}
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative z-10 w-full max-w-[270px] bg-white border border-[#dff6ff] rounded-[24px] p-5 shadow-xl text-left"
-              >
-                <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#dff6ff]">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#06b6d4] animate-pulse" />
-                    <span className="text-xs font-black text-[#0f172a] tracking-tight">Growth Velocity</span>
-                  </div>
-                  <span className="text-[10px] font-bold text-[#06b6d4] bg-[#f0fbff] border border-[#dff6ff] px-2 py-0.5 rounded-full">
-                    Live Engine
-                  </span>
-                </div>
-
-                {/* Sparkline & Metric */}
-                <div className="mb-3">
-                  <div className="text-[11px] font-medium text-[#64748b]">Total Audience Reach</div>
-                  <div className="text-2xl font-black text-[#0f172a] tracking-tight mt-0.5 flex items-baseline gap-2">
-                    <span>1.4M+</span>
-                    <span className="text-xs font-bold text-emerald-500">↑ 340%</span>
-                  </div>
-                </div>
-
-                {/* Minimal bar chart illustration */}
-                <div className="flex items-end justify-between gap-1.5 h-12 pt-2 border-t border-[#f0fbff]">
-                  {[35, 52, 65, 45, 80, 92, 100].map((h, idx) => (
-                    <div key={idx} className="flex-1 bg-[#dff6ff] hover:bg-[#06b6d4] rounded-t transition-colors h-full flex items-end">
-                      <div className="w-full bg-[#06b6d4] rounded-t transition-all" style={{ height: `${h}%` }} />
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Decorative 3x3 Dot Matrix Top-Right */}
-              <div className="absolute -top-3 -right-3 grid grid-cols-3 gap-1.5 opacity-35">
-                {[...Array(9)].map((_, i) => (
-                  <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#0f172a]" />
-                ))}
-              </div>
-
-              {/* Decorative 3x3 Dot Matrix Bottom-Left */}
-              <div className="absolute -bottom-3 -left-3 grid grid-cols-3 gap-1.5 opacity-35">
-                {[...Array(9)].map((_, i) => (
-                  <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-                ))}
-              </div>
-
-              {/* Floating Neo-Brutalist Pill Badge 1 (Top Left) */}
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -left-4 sm:-left-8 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
-              >
-                <span>⭐</span>
-                <span>30+ Happy Clients</span>
-              </motion.div>
-
-              {/* Floating Neo-Brutalist Pill Badge 2 (Top Right) */}
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="absolute top-8 -right-4 sm:-right-8 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
-              >
-                <span>🚀</span>
-                <span>1M+ Views Generated</span>
-              </motion.div>
-
-              {/* Floating Neo-Brutalist Pill Badge 3 (Bottom Left) */}
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -bottom-4 -left-3 sm:-left-6 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
-              >
-                <span>📈</span>
-                <span>5× Average ROI</span>
-              </motion.div>
-
-              {/* Floating Neo-Brutalist Pill Badge 4 (Bottom Right) */}
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                className="absolute bottom-6 -right-3 sm:-right-8 z-20 bg-white border-2 border-[#0f172a] text-[#0f172a] font-black text-[11px] sm:text-xs px-3.5 py-1.5 rounded-full shadow-[3px_3px_0px_#0f172a] flex items-center gap-1.5 whitespace-nowrap"
-              >
-                <span>⚡</span>
-                <span>SaaS & Web Engineered</span>
-              </motion.div>
-            </div>
-          </div>
-
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
-// ─── Ticker / Trust Bar ──────────────────────────────────────────────
-function TrustBar() {
-  const logos = [
-    { name: "Richi", src: Richilogo },
-    { name: "Krin Brin", src: KrinBrinlogo },
-    { name: "Savlo", src: Savlologo },
-    { name: "Kertam", src: kertamlogo },
-    { name: "Neoweb", src: neoweblogo },
-    { name: "Zoy", src: zoylogo },
-    { name: "Femi9", src: femi9logo },
-    { name: "Tryo", src: tryologo },
-    { name: "Pentacad Tech", src: pentacadtech },
-    { name: "Srijai Tech", src: srijaitechlogo },
-    { name: "Malar Traders", src: malartraderslogo },
-    { name: "Kandhan Cars", src: kandhancarslogo },
-    { name: "Dakshine", src: dakshinelogo },
-  ];
-
-  return (
-    <div className="bg-white border-y border-[#dff6ff] py-9 overflow-hidden">
-      <div className="text-center mb-6">
-        <span className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#0f172a]/60 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-          Trusted by 20+ Growing Brands
-        </span>
-      </div>
-
-      {/* Fade edges */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-        <div className="flex">
-          {[0, 1, 2].map((setIndex) => (
-            <div
-              key={setIndex}
-              className="flex items-center flex-shrink-0 animate-marquee pr-[56px]"
-              style={{ gap: "56px" }}
-            >
-              {logos.map((logo, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 flex items-center justify-center px-4 py-2.5 rounded-2xl bg-white border border-[#dff6ff] shadow-sm hover:border-[#06b6d4]/40 transition-all duration-300"
-                  title={logo.name}
-                >
-                  <img
-                    src={logo.src}
-                    alt={logo.name}
-                    className="h-12 w-auto max-w-[150px] object-contain opacity-95 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-          animation: marquee 25s linear infinite;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-// ─── What We Build / Services (MarkitUp Inspired) ─────────────────────
-const servicesData = [
-  {
-    num: "01",
-    category: "CONTENT & SOCIAL",
-    subtitle: "Make Your Brand Seen",
-    description: "We turn ideas into content people stop, watch and remember. High-retention reels, shorts, creative design, and monthly strategy.",
-    tag: "Instagram, YouTube & more",
-  },
-  {
-    num: "02",
-    category: "WEB & CONVERSION",
-    subtitle: "Turn Visitors Into Customers",
-    description: "Your website shouldn't just look good. We build high-converting websites, landing pages, and funnels engineered for real action.",
-    tag: "Websites, Funnels & SEO",
-  },
-  {
-    num: "03",
-    category: "PERFORMANCE MARKETING",
-    subtitle: "Reach The Right Audience",
-    description: "We combine scroll-stopping creative, precision targeting, and data to turn ad spend into qualified leads, sales, and sustainable ROAS.",
-    tag: "Meta Ads & Lead Gen",
-  },
-  {
-    num: "04",
-    category: "SAAS & TECHNOLOGY",
-    subtitle: "Build The System Behind You",
-    description: "We build the technology that powers your growth. Custom CRM, ERP, and automated workflows that help businesses scale effortlessly.",
-    tag: "Custom SaaS & CRM",
-  },
+// Client Logos Array
+const clientLogos = [
+  { name: "Richi", src: Richilogo },
+  { name: "Krin Brin", src: KrinBrinlogo },
+  { name: "Savlo", src: Savlologo },
+  { name: "Kertam", src: kertamlogo },
+  { name: "Neoweb", src: neoweblogo },
+  { name: "Zoy", src: zoylogo },
+  { name: "Femi9", src: femi9logo },
+  { name: "Tryo", src: tryologo },
+  { name: "Pentacad Tech", src: pentacadtech },
+  { name: "Srijai Tech", src: srijaitechlogo },
+  { name: "Malar Traders", src: malartraderslogo },
+  { name: "Kandhan Cars", src: kandhancarslogo },
+  { name: "Dakshine", src: dakshinelogo },
 ];
 
-// ─── Minimalist MarkitUp Service Card ────────────────────────────────
-function MarkitUpCard({ service, index }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      custom={index}
-      className="group relative bg-white border border-[#dff6ff]/80 rounded-[28px] p-8 sm:p-9 shadow-[0_10px_35px_-15px_rgba(6,182,212,0.08)] hover:shadow-[0_20px_45px_-12px_rgba(6,182,212,0.18)] hover:border-[#06b6d4]/40 transition-all duration-500 flex flex-col justify-between"
-      whileHover={{ y: -6 }}
-    >
-      <div>
-        {/* Top: Category Title & Number */}
-        <div className="flex items-center justify-between gap-2 mb-4">
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#06b6d4]">
-            {service.category}
-          </span>
-          <span className="text-xs font-mono font-bold text-[#0f172a]/20 group-hover:text-[#06b6d4] transition-colors">
-            {service.num}
-          </span>
-        </div>
+// 3x3 Grid Logo Slots for The Rush Republic auto-changing cards (2-second rotation)
+const logoGridSlots = [
+  // Row 1
+  [Richilogo, srijaitechlogo, malartraderslogo],
+  [KrinBrinlogo, kandhancarslogo, dakshinelogo],
+  [Savlologo, pentacadtech, Richilogo],
+  // Row 2
+  [kertamlogo, tryologo, KrinBrinlogo],
+  [neoweblogo, femi9logo, Savlologo],
+  [zoylogo, srijaitechlogo, kertamlogo],
+  // Row 3
+  [femi9logo, malartraderslogo, neoweblogo],
+  [tryologo, kandhancarslogo, zoylogo],
+  [pentacadtech, dakshinelogo, femi9logo],
+];
 
-        {/* Subtitle */}
-        <h3 className="text-xl sm:text-[1.35rem] font-bold text-[#0f172a] mb-4 leading-snug group-hover:text-[#0891b2] transition-colors">
-          {service.subtitle}
-        </h3>
+export default function Home({ setPage }) {
+  const [activeArticle, setActiveArticle] = useState(null);
+  const [activeVideoModal, setActiveVideoModal] = useState(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeReview, setActiveReview] = useState(0);
+  const [activeLogoStep, setActiveLogoStep] = useState(0);
 
-        {/* Clean Pitch Description */}
-        <p className="text-[#64748b] text-sm leading-relaxed mb-8 font-normal">
-          {service.description}
-        </p>
-      </div>
+  // Auto change logos every 2 seconds (Rush Republic style)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveLogoStep((prev) => (prev + 1) % 3);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
 
-      {/* Bottom Row: Tag & 3x3 Dot Grid Pattern (Signature MarkitUp) */}
-      <div className="pt-5 border-t border-[#dff6ff]/60 flex items-end justify-between gap-3">
-        <span className="text-[11px] font-semibold text-[#0f172a]/60 bg-[#f7fcff] border border-[#dff6ff] px-3 py-1.5 rounded-full truncate">
-          {service.tag}
-        </span>
+  // Lock body scroll and listen for Escape key when modals are active
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setActiveArticle(null);
+        setActiveVideoModal(null);
+      }
+    };
 
-        {/* Signature 3x3 geometric dot pattern */}
-        <div className="grid grid-cols-3 gap-1.5 opacity-30 group-hover:opacity-100 transition-all shrink-0">
-          {[...Array(9)].map((_, i) => (
-            <span
-              key={i}
-              className="w-1.5 h-1.5 rounded-full border border-[#0f172a] group-hover:border-[#06b6d4] group-hover:bg-[#06b6d4] transition-all"
-            />
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+    if (activeArticle || activeVideoModal) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
+    }
 
-// ─── What We Build Section (Streamlined & Minimalist) ─────────────────
-function ServicesSection({ setPage }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeArticle, activeVideoModal]);
 
-  return (
-    <section className="bg-[#f7fcff] py-24 sm:py-28 px-6 lg:px-10 relative overflow-hidden" ref={ref} id="services">
-      {/* Subtle ambient blur */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[250px] bg-[#06b6d4]/8 blur-[100px] pointer-events-none" />
+  // Form State
+  const [formData, setFormData] = useState({
+    name: "",
+    businessName: "",
+    phone: "",
+    email: "",
+    challenge: "",
+    services: [],
+  });
+  const [formStatus, setFormStatus] = useState("idle");
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Minimal Section Heading */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
-          variants={stagger}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <motion.div
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 bg-white border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.22em] px-4 py-1.5 rounded-full mb-4 shadow-sm"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4] animate-pulse" />
-            What We Build
-          </motion.div>
+  // Screen resize tracking for 3D perspective adjustments
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-          <motion.h2
-            variants={fadeUp}
-            custom={1}
-            className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3"
-          >
-            Our Services
-          </motion.h2>
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
-          <motion.p
-            variants={fadeUp}
-            custom={2}
-            className="text-lg font-serif italic text-[#06b6d4] mb-3"
-          >
-            We engineer attention that translates directly into revenue.
-          </motion.p>
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
 
-          <motion.p
-            variants={fadeUp}
-            custom={3}
-            className="text-[#64748b] text-sm sm:text-base max-w-lg mx-auto leading-relaxed"
-          >
-            From scroll-stopping reels to high-converting funnels and automated SaaS, we build the entire digital growth machine for your brand.
-          </motion.p>
-        </motion.div>
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) {
+      handleNextSlide();
+    } else if (diff < -50) {
+      handlePrevSlide();
+    }
+  };
 
-        {/* 4 Clean Minimalist Cards */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
-          variants={stagger}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {servicesData.map((service, i) => (
-            <MarkitUpCard
-              key={service.num}
-              service={service}
-              index={i}
-            />
-          ))}
-        </motion.div>
+  const handleNextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % caseStudies.length);
+  };
 
-        {/* Clean Call to Action */}
-        {setPage && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="text-center mt-12 sm:mt-16"
-          >
-            <button
-              onClick={() => setPage("contact")}
-              className="inline-flex items-center gap-2 bg-[#06b6d4] hover:bg-[#0891b2] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-8 py-4 rounded-full border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_#0f172a] transition-all"
-            >
-              <span>Discuss Your Project</span>
-              <span>→</span>
-            </button>
-          </motion.div>
-        )}
-      </div>
-    </section>
-  );
-}
+  const handlePrevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
+  };
 
-// ─── How It Works (MarkitUp Numbered Process) ─────────────────────────
-function HowItWorks() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const steps = [
-    { num: "01", icon: "📞", title: "Free Strategy Call", desc: "We learn your business, goals, and challenges in a 30-min call — no pressure, no sales pitch." },
-    { num: "02", icon: "🗺️", title: "Custom Growth Plan", desc: "We build a tailored strategy with clear milestones and expected outcomes specific to you." },
-    { num: "03", icon: "⚡", title: "Execution Begins", desc: "Our team starts creating, publishing, and optimizing. You see real deliverables within 72 hours." },
-    { num: "04", icon: "📊", title: "Results & Scaling", desc: "We track KPIs weekly, refine what converts, and scale the winning campaigns." },
+  const caseStudies = [
+    {
+      id: "hsiehhsu",
+      client: "HSIEH & HSU INDIA",
+      tag: "53x Revenue Revolution",
+      category: "Industrial Machinery",
+      image: screenshot1,
+      impact: "+240% Growth",
+      description: "How we transformed a world-class manufacturing giant into an international digital sensation.",
+    },
+    {
+      id: "richi",
+      client: "RICHI FOOD PRODUCTS",
+      tag: "Sweet Domination",
+      category: "FMCG & Food Retail",
+      image: campaign1,
+      impact: "₹18 Cost Per Lead",
+      description: "Crafting viral short-form creative campaigns that drove massive retail footfalls & direct orders.",
+    },
+    {
+      id: "mogi",
+      client: "MOGI E-COMMERCE",
+      tag: "Precision SEO Dominance",
+      category: "E-commerce & Ads",
+      image: screenshot2,
+      impact: "3× More Leads",
+      description: "Breaking through fierce retail category noise with targeted multi-funnel search campaigns.",
+    },
+    {
+      id: "kandhancars",
+      client: "KANDHAN CARS",
+      tag: "Hyperlocal Footfall Surge",
+      category: "Automotive & Retail",
+      image: campaign2,
+      impact: "4.8× Showroom Visits",
+      description: "Dominating local auto dealership search and delivering high-intent buyers straight to the lot.",
+    },
+    {
+      id: "saascrm",
+      client: "RISE CLOUD SAAS",
+      tag: "Autonomous Growth Engine",
+      category: "CRM & Automations",
+      image: campaign3,
+      impact: "99.4% Workflow Velocity",
+      description: "Automating omnichannel pipeline velocity and real-time WhatsApp conversion funnels.",
+    },
   ];
+
+  const get3DCardStyle = (diff) => {
+    if (diff === 0) {
+      // Active center card (100% visible, unobstructed, front-facing)
+      return {
+        x: 0,
+        rotateY: 0,
+        scale: 1,
+        opacity: 1,
+        zIndex: 30,
+        filter: "grayscale(0%)",
+        pointerEvents: "auto",
+      };
+    }
+
+    if (diff === 1) {
+      // 1st right card tilted in 3D (clean visible gap, zero overlap on active card)
+      return {
+        x: isMobile ? 320 : 440,
+        rotateY: isMobile ? -28 : -35,
+        scale: isMobile ? 0.88 : 0.9,
+        opacity: isMobile ? 0.75 : 0.95,
+        zIndex: 20,
+        filter: "grayscale(100%)",
+        pointerEvents: "auto",
+      };
+    }
+
+    if (diff === 2) {
+      // 2nd right card tilted in 3D
+      return {
+        x: isMobile ? 500 : 750,
+        rotateY: isMobile ? -38 : -45,
+        scale: isMobile ? 0.78 : 0.8,
+        opacity: isMobile ? 0.25 : 0.75,
+        zIndex: 10,
+        filter: "grayscale(100%)",
+        pointerEvents: isMobile ? "none" : "auto",
+      };
+    }
+
+    if (diff === 3) {
+      // 3rd right card tilted
+      return {
+        x: isMobile ? 650 : 1020,
+        rotateY: -54,
+        scale: 0.7,
+        opacity: isMobile ? 0 : 0.45,
+        zIndex: 5,
+        filter: "grayscale(100%)",
+        pointerEvents: "none",
+      };
+    }
+
+    if (diff === caseStudies.length - 1) {
+      // Card exiting to the left
+      return {
+        x: isMobile ? -260 : -380,
+        rotateY: 36,
+        scale: 0.85,
+        opacity: 0,
+        zIndex: 15,
+        filter: "grayscale(100%)",
+        pointerEvents: "none",
+      };
+    }
+
+    // Default hidden off-screen
+    return {
+      x: isMobile ? 700 : 1200,
+      rotateY: -60,
+      scale: 0.6,
+      opacity: 0,
+      zIndex: 0,
+      filter: "grayscale(100%)",
+      pointerEvents: "none",
+    };
+  };
+
+  const articles = [
+    {
+      id: 1,
+      category: "Digital",
+      readTime: "8 min read",
+      title: "How to Create Campaigns That Get Results Fast",
+      tag: "Real-world strategies to supercharge brand velocity.",
+      intro: "In today's hyper-saturated feed, standard marketing campaigns fail not because of budget, but because of slow iteration and weak creative hooks. Here is the rapid-deployment framework we use to generate immediate traction.",
+      sections: [
+        {
+          heading: "1. The 3-Second Hook Rule",
+          text: "If your creative doesn't capture qualified attention within the first 3 seconds, 85% of viewers scroll away. Test 5 distinctly different visual and verbal hooks for every single core campaign concept.",
+        },
+        {
+          heading: "2. Offer Architecture Over Ad Copy",
+          text: "The greatest copy cannot save an ambiguous offer. Structure your proposition around solving one distinct pain point with transparent pricing, zero friction, and clear proof of results.",
+        },
+        {
+          heading: "3. Algorithmic Budget Scaling",
+          text: "Start with agile test budgets across broad audiences. Let Meta's machine learning identify high-intent buyer clusters, and scale only when Cost Per Acquisition (CPA) stabilizes below your target threshold.",
+        },
+      ],
+      takeaway: "Never optimize for vanity metrics like clicks or impressions. Optimize exclusively for qualified leads, pipeline velocity, and direct revenue.",
+      stat: "+340% Revenue Velocity",
+    },
+    {
+      id: 2,
+      category: "Product",
+      readTime: "6 min read",
+      title: "The Psychology Behind Buying Decisions",
+      tag: "How to tap into real consumer behaviour and drive action.",
+      intro: "Consumers don't buy products based on raw features; they make emotional decisions and justify them with logic. Understanding core cognitive drivers separates stagnant brands from category leaders.",
+      sections: [
+        {
+          heading: "1. Loss Aversion & Ethical Urgency",
+          text: "People are twice as motivated by the prospect of avoiding a loss than gaining a benefit. Frame your service around what they forfeit by maintaining the status quo.",
+        },
+        {
+          heading: "2. The Power of Social Validation",
+          text: "Generic testimonials don't convert. Specific, metric-backed case studies (e.g. 'How Anandhaas gained 53x revenue') build immediate trust and eliminate purchase anxiety.",
+        },
+        {
+          heading: "3. Friction Elimination",
+          text: "Every extra form field, slow page load, or ambiguous checkout step drops conversions by 12%. Make reaching your brand as effortless as a single WhatsApp tap.",
+        },
+      ],
+      takeaway: "Eliminate cognitive overload. A single, focused call-to-action consistently out-converts cluttered option menus.",
+      stat: "5.3× Average ROAS",
+    },
+    {
+      id: 3,
+      category: "Software Engineering",
+      readTime: "7 min read",
+      title: "5 Signs Your Brand Needs a Digital Revamp",
+      tag: "Is your platform falling behind? Here is the blueprint.",
+      intro: "Your digital presence is the primary storefront for your enterprise. If your systems are sluggish, disconnected, or outdated, you are silently leaking high-value customers every day.",
+      sections: [
+        {
+          heading: "1. High Bounce Rate (>60%)",
+          text: "If mobile visitors leave within 4 seconds, your site is too slow, confusing, or poorly formatted for modern smartphones.",
+        },
+        {
+          heading: "2. Manual Lead Management",
+          text: "If incoming inquiries sit in spreadsheets or unread inboxes instead of automated CRM workflows, 70% of high-intent leads go cold within 15 minutes.",
+        },
+        {
+          heading: "3. Low Paid Ad ROAS",
+          text: "Sending expensive paid traffic to an outdated homepage is burning capital. You need dedicated, fast, high-converting landing funnels.",
+        },
+      ],
+      takeaway: "A website revamp is not a cosmetic coat of paint; it is an engineered commercial growth engine designed to convert traffic into revenue.",
+      stat: "72h Modernization Speed",
+    },
+    {
+      id: 4,
+      category: "Performance",
+      readTime: "5 min read",
+      title: "The Social Media & Meta Ads Playbook for 2026",
+      tag: "Unleash scalable customer acquisition built for the now.",
+      intro: "The era of manual interest hacks and cookie-cutter ad copy is over. The 2026 Meta ads algorithm rewards authentic short-form retention creative, consolidated ad structures, and first-party data capture.",
+      sections: [
+        {
+          heading: "1. Vertical Video Dominance",
+          text: "9:16 authentic retention reels consistently outperform high-cost studio commercials in Cost Per Acquisition across retail, FMCG, and service industries.",
+        },
+        {
+          heading: "2. Creative Fatigue Management",
+          text: "Winning creatives experience fatigue every 12-16 days. Establish an agile weekly production cadence to refresh creative angles without resetting ad sets.",
+        },
+        {
+          heading: "3. Direct WhatsApp & Automated Funnels",
+          text: "In South India and emerging markets, directing Meta ads to automated WhatsApp flows increases conversion speed by over 300% compared to standard email forms.",
+        },
+      ],
+      takeaway: "Treat social creative as your primary targeting tool. The creative hook qualifies the buyer before they ever click your link.",
+      stat: "1.4M+ Views Generated",
+    },
+  ];
+
+  const testimonials = [
+    {
+      author: "Ahkila",
+      initial: "A",
+      role: "Founder, Krin Brin School",
+      brand: "Krin Brin School",
+      quote:
+        "Within 3 months we went from 0 to 4 lakh in monthly revenue. The team just gets it — strategy, execution, everything.",
+      avatarBg: "from-[#12b7d4] to-[#0284c7]",
+    },
+    {
+      author: "Saranya",
+      initial: "S",
+      role: "Founder, saranyaelitebridalstudio",
+      brand: "Saranya Elite Bridal Studio",
+      quote:
+        "I was getting 45 leads a month. Now I get 10+ qualified leads monthly. The WhatsApp automation alone saved me hours.",
+      avatarBg: "from-[#12b7d4] to-[#0ea5c0]",
+    },
+    {
+      author: "Prem Charlesr",
+      initial: "P",
+      role: "Founder, Allinov",
+      brand: "Allinov",
+      quote:
+        "I've hired agencies before — these guys are a completely different level.",
+      avatarBg: "from-[#12b7d4] to-[#38bdf8]",
+    },
+  ];
+
+  const toggleService = (srv) => {
+    setFormData((prev) => {
+      const exists = prev.services.includes(srv);
+      return {
+        ...prev,
+        services: exists
+          ? prev.services.filter((s) => s !== srv)
+          : [...prev.services, srv],
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+
+    const templateParams = {
+      user_name: formData.name,
+      user_email: formData.email,
+      phone: formData.phone,
+      company: formData.businessName,
+      message: `Challenge: ${formData.challenge} | Services: ${formData.services.join(", ")}`,
+    };
+
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
+      .then(() => {
+        setFormStatus("success");
+        setFormData({
+          name: "",
+          businessName: "",
+          phone: "",
+          email: "",
+          challenge: "",
+          services: [],
+        });
+      })
+      .catch((err) => {
+        console.error("Form error:", err);
+        setFormStatus("error");
+      });
+  };
+
   return (
-    <section ref={ref} className="bg-white py-24 sm:py-28 px-6 lg:px-10">
-      <div className="max-w-6xl mx-auto">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            Our Process
-          </motion.div>
-          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            How We Work
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
-            A simple, proven process to get you from zero to consistent growth.
-          </motion.p>
-        </motion.div>
-
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              custom={i}
-              className="group bg-[#f7fcff] border border-[#dff6ff] rounded-[26px] p-7 shadow-sm hover:shadow-lg hover:border-[#06b6d4]/40 hover:bg-white transition-all duration-400 flex flex-col justify-between"
-              whileHover={{ y: -5 }}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-black font-mono text-[#06b6d4]">{step.num}</span>
-                  <div className="w-10 h-10 rounded-2xl bg-white border border-[#dff6ff] flex items-center justify-center text-xl shadow-sm">
-                    {step.icon}
-                  </div>
-                </div>
-                <h3 className="text-[#0f172a] font-bold text-base mb-2 group-hover:text-[#0891b2] transition-colors">{step.title}</h3>
-                <p className="text-[#64748b] text-sm leading-relaxed font-normal">{step.desc}</p>
-              </div>
-
-              {/* Signature 3x3 dot matrix */}
-              <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
-                <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
-                  {[...Array(9)].map((_, idx) => (
-                    <span key={idx} className="w-1 h-1 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ─── AI Automation ───────────────────────────────────────────────────
-function AISection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const items = ["WhatsApp Automation", "CRM Setup", "Auto Reply Bots", "Lead Tracking Systems", "AI Tools for Business", "Custom Automations"];
-  return (
-    <section ref={ref} className="bg-[#0f172a] py-24 px-6 relative overflow-hidden">
-      <div className="absolute top-[-80px] right-[-80px] w-[340px] h-[340px] rounded-full bg-[#06b6d4]/15 blur-[90px]" />
-      <div className="absolute bottom-[-60px] left-[-60px] w-[260px] h-[260px] rounded-full bg-[#dff6ff]/10 blur-[80px]" />
-      <div className="absolute inset-0 opacity-[0.04]"
-        style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "50px 50px" }} />
-
-      <div className="max-w-5xl mx-auto relative z-10">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-white/10 border border-white/15 px-4 py-1.5 rounded-full text-xs font-bold text-[#06b6d4] uppercase tracking-widest mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-              SaaS & Automations
-            </motion.div>
-            <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-              AI Automation<br />& CRM Solutions
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-[#9ca3af] mb-8 leading-relaxed">
-              We automate your business so you save time and never miss a lead. Our AI-powered systems work 24/7 while you focus on what matters.
-            </motion.p>
-            <motion.div variants={stagger} initial="hidden" animate={inView ? "show" : "hidden"}
-              className="grid grid-cols-2 gap-3">
-              {items.map((item, i) => (
-                <motion.div key={i} variants={fadeUp} custom={i}
-                  className="flex items-center gap-2 text-sm text-[#d1d5db]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4] flex-shrink-0" />
-                  {item}
-                </motion.div>
-              ))}
-            </motion.div>
+    <main className="bg-white pt-20 sm:pt-[88px]">
+      
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 1: HERO BANNER (The Rush Republic Open Minimalist Hero)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection
+        className="bg-white pt-4 sm:pt-5 lg:pt-7 pb-16 lg:pb-20 border-b border-[#eaeaea] relative overflow-hidden"
+        style={{
+          backgroundImage: "radial-gradient(#e5e7eb 1.5px, transparent 1.5px)",
+          backgroundSize: "32px 32px",
+        }}
+      >
+        <div className="rush-container text-center relative z-10">
+          
+          {/* Centered Brand Badge & Logo (Above Digital Marketing) */}
+          <div className="flex items-center justify-center mb-5 sm:mb-6">
+            <div className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white border border-[#eaeaea] shadow-xs hover:border-[#12b7d4] transition-all duration-300 group cursor-default">
+              <img
+                src="/logo.png"
+                alt="Rise With Media Logo"
+                className="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:scale-110 transition-transform"
+              />
+              <span className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#000000] font-['Manrope']">
+                Rise With <span className="text-[#12b7d4]">Media</span>
+              </span>
+            </div>
           </div>
 
-          <motion.div variants={fadeUp} custom={3} className="relative flex items-center justify-center">
-            <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute w-56 h-56 rounded-full border border-dashed border-[#06b6d4]/20" />
+          {/* Main Display Headline */}
+          <div className="max-w-5xl mx-auto mb-8">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] leading-[1.0] mb-3 font-['Manrope']">
+              Digital Marketing That
+            </h1>
+            <div className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] tracking-normal">
+              Thrills, <span className="text-[#12b7d4]">Converts</span> and Delivers.
+            </div>
+          </div>
 
-            <div className="bg-white/5 border border-white/10 backdrop-blur-sm rounded-3xl p-8 text-center max-w-xs w-full">
-              <div className="text-5xl mb-4">🤖</div>
-              <p className="text-white font-bold text-base mb-2">AI-First Approach</p>
-              <p className="text-[#9ca3af] text-sm leading-relaxed">
-                From WhatsApp bots to full CRM automation — we build intelligent systems that grow with your business.
+          {/* Sub-Hero CTAs */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <button
+              onClick={() => setPage("contact")}
+              className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:bg-[#12b7d4] hover:text-white transition-all"
+            >
+              Get Started
+            </button>
+            <button
+              onClick={() => setPage("works")}
+              className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm"
+            >
+              View Case Studies
+            </button>
+          </div>
+
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 2: RESULTS SPEAK LOUDER (The Rush Republic 3D Card Deck)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 xl:gap-16">
+            
+            {/* Left Column: Big Vertically Stacked Title & Tilted Sticker Button */}
+            <div className="w-full lg:w-[38%] xl:w-[35%] flex flex-col justify-center select-none flex-shrink-0 mb-8 lg:mb-0">
+              <div className="relative inline-block">
+                <h2 className="text-6xl sm:text-7xl lg:text-8xl xl:text-[6.4rem] font-black uppercase tracking-tight text-[#000000] leading-[0.88] font-['Manrope']">
+                  RESULTS<br />
+                  SPEAK<br />
+                  LOUDER
+                </h2>
+                {/* Tilted Sticker Button like Rush Republic */}
+                <button
+                  type="button"
+                  onClick={() => setPage("works")}
+                  className="absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-5 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-[#12b7d4] hover:text-white hover:border-[#12b7d4] hover:shadow-[4px_4px_0px_rgba(18,183,212,1)] hover:-rotate-[2deg] hover:scale-105 transition-all cursor-pointer z-20"
+                >
+                  View Case Studies
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: 3D Perspective Card Deck with clean spacing & zero overlap */}
+            <div className="w-full lg:w-[62%] xl:w-[65%] relative h-[520px] sm:h-[550px] lg:h-[580px] flex items-center justify-start overflow-visible [perspective:1400px]">
+              <div
+                className="relative w-full h-full flex items-center [transform-style:preserve-3d]"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                {caseStudies.map((cs, idx) => {
+                  const diff = (idx - activeSlide + caseStudies.length) % caseStudies.length;
+                  const isCurrent = diff === 0;
+                  const cardStyle = get3DCardStyle(diff);
+
+                  return (
+                    <motion.div
+                      key={cs.id}
+                      animate={cardStyle}
+                      transition={{
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 28,
+                        mass: 0.85,
+                      }}
+                      style={{
+                        transformStyle: "preserve-3d",
+                        transformOrigin: "left center",
+                      }}
+                      onClick={() => {
+                        if (!isCurrent) {
+                          setActiveSlide(idx);
+                        }
+                      }}
+                      className={`absolute left-0 top-1/2 -translate-y-1/2 w-[290px] sm:w-[350px] lg:w-[380px] xl:w-[400px] h-[470px] sm:h-[510px] lg:h-[540px] xl:h-[560px] rounded-[28px] bg-[#141414] text-white overflow-hidden shadow-2xl select-none flex flex-col border border-neutral-800 ${
+                        isCurrent ? "cursor-default" : "cursor-pointer hover:border-[#12b7d4]/60"
+                      }`}
+                    >
+                      {/* Card Top Image */}
+                      <div className="relative w-full h-[260px] sm:h-[290px] lg:h-[310px] xl:h-[320px] bg-[#1a1a1a] overflow-hidden">
+                        <img
+                          src={cs.image}
+                          alt={cs.client}
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Soft gradient overlay for text readability */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-black/20 pointer-events-none" />
+
+                        {/* Navigation Arrows on Active Card (Rush Republic exact placement) */}
+                        {isCurrent && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handlePrevSlide();
+                              }}
+                              className="absolute left-4 bottom-4 w-11 h-11 rounded-full bg-black/85 hover:bg-[#12b7d4] text-white flex items-center justify-center transition-all cursor-pointer shadow-xl border border-white/10 active:scale-95 z-30"
+                              aria-label="Previous card"
+                            >
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                              </svg>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleNextSlide();
+                              }}
+                              className="absolute right-4 bottom-4 w-11 h-11 rounded-full bg-black/85 hover:bg-[#12b7d4] text-white flex items-center justify-center transition-all cursor-pointer shadow-xl border border-white/10 active:scale-95 z-30"
+                              aria-label="Next card"
+                            >
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                              </svg>
+                            </button>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Card Bottom Content */}
+                      <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                        <div>
+                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Manrope'] tracking-tight mb-2 leading-tight">
+                            {cs.client}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-[#888888] leading-relaxed line-clamp-2 mb-4 font-normal">
+                            {cs.description}
+                          </p>
+                        </div>
+
+                        {/* Bottom Pill Badge */}
+                        <div className="pt-2">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setPage("works");
+                            }}
+                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-xs font-black uppercase tracking-wider shadow-sm hover:bg-[#12b7d4] hover:text-white transition-colors cursor-pointer"
+                          >
+                            <span>{cs.tag}</span>
+                            <span className="text-[#12b7d4] font-black group-hover:text-white">→</span>
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 3: BUILT FOR THE NOW (Manifesto Split Layout)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-6 flex flex-col items-start">
+              <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#000000] leading-[1.05] mb-6 font-['Manrope']">
+                Built for the Now
+              </h2>
+
+              <p className="text-base sm:text-lg text-[#444444] font-medium leading-relaxed mb-8">
+                Rise With Media isn’t just an agency. We’re the engine driving modern brands forward. For years, we’ve relentlessly engineered bold ideas, content engines, and high-converting systems that defy expectations.
               </p>
+
+              <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#000000] mb-4 font-['Manrope']">
+                Agency for the <span className="text-[#12b7d4]">Now</span>
+              </h3>
+
+              <p className="text-base sm:text-lg text-[#444444] font-medium leading-relaxed mb-8">
+                Unafraid, unrelenting and unapologetically obsessed with making your brand a force to be reckoned with. When others stop at “good enough,” we go all the way. We’re not here to fit in, we’re here to scale.
+              </p>
+
+              <button
+                onClick={() => setPage("contact")}
+                className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer"
+              >
+                Contact us
+              </button>
             </div>
 
-            <div className="absolute left-0 top-4 space-y-2">
-              {[
-                { label: "Response Rate", val: "99%", color: "bg-[#0f172a]" },
-                { label: "Lead Capture", val: "24/7", color: "bg-[#06b6d4]" },
-                { label: "Time Saved", val: "4h/day", color: "bg-[#67e8f9]" },
-              ].map((m, i) => (
-                <motion.div key={i} initial={{ x: -30, opacity: 0 }} animate={inView ? { x: 0, opacity: 1 } : {}}
-                  transition={{ delay: 0.4 + i * 0.15, duration: 0.5 }}
-                  className={`${m.color} backdrop-blur-sm rounded-xl px-3 py-2 text-xs font-bold text-white`}>
-                  {m.val} <span className="font-normal opacity-80">{m.label}</span>
-                </motion.div>
-              ))}
+            {/* Right Media Card Column */}
+            <div className="lg:col-span-6">
+              <div className="relative rounded-3xl overflow-hidden border border-[#eaeaea] bg-black aspect-[4/3] shadow-xl">
+                <video
+                  src={reel2}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <span className="tag-bubble bg-[#12b7d4] text-white mb-2">
+                    Rise Production Core
+                  </span>
+                  <p className="text-xl font-black uppercase tracking-tight text-white mt-1">
+                    Engineered Attention That Converts
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity }}
-              className="absolute right-0 top-6 bg-white/10 border border-white/15 backdrop-blur-sm rounded-2xl px-3 py-2 text-xs text-white font-semibold">
-              🔔 New Lead
-            </motion.div>
-            <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 3.5, repeat: Infinity, delay: 1 }}
-              className="absolute right-0 bottom-6 bg-[#06b6d4]/20 border border-[#06b6d4]/30 backdrop-blur-sm rounded-2xl px-3 py-2 text-xs text-white font-semibold">
-              ✅ Auto-replied
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+          </div>
+        </div>
+      </ScrollSection>
 
-// ─── Results (MarkitUp Styled Metric Cards) ───────────────────────────
-function ResultsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const cases = [
-    { client: "School Brand", metric: "340", suffix: "%", label: "Revenue Growth in 60 Days", tag: "Meta Ads + Content" },
-    { client: "Bridal Studio", metric: "120", suffix: "+", label: "Qualified Leads / Month", tag: "Lead Gen + Automation" },
-    { client: "Coaching Business", metric: "28", suffix: "L+", label: "Organic Views in 60 Days", tag: "Short-Form Content" },
-  ];
-  return (
-    <section ref={ref} className="bg-[#f7fcff] py-24 sm:py-28 px-6 lg:px-10">
-      <div className="max-w-5xl mx-auto">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-white border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            Real Results
-          </motion.div>
-          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            Numbers That Speak
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
-            Not claims — actual metrics delivered for real clients.
-          </motion.p>
-        </motion.div>
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 4: R.O.A.R / RISE INSIGHTS
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          
+          {/* Header */}
+          <div className="max-w-3xl mb-12">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] leading-none mb-3 font-['Manrope']">
+              Republic Of Results<br />
+              R.O.A.R
+            </h2>
+            <div className="font-script text-2xl sm:text-3xl text-[#555555]">
+              We don’t just write about trends, we <span className="text-[#12b7d4]">create</span> them.
+            </div>
+          </div>
 
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-3 gap-6">
-          {cases.map((c, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i}
-              className="group bg-white border border-[#dff6ff] rounded-[28px] p-8 hover:border-[#06b6d4]/40 hover:shadow-xl hover:shadow-[#06b6d4]/10 transition-all duration-400 flex flex-col justify-between"
-              whileHover={{ y: -6 }}>
-              <div>
-                <div className="inline-flex items-center bg-[#f7fcff] border border-[#dff6ff] rounded-full px-3.5 py-1 text-xs font-semibold text-[#0f172a]/60 mb-6 shadow-sm">
-                  {c.tag}
+          {/* Articles Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {articles.map((art) => (
+              <div
+                key={art.id}
+                onClick={() => setActiveArticle(art)}
+                className="group rounded-2xl border border-[#eaeaea] p-6 flex flex-col justify-between hover:border-[#12b7d4] transition-all duration-300 cursor-pointer bg-white"
+              >
+                <div>
+                  {/* Category & Read time */}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="tag-bubble-cyan text-[11px] py-1 px-3">
+                      {art.category}
+                    </span>
+                    <span className="text-xs font-semibold text-[#888888]">
+                      {art.readTime}
+                    </span>
+                  </div>
+
+                  {/* Article Title */}
+                  <h3 className="text-lg font-bold text-[#000000] group-hover:text-[#12b7d4] transition-colors leading-snug mb-3 font-['Manrope']">
+                    {art.title}
+                  </h3>
+
+                  <p className="text-xs text-[#666666] leading-relaxed">
+                    {art.tag}
+                  </p>
                 </div>
-                <div className="text-5xl font-black text-[#06b6d4] tracking-tight mb-2">
-                  <AnimatedCounter end={c.metric} suffix={c.suffix} />
-                </div>
-                <p className="text-[#64748b] text-sm mb-4 font-normal">{c.label}</p>
-                <p className="text-[#0f172a] font-bold text-sm">{c.client}</p>
-              </div>
 
-              {/* 3x3 Dot Pattern */}
-              <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
-                <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
-                  {[...Array(9)].map((_, idx) => (
-                    <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
-                  ))}
+                {/* Read post link */}
+                <div className="mt-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-bold text-black group-hover:text-[#12b7d4] transition-colors">
+                  <span>Read post</span>
+                  <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
+                    ↗
+                  </span>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+            ))}
+          </div>
 
-// ─── Why Us (MarkitUp Grid Cards) ────────────────────────────────────
-function WhyUs() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const reasons = [
-    { icon: "🎯", title: "Strategy First", desc: "We don't just post content — we build growth systems with clear KPIs and monthly reviews." },
-    { icon: "🤝", title: "Dedicated Team", desc: "You get a team of specialists, not a single freelancer juggling 20 clients at once." },
-    { icon: "📊", title: "Full Transparency", desc: "Weekly reports and honest communication. No vanity metrics, no fluff." },
-    { icon: "⚡", title: "Fast Execution", desc: "Most clients see first deliverables within 72 hours of onboarding. We move fast." },
-    { icon: "🔒", title: "No Lock-in Contracts", desc: "Month-to-month plans with no long-term commitment. We earn your trust every month." },
-    { icon: "🌐", title: "Multi-Channel Expertise", desc: "From Instagram to Google Ads — we manage your entire digital presence." },
-  ];
-  return (
-    <section ref={ref} className="bg-white py-24 sm:py-28 px-6 lg:px-10">
-      <div className="max-w-6xl mx-auto">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            Why Us
-          </motion.div>
-          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            What Makes Us Different
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
-            Built for performance, transparency, and relentless execution.
-          </motion.p>
-        </motion.div>
+        </div>
+      </ScrollSection>
 
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-3 gap-6">
-          {reasons.map((r, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i}
-              className="group bg-[#f7fcff] border border-[#dff6ff] rounded-[26px] p-7 hover:border-[#06b6d4]/40 hover:bg-white hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
-              whileHover={{ y: -4 }}>
-              <div>
-                <div className="text-3xl mb-4">{r.icon}</div>
-                <h3 className="text-[#0f172a] font-bold text-base mb-2 group-hover:text-[#0891b2] transition-colors">{r.title}</h3>
-                <p className="text-[#64748b] text-sm leading-relaxed font-normal">{r.desc}</p>
-              </div>
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 5: TRUSTED BY VISIONARIES (The Rush Republic Split 3x3 Auto-Changing Grid)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            {/* Left Column: Stacked Massive Headline */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Manrope']">
+                Trusted by<br />
+                Visionaries,<br />
+                Admired by the<br />
+                <span className="text-[#12b7d4]">Best</span>
+              </h2>
+            </div>
 
-              {/* 3x3 Dot Pattern */}
-              <div className="pt-6 mt-4 border-t border-[#dff6ff]/60 flex justify-end">
-                <div className="grid grid-cols-3 gap-1 opacity-20 group-hover:opacity-100 transition-opacity">
-                  {[...Array(9)].map((_, idx) => (
-                    <span key={idx} className="w-1 h-1 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Testimonials (MarkitUp Avatar with Quote Badge) ─────────────────
-function Testimonials() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const reviews = [
-    { name: "Ahkila", role: "Retail Brand Founder", text: "Within 3 months we went from 0 to 4 lakh in monthly revenue. The team just gets it — strategy, execution, everything." },
-    { name: "Saranya", role: "Bridal Studio Owner", text: "I was getting 4-5 leads a month. Now I get 10+ qualified leads monthly. The WhatsApp automation alone saved me hours." },
-    { name: "Prem Charles", role: "EdTech Director", text: "I've hired agencies before — these guys are a completely different level. Professional, fast, and metric-focused." },
-  ];
-  return (
-    <section ref={ref} className="bg-[#f7fcff] py-24 sm:py-28 px-6 lg:px-10">
-      <div className="max-w-6xl mx-auto">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-white border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            Testimonials
-          </motion.div>
-          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            What Clients Say
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
-            Real feedback from business leaders we've helped scale.
-          </motion.p>
-        </motion.div>
-
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-          className="grid md:grid-cols-3 gap-6">
-          {reviews.map((r, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i}
-              className="group bg-white border border-[#dff6ff] rounded-[28px] p-8 hover:border-[#06b6d4]/40 hover:shadow-xl hover:shadow-[#06b6d4]/10 transition-all duration-400 flex flex-col justify-between"
-              whileHover={{ y: -5 }}>
-              <div>
-                {/* Avatar with MarkitUp overlapping quote badge */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="relative">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#06b6d4] to-[#dff6ff] flex items-center justify-center text-white font-black text-base shadow-sm">
-                      {r.name[0]}
-                    </div>
-                    {/* Quote bubble badge */}
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#0f172a] text-[#06b6d4] flex items-center justify-center text-[11px] font-black border-2 border-white shadow-xs">
-                      "
+            {/* Right Column: 3x3 Auto-Changing Logo Cards (Every 2 seconds, full color) */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
+                {logoGridSlots.map((slot, idx) => (
+                  <div
+                    key={idx}
+                    className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
+                  >
+                    <div
+                      className="w-full h-full flex flex-col transition-transform duration-700 ease-in-out"
+                      style={{
+                        transform: `translateY(-${activeLogoStep * 100}%)`,
+                        transitionDelay: `${(idx % 3) * 60}ms`,
+                      }}
+                    >
+                      {slot.map((logoSrc, logoIdx) => (
+                        <div
+                          key={logoIdx}
+                          className="w-full h-full shrink-0 flex items-center justify-center p-2"
+                        >
+                          <img
+                            src={logoSrc}
+                            alt="Client Partner"
+                            className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain"
+                          />
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  <div>
-                    <p className="text-[#0f172a] font-bold text-sm">{r.name}</p>
-                    <p className="text-[#64748b] text-xs">{r.role}</p>
-                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 6: OUR SATISFIED CLIENTS (The Rush Republic Dark Section)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-[#000000] text-white py-20 lg:py-28 overflow-hidden">
+        <div className="rush-container">
+          
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+            <div>
+              <span className="tag-bubble bg-[#12b7d4] text-white mb-4">
+                Testimonials
+              </span>
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Manrope']">
+                Our Satisfied<br /><span className="text-[#12b7d4]">Clients</span>
+              </h2>
+            </div>
+
+            {/* Arrows */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setActiveReview((prev) => (prev > 0 ? prev - 1 : testimonials.length - 1))}
+                className="w-12 h-12 rounded-full border border-white/30 text-white hover:bg-[#12b7d4] hover:text-white hover:border-[#12b7d4] flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Previous Review"
+              >
+                ←
+              </button>
+              <button
+                onClick={() => setActiveReview((prev) => (prev < testimonials.length - 1 ? prev + 1 : 0))}
+                className="w-12 h-12 rounded-full bg-[#12b7d4] text-white hover:bg-white hover:text-black flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Next Review"
+              >
+                →
+              </button>
+            </div>
+          </div>
+
+          {/* Testimonial Active Card */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#111111] border border-[#222222] rounded-3xl p-8 sm:p-12">
+            
+            <div className="lg:col-span-8 flex flex-col justify-between">
+              <div>
+                {/* 5 Stars Rating */}
+                <div className="flex items-center gap-1.5 mb-5 text-[#12b7d4] text-lg sm:text-xl">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
 
-                {/* Stars */}
-                <div className="flex gap-1 mb-4 text-amber-400 text-xs">
-                  {[...Array(5)].map((_, j) => <span key={j}>★</span>)}
-                </div>
-
-                <p className="text-[#334155] text-sm leading-relaxed font-normal">
-                  "{r.text}"
+                <span className="text-xs font-bold uppercase tracking-widest text-[#12b7d4] mb-3 block">
+                  {testimonials[activeReview].brand}
+                </span>
+                
+                <p className="text-xl sm:text-2xl lg:text-3xl font-normal text-white/90 leading-relaxed mb-8">
+                  "{testimonials[activeReview].quote}"
                 </p>
               </div>
 
-              {/* Signature 3x3 dot matrix */}
-              <div className="pt-6 mt-6 border-t border-[#dff6ff]/60 flex justify-end">
-                <div className="grid grid-cols-3 gap-1 opacity-25 group-hover:opacity-100 transition-opacity">
-                  {[...Array(9)].map((_, idx) => (
-                    <span key={idx} className="w-1.5 h-1.5 rounded-full bg-[#0f172a] group-hover:bg-[#06b6d4] transition-colors" />
-                  ))}
+              <div>
+                <h4 className="text-xl font-black text-white font-['Manrope']">
+                  {testimonials[activeReview].author}
+                </h4>
+                <p className="text-sm text-neutral-400 font-medium mt-1">
+                  {testimonials[activeReview].role}
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 flex justify-center">
+              <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Manrope'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
+                {testimonials[activeReview].initial}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 7: OUR INITIATIVES (AKA PROFESSIONAL HOBBY)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          
+          <div className="max-w-3xl mb-12">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Manrope']">
+              Our Initiatives
+            </h2>
+            <div className="font-script text-2xl sm:text-3xl text-[#555555]">
+              AKA <span className="text-[#12b7d4]">professional hobby</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Initiative 1 */}
+            <div className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-all group">
+              <div className="aspect-video rounded-2xl overflow-hidden bg-black mb-6">
+                <video
+                  src={reel1}
+                  controls
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-black uppercase text-black font-['Manrope']">
+                    Rise Creators Lab
+                  </h3>
+                  <p className="text-xs text-[#666666] mt-1">Short-form storytelling & retention reels</p>
+                </div>
+                <a
+                  href="https://www.instagram.com/risewithmedia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-[#12b7d4] text-white flex items-center justify-center hover:bg-black hover:scale-105 transition-all"
+                >
+                  ↗
+                </a>
+              </div>
+            </div>
+
+            {/* Initiative 2 */}
+            <div className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-all group">
+              <div className="aspect-video rounded-2xl overflow-hidden bg-black mb-6">
+                <video
+                  src={reel2}
+                  controls
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-black uppercase text-black font-['Manrope']">
+                    Autonomous SaaS Studio
+                  </h3>
+                  <p className="text-xs text-[#666666] mt-1">Custom CRM, hospital ERP & AI workflows</p>
+                </div>
+                <button
+                  onClick={() => setPage("works")}
+                  className="w-10 h-10 rounded-full bg-[#12b7d4] text-white flex items-center justify-center hover:bg-black hover:scale-105 transition-all cursor-pointer"
+                >
+                  ↗
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION 8: CTA FORM (LET’S CONNECT TO CREATE MAGIC!)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection id="CTA" className="bg-[#000000] text-white py-20 lg:py-28">
+        <div className="rush-container">
+          
+          <div className="max-w-4xl mx-auto">
+            
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-3 font-['Manrope']">
+                Let’s Connect to <span className="text-[#12b7d4]">Create Magic!</span>
+              </h2>
+              <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+                Tell us a little about your brand and we’ll bring big ideas to the table.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              
+              {/* Row 1: Name & Business Name */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  required
+                  placeholder="Name: (Who are we talking to?)"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-[#111111] border border-[#2b2b2b] rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#12b7d4] transition-colors"
+                />
+                <input
+                  type="text"
+                  required
+                  placeholder="Your Business Name"
+                  value={formData.businessName}
+                  onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
+                  className="w-full bg-[#111111] border border-[#2b2b2b] rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#12b7d4] transition-colors"
+                />
+              </div>
+
+              {/* Row 2: Phone & Email */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="tel"
+                  required
+                  placeholder="Phone: (Let's talk business)"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full bg-[#111111] border border-[#2b2b2b] rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#12b7d4] transition-colors"
+                />
+                <input
+                  type="email"
+                  required
+                  placeholder="Email: (How do we reach you?)"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-[#111111] border border-[#2b2b2b] rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#12b7d4] transition-colors"
+                />
+              </div>
+
+              {/* Row 3: Challenge */}
+              <input
+                type="text"
+                placeholder="Write one line about your business challenge..."
+                value={formData.challenge}
+                onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
+                className="w-full bg-[#111111] border border-[#2b2b2b] rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#12b7d4] transition-colors"
+              />
+
+              {/* Services Checkboxes (The Rush Republic Style) */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-widest text-[#aaaaaa] mb-3">
+                  Select Services Needed:
+                </label>
+                <div className="flex flex-wrap gap-2.5">
+                  {[
+                    "Branding",
+                    "SEO",
+                    "Social Media",
+                    "Website",
+                    "Performance Marketing",
+                    "Content",
+                    "CRM & SaaS",
+                    "Design",
+                  ].map((srv) => {
+                    const checked = formData.services.includes(srv);
+                    return (
+                      <button
+                        key={srv}
+                        type="button"
+                        onClick={() => toggleService(srv)}
+                        className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${
+                          checked
+                            ? "bg-[#12b7d4] text-white border-[#12b7d4]"
+                            : "bg-[#111111] text-neutral-300 border-[#333333] hover:border-[#12b7d4]"
+                        }`}
+                      >
+                        {checked ? "✓ " : "+ "}
+                        {srv}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
-// ─── FAQ ─────────────────────────────────────────────────────────────
-function FAQ() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [open, setOpen] = useState(null);
-  const faqs = [
-    { q: "How quickly will I see results?", a: "Most clients see measurable traction within 30–45 days. For paid ads, results can be visible within the first week of running campaigns." },
-    { q: "Do you work with all business sizes?", a: "Absolutely. We work with businesses of all sizes — from early-stage founders to established medium-scale enterprises. Our process adapts to your budget and growth targets." },
-    { q: "What industries do you work with?", a: "Retail, fashion, healthcare, education, SaaS, real estate, manufacturing, and food products. Our strategy engine adapts to any industry." },
-    { q: "Can I cancel anytime?", a: "Yes. All our plans are month-to-month with no long-term contracts. We believe in earning your business every single month." },
-    { q: "What do you need from me to get started?", a: "Very little. We do a 30-min onboarding call, gather your existing brand assets, and handle the entire strategy and execution for you." },
-  ];
-  return (
-    <section ref={ref} className="bg-white py-24 sm:py-28 px-6">
-      <div className="max-w-3xl mx-auto">
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="text-center mb-16">
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-[#f0fbff] border border-[#dff6ff] text-[#06b6d4] text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />
-            FAQ
-          </motion.div>
-          <motion.h2 variants={fadeUp} custom={1} className="text-3xl sm:text-5xl font-black text-[#0f172a] uppercase tracking-tight mb-3">
-            Common Questions
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-lg font-serif italic text-[#06b6d4] mb-3">
-            Clear answers to everything you need to know before getting started.
-          </motion.p>
-        </motion.div>
+              {/* Submit Button */}
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={formStatus === "submitting"}
+                  className="btn-rush-cyan w-full py-4 text-sm uppercase tracking-wider font-black cursor-pointer shadow-lg"
+                >
+                  {formStatus === "submitting" ? "Sending..." : "Let's Dominate →"}
+                </button>
+              </div>
 
-        <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger} className="space-y-3">
-          {faqs.map((faq, i) => (
-            <motion.div key={i} variants={fadeUp} custom={i}
-              className="border border-[#dff6ff] rounded-2xl overflow-hidden bg-[#f7fcff] hover:border-[#06b6d4]/40 transition-colors">
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full text-left px-6 py-5 flex items-center justify-between text-[#0f172a] font-bold text-sm sm:text-base hover:bg-white transition-colors">
-                <span>{faq.q}</span>
-                <motion.span animate={{ rotate: open === i ? 45 : 0 }} transition={{ duration: 0.25 }}
-                  className="text-[#06b6d4] text-xl flex-shrink-0 ml-4 font-mono font-bold">+</motion.span>
-              </button>
+              {/* Feedback messages */}
               <AnimatePresence>
-                {open === i && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>
-                    <p className="px-6 pb-5 text-[#64748b] text-sm leading-relaxed border-t border-[#dff6ff]/50 pt-3 bg-white font-normal">{faq.a}</p>
+                {formStatus === "success" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-5 rounded-2xl bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 text-sm font-semibold text-center"
+                  >
+                    ✓ High velocity received! Our strategy lead will reach out to you within 24 hours.
+                  </motion.div>
+                )}
+                {formStatus === "error" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="p-5 rounded-2xl bg-red-950/60 border border-red-500/50 text-red-300 text-sm font-semibold text-center"
+                  >
+                    Oops! Something went wrong. Please WhatsApp or call us directly at +91 9345254648.
                   </motion.div>
                 )}
               </AnimatePresence>
+
+            </form>
+
+          </div>
+
+        </div>
+      </ScrollSection>
+
+      {/* Video Modal Lightbox */}
+      <AnimatePresence>
+        {activeVideoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 sm:p-8"
+            onClick={() => setActiveVideoModal(null)}
+          >
+            <div
+              className="relative max-w-4xl w-full bg-black rounded-2xl overflow-hidden border border-neutral-800"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setActiveVideoModal(null)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white text-black font-bold flex items-center justify-center cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+              <video
+                src={activeVideoModal}
+                controls
+                autoPlay
+                className="w-full h-full max-h-[80vh] object-contain"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Article Detail Modal (Read Post in Detail) */}
+      <AnimatePresence>
+        {activeArticle && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-3 sm:p-6 md:p-8"
+            onClick={() => setActiveArticle(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
+              transition={{ duration: 0.22 }}
+              className="relative max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] bg-white rounded-2xl sm:rounded-3xl border border-[#eaeaea] shadow-2xl flex flex-col overflow-hidden text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Pinned Header with Badges & Always-Visible Close Button */}
+              <div className="flex items-center justify-between px-5 sm:px-8 py-3.5 sm:py-4 border-b border-[#eaeaea] bg-white shrink-0 z-10">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                  <span className="tag-bubble-cyan text-xs font-black">
+                    {activeArticle.category}
+                  </span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#777777]">
+                    {activeArticle.readTime}
+                  </span>
+                  {activeArticle.stat && (
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider bg-[#12b7d4] text-white px-2.5 py-0.5 rounded-full">
+                      {activeArticle.stat}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  onClick={() => setActiveArticle(null)}
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f2f2f2] text-black font-bold flex items-center justify-center hover:bg-[#12b7d4] hover:text-white hover:scale-105 transition-all cursor-pointer shrink-0 ml-2"
+                  aria-label="Close dialog"
+                >
+                  <span className="text-base sm:text-lg leading-none">✕</span>
+                </button>
+              </div>
+
+              {/* Scrollable Article Body */}
+              <div className="overflow-y-auto px-5 sm:px-8 py-6 space-y-6 overscroll-contain">
+                {/* Full Title */}
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-black font-['Manrope'] leading-tight">
+                  {activeArticle.title}
+                </h2>
+
+                {/* Subtitle / Intro */}
+                <p className="text-sm sm:text-base text-[#444444] font-medium leading-relaxed pb-4 border-b border-[#eaeaea]">
+                  {activeArticle.intro}
+                </p>
+
+                {/* Content Sections */}
+                <div className="space-y-4">
+                  {activeArticle.sections.map((sec, idx) => (
+                    <div key={idx} className="bg-[#fafafa] border border-[#eaeaea] rounded-2xl p-4 sm:p-5">
+                      <h3 className="text-sm sm:text-base font-black uppercase tracking-wide text-black mb-1.5 font-['Manrope']">
+                        {sec.heading}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#555555] leading-relaxed font-normal">
+                        {sec.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Actionable Strategic Takeaway */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#e6f9fc]/70 border-l-4 border-[#12b7d4]">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#087f94] block mb-1">
+                    Key Strategic Takeaway
+                  </span>
+                  <p className="text-xs sm:text-sm font-semibold text-black leading-relaxed italic">
+                    "{activeArticle.takeaway}"
+                  </p>
+                </div>
+              </div>
+
+              {/* Pinned Bottom Footer Actions */}
+              <div className="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-3.5 sm:py-4 border-t border-[#eaeaea] bg-[#fafafa] shrink-0 z-10">
+                <div className="text-[11px] sm:text-xs font-bold text-[#888888] hidden sm:block">
+                  Rise With Media Insights
+                </div>
+                <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+                  <button
+                    onClick={() => setActiveArticle(null)}
+                    className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#eaeaea] text-xs font-bold uppercase tracking-wider text-black hover:bg-white cursor-pointer transition-colors"
+                  >
+                    Close
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveArticle(null);
+                      setPage("contact");
+                    }}
+                    className="btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-sm"
+                  >
+                    Discuss Strategy →
+                  </button>
+                </div>
+              </div>
+
             </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-// ─── CTA Strip (MarkitUp Neo-Brutalist Pill) ───────────────────────────
-function CTAStrip({ setPage }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <section ref={ref} className="bg-[#0f172a] py-24 px-6 relative overflow-hidden">
-      <div className="absolute top-[-60px] left-1/2 -translate-x-1/2 w-[500px] h-[260px] bg-[#06b6d4]/15 rounded-full blur-[100px]" />
-      <motion.div initial="hidden" animate={inView ? "show" : "hidden"} variants={stagger}
-        className="max-w-3xl mx-auto text-center relative z-10">
-        <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-4">
-          Ready to Scale Your Brand?
-        </motion.h2>
-        <motion.p variants={fadeUp} custom={1} className="text-lg font-serif italic text-[#67e8f9] mb-4">
-          Book a free strategy session with our core team.
-        </motion.p>
-        <motion.p variants={fadeUp} custom={2} className="text-[#9ca3af] mb-10 max-w-md mx-auto text-sm leading-relaxed">
-          We'll analyze your current digital presence, pinpoint gaps, and outline a tailored execution roadmap.
-        </motion.p>
-        <motion.button variants={fadeUp} custom={3}
-          onClick={() => setPage("contact")}
-          className="bg-[#06b6d4] text-white px-9 py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider border-2 border-white shadow-[4px_4px_0px_#ffffff] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#ffffff] transition-all"
-          whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-          Book Free Strategy Call →
-        </motion.button>
-        <motion.div variants={fadeUp} custom={4} className="flex flex-wrap items-center justify-center gap-6 mt-10">
-          {["30-min call", "Custom roadmap", "Zero commitment"].map((item, i) => (
-            <span key={i} className="flex items-center gap-1.5 text-[#9ca3af] text-xs font-semibold">
-              <span className="text-[#06b6d4]">✓</span> {item}
-            </span>
-          ))}
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
-
-// ─── Export ──────────────────────────────────────────────────────────
-export default function Home({ setPage }) {
-  return (
-    <main className="overflow-x-hidden">
-      <Hero setPage={setPage} />
-      <TrustBar />
-      <ServicesSection setPage={setPage} />
-      <HowItWorks />
-      <AISection />
-      <ResultsSection />
-      <WhyUs />
-      <Testimonials />
-      <FAQ />
-      <CTAStrip setPage={setPage} />
     </main>
   );
 }
