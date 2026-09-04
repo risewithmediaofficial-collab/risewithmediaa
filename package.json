@@ -1,8 +1,11 @@
 {
   "name": "risewithmediaa",
   "private": true,
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "build": "npm --prefix frontend run build",
+    "build": "cd frontend && npm install && npm run build",
     "deploy": "npx wrangler deploy"
   }
 }

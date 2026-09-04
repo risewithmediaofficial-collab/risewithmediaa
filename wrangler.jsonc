@@ -6,7 +6,7 @@
     "enabled": true
   },
   "build": {
-    "command": "npm --prefix frontend run build"
+    "command": "cd frontend && npm install && npm run build"
   },
   "assets": {
     "directory": "frontend/dist"
