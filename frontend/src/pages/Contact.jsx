@@ -125,7 +125,7 @@ export default function Contact({ initialService = "" }) {
               className="lg:col-span-7"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.1 }}
+              viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             >
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -298,7 +298,7 @@ export default function Contact({ initialService = "" }) {
               className="lg:col-span-5 flex flex-col justify-between space-y-8"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.1 }}
+              viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               

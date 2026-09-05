@@ -612,7 +612,7 @@ export default function Works({ setPage }) {
                 key={reel.id}
                 initial={{ opacity: 0, y: 32, scale: 0.92 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => setActiveReel(reel.src)}
                 className="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-[#111111] border border-[#222222] cursor-pointer hover:border-[#12b7d4] transition-all"
@@ -675,7 +675,7 @@ export default function Works({ setPage }) {
                 key={camp.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="group rounded-2xl border border-[#eaeaea] p-5 flex flex-col justify-between hover:border-black transition-all bg-white"
               >
@@ -750,3 +750,4 @@ export default function Works({ setPage }) {
     </main>
   );
 }
+
