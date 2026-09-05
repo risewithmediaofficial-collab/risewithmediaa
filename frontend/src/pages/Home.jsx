@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import ScrollSection, { rushEase, fadeUpVariants, scalePopVariants, staggerContainerVariants } from "../components/ScrollSection";
+import ScrollSection, { rushEase } from "../components/ScrollSection";
 
 // Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
@@ -22,8 +22,6 @@ import dakshinelogo from "../assets/clientlogo/dakshinelogo.png";
 import reel1 from "../assets/clientvideos/1.mp4";
 import reel2 from "../assets/clientvideos/2.mp4";
 import reel3 from "../assets/clientvideos/3.mp4";
-import reel4 from "../assets/clientvideos/4.mp4";
-import reel5 from "../assets/clientvideos/5.mp4";
 import screenshot1 from "../assets/clientweb/1.png";
 import screenshot2 from "../assets/clientweb/2.png";
 import campaign1 from "../assets/clientcampaign/1.png";
@@ -40,23 +38,6 @@ import saasTechnologyImg from "../assets/services/saas_technology.jpg";
 const EMAILJS_SERVICE_ID = "service_s15r115";
 const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
 const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
-
-// Client Logos Array
-const clientLogos = [
-  { name: "Richi", src: Richilogo },
-  { name: "Krin Brin", src: KrinBrinlogo },
-  { name: "Savlo", src: Savlologo },
-  { name: "Kertam", src: kertamlogo },
-  { name: "Neoweb", src: neoweblogo },
-  { name: "Zoy", src: zoylogo },
-  { name: "Femi9", src: femi9logo },
-  { name: "Tryo", src: tryologo },
-  { name: "Pentacad Tech", src: pentacadtech },
-  { name: "Srijai Tech", src: srijaitechlogo },
-  { name: "Malar Traders", src: malartraderslogo },
-  { name: "Kandhan Cars", src: kandhancarslogo },
-  { name: "Dakshine", src: dakshinelogo },
-];
 
 // 3x3 Grid Logo Slots for The Rush Republic auto-changing cards (2-second rotation)
 const logoGridSlots = [

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection, { ScrollText } from "../components/ScrollSection";
@@ -36,16 +36,16 @@ export default function Contact({ initialService = "" }) {
     referral: "",
   });
 
-  useEffect(() => {
-    if (initialService) {
+  const [prevService, setPrevService] = useState(initialService);
+  if (prevService !== initialService) {
+    setPrevService(initialService);
+    if (initialService && !formData.selectedServices.includes(initialService)) {
       setFormData((prev) => ({
         ...prev,
-        selectedServices: prev.selectedServices.includes(initialService)
-          ? prev.selectedServices
-          : [...prev.selectedServices, initialService],
+        selectedServices: [...prev.selectedServices, initialService],
       }));
     }
-  }, [initialService]);
+  }
 
   const [status, setStatus] = useState("idle");
 

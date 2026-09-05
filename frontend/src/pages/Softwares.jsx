@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-import ScrollSection, { ScrollText } from "../components/ScrollSection";
-
-const rushEase = [0.16, 1, 0.3, 1];
+import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection";
 
 const saasProducts = [
   {

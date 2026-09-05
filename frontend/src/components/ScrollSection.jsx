@@ -6,43 +6,6 @@ import { motion } from "framer-motion";
  */
 export const rushEase = [0.16, 1, 0.3, 1];
 
-export const fadeUpVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: rushEase },
-  },
-};
-
-export const staggerContainerVariants = (stagger = 0.08, delayChildren = 0.05) => ({
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: stagger,
-      delayChildren,
-    },
-  },
-});
-
-export const scalePopVariants = {
-  hidden: { opacity: 0, scale: 0.88 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.65, ease: rushEase },
-  },
-};
-
-/**
- * Mobile-safe viewport config:
- * Uses a very low `amount` (0.05) so animations fire as soon as
- * just 5% of the element enters the viewport — critical for mobile
- * where sections can be taller than the screen.
- */
-const mobileViewport = { once: false, amount: 0.05 };
-
 /**
  * ScrollReveal / ScrollSection
  * Triggers animations both scrolling down and up (once: false)

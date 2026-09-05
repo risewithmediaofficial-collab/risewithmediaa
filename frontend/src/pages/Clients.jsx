@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import ScrollSection, { ScrollText } from "../components/ScrollSection";
+import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection";
 // Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
 import KrinBrinlogo from "../assets/clientlogo/krinbrinlogo.png";
@@ -15,8 +15,6 @@ import srijaitechlogo from "../assets/clientlogo/srijaitechlogo.png";
 import malartraderslogo from "../assets/clientlogo/malartraderslogo.png";
 import kandhancarslogo from "../assets/clientlogo/kandhancarslogo.png";
 import dakshinelogo from "../assets/clientlogo/dakshinelogo.png";
-
-const rushEase = [0.16, 1, 0.3, 1];
 
 // Proprietary SaaS Products (Featured 1st in list)
 const saasProducts = [
