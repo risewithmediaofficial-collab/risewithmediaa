@@ -1003,14 +1003,6 @@ export default function Home({ setPage }) {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         draggable={false}
                       />
-                      {/* Gradient overlay for contrast */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                      {/* Category Pill with cyan indicator */}
-                      <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-white/95 backdrop-blur-xs text-black text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-[#12b7d4]" />
-                        {service.category}
-                      </span>
                     </div>
 
                     {/* Bold Service Title - Total Black */}
