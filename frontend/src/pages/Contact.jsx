@@ -104,7 +104,7 @@ export default function Contact({ initialService = "" }) {
           <span className="tag-bubble-cyan mb-4">
             Let's Talk Business
           </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Manrope'] mb-3">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
             Help Us Help You in a <span className="text-[#12b7d4]">Big Way!</span>
           </h1>
           <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
@@ -291,7 +291,7 @@ export default function Contact({ initialService = "" }) {
             <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
               
               <div className="rounded-3xl border border-[#eaeaea] p-8 bg-[#fcfcfc]">
-                <h3 className="text-xl font-black uppercase text-black font-['Manrope'] mb-6">
+                <h3 className="text-xl font-black uppercase text-black font-['Varela_Round'] mb-6">
                   Direct Line
                 </h3>
 
@@ -347,7 +347,7 @@ export default function Contact({ initialService = "" }) {
                 <span className="tag-bubble-cyan mb-3">
                   Our Promise
                 </span>
-                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Manrope']">
+                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Varela_Round']">
                   Speed, Clarity & Zero Fluff
                 </h4>
                 <p className="text-sm text-neutral-300 leading-relaxed font-normal">

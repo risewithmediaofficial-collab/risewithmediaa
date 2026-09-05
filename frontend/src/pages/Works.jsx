@@ -102,7 +102,7 @@ export default function Works({ setPage }) {
             <span className="tag-bubble-cyan mb-4">
               Portfolio & Results
             </span>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Manrope'] mb-8">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-8">
               Case <span className="text-[#12b7d4]">Studies</span>
             </h1>
           </div>
@@ -151,7 +151,7 @@ export default function Works({ setPage }) {
                     {cs.client}
                   </span>
 
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-4 font-['Manrope']">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-4 font-['Varela_Round']">
                     {cs.headline}
                   </h2>
 
@@ -215,7 +215,7 @@ export default function Works({ setPage }) {
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/20 border border-[#12b7d4]/40 text-[#12b7d4] text-xs font-black uppercase tracking-widest mb-4 inline-block">
                 Short-Form Content
               </span>
-              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-['Manrope']">
+              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
                 High-Retention Reels
               </h2>
             </div>
@@ -273,7 +273,7 @@ export default function Works({ setPage }) {
             <span className="tag-bubble mb-4">
               Performance Creatives
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Manrope']">
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
               Ad Creatives & Campaigns
             </h2>
           </div>
@@ -300,7 +300,7 @@ export default function Works({ setPage }) {
                       {camp.metric}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-black font-['Manrope']">
+                  <h3 className="text-base font-bold text-black font-['Varela_Round']">
                     {camp.title}
                   </h3>
                 </div>

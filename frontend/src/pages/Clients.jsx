@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import ScrollSection from "../components/ScrollSection";
 // Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
@@ -13,6 +15,24 @@ import srijaitechlogo from "../assets/clientlogo/srijaitechlogo.png";
 import malartraderslogo from "../assets/clientlogo/malartraderslogo.png";
 import kandhancarslogo from "../assets/clientlogo/kandhancarslogo.png";
 import dakshinelogo from "../assets/clientlogo/dakshinelogo.png";
+
+const rushEase = [0.16, 1, 0.3, 1];
+
+// 3x3 Grid Logo Slots for auto-changing cards (2-second rotation like Home screen)
+const logoGridSlots = [
+  // Row 1
+  [Richilogo, srijaitechlogo, malartraderslogo],
+  [KrinBrinlogo, kandhancarslogo, dakshinelogo],
+  [Savlologo, pentacadtech, Richilogo],
+  // Row 2
+  [kertamlogo, tryologo, KrinBrinlogo],
+  [neoweblogo, femi9logo, Savlologo],
+  [zoylogo, srijaitechlogo, kertamlogo],
+  // Row 3
+  [femi9logo, malartraderslogo, neoweblogo],
+  [tryologo, kandhancarslogo, zoylogo],
+  [pentacadtech, dakshinelogo, femi9logo],
+];
 
 const allClients = [
   { name: "Richi", src: Richilogo },
@@ -65,7 +85,15 @@ const clientReviews = [
 ];
 
 export default function Clients({ setPage }) {
-  const tickerLogos = [...allClients, ...allClients];
+  const [activeLogoStep, setActiveLogoStep] = useState(0);
+
+  // Auto change logos every 2 seconds (Home screen animation style)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveLogoStep((prev) => (prev + 1) % 3);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <main className="bg-white pt-20 sm:pt-[88px]">
@@ -78,7 +106,7 @@ export default function Clients({ setPage }) {
           <span className="tag-bubble-cyan mb-4">
             Network & Partners
           </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Manrope'] mb-4">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
             Trusted by Visionaries,<br />
             Admired by the <span className="text-[#12b7d4]">Best</span>
           </h1>
@@ -96,7 +124,7 @@ export default function Clients({ setPage }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((st, i) => (
               <div key={i} className="text-center p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors">
-                <div className="text-3xl sm:text-5xl font-black text-black font-['Manrope'] mb-2">
+                <div className="text-3xl sm:text-5xl font-black text-black font-['Varela_Round'] mb-2">
                   {st.num}
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-[#777777]">
@@ -109,57 +137,72 @@ export default function Clients({ setPage }) {
       </ScrollSection>
 
       {/* ─────────────────────────────────────────────────────────────────
-          CLIENT LOGOS GRID
+          CLIENT PORTFOLIO (Home Screen 3x3 Auto-Changing Animated Grid)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 border-b border-[#eaeaea]">
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
         <div className="rush-container">
-          
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Manrope']">
-              Client Portfolio
-            </h2>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
-            {allClients.map((client, idx) => (
-              <div
-                key={idx}
-                className="h-28 rounded-2xl border border-[#eaeaea] bg-white flex items-center justify-center p-5 hover:border-[#12b7d4] transition-all duration-300 group cursor-pointer"
-                title={client.name}
-              >
-                <img
-                  src={client.src}
-                  alt={client.name}
-                  className="max-h-12 w-auto max-w-[130px] object-contain transition-transform duration-300 group-hover:scale-105"
-                />
+            {/* Left Column: Stacked Massive Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: rushEase }}
+              className="lg:col-span-5 flex flex-col justify-center"
+            >
+              <span className="tag-bubble-cyan mb-4 inline-block">
+                Client Portfolio
+              </span>
+              <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Varela_Round'] mb-4">
+                Trusted by<br />
+                Visionaries,<br />
+                Admired by the<br />
+                <span className="text-[#12b7d4]">Best</span>
+              </h2>
+              <p className="text-base text-[#555555] font-medium leading-relaxed max-w-md">
+                Every partnership is built on accountability, high retention, and real bottom-line growth across Tamil Nadu and South India.
+              </p>
+            </motion.div>
+
+            {/* Right Column: 3x3 Auto-Changing Logo Cards (Home screen animation style) */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
+                {logoGridSlots.map((slot, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.88 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, delay: idx * 0.04, ease: rushEase }}
+                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                    className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
+                  >
+                    <div
+                      className="w-full h-full flex flex-col transition-transform duration-700 ease-in-out"
+                      style={{
+                        transform: `translateY(-${activeLogoStep * 100}%)`,
+                        transitionDelay: `${(idx % 3) * 60}ms`,
+                      }}
+                    >
+                      {slot.map((logoSrc, logoIdx) => (
+                        <div
+                          key={logoIdx}
+                          className="w-full h-full shrink-0 flex items-center justify-center p-2"
+                        >
+                          <img
+                            src={logoSrc}
+                            alt="Client Partner"
+                            className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
 
-        </div>
-      </ScrollSection>
-
-      {/* ─────────────────────────────────────────────────────────────────
-          SMOOTH LOGO TICKER
-      ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-12 border-b border-[#eaeaea] overflow-hidden">
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-          <div className="animate-rush-ticker flex items-center gap-8">
-            {tickerLogos.map((client, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-center px-6 py-3 rounded-2xl border border-[#eaeaea] bg-white flex-shrink-0"
-              >
-                <img
-                  src={client.src}
-                  alt={client.name}
-                  className="h-9 w-auto max-w-[120px] object-contain"
-                />
-              </div>
-            ))}
           </div>
         </div>
       </ScrollSection>
@@ -174,7 +217,7 @@ export default function Clients({ setPage }) {
             <span className="tag-bubble-cyan mb-3">
               Direct Feedback
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Manrope']">
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
               What Founders Say
             </h2>
           </div>
@@ -192,11 +235,11 @@ export default function Clients({ setPage }) {
                   </div>
 
                   <div className="flex items-center gap-4 mb-6">
-                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${rev.bg} flex items-center justify-center text-white text-xl font-black font-['Manrope'] shadow-sm flex-shrink-0`}>
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${rev.bg} flex items-center justify-center text-white text-xl font-black font-['Varela_Round'] shadow-sm flex-shrink-0`}>
                       {rev.initial}
                     </div>
                     <div>
-                      <h4 className="font-bold text-base text-black font-['Manrope']">
+                      <h4 className="font-bold text-base text-black font-['Varela_Round']">
                         {rev.name}
                       </h4>
                       <p className="text-xs text-[#777777]">

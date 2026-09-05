@@ -38,7 +38,7 @@ export default function Navbar({ page, setPage }) {
               className="h-11 w-11 sm:h-13 sm:w-13 md:h-14 md:w-14 object-contain group-hover:scale-105 transition-transform shrink-0"
             />
             <div className="flex flex-col justify-center">
-              <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Manrope'] leading-none">
+              <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Varela_Round'] leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
               <span className="font-script text-sm sm:text-base text-[#12b7d4] tracking-wide leading-tight mt-0.5 sm:mt-1">

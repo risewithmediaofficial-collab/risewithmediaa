@@ -307,7 +307,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
               </div>
 
               {/* Main Headline with Blue Word Highlight */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-black leading-[1.05] mb-3 font-['Manrope']">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-black leading-[1.05] mb-3 font-['Varela_Round']">
                 {service.highlightTitle || service.title}
               </h1>
 
@@ -373,7 +373,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
               <span className="tag-bubble bg-[#12b7d4] text-white text-xs uppercase tracking-wider font-bold mb-3 inline-block">
                 Core Capabilities
               </span>
-              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Manrope']">
+              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
                 {service.itemsTitle}
               </h2>
             </div>
@@ -403,7 +403,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-black text-black font-['Manrope'] tracking-tight mb-2.5 group-hover:text-[#12b7d4] transition-colors">
+                  <h3 className="text-xl font-black text-black font-['Varela_Round'] tracking-tight mb-2.5 group-hover:text-[#12b7d4] transition-colors">
                     {item.title}
                   </h3>
 
@@ -431,7 +431,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
             <span className="tag-bubble-cyan text-xs uppercase tracking-widest font-black mb-3 inline-block">
               Execution Architecture
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Manrope'] mb-4">
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-4">
               {service.processTitle}
             </h2>
             <p className="text-sm sm:text-base text-[#666666]">
@@ -462,7 +462,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
                     )}
                   </div>
 
-                  <h3 className="text-2xl font-black uppercase tracking-tight text-black font-['Manrope'] mb-2">
+                  <h3 className="text-2xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-2">
                     {step}
                   </h3>
 
@@ -493,7 +493,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
                 Ready To Get Started?
               </span>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Manrope'] leading-[1.05] mb-6">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Varela_Round'] leading-[1.05] mb-6">
                 {service.ctaText}
               </h2>
 
@@ -528,7 +528,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
               <span className="tag-bubble-cyan text-xs uppercase tracking-widest font-black mb-2 inline-block">
                 Comprehensive Suite
               </span>
-              <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Manrope']">
+              <h3 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
                 Explore Other Services
               </h3>
             </div>
@@ -549,7 +549,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
                     <span className="text-xs text-[#12b7d4] font-bold">Read More →</span>
                   </div>
 
-                  <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-black mb-2 font-['Manrope']">
+                  <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-black mb-2 font-['Varela_Round']">
                     {other.shortTitle || other.title}
                   </h4>
 

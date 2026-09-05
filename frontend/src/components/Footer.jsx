@@ -68,7 +68,7 @@ export default function Footer({ setPage }) {
                 alt="Rise With Media"
                 className="h-10 w-10 object-contain group-hover:scale-105 transition-transform"
               />
-              <span className="text-xl font-black tracking-tight uppercase font-['Manrope']">
+              <span className="text-xl font-black tracking-tight uppercase font-['Varela_Round']">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </button>

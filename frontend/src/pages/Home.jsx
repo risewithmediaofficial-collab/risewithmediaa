@@ -455,7 +455,7 @@ export default function Home({ setPage }) {
                 alt="Rise With Media Logo"
                 className="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:scale-110 transition-transform"
               />
-              <span className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#000000] font-['Manrope']">
+              <span className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#000000] font-['Varela_Round']">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </div>
@@ -467,7 +467,7 @@ export default function Home({ setPage }) {
               initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.18, ease: rushEase }}
-              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] leading-[1.0] mb-3 font-['Manrope']"
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] leading-[1.0] mb-3 font-['Varela_Round']"
             >
               “MAKE YOUR BRAND MATTER”
             </motion.h1>
@@ -515,7 +515,7 @@ export default function Home({ setPage }) {
             {/* Left Column: Big Vertically Stacked Title & Tilted Sticker Button */}
             <div className="w-full lg:w-[38%] xl:w-[35%] flex flex-col justify-center select-none flex-shrink-0 mb-8 lg:mb-0">
               <div className="relative inline-block">
-                <h2 className="text-6xl sm:text-7xl lg:text-8xl xl:text-[6.4rem] font-black uppercase tracking-tight text-[#000000] leading-[0.88] font-['Manrope']">
+                <h2 className="text-6xl sm:text-7xl lg:text-8xl xl:text-[6.4rem] font-black uppercase tracking-tight text-[#000000] leading-[0.88] font-['Varela_Round']">
                   RESULTS<br />
                   SPEAK<br />
                   LOUDER
@@ -614,7 +614,7 @@ export default function Home({ setPage }) {
                       {/* Card Bottom Content */}
                       <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
                         <div>
-                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Manrope'] tracking-tight mb-2 leading-tight">
+                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Varela_Round'] tracking-tight mb-2 leading-tight">
                             {cs.client}
                           </h3>
                           <p className="text-xs sm:text-sm text-[#888888] leading-relaxed line-clamp-2 mb-4 font-normal">
@@ -666,7 +666,7 @@ export default function Home({ setPage }) {
                 AGENCY FOR THE NOW
               </span>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-4 font-['Manrope']">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-4 font-['Varela_Round']">
                 Built for the <span className="text-[#12b7d4]">Now</span>
               </h2>
 
@@ -733,7 +733,7 @@ export default function Home({ setPage }) {
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 text-[#087f94] text-xs font-black uppercase tracking-widest mb-3 inline-block">
                 WHAT WE DO
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Manrope']">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Varela_Round']">
                 Everything Your Business Needs to <span className="text-[#12b7d4]">Grow Digitally.</span>
               </h2>
               <p className="font-script text-base sm:text-lg md:text-2xl text-[#12b7d4] leading-snug">
@@ -838,7 +838,7 @@ export default function Home({ setPage }) {
                     </div>
 
                     {/* Bold Service Title - Total Black */}
-                    <h3 className="text-xl sm:text-2xl font-black uppercase text-black tracking-tight font-['Manrope'] mb-1.5 sm:mb-2">
+                    <h3 className="text-xl sm:text-2xl font-black uppercase text-black tracking-tight font-['Varela_Round'] mb-1.5 sm:mb-2">
                       {service.title}
                     </h3>
 
@@ -888,7 +888,7 @@ export default function Home({ setPage }) {
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
               <div className="max-w-2xl">
-                <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-['Manrope'] leading-tight mb-3">
+                <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-['Varela_Round'] leading-tight mb-3">
                   “From Building Your Brand to <span className="text-[#12b7d4]">Building Your Business.</span>”
                 </blockquote>
                 <p className="font-script text-2xl sm:text-3xl text-[#12b7d4] tracking-wide">
@@ -926,7 +926,7 @@ export default function Home({ setPage }) {
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
-              <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Manrope']">
+              <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Varela_Round']">
                 Trusted by<br />
                 Visionaries,<br />
                 Admired by the<br />
@@ -987,7 +987,7 @@ export default function Home({ setPage }) {
               <span className="tag-bubble bg-[#12b7d4] text-white mb-4">
                 Testimonials
               </span>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Manrope']">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
                 Our Satisfied<br /><span className="text-[#12b7d4]">Clients</span>
               </h2>
             </div>
@@ -1039,7 +1039,7 @@ export default function Home({ setPage }) {
                 </div>
 
                 <div>
-                  <h4 className="text-xl font-black text-white font-['Manrope']">
+                  <h4 className="text-xl font-black text-white font-['Varela_Round']">
                     {testimonials[activeReview].author}
                   </h4>
                   <p className="text-sm text-neutral-400 font-medium mt-1">
@@ -1049,7 +1049,7 @@ export default function Home({ setPage }) {
               </div>
 
               <div className="lg:col-span-4 flex justify-center">
-                <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Manrope'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
+                <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Varela_Round'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
                   {testimonials[activeReview].initial}
                 </div>
               </div>
@@ -1067,7 +1067,7 @@ export default function Home({ setPage }) {
         <div className="rush-container">
 
           <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Manrope']">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round']">
               Our Initiatives
             </h2>
             <div className="font-script text-2xl sm:text-3xl text-[#555555]">
@@ -1095,7 +1095,7 @@ export default function Home({ setPage }) {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-black uppercase text-black font-['Manrope']">
+                  <h3 className="text-2xl font-black uppercase text-black font-['Varela_Round']">
                     Rise Creators Lab
                   </h3>
                   <p className="text-xs text-[#666666] mt-1">Short-form storytelling & retention reels</p>
@@ -1129,7 +1129,7 @@ export default function Home({ setPage }) {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-black uppercase text-black font-['Manrope']">
+                  <h3 className="text-2xl font-black uppercase text-black font-['Varela_Round']">
                     Autonomous SaaS Studio
                   </h3>
                   <p className="text-xs text-[#666666] mt-1">Custom CRM, hospital ERP & AI workflows</p>
@@ -1163,7 +1163,7 @@ export default function Home({ setPage }) {
           >
 
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-3 font-['Manrope']">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-3 font-['Varela_Round']">
                 Let’s Connect to <span className="text-[#12b7d4]">Create Magic!</span>
               </h2>
               <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
