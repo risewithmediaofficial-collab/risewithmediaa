@@ -212,14 +212,14 @@ export default function Works({ setPage }) {
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <span className="tag-bubble bg-[#f5c4ee] text-black mb-4">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/20 border border-[#12b7d4]/40 text-[#12b7d4] text-xs font-black uppercase tracking-widest mb-4 inline-block">
                 Short-Form Content
               </span>
               <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-['Manrope']">
                 High-Retention Reels
               </h2>
             </div>
-            <p className="font-script text-2xl text-[#f5c4ee]">
+            <p className="font-script text-2xl text-[#12b7d4]">
               Engineered for algorithmic reach and high retention.
             </p>
           </div>
@@ -229,7 +229,7 @@ export default function Works({ setPage }) {
               <div
                 key={reel.id}
                 onClick={() => setActiveReel(reel.src)}
-                className="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-[#111111] border border-[#222222] cursor-pointer hover:border-[#f5c4ee] transition-all"
+                className="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-[#111111] border border-[#222222] cursor-pointer hover:border-[#12b7d4] transition-all"
               >
                 <video
                   src={reel.src}
@@ -337,7 +337,7 @@ export default function Works({ setPage }) {
             >
               <button
                 onClick={() => setActiveReel(null)}
-                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white text-black font-bold flex items-center justify-center cursor-pointer hover:bg-[#f5c4ee]"
+                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white text-black font-bold flex items-center justify-center cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-colors"
               >
                 ✕
               </button>

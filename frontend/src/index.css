@@ -111,8 +111,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5c4ee;
-  color: #000000;
+  background-color: #12b7d4;
+  color: #ffffff;
   font-weight: 700;
   font-size: 0.875rem;
   padding: 0.75rem 1.75rem;
@@ -121,21 +121,23 @@
   text-transform: none;
 }
 .btn-rush-pink:hover {
-  background-color: #f0aee6;
+  background-color: #0ea5c0;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -6px rgba(245, 196, 238, 0.6);
+  box-shadow: 0 8px 20px -6px rgba(18, 183, 212, 0.6);
 }
 
 .tag-bubble {
   display: inline-flex;
   align-items: center;
-  background-color: #f5c4ee;
-  color: #000000;
-  font-weight: 700;
+  background-color: #e6f9fc;
+  border: 1px solid rgba(18, 183, 212, 0.4);
+  color: #087f94;
+  font-weight: 800;
   font-size: 0.75rem;
   padding: 0.35rem 1rem;
   border-radius: 9999px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .btn-rush-cyan {

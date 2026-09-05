@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Works from "./pages/Works";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
+import ServiceDetail, { servicesData } from "./pages/ServiceDetail";
 
 // Floating WhatsApp Button with authentic WhatsApp branding
 function WhatsAppButton() {
@@ -40,24 +41,74 @@ const pageVariants = {
 };
 
 export default function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && (["home", "works", "clients", "contact"].includes(hash) || servicesData[hash])) {
+        return hash;
+      }
+    }
+    return "home";
+  });
+
+  const [selectedContactService, setSelectedContactService] = useState("");
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    if (page === "home") {
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+    } else {
+      window.location.hash = page;
+    }
   }, [page]);
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && (["home", "works", "clients", "contact"].includes(hash) || servicesData[hash])) {
+        setPage(hash);
+      } else if (!hash) {
+        setPage("home");
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   const renderPage = () => {
+    if (servicesData[page]) {
+      return (
+        <ServiceDetail
+          serviceId={page}
+          setPage={setPage}
+          setSelectedContactService={setSelectedContactService}
+        />
+      );
+    }
+
     switch (page) {
-      case "home": return <Home setPage={setPage} />;
-      case "works": return <Works setPage={setPage} />;
-      case "clients": return <Clients setPage={setPage} />;
-      case "contact": return <Contact setPage={setPage} />;
-      default: return <Home setPage={setPage} />;
+      case "home":
+        return <Home setPage={setPage} />;
+      case "works":
+        return <Works setPage={setPage} />;
+      case "clients":
+        return <Clients setPage={setPage} />;
+      case "contact":
+        return (
+          <Contact
+            initialService={selectedContactService}
+            setPage={setPage}
+          />
+        );
+      default:
+        return <Home setPage={setPage} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#0a0a0a] font-['Manrope'] selection:bg-[#f5c4ee] selection:text-black">
+    <div className="min-h-screen bg-white text-[#0a0a0a] font-['Manrope'] selection:bg-[#12b7d4] selection:text-white">
       <Navbar page={page} setPage={setPage} />
       <AnimatePresence mode="wait">
         <motion.div

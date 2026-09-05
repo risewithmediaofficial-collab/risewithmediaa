@@ -17,7 +17,12 @@ export default function Navbar({ page, setPage }) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#eaeaea]">
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#eaeaea]"
+    >
       <div className="rush-container">
         <div className="flex h-20 sm:h-[88px] items-center justify-between">
           
@@ -34,9 +39,12 @@ export default function Navbar({ page, setPage }) {
                 className="h-full w-full object-contain group-hover:scale-105 transition-transform"
               />
             </div>
-            <div className="leading-tight">
-              <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Manrope']">
+            <div className="flex flex-col justify-center">
+              <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Manrope'] leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
+              </span>
+              <span className="font-script text-sm sm:text-base text-[#12b7d4] tracking-wide leading-tight mt-0.5 sm:mt-1">
+                Built for Growth
               </span>
             </div>
           </button>
@@ -144,6 +152,6 @@ export default function Navbar({ page, setPage }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection from "../components/ScrollSection";
@@ -25,16 +25,27 @@ const referralSources = [
   "A Work We Did",
 ];
 
-export default function Contact() {
+export default function Contact({ initialService = "" }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     businessName: "",
     challenge: "",
-    selectedServices: [],
+    selectedServices: initialService ? [initialService] : [],
     referral: "",
   });
+
+  useEffect(() => {
+    if (initialService) {
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: prev.selectedServices.includes(initialService)
+          ? prev.selectedServices
+          : [...prev.selectedServices, initialService],
+      }));
+    }
+  }, [initialService]);
 
   const [status, setStatus] = useState("idle");
 
@@ -96,7 +107,7 @@ export default function Contact() {
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Manrope'] mb-3">
             Help Us Help You in a <span className="text-[#12b7d4]">Big Way!</span>
           </h1>
-          <p className="font-script text-2xl sm:text-3xl text-[#555555]">
+          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
             Tell us a little about your brand and we’ll bring big ideas to the table.
           </p>
         </div>

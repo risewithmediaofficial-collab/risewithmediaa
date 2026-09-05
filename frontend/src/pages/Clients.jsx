@@ -82,7 +82,7 @@ export default function Clients({ setPage }) {
             Trusted by Visionaries,<br />
             Admired by the <span className="text-[#12b7d4]">Best</span>
           </h1>
-          <p className="font-script text-2xl sm:text-3xl text-[#555555]">
+          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
             Powering South India’s most ambitious consumer & retail brands.
           </p>
         </div>

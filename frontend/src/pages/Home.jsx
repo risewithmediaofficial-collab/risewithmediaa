@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import ScrollSection from "../components/ScrollSection";
+import ScrollSection, { rushEase, fadeUpVariants, scalePopVariants, staggerContainerVariants } from "../components/ScrollSection";
 
 // Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
@@ -26,6 +26,12 @@ import screenshot2 from "../assets/clientweb/2.png";
 import campaign1 from "../assets/clientcampaign/1.png";
 import campaign2 from "../assets/clientcampaign/2.png";
 import campaign3 from "../assets/clientcampaign/3.png";
+
+// Service Card Images (Black, White & Blue/Cyan Theme)
+import contentSocialImg from "../assets/services/content_social.jpg";
+import websitesFunnelsImg from "../assets/services/websites_funnels.jpg";
+import performanceMarketingImg from "../assets/services/performance_marketing.jpg";
+import saasTechnologyImg from "../assets/services/saas_technology.jpg";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_s15r115";
@@ -66,11 +72,46 @@ const logoGridSlots = [
 ];
 
 export default function Home({ setPage }) {
-  const [activeArticle, setActiveArticle] = useState(null);
   const [activeVideoModal, setActiveVideoModal] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeReview, setActiveReview] = useState(0);
   const [activeLogoStep, setActiveLogoStep] = useState(0);
+
+  // Service Carousel Ref & Drag State
+  const serviceCarouselRef = useRef(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const handleServicePrev = () => {
+    if (serviceCarouselRef.current) {
+      serviceCarouselRef.current.scrollBy({ left: -390, behavior: "smooth" });
+    }
+  };
+
+  const handleServiceNext = () => {
+    if (serviceCarouselRef.current) {
+      serviceCarouselRef.current.scrollBy({ left: 390, behavior: "smooth" });
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    startX.current = e.pageX - serviceCarouselRef.current.offsetLeft;
+    scrollLeft.current = serviceCarouselRef.current.scrollLeft;
+  };
+
+  const handleMouseLeaveOrUp = () => {
+    isDragging.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+    const x = e.pageX - serviceCarouselRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    serviceCarouselRef.current.scrollLeft = scrollLeft.current - walk;
+  };
 
   // Auto change logos every 2 seconds (Rush Republic style)
   useEffect(() => {
@@ -80,16 +121,15 @@ export default function Home({ setPage }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Lock body scroll and listen for Escape key when modals are active
+  // Lock body scroll and listen for Escape key when video modal is active
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        setActiveArticle(null);
         setActiveVideoModal(null);
       }
     };
 
-    if (activeArticle || activeVideoModal) {
+    if (activeVideoModal) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
     } else {
@@ -100,7 +140,7 @@ export default function Home({ setPage }) {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeArticle, activeVideoModal]);
+  }, [activeVideoModal]);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -275,102 +315,42 @@ export default function Home({ setPage }) {
     };
   };
 
-  const articles = [
+  const serviceCards = [
     {
-      id: 1,
-      category: "Digital",
-      readTime: "8 min read",
-      title: "How to Create Campaigns That Get Results Fast",
-      tag: "Real-world strategies to supercharge brand velocity.",
-      intro: "In today's hyper-saturated feed, standard marketing campaigns fail not because of budget, but because of slow iteration and weak creative hooks. Here is the rapid-deployment framework we use to generate immediate traction.",
-      sections: [
-        {
-          heading: "1. The 3-Second Hook Rule",
-          text: "If your creative doesn't capture qualified attention within the first 3 seconds, 85% of viewers scroll away. Test 5 distinctly different visual and verbal hooks for every single core campaign concept.",
-        },
-        {
-          heading: "2. Offer Architecture Over Ad Copy",
-          text: "The greatest copy cannot save an ambiguous offer. Structure your proposition around solving one distinct pain point with transparent pricing, zero friction, and clear proof of results.",
-        },
-        {
-          heading: "3. Algorithmic Budget Scaling",
-          text: "Start with agile test budgets across broad audiences. Let Meta's machine learning identify high-intent buyer clusters, and scale only when Cost Per Acquisition (CPA) stabilizes below your target threshold.",
-        },
-      ],
-      takeaway: "Never optimize for vanity metrics like clicks or impressions. Optimize exclusively for qualified leads, pipeline velocity, and direct revenue.",
-      stat: "+340% Revenue Velocity",
+      id: "service-content-social",
+      title: "Content & Social",
+      category: "Content & Social",
+      description: "Build a brand people notice and remember.",
+      keywords: ["Reels", "Videos", "Creatives", "Social Media Strategy"],
+      image: contentSocialImg,
+      badge: "Brand & Audience",
     },
     {
-      id: 2,
-      category: "Product",
-      readTime: "6 min read",
-      title: "The Psychology Behind Buying Decisions",
-      tag: "How to tap into real consumer behaviour and drive action.",
-      intro: "Consumers don't buy products based on raw features; they make emotional decisions and justify them with logic. Understanding core cognitive drivers separates stagnant brands from category leaders.",
-      sections: [
-        {
-          heading: "1. Loss Aversion & Ethical Urgency",
-          text: "People are twice as motivated by the prospect of avoiding a loss than gaining a benefit. Frame your service around what they forfeit by maintaining the status quo.",
-        },
-        {
-          heading: "2. The Power of Social Validation",
-          text: "Generic testimonials don't convert. Specific, metric-backed case studies (e.g. 'How Anandhaas gained 53x revenue') build immediate trust and eliminate purchase anxiety.",
-        },
-        {
-          heading: "3. Friction Elimination",
-          text: "Every extra form field, slow page load, or ambiguous checkout step drops conversions by 12%. Make reaching your brand as effortless as a single WhatsApp tap.",
-        },
-      ],
-      takeaway: "Eliminate cognitive overload. A single, focused call-to-action consistently out-converts cluttered option menus.",
-      stat: "5.3× Average ROAS",
+      id: "service-websites-funnels",
+      title: "Websites & Funnels",
+      category: "Websites & Funnels",
+      description: "Turn your online visitors into real customers.",
+      keywords: ["Websites", "Landing Pages", "Funnels", "SEO"],
+      image: websitesFunnelsImg,
+      badge: "High Conversion",
     },
     {
-      id: 3,
-      category: "Software Engineering",
-      readTime: "7 min read",
-      title: "5 Signs Your Brand Needs a Digital Revamp",
-      tag: "Is your platform falling behind? Here is the blueprint.",
-      intro: "Your digital presence is the primary storefront for your enterprise. If your systems are sluggish, disconnected, or outdated, you are silently leaking high-value customers every day.",
-      sections: [
-        {
-          heading: "1. High Bounce Rate (>60%)",
-          text: "If mobile visitors leave within 4 seconds, your site is too slow, confusing, or poorly formatted for modern smartphones.",
-        },
-        {
-          heading: "2. Manual Lead Management",
-          text: "If incoming inquiries sit in spreadsheets or unread inboxes instead of automated CRM workflows, 70% of high-intent leads go cold within 15 minutes.",
-        },
-        {
-          heading: "3. Low Paid Ad ROAS",
-          text: "Sending expensive paid traffic to an outdated homepage is burning capital. You need dedicated, fast, high-converting landing funnels.",
-        },
-      ],
-      takeaway: "A website revamp is not a cosmetic coat of paint; it is an engineered commercial growth engine designed to convert traffic into revenue.",
-      stat: "72h Modernization Speed",
+      id: "service-performance-marketing",
+      title: "Performance Marketing",
+      category: "Performance Marketing",
+      description: "Reach the right audience and drive measurable results.",
+      keywords: ["Meta Ads", "Lead Generation", "Retargeting", "Analytics"],
+      image: performanceMarketingImg,
+      badge: "Targeted Growth",
     },
     {
-      id: 4,
-      category: "Performance",
-      readTime: "5 min read",
-      title: "The Social Media & Meta Ads Playbook for 2026",
-      tag: "Unleash scalable customer acquisition built for the now.",
-      intro: "The era of manual interest hacks and cookie-cutter ad copy is over. The 2026 Meta ads algorithm rewards authentic short-form retention creative, consolidated ad structures, and first-party data capture.",
-      sections: [
-        {
-          heading: "1. Vertical Video Dominance",
-          text: "9:16 authentic retention reels consistently outperform high-cost studio commercials in Cost Per Acquisition across retail, FMCG, and service industries.",
-        },
-        {
-          heading: "2. Creative Fatigue Management",
-          text: "Winning creatives experience fatigue every 12-16 days. Establish an agile weekly production cadence to refresh creative angles without resetting ad sets.",
-        },
-        {
-          heading: "3. Direct WhatsApp & Automated Funnels",
-          text: "In South India and emerging markets, directing Meta ads to automated WhatsApp flows increases conversion speed by over 300% compared to standard email forms.",
-        },
-      ],
-      takeaway: "Treat social creative as your primary targeting tool. The creative hook qualifies the buyer before they ever click your link.",
-      stat: "1.4M+ Views Generated",
+      id: "service-saas-technology",
+      title: "Technology & SaaS",
+      category: "Technology & SaaS",
+      description: "Build smarter systems for a growing business.",
+      keywords: ["SaaS", "CRM", "Automation", "Custom Software"],
+      image: saasTechnologyImg,
+      badge: "Smart Automation",
     },
   ];
 
@@ -449,21 +429,26 @@ export default function Home({ setPage }) {
 
   return (
     <main className="bg-white pt-20 sm:pt-[88px]">
-      
+
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 1: HERO BANNER (The Rush Republic Open Minimalist Hero)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection
-        className="bg-white pt-4 sm:pt-5 lg:pt-7 pb-16 lg:pb-20 border-b border-[#eaeaea] relative overflow-hidden"
+      <section
+        className="bg-white pt-10 sm:pt-14 lg:pt-20 pb-16 lg:pb-20 border-b border-[#eaeaea] relative overflow-hidden"
         style={{
           backgroundImage: "radial-gradient(#e5e7eb 1.5px, transparent 1.5px)",
           backgroundSize: "32px 32px",
         }}
       >
         <div className="rush-container text-center relative z-10">
-          
+
           {/* Centered Brand Badge & Logo (Above Digital Marketing) */}
-          <div className="flex items-center justify-center mb-5 sm:mb-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.88 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: rushEase }}
+            className="flex items-center justify-center mb-5 sm:mb-6"
+          >
             <div className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white border border-[#eaeaea] shadow-xs hover:border-[#12b7d4] transition-all duration-300 group cursor-default">
               <img
                 src="/logo.png"
@@ -474,36 +459,51 @@ export default function Home({ setPage }) {
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Main Display Headline */}
           <div className="max-w-5xl mx-auto mb-8">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] leading-[1.0] mb-3 font-['Manrope']">
-              Digital Marketing That
-            </h1>
-            <div className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] tracking-normal">
-              Thrills, <span className="text-[#12b7d4]">Converts</span> and Delivers.
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 35 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.18, ease: rushEase }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] leading-[1.0] mb-3 font-['Manrope']"
+            >
+              “MAKE YOUR BRAND MATTER”
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.32, ease: rushEase }}
+              className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] tracking-normal"
+            >
+              Not just <span className="text-[#12b7d4]">visible,</span> Memorable.
+            </motion.div>
           </div>
 
           {/* Sub-Hero CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.45, ease: rushEase }}
+            className="flex flex-wrap items-center justify-center gap-4 mt-8"
+          >
             <button
               onClick={() => setPage("contact")}
-              className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:bg-[#12b7d4] hover:text-white transition-all"
+              className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:bg-[#12b7d4] hover:text-white transition-all hover:scale-105 active:scale-95"
             >
               Get Started
             </button>
             <button
               onClick={() => setPage("works")}
-              className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm"
+              className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:scale-105 active:scale-95"
             >
               View Case Studies
             </button>
-          </div>
+          </motion.div>
 
         </div>
-      </ScrollSection>
+      </section>
 
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 2: RESULTS SPEAK LOUDER (The Rush Republic 3D Card Deck)
@@ -511,7 +511,7 @@ export default function Home({ setPage }) {
       <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
         <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 xl:gap-16">
-            
+
             {/* Left Column: Big Vertically Stacked Title & Tilted Sticker Button */}
             <div className="w-full lg:w-[38%] xl:w-[35%] flex flex-col justify-center select-none flex-shrink-0 mb-8 lg:mb-0">
               <div className="relative inline-block">
@@ -521,13 +521,16 @@ export default function Home({ setPage }) {
                   LOUDER
                 </h2>
                 {/* Tilted Sticker Button like Rush Republic */}
-                <button
+                <motion.button
                   type="button"
                   onClick={() => setPage("works")}
-                  className="absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-5 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-[#12b7d4] hover:text-white hover:border-[#12b7d4] hover:shadow-[4px_4px_0px_rgba(18,183,212,1)] hover:-rotate-[2deg] hover:scale-105 transition-all cursor-pointer z-20"
+                  whileHover={{ scale: 1.08, rotate: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-5 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-[#12b7d4] hover:text-white hover:border-[#12b7d4] hover:shadow-[4px_4px_0px_rgba(18,183,212,1)] transition-all cursor-pointer z-20"
                 >
                   View Case Studies
-                </button>
+                </motion.button>
               </div>
             </div>
 
@@ -562,9 +565,8 @@ export default function Home({ setPage }) {
                           setActiveSlide(idx);
                         }
                       }}
-                      className={`absolute left-0 top-1/2 -translate-y-1/2 w-[290px] sm:w-[350px] lg:w-[380px] xl:w-[400px] h-[470px] sm:h-[510px] lg:h-[540px] xl:h-[560px] rounded-[28px] bg-[#141414] text-white overflow-hidden shadow-2xl select-none flex flex-col border border-neutral-800 ${
-                        isCurrent ? "cursor-default" : "cursor-pointer hover:border-[#12b7d4]/60"
-                      }`}
+                      className={`absolute left-0 top-1/2 -translate-y-1/2 w-[290px] sm:w-[350px] lg:w-[380px] xl:w-[400px] h-[470px] sm:h-[510px] lg:h-[540px] xl:h-[560px] rounded-[28px] bg-[#141414] text-white overflow-hidden shadow-2xl select-none flex flex-col border border-neutral-800 ${isCurrent ? "cursor-default" : "cursor-pointer hover:border-[#12b7d4]/60"
+                        }`}
                     >
                       {/* Card Top Image */}
                       <div className="relative w-full h-[260px] sm:h-[290px] lg:h-[310px] xl:h-[320px] bg-[#1a1a1a] overflow-hidden">
@@ -651,9 +653,15 @@ export default function Home({ setPage }) {
       <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
         <div className="rush-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left Content Column */}
-            <div className="lg:col-span-6 flex flex-col items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: rushEase }}
+              className="lg:col-span-6 flex flex-col items-start"
+            >
               <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#000000] leading-[1.05] mb-6 font-['Manrope']">
                 Built for the Now
               </h2>
@@ -672,14 +680,20 @@ export default function Home({ setPage }) {
 
               <button
                 onClick={() => setPage("contact")}
-                className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer"
+                className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer hover:scale-105 active:scale-95 transition-transform"
               >
                 Contact us
               </button>
-            </div>
+            </motion.div>
 
             {/* Right Media Card Column */}
-            <div className="lg:col-span-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 25 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.75, delay: 0.15, ease: rushEase }}
+              className="lg:col-span-6"
+            >
               <div className="relative rounded-3xl overflow-hidden border border-[#eaeaea] bg-black aspect-[4/3] shadow-xl">
                 <video
                   src={reel2}
@@ -699,68 +713,198 @@ export default function Home({ setPage }) {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
       </ScrollSection>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 4: R.O.A.R / RISE INSIGHTS
+          SECTION 4: WHAT WE DO (Carousel Swiper Layout with Images)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
         <div className="rush-container">
-          
-          {/* Header */}
-          <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] leading-none mb-3 font-['Manrope']">
-              Republic Of Results<br />
-              R.O.A.R
-            </h2>
-            <div className="font-script text-2xl sm:text-3xl text-[#555555]">
-              We don’t just write about trends, we <span className="text-[#12b7d4]">create</span> them.
+
+          {/* Top Section / Split Header with Headline & Carousel Controls */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-12">
+            
+            {/* Headline and Description */}
+            <div className="lg:col-span-8">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 text-[#087f94] text-xs font-black uppercase tracking-widest mb-4 inline-block">
+                WHAT WE DO
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Manrope']">
+                Everything Your Business Needs to <span className="text-[#12b7d4]">Grow Digitally.</span>
+              </h2>
+              <p className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4] leading-snug max-w-2xl">
+                From content and campaigns to websites and technology — we build digital systems that help your business grow.
+              </p>
             </div>
+
+            {/* Desktop Carousel Navigation Controls */}
+            <div className="lg:col-span-4 flex items-center lg:justify-end gap-3">
+              <button
+                type="button"
+                onClick={handleServicePrev}
+                className="w-12 h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
+                aria-label="Previous service"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={handleServiceNext}
+                className="w-12 h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
+                aria-label="Next service"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              <span className="text-xs font-bold text-[#888888] uppercase tracking-wider ml-1 hidden sm:inline">
+                Swipe to explore
+              </span>
+            </div>
+
           </div>
 
-          {/* Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {articles.map((art) => (
-              <div
-                key={art.id}
-                onClick={() => setActiveArticle(art)}
-                className="group rounded-2xl border border-[#eaeaea] p-6 flex flex-col justify-between hover:border-[#12b7d4] transition-all duration-300 cursor-pointer bg-white"
-              >
-                <div>
-                  {/* Category & Read time */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="tag-bubble-cyan text-[11px] py-1 px-3">
-                      {art.category}
-                    </span>
-                    <span className="text-xs font-semibold text-[#888888]">
-                      {art.readTime}
-                    </span>
+          {/* Carousel Swiper Container */}
+          <div className="relative w-full">
+            
+            {/* Floating In-Track Arrows on the sides (Like Image 2) */}
+            <button
+              type="button"
+              onClick={handleServicePrev}
+              className="absolute -left-3 lg:-left-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden sm:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
+              aria-label="Previous card"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={handleServiceNext}
+              className="absolute -right-3 lg:-right-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden sm:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
+              aria-label="Next card"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Horizontal Scroll / Swipe Track */}
+            <div
+              ref={serviceCarouselRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeaveOrUp}
+              onMouseUp={handleMouseLeaveOrUp}
+              onMouseMove={handleMouseMove}
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 pt-2 select-none cursor-grab active:cursor-grabbing scroll-smooth"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {serviceCards.map((service, idx) => (
+                <motion.div
+                  key={service.id}
+                  onClick={() => setPage(service.id)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.65, delay: idx * 0.08, ease: rushEase }}
+                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                  className="min-w-[290px] sm:min-w-[340px] md:min-w-[370px] lg:min-w-[400px] max-w-[420px] snap-start shrink-0 rounded-3xl border border-[#eaeaea] bg-white p-5 sm:p-6 hover:border-[#12b7d4] hover:shadow-[0_20px_45px_rgba(18,183,212,0.14)] transition-colors duration-300 group cursor-pointer flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Card Top Image (Black, White & Blue/Cyan Theme - No Numbers) */}
+                    <div className="relative w-full h-[210px] sm:h-[230px] rounded-2xl overflow-hidden bg-[#141414] mb-5">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        draggable={false}
+                      />
+                      {/* Gradient overlay for contrast */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Category Pill with cyan indicator */}
+                      <span className="absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 py-1 px-3.5 rounded-full bg-white/95 backdrop-blur-xs text-black text-xs font-black uppercase tracking-wider shadow-sm">
+                        <span className="w-2 h-2 rounded-full bg-[#12b7d4]" />
+                        {service.category}
+                      </span>
+                    </div>
+
+                    {/* Bold Service Title - Total Black */}
+                    <h3 className="text-xl sm:text-2xl font-black uppercase text-black tracking-tight font-['Manrope'] mb-2">
+                      {service.title}
+                    </h3>
+
+                    {/* One-Line Description in Script Italic Blue Font */}
+                    <p className="font-script text-base sm:text-lg text-[#12b7d4] leading-snug mb-4">
+                      {service.description}
+                    </p>
+
+                    {/* Short Service Keywords */}
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                      {service.keywords.map((kw, i) => (
+                        <span
+                          key={i}
+                          className="text-[11px] font-semibold text-[#555555] bg-[#f5f5f5] group-hover:bg-[#e6f9fc] group-hover:text-[#087f94] px-2.5 py-1 rounded-full transition-colors"
+                        >
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Article Title */}
-                  <h3 className="text-lg font-bold text-[#000000] group-hover:text-[#12b7d4] transition-colors leading-snug mb-3 font-['Manrope']">
-                    {art.title}
-                  </h3>
+                  {/* Bottom Link - Read More */}
+                  <div className="mt-5 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-black uppercase tracking-wider text-black group-hover:text-[#12b7d4] transition-colors">
+                    <span className="flex items-center gap-1.5">
+                      Read More <span className="text-[#12b7d4]">→</span>
+                    </span>
+                    <span className="text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#12b7d4]">
+                      ↗
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-                  <p className="text-xs text-[#666666] leading-relaxed">
-                    {art.tag}
-                  </p>
-                </div>
-
-                {/* Read post link */}
-                <div className="mt-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-bold text-black group-hover:text-[#12b7d4] transition-colors">
-                  <span>Read post</span>
-                  <span className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
-                    ↗
-                  </span>
-                </div>
-              </div>
-            ))}
           </div>
+
+          {/* Closing Line Callout */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.75, ease: rushEase }}
+            className="mt-14 sm:mt-18 rounded-3xl bg-black text-white p-8 sm:p-12 lg:p-14 relative overflow-hidden border border-[#222222] shadow-2xl"
+          >
+            {/* Subtle glow accent */}
+            <div className="absolute right-0 bottom-0 w-80 h-80 bg-[#12b7d4]/20 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+              <div className="max-w-2xl">
+                <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-['Manrope'] leading-tight mb-3">
+                  “From Building Your Brand to <span className="text-[#12b7d4]">Building Your Business.</span>”
+                </blockquote>
+                <p className="font-script text-2xl sm:text-3xl text-[#12b7d4] tracking-wide">
+                  Content. Technology. Performance. All Under One Roof.
+                </p>
+              </div>
+
+              <div className="shrink-0 flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => setPage("contact")}
+                  className="btn-rush-cyan text-xs sm:text-sm uppercase tracking-wider px-8 py-4 cursor-pointer shadow-lg hover:scale-105 transition-transform"
+                >
+                  Start Your Project →
+                </button>
+              </div>
+            </div>
+          </motion.div>
 
         </div>
       </ScrollSection>
@@ -771,23 +915,34 @@ export default function Home({ setPage }) {
       <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
         <div className="rush-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            
+
             {/* Left Column: Stacked Massive Headline */}
-            <div className="lg:col-span-5 flex flex-col justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: rushEase }}
+              className="lg:col-span-5 flex flex-col justify-center"
+            >
               <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Manrope']">
                 Trusted by<br />
                 Visionaries,<br />
                 Admired by the<br />
                 <span className="text-[#12b7d4]">Best</span>
               </h2>
-            </div>
+            </motion.div>
 
             {/* Right Column: 3x3 Auto-Changing Logo Cards (Every 2 seconds, full color) */}
             <div className="lg:col-span-7">
               <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
                 {logoGridSlots.map((slot, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
+                    initial={{ opacity: 0, scale: 0.88 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, delay: idx * 0.04, ease: rushEase }}
+                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
                     className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
                   >
                     <div
@@ -810,7 +965,7 @@ export default function Home({ setPage }) {
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -824,7 +979,7 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-[#000000] text-white py-20 lg:py-28 overflow-hidden">
         <div className="rush-container">
-          
+
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <span className="tag-bubble bg-[#12b7d4] text-white mb-4">
@@ -855,41 +1010,50 @@ export default function Home({ setPage }) {
           </div>
 
           {/* Testimonial Active Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#111111] border border-[#222222] rounded-3xl p-8 sm:p-12">
-            
-            <div className="lg:col-span-8 flex flex-col justify-between">
-              <div>
-                {/* 5 Stars Rating */}
-                <div className="flex items-center gap-1.5 mb-5 text-[#12b7d4] text-lg sm:text-xl">
-                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeReview}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: rushEase }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#111111] border border-[#222222] rounded-3xl p-8 sm:p-12"
+            >
+
+              <div className="lg:col-span-8 flex flex-col justify-between">
+                <div>
+                  {/* 5 Stars Rating */}
+                  <div className="flex items-center gap-1.5 mb-5 text-[#12b7d4] text-lg sm:text-xl">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                  </div>
+
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#12b7d4] mb-3 block">
+                    {testimonials[activeReview].brand}
+                  </span>
+
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-normal text-white/90 leading-relaxed mb-8">
+                    "{testimonials[activeReview].quote}"
+                  </p>
                 </div>
 
-                <span className="text-xs font-bold uppercase tracking-widest text-[#12b7d4] mb-3 block">
-                  {testimonials[activeReview].brand}
-                </span>
-                
-                <p className="text-xl sm:text-2xl lg:text-3xl font-normal text-white/90 leading-relaxed mb-8">
-                  "{testimonials[activeReview].quote}"
-                </p>
+                <div>
+                  <h4 className="text-xl font-black text-white font-['Manrope']">
+                    {testimonials[activeReview].author}
+                  </h4>
+                  <p className="text-sm text-neutral-400 font-medium mt-1">
+                    {testimonials[activeReview].role}
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h4 className="text-xl font-black text-white font-['Manrope']">
-                  {testimonials[activeReview].author}
-                </h4>
-                <p className="text-sm text-neutral-400 font-medium mt-1">
-                  {testimonials[activeReview].role}
-                </p>
+              <div className="lg:col-span-4 flex justify-center">
+                <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Manrope'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
+                  {testimonials[activeReview].initial}
+                </div>
               </div>
-            </div>
 
-            <div className="lg:col-span-4 flex justify-center">
-              <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Manrope'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
-                {testimonials[activeReview].initial}
-              </div>
-            </div>
-
-          </div>
+            </motion.div>
+          </AnimatePresence>
 
         </div>
       </ScrollSection>
@@ -899,7 +1063,7 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
         <div className="rush-container">
-          
+
           <div className="max-w-3xl mb-12">
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Manrope']">
               Our Initiatives
@@ -910,9 +1074,16 @@ export default function Home({ setPage }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
+
             {/* Initiative 1 */}
-            <div className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-all group">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.65, ease: rushEase }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-colors group"
+            >
               <div className="aspect-video rounded-2xl overflow-hidden bg-black mb-6">
                 <video
                   src={reel1}
@@ -936,10 +1107,17 @@ export default function Home({ setPage }) {
                   ↗
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Initiative 2 */}
-            <div className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-all group">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.65, delay: 0.12, ease: rushEase }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-colors group"
+            >
               <div className="aspect-video rounded-2xl overflow-hidden bg-black mb-6">
                 <video
                   src={reel2}
@@ -961,7 +1139,7 @@ export default function Home({ setPage }) {
                   ↗
                 </button>
               </div>
-            </div>
+            </motion.div>
 
           </div>
 
@@ -973,9 +1151,15 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection id="CTA" className="bg-[#000000] text-white py-20 lg:py-28">
         <div className="rush-container">
-          
-          <div className="max-w-4xl mx-auto">
-            
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.75, ease: rushEase }}
+            className="max-w-4xl mx-auto"
+          >
+
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-3 font-['Manrope']">
                 Let’s Connect to <span className="text-[#12b7d4]">Create Magic!</span>
@@ -986,7 +1170,7 @@ export default function Home({ setPage }) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              
+
               {/* Row 1: Name & Business Name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
@@ -1058,11 +1242,10 @@ export default function Home({ setPage }) {
                         key={srv}
                         type="button"
                         onClick={() => toggleService(srv)}
-                        className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${
-                          checked
-                            ? "bg-[#12b7d4] text-white border-[#12b7d4]"
-                            : "bg-[#111111] text-neutral-300 border-[#333333] hover:border-[#12b7d4]"
-                        }`}
+                        className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${checked
+                          ? "bg-[#12b7d4] text-white border-[#12b7d4]"
+                          : "bg-[#111111] text-neutral-300 border-[#333333] hover:border-[#12b7d4]"
+                          }`}
                       >
                         {checked ? "✓ " : "+ "}
                         {srv}
@@ -1109,7 +1292,7 @@ export default function Home({ setPage }) {
 
             </form>
 
-          </div>
+          </motion.div>
 
         </div>
       </ScrollSection>
@@ -1141,115 +1324,6 @@ export default function Home({ setPage }) {
                 className="w-full h-full max-h-[80vh] object-contain"
               />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Article Detail Modal (Read Post in Detail) */}
-      <AnimatePresence>
-        {activeArticle && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-3 sm:p-6 md:p-8"
-            onClick={() => setActiveArticle(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 15 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 15 }}
-              transition={{ duration: 0.22 }}
-              className="relative max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] bg-white rounded-2xl sm:rounded-3xl border border-[#eaeaea] shadow-2xl flex flex-col overflow-hidden text-left"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Pinned Header with Badges & Always-Visible Close Button */}
-              <div className="flex items-center justify-between px-5 sm:px-8 py-3.5 sm:py-4 border-b border-[#eaeaea] bg-white shrink-0 z-10">
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-                  <span className="tag-bubble-cyan text-xs font-black">
-                    {activeArticle.category}
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#777777]">
-                    {activeArticle.readTime}
-                  </span>
-                  {activeArticle.stat && (
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider bg-[#12b7d4] text-white px-2.5 py-0.5 rounded-full">
-                      {activeArticle.stat}
-                    </span>
-                  )}
-                </div>
-
-                <button
-                  onClick={() => setActiveArticle(null)}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f2f2f2] text-black font-bold flex items-center justify-center hover:bg-[#12b7d4] hover:text-white hover:scale-105 transition-all cursor-pointer shrink-0 ml-2"
-                  aria-label="Close dialog"
-                >
-                  <span className="text-base sm:text-lg leading-none">✕</span>
-                </button>
-              </div>
-
-              {/* Scrollable Article Body */}
-              <div className="overflow-y-auto px-5 sm:px-8 py-6 space-y-6 overscroll-contain">
-                {/* Full Title */}
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-black font-['Manrope'] leading-tight">
-                  {activeArticle.title}
-                </h2>
-
-                {/* Subtitle / Intro */}
-                <p className="text-sm sm:text-base text-[#444444] font-medium leading-relaxed pb-4 border-b border-[#eaeaea]">
-                  {activeArticle.intro}
-                </p>
-
-                {/* Content Sections */}
-                <div className="space-y-4">
-                  {activeArticle.sections.map((sec, idx) => (
-                    <div key={idx} className="bg-[#fafafa] border border-[#eaeaea] rounded-2xl p-4 sm:p-5">
-                      <h3 className="text-sm sm:text-base font-black uppercase tracking-wide text-black mb-1.5 font-['Manrope']">
-                        {sec.heading}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#555555] leading-relaxed font-normal">
-                        {sec.text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Actionable Strategic Takeaway */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#e6f9fc]/70 border-l-4 border-[#12b7d4]">
-                  <span className="text-xs font-black uppercase tracking-wider text-[#087f94] block mb-1">
-                    Key Strategic Takeaway
-                  </span>
-                  <p className="text-xs sm:text-sm font-semibold text-black leading-relaxed italic">
-                    "{activeArticle.takeaway}"
-                  </p>
-                </div>
-              </div>
-
-              {/* Pinned Bottom Footer Actions */}
-              <div className="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-3.5 sm:py-4 border-t border-[#eaeaea] bg-[#fafafa] shrink-0 z-10">
-                <div className="text-[11px] sm:text-xs font-bold text-[#888888] hidden sm:block">
-                  Rise With Media Insights
-                </div>
-                <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-                  <button
-                    onClick={() => setActiveArticle(null)}
-                    className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#eaeaea] text-xs font-bold uppercase tracking-wider text-black hover:bg-white cursor-pointer transition-colors"
-                  >
-                    Close
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveArticle(null);
-                      setPage("contact");
-                    }}
-                    className="btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2 sm:px-6 sm:py-2.5 cursor-pointer shadow-sm"
-                  >
-                    Discuss Strategy →
-                  </button>
-                </div>
-              </div>
-
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
