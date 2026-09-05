@@ -29,16 +29,14 @@ export default function Navbar({ page, setPage }) {
           {/* Brand Logo */}
           <button
             onClick={() => handleNav("home")}
-            className="flex items-center gap-3.5 text-left group cursor-pointer"
+            className="flex items-center gap-3 text-left group cursor-pointer"
             aria-label="Go to home"
           >
-            <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center overflow-hidden rounded-2xl bg-white border border-[#eaeaea] shadow-xs group-hover:border-[#12b7d4] transition-all duration-300 p-2 sm:p-2.5">
-              <img
-                src="/logo.png"
-                alt="Rise With Media"
-                className="h-full w-full object-contain group-hover:scale-105 transition-transform"
-              />
-            </div>
+            <img
+              src="/logo.png"
+              alt="Rise With Media"
+              className="h-11 w-11 sm:h-13 sm:w-13 md:h-14 md:w-14 object-contain group-hover:scale-105 transition-transform shrink-0"
+            />
             <div className="flex flex-col justify-center">
               <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Manrope'] leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
