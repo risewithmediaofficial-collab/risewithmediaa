@@ -4,15 +4,15 @@ import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection
 const saasProducts = [
   {
     id: "company",
-    name: "Rise Cloud CRM",
-    category: "CRM & ERP Platform",
-    tagline: "Business Automation & Multi-Branch CRM",
+    name: "RWM Agency OS",
+    category: "Agency OS & Automation",
+    tagline: "Operations, Client Management & Agency OS",
     description:
-      "Cloud-native CRM built to centralize leads, automated WhatsApp pipelines, staff quotas, and branch billing.",
+      "Cloud-native operating system built to centralize leads, automated WhatsApp pipelines, staff quotas, and client billing.",
     url: "https://company.risewithmedia.com",
     domain: "company.risewithmedia.com",
-    cta: "Launch CRM App ↗",
-    badge: "CRM Platform",
+    cta: "Launch Agency OS ↗",
+    badge: "Agency OS Platform",
     stats: [
       { label: "Pipelines Automated", value: "99.4%" },
       { label: "Stores Managed", value: "16+" },

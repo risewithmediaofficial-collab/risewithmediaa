@@ -212,9 +212,9 @@ export default function Home({ setPage }) {
     },
     {
       id: "saascrm",
-      client: "RISE CLOUD SAAS",
-      tag: "Autonomous Growth Engine",
-      category: "CRM & Automations",
+      client: "RWM AGENCY OS",
+      tag: "Autonomous Agency Engine",
+      category: "Agency OS & Automations",
       image: campaign3,
       impact: "99.4% Workflow Velocity",
       description: "Automating omnichannel pipeline velocity and real-time WhatsApp conversion funnels.",
