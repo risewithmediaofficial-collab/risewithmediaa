@@ -42,7 +42,7 @@ export default function Navbar({ page, setPage }) {
               <span className="block text-xl sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Varela_Round'] leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
-              <span className="font-script text-sm sm:text-base text-[#12b7d4] tracking-wide leading-tight mt-0.5 sm:mt-1">
+              <span className="font-script text-base sm:text-lg md:text-[1.15rem] text-[#12b7d4] font-bold leading-none mt-0.5 sm:mt-1 select-none">
                 Built for Growth
               </span>
             </div>

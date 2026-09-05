@@ -474,16 +474,17 @@ export default function Home({ setPage }) {
             </div>
 
             {/* Subtitle: “Not just ↔ visible, Memorable.” */}
-            <div className="overflow-hidden flex flex-wrap justify-center mt-3">
+            <div className="overflow-visible flex flex-wrap justify-center items-baseline mt-3 gap-x-3 sm:gap-x-4 pb-2 pt-1">
               {/* LEFT HALF */}
               <motion.span
                 initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] inline-block pr-[0.12em]"
+                className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] inline-flex items-baseline"
               >
-                Not just
+                <span>Not</span>
+                <span className="inline-block ml-2.5 sm:ml-3.5 md:ml-4.5">just</span>
               </motion.span>
               {/* RIGHT HALF */}
               <motion.span
