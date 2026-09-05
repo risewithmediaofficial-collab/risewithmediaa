@@ -306,7 +306,7 @@ export default function Works({ setPage }) {
               onClick={() => scrollToSection("client-websites")}
               className="px-5 py-2.5 rounded-full border border-black bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-[#12b7d4] hover:border-[#12b7d4] transition-colors cursor-pointer"
             >
-              Client Websites ({clientWebsites.length})
+              Client Websites
             </button>
             <button
               onClick={() => scrollToSection("reels")}
@@ -356,7 +356,7 @@ export default function Works({ setPage }) {
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                   className="absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] select-none z-20 pointer-events-none"
                 >
-                  {clientWebsites.length} Client Sites
+                  Client Websites
                 </motion.div>
               </div>
 
@@ -367,7 +367,7 @@ export default function Works({ setPage }) {
               {/* Status and Active Info */}
               <div className="mt-4 flex items-center gap-3">
                 <span className="text-xs font-black uppercase tracking-widest text-[#888888] bg-[#f5f5f5] px-3.5 py-1.5 rounded-full border border-[#eaeaea]">
-                  Site {String(activeSlide + 1).padStart(2, "0")} of {String(clientWebsites.length).padStart(2, "0")}
+                  Live Client Deployment
                 </span>
                 <a
                   href={currentActive.url}
@@ -561,7 +561,7 @@ export default function Works({ setPage }) {
                 Jump Directly to Any Client Website:
               </span>
               <span className="text-xs font-bold text-[#12b7d4]">
-                {clientWebsites.length} Deployments
+                Live Deployments
               </span>
             </div>
             <div className="flex flex-wrap gap-2">

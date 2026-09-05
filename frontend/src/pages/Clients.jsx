@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import ScrollSection, { ScrollText, ScrollImage } from "../components/ScrollSection";
+import ScrollSection, { ScrollText } from "../components/ScrollSection";
 // Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
 import KrinBrinlogo from "../assets/clientlogo/krinbrinlogo.png";
@@ -18,6 +18,53 @@ import dakshinelogo from "../assets/clientlogo/dakshinelogo.png";
 
 const rushEase = [0.16, 1, 0.3, 1];
 
+// Proprietary SaaS Products (Featured 1st in list)
+const saasProducts = [
+  {
+    id: "crm",
+    name: "Rise Cloud CRM",
+    category: "CRM & Business Automation",
+    badge: "Enterprise Platform",
+    tagline: "Multi-branch lead, pipeline, and staff automation suite",
+    description: "Cloud-native CRM built for fast-scaling multi-location brands. Streamlines lead acquisition, WhatsApp follow-ups, team quotas, and automated client billing.",
+    url: "https://company.risewithmedia.com",
+    domain: "company.risewithmedia.com",
+    highlights: ["Multi-Branch Leads", "Pipeline Automation", "Staff Roles", "Automated Billing"],
+    status: "Live Production Suite",
+    color: "#12b7d4",
+  },
+  {
+    id: "hms",
+    name: "Rise HMS",
+    category: "Hospital Management System",
+    badge: "Healthcare SaaS",
+    tagline: "Cloud clinical workflow, OPD queues, and digital billing OS",
+    description: "Full-spectrum hospital operations system powering patient registrations, real-time doctor appointments, digital prescriptions, pharmacy inventory, and GST invoicing.",
+    url: "https://hms.risewithmedia.com",
+    domain: "hms.risewithmedia.com",
+    highlights: ["Patient Records", "OPD & Appointments", "Pharmacy & Lab", "Digital Invoicing"],
+    status: "Live Production Suite",
+    color: "#0284c7",
+  },
+];
+
+// Client Websites & Portals (Live production client sites — no numerical numbers shown)
+const clientWebsitesList = [
+  { name: "Arunam Catering", domain: "arunamcatering.com", url: "https://arunamcatering.com", tag: "Hospitality & Dining" },
+  { name: "Atros India", domain: "atrosindia.com", url: "https://atrosindia.com", tag: "Industrial Engineering" },
+  { name: "Future Kids Ambur", domain: "futurekidsambur.com", url: "https://futurekidsambur.com", tag: "Education Academy" },
+  { name: "GYES Property", domain: "gyesproperty.com", url: "https://gyesproperty.com", tag: "Real Estate & Housing" },
+  { name: "GYES Traders", domain: "gyestraders.com", url: "https://gyestraders.com", tag: "Commercial Hardware" },
+  { name: "Hsieh Hsu India", domain: "hsiehhsuindia.com", url: "https://hsiehhsuindia.com", tag: "Heavy Machinery" },
+  { name: "My Hosur Property", domain: "myhosurproperty.com", url: "https://myhosurproperty.com", tag: "Real Estate Search" },
+  { name: "Richi Food Products", domain: "richifoodproducts.com", url: "https://richifoodproducts.com", tag: "Packaged Foods" },
+  { name: "Pentacad Tech", domain: "pentacadtech.com", url: "https://pentacadtech.com", tag: "CAD & Tech Systems" },
+  { name: "Srijai Tech", domain: "srijaitech.com", url: "https://srijaitech.com", tag: "Industrial Solutions" },
+  { name: "Malar Traders", domain: "malartraders.com", url: "https://malartraders.com", tag: "Wholesale Goods" },
+  { name: "Kandhan Cars", domain: "kandhancars.com", url: "https://kandhancars.com", tag: "Automotive Showroom" },
+  { name: "Dakshine", domain: "dakshine.com", url: "https://dakshine.com", tag: "Traditional Silks & Retail" },
+];
+
 // 3x3 Grid Logo Slots for auto-changing cards (2-second rotation like Home screen)
 const logoGridSlots = [
   // Row 1
@@ -32,22 +79,6 @@ const logoGridSlots = [
   [femi9logo, malartraderslogo, neoweblogo],
   [tryologo, kandhancarslogo, zoylogo],
   [pentacadtech, dakshinelogo, femi9logo],
-];
-
-const allClients = [
-  { name: "Richi", src: Richilogo },
-  { name: "Krin Brin", src: KrinBrinlogo },
-  { name: "Savlo", src: Savlologo },
-  { name: "Kertam", src: kertamlogo },
-  { name: "Neoweb", src: neoweblogo },
-  { name: "Zoy", src: zoylogo },
-  { name: "Femi9", src: femi9logo },
-  { name: "Tryo", src: tryologo },
-  { name: "Pentacad Tech", src: pentacadtech },
-  { name: "Srijai Tech", src: srijaitechlogo },
-  { name: "Malar Traders", src: malartraderslogo },
-  { name: "Kandhan Cars", src: kandhancarslogo },
-  { name: "Dakshine", src: dakshinelogo },
 ];
 
 const stats = [
@@ -97,7 +128,7 @@ export default function Clients({ setPage }) {
 
   return (
     <main className="bg-white pt-20 sm:pt-[88px]">
-      
+
       {/* ─────────────────────────────────────────────────────────────────
           HEADER
       ───────────────────────────────────────────────────────────────── */}
@@ -111,7 +142,7 @@ export default function Clients({ setPage }) {
             Admired by the <span className="text-[#12b7d4]">Best</span>
           </ScrollText>
           <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
-            Powering South India’s most ambitious consumer & retail brands.
+            Powering South India’s most ambitious consumer, enterprise & healthcare brands.
           </ScrollText>
         </div>
       </ScrollSection>
@@ -128,7 +159,7 @@ export default function Clients({ setPage }) {
                 initial={{ opacity: 0, y: 28, scale: 0.94 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: false, amount: 0.05 }}
-                transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: rushEase }}
                 className="text-center p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors"
               >
                 <div className="text-3xl sm:text-5xl font-black text-black font-['Varela_Round'] mb-2">
@@ -140,6 +171,182 @@ export default function Clients({ setPage }) {
               </motion.div>
             ))}
           </div>
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          FEATURED 1ST IN LIST: PROPRIETARY SAAS PRODUCTS
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-[#fcfdfd] py-16 sm:py-24 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
+                Proprietary SaaS Ecosystem
+              </ScrollText>
+              <ScrollText as="h2" direction="up" delay={0.08} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
+                Enterprise Software <span className="text-[#12b7d4]">Products</span>
+              </ScrollText>
+              <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4] mt-2">
+                In-house cloud operating systems built, hosted & scaled by Rise With Media.
+              </ScrollText>
+            </div>
+
+            <ScrollText as="div" direction="up" delay={0.2} className="flex-shrink-0">
+              <button
+                onClick={() => setPage("softwares")}
+                className="btn-rush-black text-xs uppercase tracking-wider px-6 py-3 cursor-pointer hover:bg-[#12b7d4] transition-all"
+              >
+                View Full Software Suite →
+              </button>
+            </ScrollText>
+          </div>
+
+          {/* SaaS Products Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {saasProducts.map((prod, idx) => (
+              <motion.div
+                key={prod.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.05 }}
+                transition={{ duration: 0.6, delay: idx * 0.15, ease: rushEase }}
+                className="rounded-3xl border border-[#eaeaea] bg-white p-7 sm:p-9 flex flex-col justify-between hover:border-[#12b7d4] transition-all shadow-xs group"
+              >
+                <div>
+                  {/* Top Bar with Badge & Live Status */}
+                  <div className="flex items-center justify-between gap-4 mb-6">
+                    <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] bg-[#e6f9fc] border border-[#12b7d4]/30 px-3 py-1 rounded-full">
+                      {prod.badge}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#12b7d4] animate-pulse" />
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#888888]">
+                        {prod.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Title & Tagline */}
+                  <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-2 group-hover:text-[#12b7d4] transition-colors">
+                    {prod.name}
+                  </h3>
+                  <p className="font-script text-xl text-[#12b7d4] mb-4">
+                    {prod.tagline}
+                  </p>
+                  <p className="text-sm text-[#555555] leading-relaxed mb-6">
+                    {prod.description}
+                  </p>
+
+                  {/* Feature Highlights Pills */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {prod.highlights.map((feat, fi) => (
+                      <span
+                        key={fi}
+                        className="text-xs font-bold text-[#333333] bg-[#f7f7f7] border border-[#eaeaea] px-3 py-1.5 rounded-lg flex items-center gap-1.5"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#12b7d4]" />
+                        {feat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Footer Actions */}
+                <div className="pt-6 border-t border-[#f0f0f0] flex flex-wrap items-center justify-between gap-4">
+                  <a
+                    href={prod.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-[#777777] hover:text-[#12b7d4] transition-colors"
+                  >
+                    https://{prod.domain}
+                  </a>
+                  <a
+                    href={prod.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2.5 cursor-pointer shadow-xs inline-flex items-center gap-1.5"
+                  >
+                    <span>Launch App</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
+      </ScrollSection>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          CLIENT WEBSITES DIRECTORY (No Numerical Numbers Shown)
+      ───────────────────────────────────────────────────────────────── */}
+      <ScrollSection className="bg-white py-16 sm:py-20 border-b border-[#eaeaea]">
+        <div className="rush-container">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+              <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
+                Production Deployments
+              </ScrollText>
+              <ScrollText as="h2" direction="up" delay={0.08} className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
+                Client Websites & <span className="text-[#12b7d4]">Live Portals</span>
+              </ScrollText>
+              <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4] mt-2">
+                High-conversion web platforms engineered for South India's market leaders.
+              </ScrollText>
+            </div>
+
+            <ScrollText as="div" direction="up" delay={0.2} className="flex-shrink-0">
+              <button
+                onClick={() => setPage("works")}
+                className="px-5 py-2.5 rounded-full border border-black bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-[#12b7d4] hover:border-[#12b7d4] transition-colors cursor-pointer"
+              >
+                Explore 3D Case Studies Showcase →
+              </button>
+            </ScrollText>
+          </div>
+
+          {/* Client Websites Clean Interactive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {clientWebsitesList.map((site, sIdx) => (
+              <motion.a
+                key={site.domain}
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.05 }}
+                transition={{ duration: 0.45, delay: (sIdx % 8) * 0.05, ease: rushEase }}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className="group p-5 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-[#e6f9fc] px-2.5 py-1 rounded-md">
+                      {site.tag}
+                    </span>
+                    <span className="text-[#888888] group-hover:text-[#12b7d4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-xs font-bold">
+                      ↗
+                    </span>
+                  </div>
+                  <h4 className="font-black text-base text-black font-['Varela_Round'] group-hover:text-[#12b7d4] transition-colors mb-1">
+                    {site.name}
+                  </h4>
+                </div>
+                <div className="mt-3 pt-3 border-t border-[#f4f4f4] flex items-center justify-between text-xs text-[#777777] font-mono">
+                  <span>{site.domain}</span>
+                  <span className="text-[10px] font-sans font-bold text-[#10b981] bg-[#ecfdf5] px-2 py-0.5 rounded-full">
+                    Live
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+
         </div>
       </ScrollSection>
 
@@ -159,7 +366,7 @@ export default function Clients({ setPage }) {
               className="lg:col-span-5 flex flex-col justify-center"
             >
               <span className="tag-bubble-cyan mb-4 inline-block">
-                Client Portfolio
+                Client Brands
               </span>
               <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Varela_Round'] mb-4">
                 Trusted by<br />
@@ -288,4 +495,3 @@ export default function Clients({ setPage }) {
     </main>
   );
 }
-
