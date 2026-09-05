@@ -285,19 +285,18 @@ export default function Works({ setPage }) {
   return (
     <main className="bg-white pt-20 sm:pt-[88px]">
       {/* ─────────────────────────────────────────────────────────────────
-          PAGE HEADER (Exact Clients & Home Style Typography)
+          PAGE HEADER (Short & Crisp Typography)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea]">
-        <div className="rush-container text-center max-w-4xl mx-auto">
-          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
-            Network & Deployments
+      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea]">
+        <div className="rush-container text-center max-w-3xl mx-auto">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
+            Case Studies
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
-            Engineered to Scale,<br />
-            Built to <span className="text-[#12b7d4]">Dominate</span>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
+            Case Studies & <span className="text-[#12b7d4]">Works</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4] mb-8">
-            High-converting client websites, viral short-form reels & performance systems.
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-6">
+            Real brands. Measurable growth.
           </ScrollText>
 
           {/* Quick Navigation Pills Centered */}

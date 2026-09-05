@@ -62,19 +62,18 @@ export default function Softwares({ setPage }) {
     <main className="bg-white pt-20 sm:pt-[88px]">
 
       {/* ─────────────────────────────────────────────────────────────────
-          HEADER & 1ST: LIST OUT AVAILABLE SAAS WEBSITES
+          HEADER & 1ST: LIST OUT AVAILABLE SAAS WEBSITES (Short & Crisp)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea]">
-        <div className="rush-container text-center max-w-4xl mx-auto">
-          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
+      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea]">
+        <div className="rush-container text-center max-w-3xl mx-auto">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
             Proprietary SaaS
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
-            Built for Workflows,<br />
-            Engineered for <span className="text-[#12b7d4]">Scale</span>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
+            SaaS & <span className="text-[#12b7d4]">Softwares</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4] mb-8">
-            Cloud-native operating systems powering real business growth.
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-6">
+            Cloud operating systems built for scale.
           </ScrollText>
 
           {/* 1st in list: Available SaaS Websites */}
