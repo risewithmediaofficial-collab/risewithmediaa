@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Works from "./pages/Works";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
+import Softwares from "./pages/Softwares";
 import ServiceDetail, { servicesData } from "./pages/ServiceDetail";
 
 // Floating WhatsApp Button with authentic WhatsApp branding
@@ -44,7 +45,7 @@ export default function App() {
   const [page, setPage] = useState(() => {
     if (typeof window !== "undefined") {
       const hash = window.location.hash.replace("#", "");
-      if (hash && (["home", "works", "clients", "contact"].includes(hash) || servicesData[hash])) {
+      if (hash && (["home", "works", "clients", "contact", "softwares"].includes(hash) || servicesData[hash])) {
         return hash;
       }
     }
@@ -67,7 +68,7 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
-      if (hash && (["home", "works", "clients", "contact"].includes(hash) || servicesData[hash])) {
+      if (hash && (["home", "works", "clients", "contact", "softwares"].includes(hash) || servicesData[hash])) {
         setPage(hash);
       } else if (!hash) {
         setPage("home");
@@ -93,6 +94,8 @@ export default function App() {
         return <Home setPage={setPage} />;
       case "works":
         return <Works setPage={setPage} />;
+      case "softwares":
+        return <Softwares setPage={setPage} />;
       case "clients":
         return <Clients setPage={setPage} />;
       case "contact":

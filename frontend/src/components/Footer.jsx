@@ -2,6 +2,7 @@ export default function Footer({ setPage }) {
   const links = [
     { label: "Home", key: "home" },
     { label: "Case Studies", key: "works" },
+    { label: "Softwares", key: "softwares" },
     { label: "Clients", key: "clients" },
     { label: "Contact", key: "contact" },
   ];
