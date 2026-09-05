@@ -46,7 +46,7 @@ const mobileViewport = { once: false, amount: 0.05 };
 /**
  * ScrollReveal / ScrollSection
  * Triggers animations both scrolling down and up (once: false)
- * Mobile-safe: low threshold so tall sections always animate
+ * Silky smooth duration and subtle initial offset
  */
 export function ScrollReveal({
   children,
@@ -65,11 +65,11 @@ export function ScrollReveal({
       id={id}
       style={style}
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount }}
       transition={{
-        duration: 0.7,
+        duration: 0.8,
         delay,
         ease: rushEase,
       }}
@@ -81,8 +81,7 @@ export function ScrollReveal({
 
 /**
  * ScrollText: Text slide animation for headings, subtitles, and badges
- * Re-triggers on both scroll down and scroll up
- * Mobile-safe: triggers when just 5% of element is in view
+ * Re-triggers on both scroll down and scroll up with soft natural glide
  */
 export function ScrollText({
   children,
@@ -94,10 +93,10 @@ export function ScrollText({
 }) {
   const Component = motion[as] || motion.div;
   const offset =
-    direction === "up" ? 30
-    : direction === "down" ? -30
-    : direction === "left" ? 40
-    : -40;
+    direction === "up" ? 22
+    : direction === "down" ? -22
+    : direction === "left" ? 28
+    : -28;
   const axis = direction === "left" || direction === "right" ? "x" : "y";
 
   return (
@@ -107,7 +106,7 @@ export function ScrollText({
       whileInView={{ opacity: 1, [axis]: 0 }}
       viewport={{ once: false, amount }}
       transition={{
-        duration: 0.65,
+        duration: 0.8,
         delay,
         ease: rushEase,
       }}
@@ -120,23 +119,22 @@ export function ScrollText({
 /**
  * ScrollImage: Image & media scale/slide animation on scroll
  * Re-triggers on both scroll down and scroll up
- * Mobile-safe: triggers at 5% visibility
  */
 export function ScrollImage({
   children,
   className = "",
-  delay = 0.1,
-  scale = 0.94,
+  delay = 0.08,
+  scale = 0.96,
   amount = 0.05,
 }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, scale, y: 20 }}
+      initial={{ opacity: 0, scale, y: 18 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: false, amount }}
       transition={{
-        duration: 0.75,
+        duration: 0.85,
         delay,
         ease: rushEase,
       }}

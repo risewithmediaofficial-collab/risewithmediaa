@@ -742,16 +742,18 @@ export default function Home({ setPage }) {
 
             {/* Card 01 - Left Tilted */}
             <motion.div
-              initial={{ opacity: 0, y: 40, rotate: -7 }}
+              initial={{ opacity: 0, y: 35, rotate: -7 }}
               whileInView={{ opacity: 1, y: 0, rotate: -4.5 }}
               viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.75, ease: rushEase }}
+              transition={{ duration: 0.85, ease: rushEase }}
               className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
             >
               {/* Video Card */}
-              <div
+              <motion.div
+                whileHover={{ scale: 1.04, y: -4 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 onClick={() => setActiveVideoModal(reel1)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-all cursor-pointer group-hover:scale-105 group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
               >
                 <video
                   src={reel1}
@@ -759,7 +761,8 @@ export default function Home({ setPage }) {
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  preload="auto"
+                  className="w-full h-full object-cover gpu-smooth"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
@@ -777,7 +780,7 @@ export default function Home({ setPage }) {
                 <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
                   ▶
                 </div>
-              </div>
+              </motion.div>
 
               {/* Caption Under Card */}
               <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
@@ -787,16 +790,18 @@ export default function Home({ setPage }) {
 
             {/* Card 02 - Center Elevated & Right Tilted (Matching Reference) */}
             <motion.div
-              initial={{ opacity: 0, y: 40, rotate: 5 }}
+              initial={{ opacity: 0, y: 35, rotate: 5 }}
               whileInView={{ opacity: 1, y: 0, rotate: 2.5 }}
               viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.75, delay: 0.1, ease: rushEase }}
+              transition={{ duration: 0.85, delay: 0.1, ease: rushEase }}
               className="flex flex-col items-center -translate-y-2 sm:-translate-y-4 group z-10"
             >
               {/* Video Card */}
-              <div
+              <motion.div
+                whileHover={{ scale: 1.04, y: -4 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 onClick={() => setActiveVideoModal(reel2)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-all cursor-pointer group-hover:scale-105 group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
               >
                 <video
                   src={reel2}
@@ -804,7 +809,8 @@ export default function Home({ setPage }) {
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  preload="auto"
+                  className="w-full h-full object-cover gpu-smooth"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
@@ -822,7 +828,7 @@ export default function Home({ setPage }) {
                 <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
                   ▶
                 </div>
-              </div>
+              </motion.div>
 
               {/* Caption Under Card */}
               <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
@@ -832,16 +838,18 @@ export default function Home({ setPage }) {
 
             {/* Card 03 - Right Tilted (Matching Reference with Brand Badge) */}
             <motion.div
-              initial={{ opacity: 0, y: 40, rotate: -5 }}
+              initial={{ opacity: 0, y: 35, rotate: -5 }}
               whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
               viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.75, delay: 0.2, ease: rushEase }}
+              transition={{ duration: 0.85, delay: 0.2, ease: rushEase }}
               className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
             >
               {/* Video Card */}
-              <div
+              <motion.div
+                whileHover={{ scale: 1.04, y: -4 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 onClick={() => setActiveVideoModal(reel3)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-all cursor-pointer group-hover:scale-105 group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
               >
                 <video
                   src={reel3}
@@ -849,7 +857,8 @@ export default function Home({ setPage }) {
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  preload="auto"
+                  className="w-full h-full object-cover gpu-smooth"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
@@ -872,7 +881,7 @@ export default function Home({ setPage }) {
                 <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
                   ▶
                 </div>
-              </div>
+              </motion.div>
 
               {/* Caption Under Card */}
               <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
@@ -1474,16 +1483,21 @@ export default function Home({ setPage }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 sm:p-8"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
             onClick={() => setActiveVideoModal(null)}
           >
-            <div
-              className="relative max-w-4xl w-full bg-black rounded-2xl overflow-hidden border border-neutral-800"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl w-full bg-black rounded-3xl overflow-hidden border border-white/15 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setActiveVideoModal(null)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white text-black font-bold flex items-center justify-center cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-colors"
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white text-black font-bold flex items-center justify-center cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-colors shadow-lg"
               >
                 ✕
               </button>
@@ -1491,9 +1505,11 @@ export default function Home({ setPage }) {
                 src={activeVideoModal}
                 controls
                 autoPlay
-                className="w-full h-full max-h-[80vh] object-contain"
+                playsInline
+                preload="auto"
+                className="w-full h-full max-h-[80vh] object-contain gpu-smooth"
               />
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
