@@ -449,7 +449,7 @@ export default function Home({ setPage }) {
             transition={{ duration: 0.6, delay: 0.1, ease: rushEase }}
             className="flex items-center justify-center mb-5 sm:mb-6"
           >
-            <div className="inline-flex items-center gap-3.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white border border-[#eaeaea] shadow-xs hover:border-[#12b7d4] transition-all duration-300 group cursor-default">
+            <div className="inline-flex items-center gap-3 transition-all duration-300 group cursor-default">
               <img
                 src="/logo.png"
                 alt="Rise With Media Logo"
