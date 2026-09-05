@@ -650,9 +650,9 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: BUILT FOR THE NOW (Manifesto Split Layout)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
+      <ScrollSection className="bg-white py-14 sm:py-18 lg:py-22 border-b border-[#eaeaea]">
         <div className="rush-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
             {/* Left Content Column */}
             <motion.div
@@ -662,25 +662,25 @@ export default function Home({ setPage }) {
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-6 flex flex-col items-start"
             >
-              <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#000000] leading-[1.05] mb-6 font-['Manrope']">
-                Built for the Now
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 text-[#087f94] text-xs font-black uppercase tracking-widest mb-3">
+                AGENCY FOR THE NOW
+              </span>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-4 font-['Manrope']">
+                Built for the <span className="text-[#12b7d4]">Now</span>
               </h2>
 
-              <p className="text-base sm:text-lg text-[#444444] font-medium leading-relaxed mb-8">
-                Rise With Media isn’t just an agency. We’re the engine driving modern brands forward. For years, we’ve relentlessly engineered bold ideas, content engines, and high-converting systems that defy expectations.
+              <p className="text-sm sm:text-base text-[#444444] font-medium leading-relaxed mb-3">
+                We’re the engine driving modern brands forward — engineering bold ideas, content engines, and high-converting systems built to scale.
               </p>
 
-              <h3 className="text-2xl sm:text-3xl font-black uppercase text-[#000000] mb-4 font-['Manrope']">
-                Agency for the <span className="text-[#12b7d4]">Now</span>
-              </h3>
-
-              <p className="text-base sm:text-lg text-[#444444] font-medium leading-relaxed mb-8">
-                Unafraid, unrelenting and unapologetically obsessed with making your brand a force to be reckoned with. When others stop at “good enough,” we go all the way. We’re not here to fit in, we’re here to scale.
+              <p className="font-script text-base sm:text-lg md:text-xl text-[#12b7d4] leading-snug mb-6">
+                When others stop at “good enough,” we go all the way. Obsessed with making your brand a force to be reckoned with.
               </p>
 
               <button
                 onClick={() => setPage("contact")}
-                className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer hover:scale-105 active:scale-95 transition-transform"
+                className="btn-rush-cyan text-xs uppercase tracking-wider px-7 py-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform"
               >
                 Contact us
               </button>
