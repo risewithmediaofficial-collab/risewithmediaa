@@ -389,7 +389,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
+                viewport={{ once: false, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="group relative bg-[#fafafa] hover:bg-white rounded-3xl p-7 sm:p-8 border border-[#eaeaea] hover:border-[#12b7d4] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
@@ -446,7 +446,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
                 className="relative bg-white rounded-3xl p-8 border border-[#eaeaea] shadow-sm hover:border-[#12b7d4] transition-all flex flex-col justify-between"
               >
@@ -575,3 +575,4 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
     </main>
   );
 }
+

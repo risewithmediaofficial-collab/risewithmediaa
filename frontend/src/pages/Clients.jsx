@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import ScrollSection from "../components/ScrollSection";
+import ScrollSection, { ScrollText, ScrollImage } from "../components/ScrollSection";
 // Client Logos
 import Richilogo from "../assets/clientlogo/richi-logo.png";
 import KrinBrinlogo from "../assets/clientlogo/krinbrinlogo.png";
@@ -103,16 +103,16 @@ export default function Clients({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea]">
         <div className="rush-container text-center">
-          <span className="tag-bubble-cyan mb-4">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
             Network & Partners
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
+          </ScrollText>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
             Trusted by Visionaries,<br />
             Admired by the <span className="text-[#12b7d4]">Best</span>
-          </h1>
-          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+          </ScrollText>
+          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
             Powering South India’s most ambitious consumer & retail brands.
-          </p>
+          </ScrollText>
         </div>
       </ScrollSection>
 
@@ -123,14 +123,21 @@ export default function Clients({ setPage }) {
         <div className="rush-container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((st, i) => (
-              <div key={i} className="text-center p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 28, scale: 0.94 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors"
+              >
                 <div className="text-3xl sm:text-5xl font-black text-black font-['Varela_Round'] mb-2">
                   {st.num}
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-[#777777]">
                   {st.label}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -147,7 +154,7 @@ export default function Clients({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
@@ -173,7 +180,7 @@ export default function Clients({ setPage }) {
                     key={idx}
                     initial={{ opacity: 0, scale: 0.88 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: idx * 0.04, ease: rushEase }}
                     whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
                     className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
@@ -214,18 +221,22 @@ export default function Clients({ setPage }) {
         <div className="rush-container">
           
           <div className="max-w-3xl mb-12">
-            <span className="tag-bubble-cyan mb-3">
+            <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
               Direct Feedback
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
-              What Founders Say
-            </h2>
+            </ScrollText>
+            <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
+              What Founders <span className="text-[#12b7d4]">Say</span>
+            </ScrollText>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {clientReviews.map((rev, i) => (
-              <div
+              <motion.div
                 key={i}
+                initial={{ opacity: 0, y: 30, x: i % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="rounded-3xl border border-[#eaeaea] p-8 flex flex-col justify-between hover:border-[#12b7d4] transition-all bg-white"
               >
                 <div>
@@ -257,19 +268,19 @@ export default function Clients({ setPage }) {
                   <span>Verified Client Partner</span>
                   <span className="text-[#12b7d4]">★★★★★</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Bottom CTA */}
-          <div className="mt-16 text-center">
+          <ScrollText as="div" direction="up" delay={0.1} className="mt-16 text-center">
             <button
               onClick={() => setPage("contact")}
               className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-4 cursor-pointer"
             >
               Partner With Us →
             </button>
-          </div>
+          </ScrollText>
 
         </div>
       </ScrollSection>

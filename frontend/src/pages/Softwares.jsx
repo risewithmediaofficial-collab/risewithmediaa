@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import ScrollSection from "../components/ScrollSection";
+import ScrollSection, { ScrollText } from "../components/ScrollSection";
 
 const saasProducts = [
   {
@@ -59,16 +59,16 @@ export default function Softwares({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea]">
         <div className="rush-container text-center max-w-4xl mx-auto">
-          <span className="tag-bubble-cyan mb-4 inline-block">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
             Cloud Platforms & SaaS
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
+          </ScrollText>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
             Built for Workflows,<br />
             Engineered for <span className="text-[#12b7d4]">Scale</span>
-          </h1>
-          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+          </ScrollText>
+          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
             Beyond agency marketing — cloud-native operating systems powering real business growth.
-          </p>
+          </ScrollText>
         </div>
       </ScrollSection>
 
@@ -84,7 +84,7 @@ export default function Softwares({ setPage }) {
                   className={"lg:col-span-5 flex flex-col items-start " + (idx % 2 === 1 ? "lg:order-2" : "")}
                   initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] mb-3 block">
@@ -133,7 +133,7 @@ export default function Softwares({ setPage }) {
                   className={"lg:col-span-7 " + (idx % 2 === 1 ? "lg:order-1" : "")}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <div
@@ -201,22 +201,25 @@ export default function Softwares({ setPage }) {
       {/* MORE COMING SOON BANNER */}
       <ScrollSection className="py-20 bg-[#f9f9f9] border-t border-[#eaeaea]">
         <div className="rush-container text-center max-w-3xl mx-auto">
-          <span className="tag-bubble-cyan mb-4 inline-block">Future Deployments</span>
-          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-3">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">Future Deployments</ScrollText>
+          <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-3">
             More SaaS Systems in the <span className="text-[#12b7d4]">Pipeline</span>
-          </h2>
-          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4] mb-8">
+          </ScrollText>
+          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4] mb-8">
             Next-generation business workflows, AI copilots & automation engines dropping soon.
-          </p>
-          <button
-            onClick={() => setPage("contact")}
-            className="btn-rush-black text-xs uppercase tracking-wider px-9 py-4 cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-all shadow-sm"
-          >
-            Partner With Us &rarr;
-          </button>
+          </ScrollText>
+          <ScrollText as="div" direction="up" delay={0.26}>
+            <button
+              onClick={() => setPage("contact")}
+              className="btn-rush-black text-xs uppercase tracking-wider px-9 py-4 cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-all shadow-sm"
+            >
+              Partner With Us &rarr;
+            </button>
+          </ScrollText>
         </div>
       </ScrollSection>
 
     </main>
   );
 }
+

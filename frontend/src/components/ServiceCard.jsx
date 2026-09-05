@@ -20,7 +20,7 @@ export default function ServiceCard({
       `}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6, boxShadow: dark ? "0 24px 64px rgba(88,142,244,0.15)" : "0 24px 64px rgba(88,142,244,0.2)" }}
     >

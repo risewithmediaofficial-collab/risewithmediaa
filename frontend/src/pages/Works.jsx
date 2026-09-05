@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollSection from "../components/ScrollSection";
+import ScrollSection, { ScrollText } from "../components/ScrollSection";
 
 // Video Assets
 import reel1 from "../assets/clientvideos/1.mp4";
@@ -289,19 +289,19 @@ export default function Works({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea]">
         <div className="rush-container text-center max-w-4xl mx-auto">
-          <span className="tag-bubble-cyan mb-4 inline-block">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
             Network & Deployments
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
+          </ScrollText>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-4">
             Engineered to Scale,<br />
             Built to <span className="text-[#12b7d4]">Dominate</span>
-          </h1>
-          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4] mb-8">
+          </ScrollText>
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4] mb-8">
             High-converting client websites, viral short-form reels & performance systems.
-          </p>
+          </ScrollText>
 
           {/* Quick Navigation Pills Centered */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <ScrollText as="div" direction="up" delay={0.24} className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
               onClick={() => scrollToSection("client-websites")}
               className="px-5 py-2.5 rounded-full border border-black bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-[#12b7d4] hover:border-[#12b7d4] transition-colors cursor-pointer"
@@ -326,7 +326,7 @@ export default function Works({ setPage }) {
             >
               SaaS Softwares →
             </button>
-          </div>
+          </ScrollText>
         </div>
       </ScrollSection>
 
@@ -594,22 +594,26 @@ export default function Works({ setPage }) {
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/20 border border-[#12b7d4]/40 text-[#12b7d4] text-xs font-black uppercase tracking-widest mb-4 inline-block">
+              <ScrollText as="span" direction="up" delay={0} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/20 border border-[#12b7d4]/40 text-[#12b7d4] text-xs font-black uppercase tracking-widest mb-4 inline-block">
                 Short-Form Content Engine
-              </span>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
+              </ScrollText>
+              <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
                 High-Retention <span className="text-[#12b7d4]">Reels</span>
-              </h2>
+              </ScrollText>
             </div>
-            <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
               Engineered for algorithmic reach and high retention.
-            </p>
+            </ScrollText>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-            {reelVideos.map((reel) => (
-              <div
+            {reelVideos.map((reel, i) => (
+              <motion.div
                 key={reel.id}
+                initial={{ opacity: 0, y: 32, scale: 0.92 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => setActiveReel(reel.src)}
                 className="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-[#111111] border border-[#222222] cursor-pointer hover:border-[#12b7d4] transition-all"
               >
@@ -638,7 +642,7 @@ export default function Works({ setPage }) {
                     {reel.title}
                   </h4>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -653,22 +657,26 @@ export default function Works({ setPage }) {
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <span className="tag-bubble-cyan mb-4 inline-block">
+              <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
                 Performance Creatives
-              </span>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
+              </ScrollText>
+              <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
                 Ad Creatives & <span className="text-[#12b7d4]">Campaigns</span>
-              </h2>
+              </ScrollText>
             </div>
-            <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
               Data-backed creative engines crafted to stop the scroll.
-            </p>
+            </ScrollText>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {campaigns.map((camp) => (
-              <div
+            {campaigns.map((camp, i) => (
+              <motion.div
                 key={camp.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="group rounded-2xl border border-[#eaeaea] p-5 flex flex-col justify-between hover:border-black transition-all bg-white"
               >
                 <div className="aspect-square rounded-xl overflow-hidden bg-[#f9f9f9] border border-[#eaeaea] mb-4">
@@ -691,19 +699,19 @@ export default function Works({ setPage }) {
                     {camp.title}
                   </h3>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Bottom Banner */}
-          <div className="mt-16 text-center">
+          <ScrollText as="div" direction="up" delay={0.1} className="mt-16 text-center">
             <button
               onClick={() => setPage("contact")}
               className="btn-rush-black text-xs uppercase tracking-wider px-8 py-4 cursor-pointer"
             >
               Start Your Campaign With Us →
             </button>
-          </div>
+          </ScrollText>
 
         </div>
       </ScrollSection>

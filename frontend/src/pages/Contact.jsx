@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import ScrollSection from "../components/ScrollSection";
+import ScrollSection, { ScrollText } from "../components/ScrollSection";
 
 const EMAILJS_SERVICE_ID = "service_s15r115";
 const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
@@ -101,15 +101,15 @@ export default function Contact({ initialService = "" }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-white pt-16 pb-12 border-b border-[#eaeaea]">
         <div className="rush-container text-center max-w-4xl">
-          <span className="tag-bubble-cyan mb-4">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
             Let's Talk Business
-          </span>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
+          </ScrollText>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
             Help Us Help You in a <span className="text-[#12b7d4]">Big Way!</span>
-          </h1>
-          <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+          </ScrollText>
+          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
             Tell us a little about your brand and we’ll bring big ideas to the table.
-          </p>
+          </ScrollText>
         </div>
       </ScrollSection>
 
@@ -121,7 +121,13 @@ export default function Contact({ initialService = "" }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
             {/* Left 7 Columns: The Rush Republic Form */}
-            <div className="lg:col-span-7">
+            <motion.div
+              className="lg:col-span-7"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            >
               <form onSubmit={handleSubmit} className="space-y-6">
                 
                 {/* Name */}
@@ -285,10 +291,16 @@ export default function Contact({ initialService = "" }) {
                 </AnimatePresence>
 
               </form>
-            </div>
+            </motion.div>
 
             {/* Right 5 Columns: Direct Contact Details & Agency Info */}
-            <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
+            <motion.div
+              className="lg:col-span-5 flex flex-col justify-between space-y-8"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
               
               <div className="rounded-3xl border border-[#eaeaea] p-8 bg-[#fcfcfc]">
                 <h3 className="text-xl font-black uppercase text-black font-['Varela_Round'] mb-6">
@@ -355,7 +367,7 @@ export default function Contact({ initialService = "" }) {
                 </p>
               </div>
 
-            </div>
+            </motion.div>
 
           </div>
         </div>

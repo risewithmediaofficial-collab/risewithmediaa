@@ -445,8 +445,9 @@ export default function Home({ setPage }) {
           {/* Centered Brand Badge & Logo (Above Digital Marketing) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: rushEase }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.6 }}
+            transition={{ duration: 0.6, delay: 0, ease: rushEase }}
             className="flex items-center justify-center mb-5 sm:mb-6"
           >
             <div className="inline-flex items-center gap-3 transition-all duration-300 group cursor-default">
@@ -461,31 +462,65 @@ export default function Home({ setPage }) {
             </div>
           </motion.div>
 
-          {/* Main Display Headline */}
+          {/* Main Display Headline — Split Left/Right Merge Animation */}
           <div className="max-w-5xl mx-auto mb-8">
-            <motion.h1
-              initial={{ opacity: 0, y: 35 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.18, ease: rushEase }}
-              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] leading-[1.0] mb-3 font-['Varela_Round']"
-            >
-              “MAKE YOUR BRAND MATTER”
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.32, ease: rushEase }}
-              className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] tracking-normal"
-            >
-              Not just <span className="text-[#12b7d4]">visible,</span> Memorable.
-            </motion.div>
+
+            {/* Line 1: “MAKE YOUR ↔ BRAND MATTER” */}
+            <div className="overflow-hidden flex flex-wrap justify-center leading-[1.05]">
+              {/* LEFT HALF */}
+              <motion.span
+                initial={{ opacity: 0, x: -120 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.6 }}
+                transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block pr-[0.18em]"
+              >
+                “MAKE YOUR
+              </motion.span>
+              {/* RIGHT HALF */}
+              <motion.span
+                initial={{ opacity: 0, x: 120 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.6 }}
+                transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block"
+              >
+                BRAND MATTER”
+              </motion.span>
+            </div>
+
+            {/* Subtitle: “Not just ↔ visible, Memorable.” */}
+            <div className="overflow-hidden flex flex-wrap justify-center mt-3">
+              {/* LEFT HALF */}
+              <motion.span
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.6 }}
+                transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] inline-block pr-[0.12em]"
+              >
+                Not just
+              </motion.span>
+              {/* RIGHT HALF */}
+              <motion.span
+                initial={{ opacity: 0, x: 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.6 }}
+                transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] inline-block"
+              >
+                <span className="text-[#12b7d4]">visible,</span> Memorable.
+              </motion.span>
+            </div>
+
           </div>
 
           {/* Sub-Hero CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.45, ease: rushEase }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.6 }}
+            transition={{ duration: 0.65, delay: 0.28, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4 mt-8"
           >
             <button
@@ -658,7 +693,7 @@ export default function Home({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-6 flex flex-col items-start"
             >
@@ -690,7 +725,7 @@ export default function Home({ setPage }) {
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 25 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.75, delay: 0.15, ease: rushEase }}
               className="lg:col-span-6"
             >
@@ -813,7 +848,7 @@ export default function Home({ setPage }) {
                   onClick={() => setPage(service.id)}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: false, amount: 0.15 }}
                   transition={{ duration: 0.65, delay: idx * 0.08, ease: rushEase }}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
                   className="w-[85vw] sm:w-[340px] md:w-[370px] lg:w-[400px] max-w-[400px] shrink-0 snap-start rounded-3xl border border-[#eaeaea] bg-white p-4 sm:p-6 hover:border-[#12b7d4] hover:shadow-[0_20px_45px_rgba(18,183,212,0.14)] transition-colors duration-300 group cursor-pointer flex flex-col justify-between"
@@ -879,7 +914,7 @@ export default function Home({ setPage }) {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.75, ease: rushEase }}
             className="mt-8 sm:mt-14 lg:mt-18 rounded-3xl bg-black text-white p-6 sm:p-10 lg:p-14 relative overflow-hidden border border-[#222222] shadow-2xl"
           >
@@ -922,7 +957,7 @@ export default function Home({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
@@ -942,7 +977,7 @@ export default function Home({ setPage }) {
                     key={idx}
                     initial={{ opacity: 0, scale: 0.88 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: idx * 0.04, ease: rushEase }}
                     whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
                     className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
@@ -1081,7 +1116,7 @@ export default function Home({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.65, ease: rushEase }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
               className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-colors group"
@@ -1115,7 +1150,7 @@ export default function Home({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.65, delay: 0.12, ease: rushEase }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
               className="rounded-3xl border border-[#eaeaea] overflow-hidden p-6 sm:p-8 bg-white hover:border-[#12b7d4] transition-colors group"
@@ -1157,7 +1192,7 @@ export default function Home({ setPage }) {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ duration: 0.75, ease: rushEase }}
             className="max-w-4xl mx-auto"
           >
