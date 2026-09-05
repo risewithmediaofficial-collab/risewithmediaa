@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollSection, { ScrollText } from "../components/ScrollSection";
+import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection";
 
 // Video Assets
 import reel1 from "../assets/clientvideos/1.mp4";
@@ -587,63 +587,195 @@ export default function Works({ setPage }) {
       </ScrollSection>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 2: SHORT-FORM HIGH-RETENTION REELS
+          SECTION 2: SHORT-FORM HIGH-RETENTION REELS (Same Tilted UI Alignment)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="reels" className="py-20 lg:py-28 bg-[#000000] text-white">
-        <div className="rush-container">
+      <ScrollSection id="reels" className="relative bg-white py-16 sm:py-24 border-b border-[#eaeaea] overflow-hidden">
+        
+        {/* Background "RISE WITH MEDIA" Stroke Text Blend */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+          <span
+            className="text-[5.5rem] sm:text-[10rem] md:text-[14rem] lg:text-[17rem] font-black uppercase tracking-tight whitespace-nowrap leading-none select-none opacity-20"
+            style={{
+              fontFamily: "'Varela_Round', sans-serif",
+              WebkitTextStroke: "2px rgba(0, 0, 0, 0.35)",
+              color: "transparent",
+            }}
+          >
+            RISE WITH MEDIA
+          </span>
+        </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-            <div>
-              <ScrollText as="span" direction="up" delay={0} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/20 border border-[#12b7d4]/40 text-[#12b7d4] text-xs font-black uppercase tracking-widest mb-4 inline-block">
-                Short-Form Content Engine
-              </ScrollText>
-              <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
-                High-Retention <span className="text-[#12b7d4]">Reels</span>
-              </ScrollText>
-            </div>
-            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
-              Engineered for algorithmic reach and high retention.
+        <div className="rush-container relative z-10">
+
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
+              Short-Form Content Engine
+            </ScrollText>
+            <ScrollText as="h2" direction="up" delay={0.08} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] leading-tight mb-3">
+              High-Retention <span className="text-[#12b7d4]">Reels</span>
+            </ScrollText>
+            <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+              Engineered for algorithmic reach, viral watch-time & high conversion.
             </ScrollText>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
-            {reelVideos.map((reel, i) => (
-              <motion.div
-                key={reel.id}
-                initial={{ opacity: 0, y: 32, scale: 0.92 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.05 }}
-                transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                onClick={() => setActiveReel(reel.src)}
-                className="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-[#111111] border border-[#222222] cursor-pointer hover:border-[#12b7d4] transition-all"
+          {/* Tilted Staggered Video Cards (Same UI Alignment - No Numbers) */}
+          <div className="relative w-full flex items-center justify-center gap-6 sm:gap-8 lg:gap-14 flex-wrap lg:flex-nowrap pb-4 pt-4">
+
+            {/* Card 01 - Left Tilted */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotate: -7 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -4.5 }}
+              viewport={{ once: false, amount: 0.05 }}
+              transition={{ duration: 0.75, ease: rushEase }}
+              className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
+            >
+              <div
+                onClick={() => setActiveReel(reel1)}
+                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-all cursor-pointer group-hover:scale-105 group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
                 <video
-                  src={reel.src}
-                  muted
+                  src={reel1}
+                  autoPlay
                   loop
+                  muted
                   playsInline
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
-                {/* Center play button */}
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 flex items-center justify-center transition-colors">
-                  <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-5 h-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
-                  <span className="text-[10px] font-bold uppercase tracking-wider bg-black/70 px-2 py-0.5 rounded-full mb-1 inline-block">
-                    {reel.category}
+                <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
+                    Creators x Brands
                   </span>
-                  <h4 className="text-xs font-bold leading-tight line-clamp-1">
-                    {reel.title}
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Varela_Round'] drop-shadow-md">
+                    Beauty & Lifestyle
                   </h4>
                 </div>
-              </motion.div>
-            ))}
+
+                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                  ▶
+                </div>
+              </div>
+
+              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+                REELS
+              </span>
+            </motion.div>
+
+            {/* Card 02 - Center Elevated & Right Tilted */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotate: 5 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 2.5 }}
+              viewport={{ once: false, amount: 0.05 }}
+              transition={{ duration: 0.75, delay: 0.1, ease: rushEase }}
+              className="flex flex-col items-center -translate-y-2 sm:-translate-y-4 group z-10"
+            >
+              <div
+                onClick={() => setActiveReel(reel2)}
+                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-all cursor-pointer group-hover:scale-105 group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+              >
+                <video
+                  src={reel2}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                
+                <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
+                    Viral Reach
+                  </span>
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Varela_Round'] drop-shadow-md">
+                    Creators x Brands
+                  </h4>
+                </div>
+
+                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                  ▶
+                </div>
+              </div>
+
+              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+                REELS
+              </span>
+            </motion.div>
+
+            {/* Card 03 - Right Tilted */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, rotate: -5 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
+              viewport={{ once: false, amount: 0.05 }}
+              transition={{ duration: 0.75, delay: 0.2, ease: rushEase }}
+              className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
+            >
+              <div
+                onClick={() => setActiveReel(reel3)}
+                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-all cursor-pointer group-hover:scale-105 group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+              >
+                <video
+                  src={reel3}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                
+                {/* Circular Brand Badge */}
+                <div className="absolute bottom-5 right-4 w-12 h-12 rounded-full bg-[#12b7d4] border-2 border-white flex items-center justify-center text-white text-[9px] font-black uppercase text-center shadow-lg p-1 select-none pointer-events-none">
+                  Rise Media
+                </div>
+
+                <div className="absolute bottom-5 left-5 right-18 text-white pointer-events-none">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
+                    Hospitality
+                  </span>
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Varela_Round'] drop-shadow-md">
+                    Brand Influence
+                  </h4>
+                </div>
+
+                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                  ▶
+                </div>
+              </div>
+
+              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+                REELS
+              </span>
+            </motion.div>
+
+          </div>
+
+          {/* Quick Reel Filter Directory Pills */}
+          <div className="mt-12 sm:mt-16 pt-8 border-t border-[#eaeaea]">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-black uppercase tracking-widest text-[#888888]">
+                Select Any Reel to Play:
+              </span>
+              <span className="text-xs font-bold text-[#12b7d4]">
+                Production Reels
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              {reelVideos.map((reel) => (
+                <button
+                  key={reel.id}
+                  onClick={() => setActiveReel(reel.src)}
+                  className="px-4 py-2 rounded-full border border-[#eaeaea] bg-white text-[#333333] hover:bg-black hover:text-white hover:border-black text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-2"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#12b7d4]" />
+                  <span>{reel.title}</span>
+                  <span className="text-[10px] text-[#888888] group-hover:text-white">▶</span>
+                </button>
+              ))}
+            </div>
           </div>
 
         </div>
