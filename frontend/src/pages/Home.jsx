@@ -722,50 +722,52 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 4: WHAT WE DO (Carousel Swiper Layout with Images)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
+      <ScrollSection className="bg-white py-12 sm:py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
         <div className="rush-container">
 
           {/* Top Section / Split Header with Headline & Carousel Controls */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-12">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-6 sm:mb-10">
             
             {/* Headline and Description */}
-            <div className="lg:col-span-8">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 text-[#087f94] text-xs font-black uppercase tracking-widest mb-4 inline-block">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 text-[#087f94] text-xs font-black uppercase tracking-widest mb-3 inline-block">
                 WHAT WE DO
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Manrope']">
                 Everything Your Business Needs to <span className="text-[#12b7d4]">Grow Digitally.</span>
               </h2>
-              <p className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4] leading-snug max-w-2xl">
+              <p className="font-script text-base sm:text-lg md:text-2xl text-[#12b7d4] leading-snug">
                 From content and campaigns to websites and technology — we build digital systems that help your business grow.
               </p>
             </div>
 
-            {/* Desktop Carousel Navigation Controls */}
-            <div className="lg:col-span-4 flex items-center lg:justify-end gap-3">
-              <button
-                type="button"
-                onClick={handleServicePrev}
-                className="w-12 h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
-                aria-label="Previous service"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={handleServiceNext}
-                className="w-12 h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
-                aria-label="Next service"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-              <span className="text-xs font-bold text-[#888888] uppercase tracking-wider ml-1 hidden sm:inline">
-                Swipe to explore
+            {/* Carousel Navigation Controls (Responsive for mobile & desktop) */}
+            <div className="flex items-center justify-between sm:justify-end gap-3 pt-1 lg:pt-0">
+              <span className="text-xs font-bold text-[#888888] uppercase tracking-wider">
+                Swipe to explore →
               </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleServicePrev}
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
+                  aria-label="Previous service"
+                >
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleServiceNext}
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
+                  aria-label="Next service"
+                >
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
           </div>
@@ -773,11 +775,11 @@ export default function Home({ setPage }) {
           {/* Carousel Swiper Container */}
           <div className="relative w-full">
             
-            {/* Floating In-Track Arrows on the sides (Like Image 2) */}
+            {/* Floating In-Track Arrows for Desktop */}
             <button
               type="button"
               onClick={handleServicePrev}
-              className="absolute -left-3 lg:-left-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden sm:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
+              className="absolute -left-4 lg:-left-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden lg:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
               aria-label="Previous card"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -787,7 +789,7 @@ export default function Home({ setPage }) {
             <button
               type="button"
               onClick={handleServiceNext}
-              className="absolute -right-3 lg:-right-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden sm:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
+              className="absolute -right-4 lg:-right-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden lg:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
               aria-label="Next card"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -795,15 +797,15 @@ export default function Home({ setPage }) {
               </svg>
             </button>
 
-            {/* Horizontal Scroll / Swipe Track */}
+            {/* Horizontal Scroll / Swipe Track with Full-Bleed on Mobile */}
             <div
               ref={serviceCarouselRef}
               onMouseDown={handleMouseDown}
               onMouseLeave={handleMouseLeaveOrUp}
               onMouseUp={handleMouseLeaveOrUp}
               onMouseMove={handleMouseMove}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 pt-2 select-none cursor-grab active:cursor-grabbing scroll-smooth"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 pt-1 select-none cursor-grab active:cursor-grabbing scroll-smooth -mx-4 sm:-mx-6 lg:mx-0 px-4 sm:px-6 lg:px-0"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
             >
               {serviceCards.map((service, idx) => (
                 <motion.div
@@ -814,11 +816,11 @@ export default function Home({ setPage }) {
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.65, delay: idx * 0.08, ease: rushEase }}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="min-w-[290px] sm:min-w-[340px] md:min-w-[370px] lg:min-w-[400px] max-w-[420px] snap-start shrink-0 rounded-3xl border border-[#eaeaea] bg-white p-5 sm:p-6 hover:border-[#12b7d4] hover:shadow-[0_20px_45px_rgba(18,183,212,0.14)] transition-colors duration-300 group cursor-pointer flex flex-col justify-between"
+                  className="w-[85vw] sm:w-[340px] md:w-[370px] lg:w-[400px] max-w-[400px] shrink-0 snap-start rounded-3xl border border-[#eaeaea] bg-white p-4 sm:p-6 hover:border-[#12b7d4] hover:shadow-[0_20px_45px_rgba(18,183,212,0.14)] transition-colors duration-300 group cursor-pointer flex flex-col justify-between"
                 >
                   <div>
                     {/* Card Top Image (Black, White & Blue/Cyan Theme - No Numbers) */}
-                    <div className="relative w-full h-[210px] sm:h-[230px] rounded-2xl overflow-hidden bg-[#141414] mb-5">
+                    <div className="relative w-full h-[180px] sm:h-[220px] rounded-2xl overflow-hidden bg-[#141414] mb-4 sm:mb-5">
                       <img
                         src={service.image}
                         alt={service.title}
@@ -829,19 +831,19 @@ export default function Home({ setPage }) {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
                       {/* Category Pill with cyan indicator */}
-                      <span className="absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 py-1 px-3.5 rounded-full bg-white/95 backdrop-blur-xs text-black text-xs font-black uppercase tracking-wider shadow-sm">
+                      <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-white/95 backdrop-blur-xs text-black text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-sm">
                         <span className="w-2 h-2 rounded-full bg-[#12b7d4]" />
                         {service.category}
                       </span>
                     </div>
 
                     {/* Bold Service Title - Total Black */}
-                    <h3 className="text-xl sm:text-2xl font-black uppercase text-black tracking-tight font-['Manrope'] mb-2">
+                    <h3 className="text-xl sm:text-2xl font-black uppercase text-black tracking-tight font-['Manrope'] mb-1.5 sm:mb-2">
                       {service.title}
                     </h3>
 
                     {/* One-Line Description in Script Italic Blue Font */}
-                    <p className="font-script text-base sm:text-lg text-[#12b7d4] leading-snug mb-4">
+                    <p className="font-script text-base sm:text-lg text-[#12b7d4] leading-snug mb-3.5 sm:mb-4">
                       {service.description}
                     </p>
 
@@ -850,7 +852,7 @@ export default function Home({ setPage }) {
                       {service.keywords.map((kw, i) => (
                         <span
                           key={i}
-                          className="text-[11px] font-semibold text-[#555555] bg-[#f5f5f5] group-hover:bg-[#e6f9fc] group-hover:text-[#087f94] px-2.5 py-1 rounded-full transition-colors"
+                          className="text-[10px] sm:text-[11px] font-semibold text-[#555555] bg-[#f5f5f5] group-hover:bg-[#e6f9fc] group-hover:text-[#087f94] px-2.5 py-1 rounded-full transition-colors whitespace-nowrap"
                         >
                           {kw}
                         </span>
@@ -859,7 +861,7 @@ export default function Home({ setPage }) {
                   </div>
 
                   {/* Bottom Link - Read More */}
-                  <div className="mt-5 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-black uppercase tracking-wider text-black group-hover:text-[#12b7d4] transition-colors">
+                  <div className="mt-4 sm:mt-5 pt-3.5 sm:pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-black uppercase tracking-wider text-black group-hover:text-[#12b7d4] transition-colors">
                     <span className="flex items-center gap-1.5">
                       Read More <span className="text-[#12b7d4]">→</span>
                     </span>
@@ -879,7 +881,7 @@ export default function Home({ setPage }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.75, ease: rushEase }}
-            className="mt-14 sm:mt-18 rounded-3xl bg-black text-white p-8 sm:p-12 lg:p-14 relative overflow-hidden border border-[#222222] shadow-2xl"
+            className="mt-8 sm:mt-14 lg:mt-18 rounded-3xl bg-black text-white p-6 sm:p-10 lg:p-14 relative overflow-hidden border border-[#222222] shadow-2xl"
           >
             {/* Subtle glow accent */}
             <div className="absolute right-0 bottom-0 w-80 h-80 bg-[#12b7d4]/20 rounded-full blur-3xl pointer-events-none" />
