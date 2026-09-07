@@ -130,6 +130,8 @@
 .tag-bubble {
   display: inline-flex;
   align-items: center;
+  width: fit-content;
+  max-width: fit-content;
   background-color: #e6f9fc;
   border: 1px solid rgba(18, 183, 212, 0.4);
   color: #087f94;
@@ -163,6 +165,8 @@
 .tag-bubble-cyan {
   display: inline-flex;
   align-items: center;
+  width: fit-content;
+  max-width: fit-content;
   background-color: #e6f9fc;
   color: #087f94;
   border: 1px solid rgba(18, 183, 212, 0.35);

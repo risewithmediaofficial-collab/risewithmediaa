@@ -99,16 +99,19 @@ export default function Contact({ initialService = "" }) {
       {/* ─────────────────────────────────────────────────────────────────
           HEADER (The Rush Republic Contact Header)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-16 pb-12 border-b border-[#eaeaea]">
-        <div className="rush-container text-center max-w-4xl">
+      <ScrollSection className="bg-white pt-16 pb-12 border-b border-[#eaeaea] relative overflow-hidden">
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="rush-container text-center max-w-4xl relative z-10">
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
             Let's Talk Business
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
-            Help Us Help You in a <span className="text-[#12b7d4]">Big Way!</span>
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
+            Let’s Build Something <span className="text-[#12b7d4]">Great</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
-            Tell us a little about your brand and we’ll bring big ideas to the table.
+          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
+            Tell us about your brand and let’s make big things happen.
           </ScrollText>
         </div>
       </ScrollSection>

@@ -287,15 +287,18 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           PAGE HEADER (Short & Crisp Typography)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea]">
-        <div className="rush-container text-center max-w-3xl mx-auto">
+      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea] relative overflow-hidden">
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="rush-container text-center max-w-3xl mx-auto relative z-10">
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
             Case Studies
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
             Case Studies & <span className="text-[#12b7d4]">Works</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-6">
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-6">
             Real brands. Measurable growth.
           </ScrollText>
 
@@ -332,8 +335,11 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 1: CLIENT WEBSITES (Home Page 3D Card Deck Carousel Style)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="client-websites" className="bg-white py-16 sm:py-20 lg:py-24 border-b border-[#eaeaea] overflow-hidden">
-        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
+      <ScrollSection id="client-websites" className="bg-white py-16 sm:py-20 lg:py-24 border-b border-[#eaeaea] relative overflow-hidden">
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute -top-10 left-10 w-[450px] h-[350px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10 xl:gap-16">
 
             {/* Left Column: Big Vertically Stacked Title & Tilted Sticker Button */}
@@ -342,7 +348,7 @@ export default function Works({ setPage }) {
                 Client Showcase
               </span>
               <div className="relative inline-block">
-                <h2 className="text-6xl sm:text-7xl lg:text-8xl xl:text-[6.4rem] font-black uppercase tracking-tight text-[#000000] leading-[0.88] font-['Varela_Round']">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Varela_Round']">
                   CLIENT<br />
                   WEBSITES<br />
                   <span className="text-[#12b7d4]">LIVE</span>
@@ -353,7 +359,7 @@ export default function Works({ setPage }) {
                   whileHover={{ scale: 1.08, rotate: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] select-none z-20 pointer-events-none"
+                  className="hidden sm:block absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] select-none z-20 pointer-events-none"
                 >
                   Client Websites
                 </motion.div>
@@ -611,10 +617,10 @@ export default function Works({ setPage }) {
             <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
               Short-Form Content Engine
             </ScrollText>
-            <ScrollText as="h2" direction="up" delay={0.08} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] leading-tight mb-3">
+            <ScrollText as="h2" direction="up" delay={0.08} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] leading-tight mb-3">
               High-Retention <span className="text-[#12b7d4]">Reels</span>
             </ScrollText>
-            <ScrollText as="p" direction="up" delay={0.16} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+            <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
               Engineered for algorithmic reach, viral watch-time & high conversion.
             </ScrollText>
           </div>
@@ -792,19 +798,22 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: PERFORMANCE CREATIVES & CAMPAIGNS
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="campaigns" className="py-20 lg:py-28 bg-white border-b border-[#eaeaea]">
-        <div className="rush-container">
+      <ScrollSection id="campaigns" className="py-20 lg:py-28 bg-white border-b border-[#eaeaea] relative overflow-hidden">
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="rush-container relative z-10">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
                 Performance Creatives
               </ScrollText>
-              <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
+              <ScrollText as="h2" direction="up" delay={0.1} className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-black font-['Varela_Round']">
                 Ad Creatives & <span className="text-[#12b7d4]">Campaigns</span>
               </ScrollText>
             </div>
-            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
+            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
               Data-backed creative engines crafted to stop the scroll.
             </ScrollText>
           </div>

@@ -1,38 +1,33 @@
 import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection, { rushEase } from "../components/ScrollSection";
 
 // Client Logos
-import Richilogo from "../assets/clientlogo/richi-logo.png";
-import KrinBrinlogo from "../assets/clientlogo/krinbrinlogo.png";
-import Savlologo from "../assets/clientlogo/savlologo.png";
-import kertamlogo from "../assets/clientlogo/kertamlogo.png";
-import neoweblogo from "../assets/clientlogo/neoweblogo.png";
-import zoylogo from "../assets/clientlogo/zoylogo.png";
-import femi9logo from "../assets/clientlogo/femi9logo.png";
-import tryologo from "../assets/clientlogo/tryologo.png";
-import pentacadtech from "../assets/clientlogo/pentacadtech.png";
-import srijaitechlogo from "../assets/clientlogo/srijaitechlogo.png";
-import malartraderslogo from "../assets/clientlogo/malartraderslogo.png";
-import kandhancarslogo from "../assets/clientlogo/kandhancarslogo.png";
-import dakshinelogo from "../assets/clientlogo/dakshinelogo.png";
+import arunamLogo from "../assets/clientlogo/Arunam Logo.png";
+import killisBirdLogo from "../assets/clientlogo/KILLIS BIRD - LOGO.png";
+import royalLogo from "../assets/clientlogo/Royal LOGO.png";
+import valsiiLogo from "../assets/clientlogo/Valsii Official LOGO.png";
+import chocodorLogo from "../assets/clientlogo/chocodor logo.jpg";
+import dishaLogo from "../assets/clientlogo/disha logo.jpeg";
+import futureKidsLogo from "../assets/clientlogo/future kids logo.jpeg";
+import futureSchoolLogo from "../assets/clientlogo/future school logo.png";
+import hseihshuLogo from "../assets/clientlogo/hseihshu logo.png";
+import mkLogo from "../assets/clientlogo/mk logo.jpeg";
+import mrpLogo from "../assets/clientlogo/mrp logo.jpeg";
+import myHosurPropertyLogo from "../assets/clientlogo/my hosur property logo.png";
+import richiLogo from "../assets/clientlogo/richi logo.png";
+import sanjaySaiLogo from "../assets/clientlogo/sanjay sai logo.png";
+import sanjeeviLogo from "../assets/clientlogo/sanjeevi logo.jpeg";
+import femi9Logo from "../assets/clientlogo/femi9logo.png";
+import kertamLogo from "../assets/clientlogo/kertamlogo.png";
+import krinbrinLogo from "../assets/clientlogo/krinbrinlogo.png";
+import zoyLogo from "../assets/clientlogo/zoylogo.png";
 
-// Media Assets
+// Media Assets (Reels)
 import reel1 from "../assets/clientvideos/1.mp4";
 import reel2 from "../assets/clientvideos/2.mp4";
 import reel3 from "../assets/clientvideos/3.mp4";
-import screenshot1 from "../assets/clientweb/1.png";
-import screenshot2 from "../assets/clientweb/2.png";
-import campaign1 from "../assets/clientcampaign/1.png";
-import campaign2 from "../assets/clientcampaign/2.png";
-import campaign3 from "../assets/clientcampaign/3.png";
-
-// Service Card Images (Black, White & Blue/Cyan Theme)
-import contentSocialImg from "../assets/services/content_social.jpg";
-import websitesFunnelsImg from "../assets/services/websites_funnels.jpg";
-import performanceMarketingImg from "../assets/services/performance_marketing.jpg";
-import saasTechnologyImg from "../assets/services/saas_technology.jpg";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_s15r115";
@@ -42,60 +37,83 @@ const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
 // 3x3 Grid Logo Slots for The Rush Republic auto-changing cards (2-second rotation)
 const logoGridSlots = [
   // Row 1
-  [Richilogo, srijaitechlogo, malartraderslogo],
-  [KrinBrinlogo, kandhancarslogo, dakshinelogo],
-  [Savlologo, pentacadtech, Richilogo],
+  [arunamLogo, femi9Logo, mkLogo],
+  [killisBirdLogo, futureSchoolLogo, mrpLogo],
+  [royalLogo, hseihshuLogo, myHosurPropertyLogo],
   // Row 2
-  [kertamlogo, tryologo, KrinBrinlogo],
-  [neoweblogo, femi9logo, Savlologo],
-  [zoylogo, srijaitechlogo, kertamlogo],
+  [valsiiLogo, chocodorLogo, richiLogo],
+  [dishaLogo, sanjaySaiLogo, sanjeeviLogo],
+  [futureKidsLogo, kertamLogo, zoyLogo],
   // Row 3
-  [femi9logo, malartraderslogo, neoweblogo],
-  [tryologo, kandhancarslogo, zoylogo],
-  [pentacadtech, dakshinelogo, femi9logo],
+  [krinbrinLogo, femi9Logo, royalLogo],
+  [myHosurPropertyLogo, dishaLogo, chocodorLogo],
+  [richiLogo, sanjeeviLogo, sanjaySaiLogo],
 ];
+
+// Flolapo-Style Skills List (Clean typography - No heavy images)
+const flolapoSkills = [
+  "Social Media Management",
+  "Digital Media Marketing",
+  "Web Design & Development",
+  "Content Production & Reels",
+  "SaaS & Business Automation",
+];
+
+// Flolapo-Style Kinetic Scroll Skill Item (Smooth color shift from grey to brand cyan #12b7d4)
+function FlolapoSkillItem({ title, onClick }) {
+  const itemRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: itemRef,
+    offset: ["start 92%", "center 50%"],
+  });
+
+  const scrollColor = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.75, 1],
+    ["#262626", "#3f3f46", "#0ea5c0", "#12b7d4"]
+  );
+
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.4, 1],
+    [0.3, 0.65, 1]
+  );
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0.96, 1]
+  );
+
+  return (
+    <motion.div
+      ref={itemRef}
+      style={{
+        color: isHovered ? "#12b7d4" : scrollColor,
+        opacity: isHovered ? 1 : opacity,
+        scale,
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      className="cursor-pointer select-none py-2 sm:py-3 md:py-4 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
+    >
+      <h3
+        className="text-xl sm:text-2xl md:text-3xl lg:text-[2.8rem] xl:text-[3.4rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Varela_Round'] whitespace-normal sm:whitespace-nowrap"
+        style={{ fontFamily: "'Varela Round', sans-serif" }}
+      >
+        {title}
+      </h3>
+    </motion.div>
+  );
+}
 
 export default function Home({ setPage }) {
   const [activeVideoModal, setActiveVideoModal] = useState(null);
-  const [activeSlide, setActiveSlide] = useState(0);
   const [activeReview, setActiveReview] = useState(0);
   const [activeLogoStep, setActiveLogoStep] = useState(0);
-
-  // Service Carousel Ref & Drag State
-  const serviceCarouselRef = useRef(null);
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
-  const handleServicePrev = () => {
-    if (serviceCarouselRef.current) {
-      serviceCarouselRef.current.scrollBy({ left: -390, behavior: "smooth" });
-    }
-  };
-
-  const handleServiceNext = () => {
-    if (serviceCarouselRef.current) {
-      serviceCarouselRef.current.scrollBy({ left: 390, behavior: "smooth" });
-    }
-  };
-
-  const handleMouseDown = (e) => {
-    isDragging.current = true;
-    startX.current = e.pageX - serviceCarouselRef.current.offsetLeft;
-    scrollLeft.current = serviceCarouselRef.current.scrollLeft;
-  };
-
-  const handleMouseLeaveOrUp = () => {
-    isDragging.current = false;
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging.current) return;
-    e.preventDefault();
-    const x = e.pageX - serviceCarouselRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    serviceCarouselRef.current.scrollLeft = scrollLeft.current - walk;
-  };
 
   // Auto change logos every 2 seconds (Rush Republic style)
   useEffect(() => {
@@ -137,207 +155,6 @@ export default function Home({ setPage }) {
   });
   const [formStatus, setFormStatus] = useState("idle");
 
-  // Screen resize tracking for 3D perspective adjustments
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e) => {
-    touchEndX.current = e.changedTouches[0].clientX;
-    const diff = touchStartX.current - touchEndX.current;
-    if (diff > 50) {
-      handleNextSlide();
-    } else if (diff < -50) {
-      handlePrevSlide();
-    }
-  };
-
-  const handleNextSlide = () => {
-    setActiveSlide((prev) => (prev + 1) % caseStudies.length);
-  };
-
-  const handlePrevSlide = () => {
-    setActiveSlide((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
-  };
-
-  const caseStudies = [
-    {
-      id: "hsiehhsu",
-      client: "HSIEH & HSU INDIA",
-      tag: "53x Revenue Revolution",
-      category: "Industrial Machinery",
-      image: screenshot1,
-      impact: "+240% Growth",
-      description: "How we transformed a world-class manufacturing giant into an international digital sensation.",
-    },
-    {
-      id: "richi",
-      client: "RICHI FOOD PRODUCTS",
-      tag: "Sweet Domination",
-      category: "FMCG & Food Retail",
-      image: campaign1,
-      impact: "₹18 Cost Per Lead",
-      description: "Crafting viral short-form creative campaigns that drove massive retail footfalls & direct orders.",
-    },
-    {
-      id: "mogi",
-      client: "MOGI E-COMMERCE",
-      tag: "Precision SEO Dominance",
-      category: "E-commerce & Ads",
-      image: screenshot2,
-      impact: "3× More Leads",
-      description: "Breaking through fierce retail category noise with targeted multi-funnel search campaigns.",
-    },
-    {
-      id: "kandhancars",
-      client: "KANDHAN CARS",
-      tag: "Hyperlocal Footfall Surge",
-      category: "Automotive & Retail",
-      image: campaign2,
-      impact: "4.8× Showroom Visits",
-      description: "Dominating local auto dealership search and delivering high-intent buyers straight to the lot.",
-    },
-    {
-      id: "saascrm",
-      client: "RWM AGENCY OS",
-      tag: "Autonomous Agency Engine",
-      category: "Agency OS & Automations",
-      image: campaign3,
-      impact: "99.4% Workflow Velocity",
-      description: "Automating omnichannel pipeline velocity and real-time WhatsApp conversion funnels.",
-    },
-  ];
-
-  const get3DCardStyle = (diff) => {
-    if (diff === 0) {
-      // Active center card (100% visible, unobstructed, front-facing)
-      return {
-        x: 0,
-        rotateY: 0,
-        scale: 1,
-        opacity: 1,
-        zIndex: 30,
-        filter: "grayscale(0%)",
-        pointerEvents: "auto",
-      };
-    }
-
-    if (diff === 1) {
-      // 1st right card tilted in 3D (clean visible gap, zero overlap on active card)
-      return {
-        x: isMobile ? 320 : 440,
-        rotateY: isMobile ? -28 : -35,
-        scale: isMobile ? 0.88 : 0.9,
-        opacity: isMobile ? 0.75 : 0.95,
-        zIndex: 20,
-        filter: "grayscale(100%)",
-        pointerEvents: "auto",
-      };
-    }
-
-    if (diff === 2) {
-      // 2nd right card tilted in 3D
-      return {
-        x: isMobile ? 500 : 750,
-        rotateY: isMobile ? -38 : -45,
-        scale: isMobile ? 0.78 : 0.8,
-        opacity: isMobile ? 0.25 : 0.75,
-        zIndex: 10,
-        filter: "grayscale(100%)",
-        pointerEvents: isMobile ? "none" : "auto",
-      };
-    }
-
-    if (diff === 3) {
-      // 3rd right card tilted
-      return {
-        x: isMobile ? 650 : 1020,
-        rotateY: -54,
-        scale: 0.7,
-        opacity: isMobile ? 0 : 0.45,
-        zIndex: 5,
-        filter: "grayscale(100%)",
-        pointerEvents: "none",
-      };
-    }
-
-    if (diff === caseStudies.length - 1) {
-      // Card exiting to the left
-      return {
-        x: isMobile ? -260 : -380,
-        rotateY: 36,
-        scale: 0.85,
-        opacity: 0,
-        zIndex: 15,
-        filter: "grayscale(100%)",
-        pointerEvents: "none",
-      };
-    }
-
-    // Default hidden off-screen
-    return {
-      x: isMobile ? 700 : 1200,
-      rotateY: -60,
-      scale: 0.6,
-      opacity: 0,
-      zIndex: 0,
-      filter: "grayscale(100%)",
-      pointerEvents: "none",
-    };
-  };
-
-  const serviceCards = [
-    {
-      id: "service-content-social",
-      title: "Content & Social",
-      category: "Content & Social",
-      description: "Build a brand people notice and remember.",
-      keywords: ["Reels", "Videos", "Creatives", "Social Media Strategy"],
-      image: contentSocialImg,
-      badge: "Brand & Audience",
-    },
-    {
-      id: "service-websites-funnels",
-      title: "Websites & Funnels",
-      category: "Websites & Funnels",
-      description: "Turn your online visitors into real customers.",
-      keywords: ["Websites", "Landing Pages", "Funnels", "SEO"],
-      image: websitesFunnelsImg,
-      badge: "High Conversion",
-    },
-    {
-      id: "service-performance-marketing",
-      title: "Performance Marketing",
-      category: "Performance Marketing",
-      description: "Reach the right audience and drive measurable results.",
-      keywords: ["Meta Ads", "Lead Generation", "Retargeting", "Analytics"],
-      image: performanceMarketingImg,
-      badge: "Targeted Growth",
-    },
-    {
-      id: "service-saas-technology",
-      title: "Technology & SaaS",
-      category: "Technology & SaaS",
-      description: "Build smarter systems for a growing business.",
-      keywords: ["SaaS", "CRM", "Automation", "Custom Software"],
-      image: saasTechnologyImg,
-      badge: "Smart Automation",
-    },
-  ];
-
   const testimonials = [
     {
       author: "Ahkila",
@@ -345,7 +162,7 @@ export default function Home({ setPage }) {
       role: "Founder, Krin Brin School",
       brand: "Krin Brin School",
       quote:
-        "Within 3 months we went from 0 to 4 lakh in monthly revenue. The team just gets it — strategy, execution, everything.",
+        "Scaled from 0 to 4L monthly revenue in 3 months. Outstanding execution.",
       avatarBg: "from-[#12b7d4] to-[#0284c7]",
     },
     {
@@ -354,7 +171,7 @@ export default function Home({ setPage }) {
       role: "Founder, saranyaelitebridalstudio",
       brand: "Saranya Elite Bridal Studio",
       quote:
-        "I was getting 45 leads a month. Now I get 10+ qualified leads monthly. The WhatsApp automation alone saved me hours.",
+        "High-intent leads surged within weeks. The WhatsApp automation saved hours.",
       avatarBg: "from-[#12b7d4] to-[#0ea5c0]",
     },
     {
@@ -363,7 +180,7 @@ export default function Home({ setPage }) {
       role: "Founder, Allinov",
       brand: "Allinov",
       quote:
-        "I've hired agencies before — these guys are a completely different level.",
+        "A completely different caliber of speed, creative quality, and execution.",
       avatarBg: "from-[#12b7d4] to-[#38bdf8]",
     },
   ];
@@ -424,6 +241,10 @@ export default function Home({ setPage }) {
           backgroundSize: "32px 32px",
         }}
       >
+        {/* Ambient Blur Color Effect (Luminous Cyan & Sky Glow) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[300px] sm:h-[380px] bg-gradient-to-tr from-[#12b7d4]/20 via-[#38bdf8]/15 to-transparent rounded-full blur-[100px] pointer-events-none -z-0" />
+        <div className="absolute top-4 right-10 w-[300px] h-[300px] bg-[#12b7d4]/10 rounded-full blur-[80px] pointer-events-none" />
+
         <div className="rush-container text-center relative z-10">
 
           {/* Centered Brand Badge & Logo (Above Digital Marketing) */}
@@ -447,19 +268,19 @@ export default function Home({ setPage }) {
           </motion.div>
 
           {/* Main Display Headline — Split Left/Right Merge Animation */}
-          <div className="max-w-5xl mx-auto mb-8">
+          <div className="max-w-4xl mx-auto mb-8">
 
-            {/* Line 1: “MAKE YOUR ↔ BRAND MATTER” */}
-            <div className="overflow-hidden flex flex-wrap justify-center leading-[1.05]">
+            {/* Line 1: “MARKETING THAT WORKS WHILE YOU SNOOZE” */}
+            <div className="overflow-hidden flex flex-wrap justify-center leading-[1.08]">
               {/* LEFT HALF */}
               <motion.span
                 initial={{ opacity: 0, x: -120 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block pr-[0.18em]"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block pr-[0.18em]"
               >
-                “MAKE YOUR
+                “MARKETING THAT WORKS
               </motion.span>
               {/* RIGHT HALF */}
               <motion.span
@@ -467,9 +288,9 @@ export default function Home({ setPage }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block"
               >
-                BRAND MATTER”
+                WHILE YOU SNOOZE”
               </motion.span>
             </div>
 
@@ -481,7 +302,7 @@ export default function Home({ setPage }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] inline-flex items-baseline"
+                className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-[#000000] inline-flex items-baseline"
               >
                 <span>Not</span>
                 <span className="inline-block ml-2.5 sm:ml-3.5 md:ml-4.5">just</span>
@@ -492,7 +313,7 @@ export default function Home({ setPage }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                className="font-script text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-[#000000] inline-block"
+                className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-[#000000] inline-block"
               >
                 <span className="text-[#12b7d4]">visible,</span> Memorable.
               </motion.span>
@@ -526,152 +347,55 @@ export default function Home({ setPage }) {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 2: RESULTS SPEAK LOUDER (The Rush Republic 3D Card Deck)
+          SECTION 2: WHAT WE DO (Flolapo UI Style - Kinetic Typography with Scroll Color Shift)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
-        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 xl:gap-16">
+      <section className="bg-[#000000] text-white py-24 sm:py-32 lg:py-36 relative overflow-hidden border-b border-neutral-900">
 
-            {/* Left Column: Big Vertically Stacked Title & Tilted Sticker Button */}
-            <div className="w-full lg:w-[38%] xl:w-[35%] flex flex-col justify-center select-none flex-shrink-0 mb-8 lg:mb-0">
-              <div className="relative inline-block">
-                <h2 className="text-6xl sm:text-7xl lg:text-8xl xl:text-[6.4rem] font-black uppercase tracking-tight text-[#000000] leading-[0.88] font-['Varela_Round']">
-                  RESULTS<br />
-                  SPEAK<br />
-                  LOUDER
-                </h2>
-                {/* Tilted Sticker Button like Rush Republic */}
-                <motion.button
-                  type="button"
-                  onClick={() => setPage("works")}
-                  whileHover={{ scale: 1.08, rotate: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="absolute left-6 sm:left-10 top-[48%] -rotate-[5deg] bg-white text-black border-2 border-black rounded-xl px-5 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-[#12b7d4] hover:text-white hover:border-[#12b7d4] hover:shadow-[4px_4px_0px_rgba(18,183,212,1)] transition-all cursor-pointer z-20"
-                >
-                  View Case Studies
-                </motion.button>
-              </div>
-            </div>
+        {/* Ambient Blur Color Effect (Dual-Color Luminous Glow) */}
+        <div className="absolute top-1/4 -left-20 w-[550px] h-[550px] bg-[#12b7d4]/15 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-20 w-[550px] h-[550px] bg-[#0284c7]/15 rounded-full blur-[140px] pointer-events-none" />
 
-            {/* Right Column: 3D Perspective Card Deck with clean spacing & zero overlap */}
-            <div className="w-full lg:w-[62%] xl:w-[65%] relative h-[520px] sm:h-[550px] lg:h-[580px] flex items-center justify-start overflow-visible [perspective:1400px]">
-              <div
-                className="relative w-full h-full flex items-center [transform-style:preserve-3d]"
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-              >
-                {caseStudies.map((cs, idx) => {
-                  const diff = (idx - activeSlide + caseStudies.length) % caseStudies.length;
-                  const isCurrent = diff === 0;
-                  const cardStyle = get3DCardStyle(diff);
+        <div className="rush-container relative z-10">
 
-                  return (
-                    <motion.div
-                      key={cs.id}
-                      animate={cardStyle}
-                      transition={{
-                        type: "spring",
-                        stiffness: 280,
-                        damping: 28,
-                        mass: 0.85,
-                      }}
-                      style={{
-                        transformStyle: "preserve-3d",
-                        transformOrigin: "left center",
-                      }}
-                      onClick={() => {
-                        if (!isCurrent) {
-                          setActiveSlide(idx);
-                        }
-                      }}
-                      className={`absolute left-0 top-1/2 -translate-y-1/2 w-[290px] sm:w-[350px] lg:w-[380px] xl:w-[400px] h-[470px] sm:h-[510px] lg:h-[540px] xl:h-[560px] rounded-[28px] bg-[#141414] text-white overflow-hidden shadow-2xl select-none flex flex-col border border-neutral-800 ${isCurrent ? "cursor-default" : "cursor-pointer hover:border-[#12b7d4]/60"
-                        }`}
-                    >
-                      {/* Card Top Image */}
-                      <div className="relative w-full h-[260px] sm:h-[290px] lg:h-[310px] xl:h-[320px] bg-[#1a1a1a] overflow-hidden">
-                        <img
-                          src={cs.image}
-                          alt={cs.client}
-                          className="w-full h-full object-cover"
-                        />
-                        {/* Soft gradient overlay for text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-black/20 pointer-events-none" />
-
-                        {/* Navigation Arrows on Active Card (Rush Republic exact placement) */}
-                        {isCurrent && (
-                          <>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handlePrevSlide();
-                              }}
-                              className="absolute left-4 bottom-4 w-11 h-11 rounded-full bg-black/85 hover:bg-[#12b7d4] text-white flex items-center justify-center transition-all cursor-pointer shadow-xl border border-white/10 active:scale-95 z-30"
-                              aria-label="Previous card"
-                            >
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-                              </svg>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleNextSlide();
-                              }}
-                              className="absolute right-4 bottom-4 w-11 h-11 rounded-full bg-black/85 hover:bg-[#12b7d4] text-white flex items-center justify-center transition-all cursor-pointer shadow-xl border border-white/10 active:scale-95 z-30"
-                              aria-label="Next card"
-                            >
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                              </svg>
-                            </button>
-                          </>
-                        )}
-                      </div>
-
-                      {/* Card Bottom Content */}
-                      <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
-                        <div>
-                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Varela_Round'] tracking-tight mb-2 leading-tight">
-                            {cs.client}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-[#888888] leading-relaxed line-clamp-2 mb-4 font-normal">
-                            {cs.description}
-                          </p>
-                        </div>
-
-                        {/* Bottom Pill Badge */}
-                        <div className="pt-2">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setPage("works");
-                            }}
-                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-xs font-black uppercase tracking-wider shadow-sm hover:bg-[#12b7d4] hover:text-white transition-colors cursor-pointer"
-                          >
-                            <span>{cs.tag}</span>
-                            <span className="text-[#12b7d4] font-black group-hover:text-white">→</span>
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
+          {/* Header Tag matching Flolapo "WHAT WE COVER" */}
+          <div className="text-center mb-8 sm:mb-12">
+            <span className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-[#888888] font-['Varela_Round']">
+              WHAT WE COVER
+            </span>
           </div>
+
+          {/* Kinetic Typography Vertical Stack */}
+          <div className="flex flex-col items-center justify-center gap-1 sm:gap-2 max-w-7xl mx-auto w-full">
+            {flolapoSkills.map((skill, idx) => (
+              <FlolapoSkillItem
+                key={idx}
+                title={skill}
+                onClick={() => setPage("contact")}
+              />
+            ))}
+          </div>
+
+          {/* Micro CTA Button */}
+          <div className="text-center mt-10 sm:mt-14">
+            <button
+              onClick={() => setPage("contact")}
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Varela_Round']"
+            >
+              Start A Project With Us →
+            </button>
+          </div>
+
         </div>
-      </ScrollSection>
+      </section>
 
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: OUR WORKS (Tilted Video Cards with Stroke Text Blend)
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="bg-white py-16 sm:py-24 border-b border-[#eaeaea] relative overflow-hidden">
-        
+
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-[#12b7d4]/12 rounded-full blur-[100px] pointer-events-none" />
+
         {/* Background "RISE WITH MEDIA" Stroke Text Blend (Reference UI Style) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
           <span
@@ -704,7 +428,7 @@ export default function Home({ setPage }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] leading-tight mb-3"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] leading-tight mb-3"
             >
               Works That <span className="text-[#12b7d4]">Captivate</span>
             </motion.h2>
@@ -713,7 +437,7 @@ export default function Home({ setPage }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.6, delay: 0.16, ease: rushEase }}
-              className="font-script text-2xl sm:text-3xl text-[#12b7d4]"
+              className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]"
             >
               High-converting short-form creative, viral reels & brand storytelling.
             </motion.p>
@@ -747,7 +471,7 @@ export default function Home({ setPage }) {
                   className="w-full h-full object-cover gpu-smooth"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
-                
+
                 {/* Overlay Text Inside Card */}
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
@@ -795,7 +519,7 @@ export default function Home({ setPage }) {
                   className="w-full h-full object-cover gpu-smooth"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
-                
+
                 {/* Overlay Text Inside Card (Matching Reference "Creators x Brands") */}
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
@@ -843,7 +567,7 @@ export default function Home({ setPage }) {
                   className="w-full h-full object-cover gpu-smooth"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
-                
+
                 {/* Circular Brand Badge (Matching Reference Circular Logo Badge) */}
                 <div className="absolute bottom-5 right-4 w-12 h-12 rounded-full bg-[#12b7d4] border-2 border-white flex items-center justify-center text-white text-[9px] font-black uppercase text-center shadow-lg p-1 select-none pointer-events-none">
                   Rise Media
@@ -873,198 +597,65 @@ export default function Home({ setPage }) {
 
           </div>
 
-          {/* Bottom Action CTA */}
-          <div className="text-center mt-12 sm:mt-16">
-            <button
-              onClick={() => setPage("works")}
-              className="btn-rush-black text-xs uppercase tracking-wider px-9 py-4 cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-all shadow-sm"
-            >
-              Explore All Case Studies & Reels →
-            </button>
-          </div>
-
         </div>
       </ScrollSection>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 4: WHAT WE DO (Carousel Swiper Layout with Images)
+          SECTION 4: RESULTS SPEAK LOUDER (Direct Impact Banner - Zero Images)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-12 sm:py-20 lg:py-28 border-b border-[#eaeaea] overflow-hidden">
-        <div className="rush-container">
+      <ScrollSection className="bg-white py-20 sm:py-28 lg:py-32 border-b border-[#eaeaea] relative overflow-hidden">
 
-          {/* Top Section / Split Header with Headline & Carousel Controls */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-6 sm:mb-10">
-            
-            {/* Headline and Description */}
-            <div className="max-w-2xl">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 text-[#087f94] text-xs font-black uppercase tracking-widest mb-3 inline-block">
-                WHAT WE DO
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Varela_Round']">
-                Everything Your Business Needs to <span className="text-[#12b7d4]">Grow Digitally.</span>
-              </h2>
-              <p className="font-script text-base sm:text-lg md:text-2xl text-[#12b7d4] leading-snug">
-                From content and campaigns to websites and technology — we build digital systems that help your business grow.
-              </p>
-            </div>
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[320px] bg-gradient-to-r from-[#12b7d4]/18 via-[#38bdf8]/12 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
-            {/* Carousel Navigation Controls (Responsive for mobile & desktop) */}
-            <div className="flex items-center justify-between sm:justify-end gap-3 pt-1 lg:pt-0">
-              <span className="text-xs font-bold text-[#888888] uppercase tracking-wider">
-                Swipe to explore →
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleServicePrev}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
-                  aria-label="Previous service"
-                >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleServiceNext}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black text-white hover:bg-[#12b7d4] flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
-                  aria-label="Next service"
-                >
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+        <div className="rush-container text-center max-w-4xl mx-auto relative z-10">
 
-          </div>
-
-          {/* Carousel Swiper Container */}
-          <div className="relative w-full">
-            
-            {/* Floating In-Track Arrows for Desktop */}
-            <button
-              type="button"
-              onClick={handleServicePrev}
-              className="absolute -left-4 lg:-left-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden lg:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
-              aria-label="Previous card"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={handleServiceNext}
-              className="absolute -right-4 lg:-right-5 top-1/3 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black text-white hover:bg-[#12b7d4] hidden lg:flex items-center justify-center shadow-xl border border-white/20 transition-all cursor-pointer hover:scale-110 active:scale-95"
-              aria-label="Next card"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            {/* Horizontal Scroll / Swipe Track with Full-Bleed on Mobile */}
-            <div
-              ref={serviceCarouselRef}
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeaveOrUp}
-              onMouseUp={handleMouseLeaveOrUp}
-              onMouseMove={handleMouseMove}
-              className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 pt-1 select-none cursor-grab active:cursor-grabbing scroll-smooth -mx-4 sm:-mx-6 lg:mx-0 px-4 sm:px-6 lg:px-0"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none", WebkitOverflowScrolling: "touch" }}
-            >
-              {serviceCards.map((service, idx) => (
-                <motion.div
-                  key={service.id}
-                  onClick={() => setPage(service.id)}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.05 }}
-                  transition={{ duration: 0.65, delay: idx * 0.08, ease: rushEase }}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="w-[85vw] sm:w-[340px] md:w-[370px] lg:w-[400px] max-w-[400px] shrink-0 snap-start rounded-3xl border border-[#eaeaea] bg-white p-4 sm:p-6 hover:border-[#12b7d4] hover:shadow-[0_20px_45px_rgba(18,183,212,0.14)] transition-colors duration-300 group cursor-pointer flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Card Top Image (Black, White & Blue/Cyan Theme - No Numbers) */}
-                    <div className="relative w-full h-[180px] sm:h-[220px] rounded-2xl overflow-hidden bg-[#141414] mb-4 sm:mb-5">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        draggable={false}
-                      />
-                    </div>
-
-                    {/* Bold Service Title - Total Black */}
-                    <h3 className="text-xl sm:text-2xl font-black uppercase text-black tracking-tight font-['Varela_Round'] mb-1.5 sm:mb-2">
-                      {service.title}
-                    </h3>
-
-                    {/* One-Line Description in Script Italic Blue Font */}
-                    <p className="font-script text-base sm:text-lg text-[#12b7d4] leading-snug mb-3.5 sm:mb-4">
-                      {service.description}
-                    </p>
-
-                    {/* Short Service Keywords */}
-                    <div className="flex flex-wrap gap-1.5 mb-2">
-                      {service.keywords.map((kw, i) => (
-                        <span
-                          key={i}
-                          className="text-[10px] sm:text-[11px] font-semibold text-[#555555] bg-[#f5f5f5] group-hover:bg-[#e6f9fc] group-hover:text-[#087f94] px-2.5 py-1 rounded-full transition-colors whitespace-nowrap"
-                        >
-                          {kw}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Bottom Link - Read More */}
-                  <div className="mt-4 sm:mt-5 pt-3.5 sm:pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-xs font-black uppercase tracking-wider text-black group-hover:text-[#12b7d4] transition-colors">
-                    <span className="flex items-center gap-1.5">
-                      Read More <span className="text-[#12b7d4]">→</span>
-                    </span>
-                    <span className="text-base group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#12b7d4]">
-                      ↗
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-          </div>
-
-          {/* Closing Line Callout */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.75, ease: rushEase }}
-            className="mt-8 sm:mt-14 lg:mt-18 rounded-3xl bg-black text-white p-6 sm:p-10 lg:p-14 relative overflow-hidden border border-[#222222] shadow-2xl"
+            transition={{ duration: 0.5, ease: rushEase }}
+            className="tag-bubble-cyan mb-4 inline-block"
           >
-            {/* Subtle glow accent */}
-            <div className="absolute right-0 bottom-0 w-80 h-80 bg-[#12b7d4]/20 rounded-full blur-3xl pointer-events-none" />
+            Proven Track Record
+          </motion.span>
 
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-              <div className="max-w-2xl">
-                <blockquote className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-['Varela_Round'] leading-tight mb-3">
-                  “From Building Your Brand to <span className="text-[#12b7d4]">Building Your Business.</span>”
-                </blockquote>
-                <p className="font-script text-2xl sm:text-3xl text-[#12b7d4] tracking-wide">
-                  Content. Technology. Performance. All Under One Roof.
-                </p>
-              </div>
+          <motion.h2
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.05 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Varela_Round'] mb-6"
+          >
+            RESULTS<br />
+            SPEAK<br />
+            <span className="text-[#12b7d4]">LOUDER</span>
+          </motion.h2>
 
-              <div className="shrink-0 flex items-center gap-4">
-                <button
-                  type="button"
-                  onClick={() => setPage("contact")}
-                  className="btn-rush-cyan text-xs sm:text-sm uppercase tracking-wider px-8 py-4 cursor-pointer shadow-lg hover:scale-105 transition-transform"
-                >
-                  Start Your Project →
-                </button>
-              </div>
-            </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.05 }}
+            transition={{ duration: 0.6, delay: 0.16, ease: rushEase }}
+            className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-8"
+          >
+            Real bottom-line growth, viral traction & market dominance.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.05 }}
+            transition={{ duration: 0.6, delay: 0.24, ease: rushEase }}
+            className="flex flex-wrap items-center justify-center gap-4"
+          >
+            <button
+              onClick={() => setPage("works")}
+              className="btn-rush-black text-xs sm:text-sm uppercase tracking-wider px-9 py-4 cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-all shadow-md hover:scale-105 active:scale-95 font-bold flex items-center gap-2"
+            >
+              <span>View In Case Studies</span>
+              <span className="text-[#12b7d4] group-hover:text-white">→</span>
+            </button>
           </motion.div>
 
         </div>
@@ -1073,8 +664,12 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 5: TRUSTED BY VISIONARIES (The Rush Republic Split 3x3 Auto-Changing Grid)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
-        <div className="rush-container">
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] relative overflow-hidden">
+
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#12b7d4]/10 rounded-full blur-[110px] pointer-events-none" />
+
+        <div className="rush-container relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
             {/* Left Column: Stacked Massive Headline */}
@@ -1085,12 +680,25 @@ export default function Home({ setPage }) {
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
-              <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-[4.2rem] xl:text-[4.8rem] font-black uppercase tracking-tight text-[#000000] leading-[0.93] font-['Varela_Round']">
+              <span className="tag-bubble-cyan mb-4 inline-block w-fit">
+                Client Partners
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Varela_Round'] mb-4">
                 Trusted by<br />
-                Visionaries,<br />
-                Admired by the<br />
-                <span className="text-[#12b7d4]">Best</span>
+                Top <span className="text-[#12b7d4]">Brands</span>
               </h2>
+              <p className="text-base text-[#555555] font-medium leading-relaxed max-w-md mb-6">
+                Powering market leaders and fast-growing businesses across South India.
+              </p>
+              <div>
+                <button
+                  onClick={() => setPage("clients")}
+                  className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black hover:text-[#12b7d4] transition-colors inline-flex items-center gap-2 group cursor-pointer"
+                >
+                  <span>Explore All Clients</span>
+                  <span className="group-hover:translate-x-1 transition-transform text-[#12b7d4]">→</span>
+                </button>
+              </div>
             </motion.div>
 
             {/* Right Column: 3x3 Auto-Changing Logo Cards (Every 2 seconds, full color) */}
@@ -1138,15 +746,19 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 6: OUR SATISFIED CLIENTS (The Rush Republic Dark Section)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-[#000000] text-white py-20 lg:py-28 overflow-hidden">
-        <div className="rush-container">
+      <ScrollSection className="bg-[#000000] text-white py-20 lg:py-28 overflow-hidden relative">
+
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="rush-container relative z-10">
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <span className="tag-bubble bg-[#12b7d4] text-white mb-4">
                 Testimonials
               </span>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
                 Our Satisfied<br /><span className="text-[#12b7d4]">Clients</span>
               </h2>
             </div>
@@ -1222,14 +834,18 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 7: OUR INITIATIVES (AKA PROFESSIONAL HOBBY)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea]">
-        <div className="rush-container">
+      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] relative overflow-hidden">
+
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="rush-container relative z-10">
 
           <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round']">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round']">
               Our Initiatives
             </h2>
-            <div className="font-script text-2xl sm:text-3xl text-[#555555]">
+            <div className="font-script text-xl sm:text-2xl md:text-3xl text-[#555555]">
               AKA <span className="text-[#12b7d4]">professional hobby</span>
             </div>
           </div>
@@ -1310,8 +926,12 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 8: CTA FORM (LET’S CONNECT TO CREATE MAGIC!)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="CTA" className="bg-[#000000] text-white py-20 lg:py-28">
-        <div className="rush-container">
+      <ScrollSection id="CTA" className="bg-[#000000] text-white py-20 lg:py-28 relative overflow-hidden">
+
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#12b7d4]/12 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="rush-container relative z-10">
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1322,11 +942,11 @@ export default function Home({ setPage }) {
           >
 
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white mb-3 font-['Varela_Round']">
-                Let’s Connect to <span className="text-[#12b7d4]">Create Magic!</span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white mb-3 font-['Varela_Round']">
+                Let’s Build Something <span className="text-[#12b7d4]">Great</span>
               </h2>
-              <p className="font-script text-2xl sm:text-3xl text-[#12b7d4]">
-                Tell us a little about your brand and we’ll bring big ideas to the table.
+              <p className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
+                Tell us about your brand and let’s make big things happen.
               </p>
             </div>
 

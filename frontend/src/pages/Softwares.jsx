@@ -64,15 +64,18 @@ export default function Softwares({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           HEADER & 1ST: LIST OUT AVAILABLE SAAS WEBSITES (Short & Crisp)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea]">
-        <div className="rush-container text-center max-w-3xl mx-auto">
+      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea] relative overflow-hidden">
+        {/* Ambient Blur Color Effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="rush-container text-center max-w-3xl mx-auto relative z-10">
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
             Proprietary SaaS
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
             SaaS & <span className="text-[#12b7d4]">Softwares</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-6">
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-6">
             Cloud operating systems built for scale.
           </ScrollText>
 
@@ -204,14 +207,14 @@ export default function Softwares({ setPage }) {
                         href={product.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={"text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all " +
+                        className={"text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all truncate max-w-[160px] sm:max-w-none " +
                           (product.dark
                             ? "border-[#333] text-[#12b7d4] hover:bg-[#1a1a1a]"
                             : "border-[#eaeaea] text-[#12b7d4] bg-white hover:border-[#12b7d4]"
                           )
                         }
                       >
-                        https://{product.domain} ↗
+                        <span className="hidden sm:inline">https://</span>{product.domain} ↗
                       </a>
                     </div>
 
