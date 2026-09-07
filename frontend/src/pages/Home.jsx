@@ -52,10 +52,10 @@ const logoGridSlots = [
 
 // Flolapo-Style Skills List (Clean typography - No heavy images)
 const flolapoSkills = [
+  "Digital Marketing",
   "Social Media Management",
-  "Digital Media Marketing",
-  "Web Design & Development",
   "Content Production & Reels",
+  "Web Design & Development",
   "SaaS & Business Automation",
 ];
 
@@ -261,7 +261,7 @@ export default function Home({ setPage }) {
                 alt="Rise With Media Logo"
                 className="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:scale-110 transition-transform"
               />
-              <span className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#000000] font-['Sansation']">
+              <span className="text-xs sm:text-sm md:text-base font-bold tracking-tight text-[#000000] font-['League_Spartan']">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </div>

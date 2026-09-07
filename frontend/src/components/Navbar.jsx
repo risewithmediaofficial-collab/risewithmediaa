@@ -26,7 +26,7 @@ export default function Navbar({ page, setPage }) {
     >
       <div className="rush-container">
         <div className="flex h-20 sm:h-[88px] items-center justify-between">
-          
+
           {/* Brand Logo */}
           <button
             onClick={() => handleNav("home")}
@@ -39,11 +39,11 @@ export default function Navbar({ page, setPage }) {
               className="h-11 w-11 sm:h-13 sm:w-13 md:h-14 md:w-14 object-contain group-hover:scale-105 transition-transform shrink-0"
             />
             <div className="flex flex-col justify-center">
-              <span className="block text-lg sm:text-2xl font-black tracking-tight text-[#000000] uppercase font-['Sansation'] leading-none">
+              <span className="block text-lg sm:text-2xl font-bold tracking-tight text-[#000000] font-['League_Spartan'] leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
-              <span className="font-script text-base sm:text-lg md:text-[1.15rem] text-[#12b7d4] font-bold leading-none mt-0.5 sm:mt-1 select-none">
-                Built for Growth
+              <span className="block text-[12px] sm:text-xs font-medium text-[#444444] font-['League_Spartan'] tracking-normal leading-none mt-1 select-none">
+                Plan . Create . Grow
               </span>
             </div>
           </button>
@@ -56,9 +56,8 @@ export default function Navbar({ page, setPage }) {
                 <button
                   key={link.key}
                   onClick={() => handleNav(link.key)}
-                  className={`text-sm transition-colors cursor-pointer relative py-2 ${
-                    isActive ? "text-[#12b7d4] font-black" : "text-[#555555] hover:text-[#12b7d4] font-bold"
-                  }`}
+                  className={`text-sm transition-colors cursor-pointer relative py-2 ${isActive ? "text-[#12b7d4] font-black" : "text-[#555555] hover:text-[#12b7d4] font-bold"
+                    }`}
                 >
                   {link.label}
                   {isActive && (
@@ -90,19 +89,16 @@ export default function Navbar({ page, setPage }) {
             aria-label="Toggle menu"
           >
             <span
-              className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${
-                menuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
+              className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""
+                }`}
             />
             <span
-              className={`block h-0.5 w-5 bg-current transition-opacity duration-300 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
+              className={`block h-0.5 w-5 bg-current transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""
+                }`}
             />
             <span
-              className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${
-                menuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
+              className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
             />
           </button>
         </div>
@@ -123,9 +119,8 @@ export default function Navbar({ page, setPage }) {
                 <button
                   key={link.key}
                   onClick={() => handleNav(link.key)}
-                  className={`text-left py-3 text-base font-bold uppercase tracking-wide border-b border-[#f5f5f5] transition-colors ${
-                    page === link.key ? "text-[#12b7d4] pl-3 border-l-2 border-l-[#12b7d4] bg-[#e6f9fc]/50" : "text-[#555555] hover:text-[#12b7d4]"
-                  }`}
+                  className={`text-left py-3 text-base font-bold uppercase tracking-wide border-b border-[#f5f5f5] transition-colors ${page === link.key ? "text-[#12b7d4] pl-3 border-l-2 border-l-[#12b7d4] bg-[#e6f9fc]/50" : "text-[#555555] hover:text-[#12b7d4]"
+                    }`}
                 >
                   {link.label}
                 </button>

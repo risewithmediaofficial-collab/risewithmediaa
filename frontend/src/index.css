@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fredoka:wght@300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Outfit:wght@100..900&family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fredoka:wght@300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=League+Spartan:wght@400..900&family=Outfit:wght@100..900&family=Questrial&display=swap');
 @import "@fontsource/sansation";
 @import "@fontsource/sansation/700.css";
 @import "tailwindcss";
@@ -88,6 +88,12 @@
 .font-varela,
 .font-\[\'Varela_Round\'\] {
   font-family: 'Sansation', sans-serif !important;
+}
+
+.font-spartan,
+.font-league-spartan,
+.font-\[\'League_Spartan\'\] {
+  font-family: 'League Spartan', sans-serif !important;
 }
 
 .font-script {
