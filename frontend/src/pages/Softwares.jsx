@@ -141,10 +141,10 @@ export default function Softwares({ setPage }) {
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
             Proprietary SaaS
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2.5">
             SaaS & <span className="text-[#12b7d4]">Softwares</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-6">
+          <ScrollText as="p" direction="up" delay={0.16} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-6">
             Cloud operating systems built for scale.
           </ScrollText>
 
@@ -200,12 +200,12 @@ export default function Softwares({ setPage }) {
                     {product.badge}
                   </span>
 
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Varela_Round']">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Sansation']">
                     {product.name.split(" ").slice(0, -1).join(" ")}{" "}
                     <span className="text-[#12b7d4]">{product.name.split(" ").slice(-1)}</span>
                   </h2>
 
-                  <p className="text-base sm:text-lg font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-4">
+                  <p className="text-base sm:text-lg font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-4">
                     {product.tagline}
                   </p>
 
@@ -303,10 +303,10 @@ export default function Softwares({ setPage }) {
                     </div>
 
                     {/* Product Name & Tagline */}
-                    <h3 className={"text-3xl sm:text-4xl font-black uppercase tracking-tight font-['Varela_Round'] mb-1 " + (product.dark ? "text-white" : "text-black")}>
+                    <h3 className={"text-3xl sm:text-4xl font-black uppercase tracking-tight font-['Sansation'] mb-1 " + (product.dark ? "text-white" : "text-black")}>
                       {product.name}
                     </h3>
-                    <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-6">
+                    <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-6">
                       {product.tagline}
                     </p>
 
@@ -314,7 +314,7 @@ export default function Softwares({ setPage }) {
                     <div className={"grid grid-cols-3 gap-3 sm:gap-4 pt-6 border-t " + (product.dark ? "border-[#222]" : "border-[#e5e5e5]")}>
                       {product.stats.map((stat, i) => (
                         <div key={i} className="flex flex-col gap-0.5">
-                          <span className="text-2xl sm:text-3xl font-black font-['Varela_Round'] text-[#12b7d4]">
+                          <span className="text-2xl sm:text-3xl font-black font-['Sansation'] text-[#12b7d4]">
                             {stat.value}
                           </span>
                           <span className={"text-[10px] font-bold uppercase tracking-wider " + (product.dark ? "text-[#888]" : "text-[#777]")}>
@@ -384,10 +384,10 @@ export default function Softwares({ setPage }) {
                 <div className="inline-block px-3 py-1 rounded-full bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-[#12b7d4] text-[10px] font-black uppercase tracking-wider mb-2">
                   {selectedProduct.badge}
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Varela_Round'] text-white mb-1.5">
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Sansation'] text-white mb-1.5">
                   {selectedProduct.name}
                 </h3>
-                <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Varela_Round']">
+                <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Sansation']">
                   {selectedProduct.about.headline}
                 </p>
                 <p className="text-neutral-300 text-sm leading-relaxed mt-3">
@@ -397,7 +397,7 @@ export default function Softwares({ setPage }) {
 
               {/* Core Capabilities */}
               <div className="mb-6">
-                <h4 className="text-xs font-black uppercase tracking-widest text-neutral-400 mb-3 font-['Varela_Round']">
+                <h4 className="text-xs font-black uppercase tracking-widest text-neutral-400 mb-3 font-['Sansation']">
                   Core Modules & Features
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -408,7 +408,7 @@ export default function Softwares({ setPage }) {
                     >
                       <div className="flex items-center gap-2 mb-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#12b7d4] shrink-0" />
-                        <span className="text-xs font-bold text-white font-['Varela_Round']">
+                        <span className="text-xs font-bold text-white font-['Sansation']">
                           {cap.title}
                         </span>
                       </div>
@@ -422,7 +422,7 @@ export default function Softwares({ setPage }) {
 
               {/* Architecture Specs */}
               <div className="mb-6 p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800">
-                <h4 className="text-[11px] font-black uppercase tracking-widest text-neutral-400 mb-3 font-['Varela_Round']">
+                <h4 className="text-[11px] font-black uppercase tracking-widest text-neutral-400 mb-3 font-['Sansation']">
                   Cloud Architecture & Reliability
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -473,10 +473,10 @@ export default function Softwares({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection className="py-16 bg-[#f9f9f9] border-t border-[#eaeaea]">
         <div className="rush-container text-center max-w-2xl mx-auto">
-          <ScrollText as="h2" direction="up" delay={0.05} className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-2">
+          <ScrollText as="h2" direction="up" delay={0.05} className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2">
             Deploy Your SaaS with <span className="text-[#12b7d4]">Rise With Media</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.12} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-6">
+          <ScrollText as="p" direction="up" delay={0.12} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-6">
             Custom enterprise software, automation engines & workflows.
           </ScrollText>
           <ScrollText as="div" direction="up" delay={0.18}>

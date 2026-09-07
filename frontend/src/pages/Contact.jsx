@@ -107,7 +107,7 @@ export default function Contact({ initialService = "" }) {
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
             Let's Talk Business
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-3">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-3">
             Let’s Build Something <span className="text-[#12b7d4]">Great</span>
           </ScrollText>
           <ScrollText as="p" direction="up" delay={0.18} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
@@ -306,7 +306,7 @@ export default function Contact({ initialService = "" }) {
             >
               
               <div className="rounded-3xl border border-[#eaeaea] p-8 bg-[#fcfcfc]">
-                <h3 className="text-xl font-black uppercase text-black font-['Varela_Round'] mb-6">
+                <h3 className="text-xl font-black uppercase text-black font-['Sansation'] mb-6">
                   Direct Line
                 </h3>
 
@@ -362,7 +362,7 @@ export default function Contact({ initialService = "" }) {
                 <span className="tag-bubble-cyan mb-3">
                   Our Promise
                 </span>
-                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Varela_Round']">
+                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Sansation']">
                   Speed, Clarity & Zero Fluff
                 </h4>
                 <p className="text-sm text-neutral-300 leading-relaxed font-normal">

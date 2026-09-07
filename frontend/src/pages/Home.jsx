@@ -101,7 +101,7 @@ function FlolapoSkillItem({ title, onClick }) {
       className="cursor-pointer select-none py-2 sm:py-3 md:py-4 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
     >
       <h3
-        className="text-xl sm:text-2xl md:text-3xl lg:text-[2.8rem] xl:text-[3.4rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Varela_Round'] whitespace-normal sm:whitespace-nowrap"
+        className="text-xl sm:text-2xl md:text-3xl lg:text-[2.8rem] xl:text-[3.4rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
         style={{ fontFamily: "'Varela Round', sans-serif" }}
       >
         {title}
@@ -261,7 +261,7 @@ export default function Home({ setPage }) {
                 alt="Rise With Media Logo"
                 className="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:scale-110 transition-transform"
               />
-              <span className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#000000] font-['Varela_Round']">
+              <span className="text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#000000] font-['Sansation']">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </div>
@@ -278,7 +278,7 @@ export default function Home({ setPage }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block pr-[0.18em]"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] inline-block pr-[0.18em]"
               >
                 “MARKETING THAT WORKS
               </motion.span>
@@ -288,7 +288,7 @@ export default function Home({ setPage }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] inline-block"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] inline-block"
               >
                 WHILE YOU SNOOZE”
               </motion.span>
@@ -359,7 +359,7 @@ export default function Home({ setPage }) {
 
           {/* Header Tag matching Flolapo "WHAT WE COVER" */}
           <div className="text-center mb-8 sm:mb-12">
-            <span className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-[#888888] font-['Varela_Round']">
+            <span className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-[#888888] font-['Sansation']">
               WHAT WE COVER
             </span>
           </div>
@@ -379,7 +379,7 @@ export default function Home({ setPage }) {
           <div className="text-center mt-10 sm:mt-14">
             <button
               onClick={() => setPage("contact")}
-              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Varela_Round']"
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Sansation']"
             >
               Start A Project With Us →
             </button>
@@ -401,7 +401,7 @@ export default function Home({ setPage }) {
           <span
             className="text-[5.5rem] sm:text-[10rem] md:text-[14rem] lg:text-[17rem] font-black uppercase tracking-tight whitespace-nowrap leading-none select-none opacity-20"
             style={{
-              fontFamily: "'Varela_Round', sans-serif",
+              fontFamily: "'Sansation', sans-serif",
               WebkitTextStroke: "2px rgba(0, 0, 0, 0.35)",
               color: "transparent",
             }}
@@ -428,7 +428,7 @@ export default function Home({ setPage }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] leading-tight mb-3"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-3"
             >
               Works That <span className="text-[#12b7d4]">Captivate</span>
             </motion.h2>
@@ -477,7 +477,7 @@ export default function Home({ setPage }) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
                     Creators x Brands
                   </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Varela_Round'] drop-shadow-md">
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
                     Viral Food & Retail
                   </h4>
                 </div>
@@ -525,7 +525,7 @@ export default function Home({ setPage }) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
                     Viral Reach
                   </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Varela_Round'] drop-shadow-md">
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
                     Creators x Brands
                   </h4>
                 </div>
@@ -578,7 +578,7 @@ export default function Home({ setPage }) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
                     Hospitality
                   </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Varela_Round'] drop-shadow-md">
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
                     Brand Influence
                   </h4>
                 </div>
@@ -625,7 +625,7 @@ export default function Home({ setPage }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.05 }}
             transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Varela_Round'] mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Sansation'] mb-6"
           >
             RESULTS<br />
             SPEAK<br />
@@ -683,7 +683,7 @@ export default function Home({ setPage }) {
               <span className="tag-bubble-cyan mb-4 inline-block w-fit">
                 Client Partners
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Varela_Round'] mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Sansation'] mb-4">
                 Trusted by<br />
                 Top <span className="text-[#12b7d4]">Brands</span>
               </h2>
@@ -758,7 +758,7 @@ export default function Home({ setPage }) {
               <span className="tag-bubble bg-[#12b7d4] text-white mb-4">
                 Testimonials
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white font-['Varela_Round']">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white font-['Sansation']">
                 Our Satisfied<br /><span className="text-[#12b7d4]">Clients</span>
               </h2>
             </div>
@@ -810,7 +810,7 @@ export default function Home({ setPage }) {
                 </div>
 
                 <div>
-                  <h4 className="text-xl font-black text-white font-['Varela_Round']">
+                  <h4 className="text-xl font-black text-white font-['Sansation']">
                     {testimonials[activeReview].author}
                   </h4>
                   <p className="text-sm text-neutral-400 font-medium mt-1">
@@ -820,7 +820,7 @@ export default function Home({ setPage }) {
               </div>
 
               <div className="lg:col-span-4 flex justify-center">
-                <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Varela_Round'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
+                <div className={`w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br ${testimonials[activeReview].avatarBg} flex items-center justify-center text-white text-5xl sm:text-7xl font-black font-['Sansation'] shadow-[0_10px_30px_rgba(18,183,212,0.3)] border-4 border-[#222222]`}>
                   {testimonials[activeReview].initial}
                 </div>
               </div>
@@ -851,7 +851,7 @@ export default function Home({ setPage }) {
           >
 
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white mb-3 font-['Varela_Round']">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white mb-3 font-['Sansation']">
                 Let’s Build Something <span className="text-[#12b7d4]">Great</span>
               </h2>
               <p className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
