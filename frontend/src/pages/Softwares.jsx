@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection";
 
 const saasProducts = [
@@ -24,6 +25,35 @@ const saasProducts = [
       "Staff roles & automated billing",
     ],
     dark: false,
+    about: {
+      headline: "All-in-One Operations System for High-Growth Agencies",
+      summary:
+        "RWM Agency OS unifies fragmented agency workflows into one real-time cloud suite. Built to eliminate manual coordination across lead intake, client communication, WhatsApp automation, and invoice collections.",
+      capabilities: [
+        {
+          title: "Multi-Source Lead Pipeline",
+          desc: "Instant capture and routing from Meta Ads, Google Ads, and websites with sub-second team assignment.",
+        },
+        {
+          title: "WhatsApp Cloud Automation",
+          desc: "Auto-dispatches proposals, onboarding briefs, payment reminders, and campaign updates directly to client WhatsApp.",
+        },
+        {
+          title: "Billing & Invoicing Engine",
+          desc: "Integrated invoice generation, recurring retainer schedules, GST compliance, and one-click payment links.",
+        },
+        {
+          title: "Staff Quotas & Deliverables",
+          desc: "Role-based dashboards for creators, managers, and media buyers with automated task KPI tracking.",
+        },
+      ],
+      architecture: [
+        { label: "Deployment", value: "Cloud Multi-Tenant" },
+        { label: "Uptime SLA", value: "99.9% Guaranteed" },
+        { label: "Database", value: "Encrypted Cloud DB" },
+        { label: "Integrations", value: "WhatsApp API, Webhooks" },
+      ],
+    },
   },
   {
     id: "hms",
@@ -47,10 +77,49 @@ const saasProducts = [
       "Pharmacy stock & billing automation",
     ],
     dark: true,
+    about: {
+      headline: "Modern Clinical & Hospital Operations Infrastructure",
+      summary:
+        "Rise HMS modernizes healthcare clinics and multispecialty hospitals by replacing paper files with secure electronic health records (EHR), streamlined OPD token queues, IPD bed allocations, and unified pharmacy stock billing.",
+      capabilities: [
+        {
+          title: "Paperless Patient Records (EHR)",
+          desc: "Centralized medical histories, doctor diagnoses, and digital prescriptions accessible securely across departments.",
+        },
+        {
+          title: "OPD Queue & Doctor Scheduling",
+          desc: "Live token display and patient scheduling to reduce outpatient wait times and prevent reception congestion.",
+        },
+        {
+          title: "Pharmacy & Stock POS",
+          desc: "Real-time medicine inventory tracking, expiry batch monitoring, and direct point-of-sale billing synced to prescriptions.",
+        },
+        {
+          title: "IPD & Bed Management",
+          desc: "Real-time ward occupancy monitoring, admission-to-discharge tracking, and unified final patient billing.",
+        },
+      ],
+      architecture: [
+        { label: "Security", value: "EHR & HIPAA Standard" },
+        { label: "Deployment", value: "Dedicated Cloud Server" },
+        { label: "Backups", value: "Daily Automated Backups" },
+        { label: "Access", value: "Role-Based Doctor/Admin" },
+      ],
+    },
   },
 ];
 
 export default function Softwares({ setPage }) {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedProduct(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const scrollToProduct = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -167,6 +236,14 @@ export default function Softwares({ setPage }) {
                     >
                       <span>{product.cta}</span>
                     </a>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProduct(product)}
+                      className="text-xs font-bold text-black border border-black/20 hover:border-[#12b7d4] hover:text-[#12b7d4] px-4 py-3 rounded-full transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap"
+                    >
+                      <span>About Software</span>
+                      <span className="text-[11px]">ℹ</span>
+                    </button>
                     <a
                       href={product.url}
                       target="_blank"
@@ -178,7 +255,7 @@ export default function Softwares({ setPage }) {
                   </div>
                 </motion.div>
 
-                {/* Right Column: Sleek Console Preview Card */}
+                {/* Right Column: Sleek Interactive Console Preview Card */}
                 <motion.div
                   className={"lg:col-span-7 " + (idx % 2 === 1 ? "lg:order-1" : "")}
                   initial={{ opacity: 0, y: 30 }}
@@ -187,35 +264,42 @@ export default function Softwares({ setPage }) {
                   transition={{ duration: 0.55, delay: 0.1, ease: rushEase }}
                 >
                   <div
+                    onClick={() => setSelectedProduct(product)}
                     className={
-                      "rounded-3xl overflow-hidden border p-7 sm:p-9 shadow-lg " +
+                      "rounded-3xl overflow-hidden border p-7 sm:p-9 shadow-lg cursor-pointer group transition-all duration-300 hover:border-[#12b7d4]/70 hover:shadow-2xl relative " +
                       (product.dark
-                        ? "border-[#222] bg-[#000000] text-white"
-                        : "border-[#eaeaea] bg-[#f9fafb] text-black"
+                        ? "border-[#222] bg-[#000000] text-white hover:bg-[#080808]"
+                        : "border-[#eaeaea] bg-[#f9fafb] text-black hover:bg-white"
                       )
                     }
                   >
                     {/* Top Console Bar */}
-                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-black/10 dark:border-white/10">
+                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-black/10 dark:border-white/10 gap-2 flex-wrap sm:flex-nowrap">
                       <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-[#12b7d4] animate-pulse" />
                         <span className={"text-xs font-black uppercase tracking-widest " + (product.dark ? "text-[#aaa]" : "text-[#777]")}>
                           Live Cloud App
                         </span>
                       </div>
-                      <a
-                        href={product.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={"text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all truncate max-w-[160px] sm:max-w-none " +
-                          (product.dark
-                            ? "border-[#333] text-[#12b7d4] hover:bg-[#1a1a1a]"
-                            : "border-[#eaeaea] text-[#12b7d4] bg-white hover:border-[#12b7d4]"
-                          )
-                        }
-                      >
-                        <span className="hidden sm:inline">https://</span>{product.domain} ↗
-                      </a>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#12b7d4] bg-[#12b7d4]/10 border border-[#12b7d4]/30 px-3 py-1 rounded-full group-hover:bg-[#12b7d4] group-hover:text-white transition-colors">
+                          Click for Details ℹ
+                        </span>
+                        <a
+                          href={product.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className={"text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all truncate max-w-[150px] sm:max-w-none " +
+                            (product.dark
+                              ? "border-[#333] text-[#12b7d4] hover:bg-[#1a1a1a]"
+                              : "border-[#eaeaea] text-[#12b7d4] bg-white hover:border-[#12b7d4]"
+                            )
+                          }
+                        >
+                          <span className="hidden sm:inline">https://</span>{product.domain} ↗
+                        </a>
+                      </div>
                     </div>
 
                     {/* Product Name & Tagline */}
@@ -239,6 +323,15 @@ export default function Softwares({ setPage }) {
                         </div>
                       ))}
                     </div>
+
+                    {/* Interactive Click Hint Footer */}
+                    <div className={"mt-5 pt-3.5 border-t flex items-center justify-between text-[11px] transition-colors " + (product.dark ? "border-[#222] text-neutral-400" : "border-[#eaeaea] text-neutral-500")}>
+                      <span>Click card to view software features & specs</span>
+                      <span className="text-[#12b7d4] font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        <span>About Software</span>
+                        <span>→</span>
+                      </span>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -247,6 +340,133 @@ export default function Softwares({ setPage }) {
           </ScrollSection>
         ))}
       </div>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SIMPLE & MINIMALIST "ABOUT SOFTWARE" MODAL
+      ───────────────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProduct(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", stiffness: 320, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-3xl bg-[#0f0f0f] border border-neutral-800 text-white p-6 sm:p-8 shadow-2xl"
+            >
+              {/* Top Bar */}
+              <div className="flex items-center justify-between gap-4 pb-4 border-b border-neutral-800 mb-6">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#12b7d4] animate-pulse" />
+                  <span className="text-[11px] font-black uppercase tracking-widest text-[#12b7d4]">
+                    About Software
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProduct(null)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-neutral-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer text-sm"
+                  aria-label="Close details"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Title & Tagline */}
+              <div className="mb-6">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-[#12b7d4] text-[10px] font-black uppercase tracking-wider mb-2">
+                  {selectedProduct.badge}
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Varela_Round'] text-white mb-1.5">
+                  {selectedProduct.name}
+                </h3>
+                <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Varela_Round']">
+                  {selectedProduct.about.headline}
+                </p>
+                <p className="text-neutral-300 text-sm leading-relaxed mt-3">
+                  {selectedProduct.about.summary}
+                </p>
+              </div>
+
+              {/* Core Capabilities */}
+              <div className="mb-6">
+                <h4 className="text-xs font-black uppercase tracking-widest text-neutral-400 mb-3 font-['Varela_Round']">
+                  Core Modules & Features
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {selectedProduct.about.capabilities.map((cap, i) => (
+                    <div
+                      key={i}
+                      className="p-3.5 rounded-2xl bg-neutral-900/90 border border-neutral-800 flex flex-col justify-between"
+                    >
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#12b7d4] shrink-0" />
+                        <span className="text-xs font-bold text-white font-['Varela_Round']">
+                          {cap.title}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-neutral-400 leading-relaxed">
+                        {cap.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Architecture Specs */}
+              <div className="mb-6 p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800">
+                <h4 className="text-[11px] font-black uppercase tracking-widest text-neutral-400 mb-3 font-['Varela_Round']">
+                  Cloud Architecture & Reliability
+                </h4>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {selectedProduct.about.architecture.map((arch, i) => (
+                    <div key={i} className="flex flex-col">
+                      <span className="text-[10px] text-neutral-500 uppercase tracking-wider font-bold">
+                        {arch.label}
+                      </span>
+                      <span className="text-xs font-semibold text-neutral-200 mt-0.5">
+                        {arch.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Actions */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-neutral-800">
+                <span className="text-xs font-mono text-neutral-400">
+                  {selectedProduct.domain}
+                </span>
+                <div className="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProduct(null)}
+                    className="px-5 py-2.5 rounded-full text-xs font-bold text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+                  >
+                    Close
+                  </button>
+                  <a
+                    href={selectedProduct.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-rush-cyan text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold inline-flex items-center gap-1.5 shadow-md hover:scale-105 transition-all"
+                  >
+                    <span>Launch Live App</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ─────────────────────────────────────────────────────────────────
           BOTTOM CTA
