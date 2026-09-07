@@ -75,7 +75,7 @@ export default function Softwares({ setPage }) {
           <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Varela_Round'] mb-2.5">
             SaaS & <span className="text-[#12b7d4]">Softwares</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-6">
+          <ScrollText as="p" direction="up" delay={0.16} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-6">
             Cloud operating systems built for scale.
           </ScrollText>
 
@@ -136,18 +136,18 @@ export default function Softwares({ setPage }) {
                     <span className="text-[#12b7d4]">{product.name.split(" ").slice(-1)}</span>
                   </h2>
 
-                  <p className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-4">
+                  <p className="text-base sm:text-lg font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-4">
                     {product.tagline}
                   </p>
 
-                  <p className="text-[#555555] text-base leading-relaxed mb-6 max-w-md">
+                  <p className="text-[#555555] text-sm sm:text-base leading-relaxed mb-6 max-w-md">
                     {product.description}
                   </p>
 
                   {/* Feature list */}
                   <ul className="flex flex-col gap-2.5 mb-7 w-full">
                     {product.features.map((feat, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-[#333333] font-medium">
+                      <li key={i} className="flex items-center gap-3 text-xs sm:text-sm text-[#333333] font-medium">
                         <span className="w-5 h-5 rounded-full bg-[#e6f9fc] border border-[#12b7d4]/40 flex items-center justify-center shrink-0">
                           <svg className="w-3 h-3 text-[#12b7d4]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -158,12 +158,12 @@ export default function Softwares({ setPage }) {
                     ))}
                   </ul>
 
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full">
                     <a
                       href={product.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-rush-cyan text-xs uppercase tracking-wider px-7 py-3.5 cursor-pointer shadow-sm inline-flex items-center gap-2 hover:scale-[1.02] transition-all"
+                      className="btn-rush-cyan text-xs uppercase tracking-wider px-6 sm:px-7 py-3 sm:py-3.5 cursor-pointer shadow-sm inline-flex items-center gap-2 hover:scale-[1.02] transition-all whitespace-nowrap shrink-0"
                     >
                       <span>{product.cta}</span>
                     </a>
@@ -171,7 +171,7 @@ export default function Softwares({ setPage }) {
                       href={product.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-mono font-bold text-[#777777] hover:text-[#12b7d4] transition-colors"
+                      className="text-xs font-mono font-bold text-[#777777] hover:text-[#12b7d4] transition-colors whitespace-nowrap"
                     >
                       {product.domain}
                     </a>
@@ -222,7 +222,7 @@ export default function Softwares({ setPage }) {
                     <h3 className={"text-3xl sm:text-4xl font-black uppercase tracking-tight font-['Varela_Round'] mb-1 " + (product.dark ? "text-white" : "text-black")}>
                       {product.name}
                     </h3>
-                    <p className="font-script text-xl text-[#12b7d4] mb-6">
+                    <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-6">
                       {product.tagline}
                     </p>
 
@@ -256,7 +256,7 @@ export default function Softwares({ setPage }) {
           <ScrollText as="h2" direction="up" delay={0.05} className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Varela_Round'] mb-2">
             Deploy Your SaaS with <span className="text-[#12b7d4]">Rise With Media</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.12} className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-6">
+          <ScrollText as="p" direction="up" delay={0.12} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Varela_Round'] tracking-tight mb-6">
             Custom enterprise software, automation engines & workflows.
           </ScrollText>
           <ScrollText as="div" direction="up" delay={0.18}>
