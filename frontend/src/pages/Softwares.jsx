@@ -10,9 +10,6 @@ const saasProducts = [
     tagline: "Operations, Client Management & Agency OS",
     description:
       "Cloud-native operating system built to centralize leads, automated WhatsApp pipelines, staff quotas, and client billing.",
-    url: "https://company.risewithmedia.com",
-    domain: "company.risewithmedia.com",
-    cta: "Launch Agency OS ↗",
     badge: "Agency OS Platform",
     stats: [
       { label: "Pipelines Automated", value: "99.4%" },
@@ -62,9 +59,6 @@ const saasProducts = [
     tagline: "Hospital Management & Clinical Operations",
     description:
       "Cloud Hospital Management System for patient registration, OPD/IPD scheduling, and automated pharmacy billing.",
-    url: "https://hms.risewithmedia.com",
-    domain: "hms.risewithmedia.com",
-    cta: "Launch HMS App ↗",
     badge: "Healthcare SaaS",
     stats: [
       { label: "Clinical Modules", value: "12+" },
@@ -148,7 +142,7 @@ export default function Softwares({ setPage }) {
             Cloud operating systems built for scale.
           </ScrollText>
 
-          {/* 1st in list: Available SaaS Websites */}
+          {/* 1st in list: Available SaaS Platforms */}
           <ScrollText as="div" direction="up" delay={0.24} className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <span className="text-xs font-black uppercase tracking-widest text-[#888888] mr-1">
               Available SaaS:
@@ -162,18 +156,6 @@ export default function Softwares({ setPage }) {
                 <span>{prod.name}</span>
                 <span className="text-xs text-[#12b7d4]">↓</span>
               </button>
-            ))}
-            {saasProducts.map((prod) => (
-              <a
-                key={`link-${prod.id}`}
-                href={prod.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full border border-[#eaeaea] bg-white text-[#555555] text-xs font-mono font-bold hover:border-[#12b7d4] hover:text-[#12b7d4] transition-colors inline-flex items-center gap-1"
-              >
-                <span>{prod.domain}</span>
-                <span className="text-[10px]">↗</span>
-              </a>
             ))}
           </ScrollText>
         </div>
@@ -228,30 +210,22 @@ export default function Softwares({ setPage }) {
                   </ul>
 
                   <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full">
-                    <a
-                      href={product.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-rush-cyan text-xs uppercase tracking-wider px-6 sm:px-7 py-3 sm:py-3.5 cursor-pointer shadow-sm inline-flex items-center gap-2 hover:scale-[1.02] transition-all whitespace-nowrap shrink-0"
-                    >
-                      <span>{product.cta}</span>
-                    </a>
                     <button
                       type="button"
                       onClick={() => setSelectedProduct(product)}
-                      className="text-xs font-bold text-black border border-black/20 hover:border-[#12b7d4] hover:text-[#12b7d4] px-4 py-3 rounded-full transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap"
+                      className="btn-rush-cyan text-xs uppercase tracking-wider px-6 sm:px-7 py-3 sm:py-3.5 cursor-pointer shadow-sm inline-flex items-center gap-2 hover:scale-[1.02] transition-all whitespace-nowrap shrink-0"
                     >
                       <span>About Software</span>
                       <span className="text-[11px]">ℹ</span>
                     </button>
-                    <a
-                      href={product.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-mono font-bold text-[#777777] hover:text-[#12b7d4] transition-colors whitespace-nowrap"
+                    <button
+                      type="button"
+                      onClick={() => setPage("contact")}
+                      className="text-xs font-bold text-black border border-black/20 hover:border-[#12b7d4] hover:text-[#12b7d4] px-5 py-3 rounded-full transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap"
                     >
-                      {product.domain}
-                    </a>
+                      <span>Request Demo</span>
+                      <span className="text-[11px]">→</span>
+                    </button>
                   </div>
                 </motion.div>
 
@@ -285,20 +259,6 @@ export default function Softwares({ setPage }) {
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#12b7d4] bg-[#12b7d4]/10 border border-[#12b7d4]/30 px-3 py-1 rounded-full group-hover:bg-[#12b7d4] group-hover:text-white transition-colors">
                           Click for Details ℹ
                         </span>
-                        <a
-                          href={product.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className={"text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all truncate max-w-[150px] sm:max-w-none " +
-                            (product.dark
-                              ? "border-[#333] text-[#12b7d4] hover:bg-[#1a1a1a]"
-                              : "border-[#eaeaea] text-[#12b7d4] bg-white hover:border-[#12b7d4]"
-                            )
-                          }
-                        >
-                          <span className="hidden sm:inline">https://</span>{product.domain} ↗
-                        </a>
                       </div>
                     </div>
 
@@ -441,8 +401,8 @@ export default function Softwares({ setPage }) {
 
               {/* Bottom Actions */}
               <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-neutral-800">
-                <span className="text-xs font-mono text-neutral-400">
-                  {selectedProduct.domain}
+                <span className="text-xs font-semibold text-neutral-400">
+                  Enterprise Cloud Platform
                 </span>
                 <div className="flex items-center gap-2.5">
                   <button
@@ -452,15 +412,17 @@ export default function Softwares({ setPage }) {
                   >
                     Close
                   </button>
-                  <a
-                    href={selectedProduct.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-rush-cyan text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold inline-flex items-center gap-1.5 shadow-md hover:scale-105 transition-all"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedProduct(null);
+                      setPage("contact");
+                    }}
+                    className="btn-rush-cyan text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold inline-flex items-center gap-1.5 shadow-md hover:scale-105 transition-all cursor-pointer"
                   >
-                    <span>Launch Live App</span>
-                    <span>↗</span>
-                  </a>
+                    <span>Request Demo & Pricing</span>
+                    <span>→</span>
+                  </button>
                 </div>
               </div>
             </motion.div>
