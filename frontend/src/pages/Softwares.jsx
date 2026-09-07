@@ -5,7 +5,7 @@ import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection
 const saasProducts = [
   {
     id: "company",
-    name: "RWM Agency OS",
+    name: "Agency OS",
     category: "Agency OS & Automation",
     tagline: "Operations, Client Management & Agency OS",
     description:
@@ -25,7 +25,7 @@ const saasProducts = [
     about: {
       headline: "All-in-One Operations System for High-Growth Agencies",
       summary:
-        "RWM Agency OS unifies fragmented agency workflows into one real-time cloud suite. Built to eliminate manual coordination across lead intake, client communication, WhatsApp automation, and invoice collections.",
+        "Agency OS unifies fragmented agency workflows into one real-time cloud suite. Built to eliminate manual coordination across lead intake, client communication, WhatsApp automation, and invoice collections.",
       capabilities: [
         {
           title: "Multi-Source Lead Pipeline",
@@ -54,7 +54,7 @@ const saasProducts = [
   },
   {
     id: "hms",
-    name: "Rise HMS",
+    name: "HMS Software",
     category: "Healthcare SaaS",
     tagline: "Hospital Management & Clinical Operations",
     description:
@@ -74,7 +74,7 @@ const saasProducts = [
     about: {
       headline: "Modern Clinical & Hospital Operations Infrastructure",
       summary:
-        "Rise HMS modernizes healthcare clinics and multispecialty hospitals by replacing paper files with secure electronic health records (EHR), streamlined OPD token queues, IPD bed allocations, and unified pharmacy stock billing.",
+        "HMS Software modernizes healthcare clinics and multispecialty hospitals by replacing paper files with secure electronic health records (EHR), streamlined OPD token queues, IPD bed allocations, and unified pharmacy stock billing.",
       capabilities: [
         {
           title: "Paperless Patient Records (EHR)",
@@ -138,7 +138,7 @@ export default function Softwares({ setPage }) {
           <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2.5">
             SaaS & <span className="text-[#12b7d4]">Softwares</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.16} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-6">
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-6">
             Cloud operating systems built for scale.
           </ScrollText>
 
@@ -182,10 +182,14 @@ export default function Softwares({ setPage }) {
                     {product.badge}
                   </span>
 
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-2 font-['Sansation']">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] leading-tight mb-1 font-['Sansation']">
                     {product.name.split(" ").slice(0, -1).join(" ")}{" "}
                     <span className="text-[#12b7d4]">{product.name.split(" ").slice(-1)}</span>
                   </h2>
+
+                  <p className="font-script text-2xl sm:text-3xl text-[#12b7d4] -mt-1 mb-2 select-none">
+                    by risewithmedia
+                  </p>
 
                   <p className="text-base sm:text-lg font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-4">
                     {product.tagline}
@@ -263,9 +267,12 @@ export default function Softwares({ setPage }) {
                     </div>
 
                     {/* Product Name & Tagline */}
-                    <h3 className={"text-3xl sm:text-4xl font-black uppercase tracking-tight font-['Sansation'] mb-1 " + (product.dark ? "text-white" : "text-black")}>
+                    <h3 className={"text-3xl sm:text-4xl font-black uppercase tracking-tight font-['Sansation'] mb-0.5 " + (product.dark ? "text-white" : "text-black")}>
                       {product.name}
                     </h3>
+                    <p className="font-script text-xl sm:text-2xl text-[#12b7d4] mb-2 select-none">
+                      by risewithmedia
+                    </p>
                     <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-6">
                       {product.tagline}
                     </p>
@@ -344,9 +351,12 @@ export default function Softwares({ setPage }) {
                 <div className="inline-block px-3 py-1 rounded-full bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-[#12b7d4] text-[10px] font-black uppercase tracking-wider mb-2">
                   {selectedProduct.badge}
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Sansation'] text-white mb-1.5">
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Sansation'] text-white mb-0.5">
                   {selectedProduct.name}
                 </h3>
+                <p className="font-script text-lg sm:text-xl text-[#12b7d4] mb-2 select-none">
+                  by risewithmedia
+                </p>
                 <p className="text-sm sm:text-base font-bold text-[#12b7d4] font-['Sansation']">
                   {selectedProduct.about.headline}
                 </p>
@@ -438,7 +448,7 @@ export default function Softwares({ setPage }) {
           <ScrollText as="h2" direction="up" delay={0.05} className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2">
             Deploy Your SaaS with <span className="text-[#12b7d4]">Rise With Media</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.12} className="text-base sm:text-xl font-bold text-[#12b7d4] font-['Sansation'] tracking-tight mb-6">
+          <ScrollText as="p" direction="up" delay={0.12} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-6">
             Custom enterprise software, automation engines & workflows.
           </ScrollText>
           <ScrollText as="div" direction="up" delay={0.18}>
