@@ -529,12 +529,9 @@ export default function Works({ setPage }) {
                             </span>
                           </div>
 
-                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Varela_Round'] tracking-tight mb-2 leading-tight">
+                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Varela_Round'] tracking-tight leading-tight">
                             {ws.name}
                           </h3>
-                          <p className="text-xs sm:text-sm text-[#888888] leading-relaxed line-clamp-2 mb-4 font-normal">
-                            {ws.description}
-                          </p>
                         </div>
 
                         {/* Bottom Pill Link to Live Website */}
