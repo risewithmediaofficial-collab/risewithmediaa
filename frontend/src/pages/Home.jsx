@@ -28,26 +28,66 @@ import zoyLogo from "../assets/clientlogo/zoylogo.png";
 import reel1 from "../assets/clientvideos/1.mp4";
 import reel2 from "../assets/clientvideos/2.mp4";
 import reel3 from "../assets/clientvideos/3.mp4";
+import reel4 from "../assets/clientvideos/4.mp4";
+import reel5 from "../assets/clientvideos/5.mp4";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_s15r115";
 const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
 const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
 
-// 3x3 Grid Logo Slots for The Rush Republic auto-changing cards (2-second rotation)
-const logoGridSlots = [
-  // Row 1
-  [arunamLogo, femi9Logo, mkLogo],
-  [killisBirdLogo, futureSchoolLogo, mrpLogo],
-  [royalLogo, hseihshuLogo, myHosurPropertyLogo],
-  // Row 2
-  [valsiiLogo, chocodorLogo, richiLogo],
-  [dishaLogo, sanjaySaiLogo, sanjeeviLogo],
-  [futureKidsLogo, kertamLogo, zoyLogo],
-  // Row 3
-  [krinbrinLogo, femi9Logo, royalLogo],
-  [myHosurPropertyLogo, dishaLogo, chocodorLogo],
-  [richiLogo, sanjeeviLogo, sanjaySaiLogo],
+// 5 Client Reels for Video Showcase with Full Swiping Support
+const clientReels = [
+  {
+    id: 1,
+    tag: "Creators x Brands",
+    title: "Viral Food & Retail",
+    subTag: "REELS",
+    src: reel1,
+    badge: null,
+  },
+  {
+    id: 2,
+    tag: "Viral Reach",
+    title: "Creators x Brands",
+    subTag: "REELS",
+    src: reel2,
+    badge: null,
+  },
+  {
+    id: 3,
+    tag: "Hospitality",
+    title: "Brand Influence",
+    subTag: "REELS",
+    src: reel3,
+    badge: "Rise Media",
+  },
+  {
+    id: 4,
+    tag: "Campus Growth",
+    title: "School Brand Reels",
+    subTag: "REELS",
+    src: reel4,
+    badge: null,
+  },
+  {
+    id: 5,
+    tag: "Wellness & Health",
+    title: "Organic Brand Growth",
+    subTag: "REELS",
+    src: reel5,
+    badge: "Rise Media",
+  },
+];
+
+// 3 Columns of client logos for continuous upward scrolling marquee (all 19 unique client logos)
+const logoColumns = [
+  // Column 1
+  [arunamLogo, valsiiLogo, futureKidsLogo, mkLogo, richiLogo, femi9Logo, zoyLogo],
+  // Column 2
+  [killisBirdLogo, chocodorLogo, futureSchoolLogo, mrpLogo, sanjaySaiLogo, kertamLogo, royalLogo],
+  // Column 3
+  [royalLogo, dishaLogo, hseihshuLogo, myHosurPropertyLogo, sanjeeviLogo, krinbrinLogo, femi9Logo],
 ];
 
 // Flolapo-Style Skills List (Clean typography - No heavy images)
@@ -98,11 +138,10 @@ function FlolapoSkillItem({ title, onClick }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
-      className="cursor-pointer select-none py-2 sm:py-3 md:py-4 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
+      className="cursor-pointer select-none py-3 sm:py-4 md:py-5 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
     >
       <h3
-        className="text-xl sm:text-2xl md:text-3xl lg:text-[2.8rem] xl:text-[3.4rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
-        style={{ fontFamily: "'Varela Round', sans-serif" }}
+        className="text-2xl sm:text-3xl md:text-4xl lg:text-[3.4rem] xl:text-[4.2rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
       >
         {title}
       </h3>
@@ -113,15 +152,29 @@ function FlolapoSkillItem({ title, onClick }) {
 export default function Home({ setPage }) {
   const [activeVideoModal, setActiveVideoModal] = useState(null);
   const [activeReview, setActiveReview] = useState(0);
-  const [activeLogoStep, setActiveLogoStep] = useState(0);
+  const [activeReelIndex, setActiveReelIndex] = useState(0);
+  const reelTouchStartX = useRef(0);
 
-  // Auto change logos every 2 seconds (Rush Republic style)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveLogoStep((prev) => (prev + 1) % 3);
-    }, 2000);
-    return () => clearInterval(timer);
-  }, []);
+  const handlePrevReel = () => {
+    setActiveReelIndex((prev) => (prev - 1 + clientReels.length) % clientReels.length);
+  };
+
+  const handleNextReel = () => {
+    setActiveReelIndex((prev) => (prev + 1) % clientReels.length);
+  };
+
+  const handleReelTouchStart = (e) => {
+    reelTouchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleReelTouchEnd = (e) => {
+    const diff = reelTouchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 50) {
+      handleNextReel();
+    } else if (diff < -50) {
+      handlePrevReel();
+    }
+  };
 
   // Lock body scroll and listen for Escape key when video modal is active
   useEffect(() => {
@@ -247,21 +300,21 @@ export default function Home({ setPage }) {
 
         <div className="rush-container text-center relative z-10">
 
-          {/* Centered Brand Badge & Logo (Above Digital Marketing) */}
+          {/* Centered Brand Badge & Logo (Hero Section - Enlarged High Impact, No Box Bg) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.88 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: false, amount: 0.05 }}
             transition={{ duration: 0.6, delay: 0, ease: rushEase }}
-            className="flex items-center justify-center mb-5 sm:mb-6"
+            className="flex items-center justify-center mb-6 sm:mb-8"
           >
-            <div className="inline-flex items-center gap-3 transition-all duration-300 group cursor-default">
+            <div className="inline-flex items-center gap-3.5 sm:gap-4 group cursor-default transition-transform">
               <img
                 src="/logo.png"
                 alt="Rise With Media Logo"
-                className="w-7 h-7 sm:w-8 sm:h-8 object-contain group-hover:scale-110 transition-transform"
+                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain group-hover:scale-105 transition-transform"
               />
-              <span className="text-xs sm:text-sm md:text-base font-bold tracking-tight text-[#000000] font-['League_Spartan']">
+              <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-[#000000] font-['League_Spartan'] leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </div>
@@ -357,10 +410,10 @@ export default function Home({ setPage }) {
 
         <div className="rush-container relative z-10">
 
-          {/* Header Tag matching Flolapo "WHAT WE COVER" */}
-          <div className="text-center mb-8 sm:mb-12">
-            <span className="text-xs sm:text-sm font-black uppercase tracking-[0.25em] text-[#888888] font-['Sansation']">
-              WHAT WE COVER
+          {/* Header Tag matching Image 3 with cyan border and font */}
+          <div className="text-center mb-10 sm:mb-14">
+            <span className="tag-bubble-cyan inline-block">
+              What We Cover
             </span>
           </div>
 
@@ -413,7 +466,7 @@ export default function Home({ setPage }) {
         <div className="rush-container relative z-10">
 
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -443,158 +496,152 @@ export default function Home({ setPage }) {
             </motion.p>
           </div>
 
-          {/* Tilted Staggered Video Cards (Exact Reference Design Alignment) */}
-          <div className="relative w-full flex items-center justify-center gap-6 sm:gap-8 lg:gap-14 flex-wrap lg:flex-nowrap pb-4 pt-4">
-
-            {/* Card 01 - Left Tilted */}
-            <motion.div
-              initial={{ opacity: 0, y: 35, rotate: -7 }}
-              whileInView={{ opacity: 1, y: 0, rotate: -4.5 }}
-              viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.85, ease: rushEase }}
-              className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
+          {/* Interactive Video Swiper Carousel with Buttons */}
+          <div
+            className="relative w-full pb-4 pt-2"
+            onTouchStart={handleReelTouchStart}
+            onTouchEnd={handleReelTouchEnd}
+          >
+            {/* Prev and Next Floating Buttons (Desktop/Tablet) */}
+            <button
+              onClick={handlePrevReel}
+              aria-label="Previous reel"
+              className="absolute -left-2 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/95 border border-neutral-300 text-black hover:bg-black hover:text-white hover:border-black shadow-lg flex items-center justify-center transition-all cursor-pointer active:scale-90"
             >
-              {/* Video Card */}
-              <motion.div
-                whileHover={{ scale: 1.04, y: -4 }}
-                transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                onClick={() => setActiveVideoModal(reel1)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
-              >
-                <video
-                  src={reel1}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover gpu-smooth"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
 
-                {/* Overlay Text Inside Card */}
-                <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
-                    Creators x Brands
-                  </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
-                    Viral Food & Retail
-                  </h4>
-                </div>
-
-                {/* Play Hint */}
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  ▶
-                </div>
-              </motion.div>
-
-              {/* Caption Under Card */}
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
-                REELS
-              </span>
-            </motion.div>
-
-            {/* Card 02 - Center Elevated & Right Tilted (Matching Reference) */}
-            <motion.div
-              initial={{ opacity: 0, y: 35, rotate: 5 }}
-              whileInView={{ opacity: 1, y: 0, rotate: 2.5 }}
-              viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.85, delay: 0.1, ease: rushEase }}
-              className="flex flex-col items-center -translate-y-2 sm:-translate-y-4 group z-10"
+            <button
+              onClick={handleNextReel}
+              aria-label="Next reel"
+              className="absolute -right-2 sm:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/95 border border-neutral-300 text-black hover:bg-black hover:text-white hover:border-black shadow-lg flex items-center justify-center transition-all cursor-pointer active:scale-90"
             >
-              {/* Video Card */}
-              <motion.div
-                whileHover={{ scale: 1.04, y: -4 }}
-                transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                onClick={() => setActiveVideoModal(reel2)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
-              >
-                <video
-                  src={reel2}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover gpu-smooth"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
 
-                {/* Overlay Text Inside Card (Matching Reference "Creators x Brands") */}
-                <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
-                    Viral Reach
-                  </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
-                    Creators x Brands
-                  </h4>
+            {/* Tilted Staggered Video Cards */}
+            <div className="relative w-full flex items-center justify-center gap-6 sm:gap-8 lg:gap-14 flex-wrap lg:flex-nowrap px-4 sm:px-12">
+              {[0, 1, 2].map((offset) => {
+                const reelIndex = (activeReelIndex + offset) % clientReels.length;
+                const reel = clientReels[reelIndex];
+                const rotateDeg = offset === 0 ? -4.5 : offset === 1 ? 2.5 : -3.5;
+                const translateYClass = offset === 1 ? "-translate-y-2 sm:-translate-y-4 z-10" : "translate-y-4 sm:translate-y-8";
+
+                return (
+                  <motion.div
+                    key={`${reel.id}-${offset}`}
+                    initial={{ opacity: 0, scale: 0.94 }}
+                    animate={{ opacity: 1, scale: 1, rotate: rotateDeg }}
+                    transition={{ duration: 0.45, ease: rushEase }}
+                    className={`flex flex-col items-center group ${translateYClass}`}
+                  >
+                    {/* Video Card */}
+                    <motion.div
+                      whileHover={{ scale: 1.04, y: -4 }}
+                      transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                      onClick={() => setActiveVideoModal(reel.src)}
+                      className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
+                    >
+                      <video
+                        key={reel.src}
+                        src={reel.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                        className="w-full h-full object-cover gpu-smooth"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+                      {/* Optional Circular Brand Badge */}
+                      {reel.badge && (
+                        <div className="absolute bottom-5 right-4 w-12 h-12 rounded-full bg-[#12b7d4] border-2 border-white flex items-center justify-center text-white text-[9px] font-black uppercase text-center shadow-lg p-1 select-none pointer-events-none">
+                          {reel.badge}
+                        </div>
+                      )}
+
+                      {/* Overlay Text Inside Card */}
+                      <div className={`absolute bottom-5 left-5 text-white pointer-events-none ${reel.badge ? "right-18" : "right-5"}`}>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
+                          {reel.tag}
+                        </span>
+                        <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
+                          {reel.title}
+                        </h4>
+                      </div>
+
+                      {/* Play Hint */}
+                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                        ▶
+                      </div>
+                    </motion.div>
+
+                    {/* Caption Under Card */}
+                    <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+                      {reel.subTag}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Video Carousel Controls (Bottom Pagination Dots & Quick Buttons) */}
+            <div className="flex flex-col items-center justify-center gap-3 mt-8 sm:mt-10">
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={handlePrevReel}
+                  className="w-10 h-10 rounded-full border border-black bg-white hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
+                  aria-label="Previous reel"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+
+                {/* Dot Indicators */}
+                <div className="flex items-center gap-2">
+                  {clientReels.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveReelIndex(idx)}
+                      className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                        activeReelIndex === idx
+                          ? "w-8 bg-[#12b7d4]"
+                          : "w-2.5 bg-[#d1d5db] hover:bg-neutral-400"
+                      }`}
+                      aria-label={`Go to reel ${idx + 1}`}
+                    />
+                  ))}
                 </div>
 
-                {/* Play Hint */}
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  ▶
-                </div>
-              </motion.div>
+                <button
+                  type="button"
+                  onClick={handleNextReel}
+                  className="w-10 h-10 rounded-full border border-black bg-white hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
+                  aria-label="Next reel"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
 
-              {/* Caption Under Card */}
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
-                REELS
-              </span>
-            </motion.div>
-
-            {/* Card 03 - Right Tilted (Matching Reference with Brand Badge) */}
-            <motion.div
-              initial={{ opacity: 0, y: 35, rotate: -5 }}
-              whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
-              viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.85, delay: 0.2, ease: rushEase }}
-              className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
-            >
-              {/* Video Card */}
-              <motion.div
-                whileHover={{ scale: 1.04, y: -4 }}
-                transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                onClick={() => setActiveVideoModal(reel3)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
-              >
-                <video
-                  src={reel3}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover gpu-smooth"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
-
-                {/* Circular Brand Badge (Matching Reference Circular Logo Badge) */}
-                <div className="absolute bottom-5 right-4 w-12 h-12 rounded-full bg-[#12b7d4] border-2 border-white flex items-center justify-center text-white text-[9px] font-black uppercase text-center shadow-lg p-1 select-none pointer-events-none">
-                  Rise Media
-                </div>
-
-                {/* Overlay Text Inside Card */}
-                <div className="absolute bottom-5 left-5 right-18 text-white pointer-events-none">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
-                    Hospitality
-                  </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
-                    Brand Influence
-                  </h4>
-                </div>
-
-                {/* Play Hint */}
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  ▶
-                </div>
-              </motion.div>
-
-              {/* Caption Under Card */}
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
-                REELS
-              </span>
-            </motion.div>
-
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#888888]">
+                  Reel 0{activeReelIndex + 1} / 0{clientReels.length}
+                </span>
+                <span className="text-xs text-[#bbbbbb]">•</span>
+                <span className="text-xs font-semibold text-[#12b7d4]">
+                  Swipe or use buttons to explore all 5 videos
+                </span>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -701,41 +748,45 @@ export default function Home({ setPage }) {
               </div>
             </motion.div>
 
-            {/* Right Column: 3x3 Auto-Changing Logo Cards (Every 2 seconds, full color) */}
-            <div className="lg:col-span-7">
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
-                {logoGridSlots.map((slot, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.88 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: false, amount: 0.05 }}
-                    transition={{ duration: 0.5, delay: idx * 0.04, ease: rushEase }}
-                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                    className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
-                  >
-                    <div
-                      className="w-full h-full flex flex-col transition-transform duration-700 ease-in-out"
-                      style={{
-                        transform: `translateY(-${activeLogoStep * 100}%)`,
-                        transitionDelay: `${(idx % 3) * 60}ms`,
-                      }}
-                    >
-                      {slot.map((logoSrc, logoIdx) => (
-                        <div
-                          key={logoIdx}
-                          className="w-full h-full shrink-0 flex items-center justify-center p-2"
-                        >
-                          <img
-                            src={logoSrc}
-                            alt="Client Partner"
-                            className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain"
-                          />
-                        </div>
-                      ))}
+            {/* Right Column: 3-Column Continuous Upward Streaming Logo Wall */}
+            <div className="lg:col-span-7 relative h-[450px] sm:h-[490px] lg:h-[510px] overflow-hidden rounded-3xl logo-wall-container select-none">
+
+              {/* Top and Bottom Gradient Fades for Infinite Glass Mask Look */}
+              <div className="pointer-events-none absolute top-0 inset-x-0 h-16 sm:h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-20" />
+              <div className="pointer-events-none absolute bottom-0 inset-x-0 h-16 sm:h-20 bg-gradient-to-t from-white via-white/80 to-transparent z-20" />
+
+              {/* 3 Columns Streaming Upwards Continuously */}
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5 h-full">
+                {logoColumns.map((colLogos, colIdx) => {
+                  const animClass =
+                    colIdx === 0
+                      ? "animate-scroll-up-1"
+                      : colIdx === 1
+                      ? "animate-scroll-up-2"
+                      : "animate-scroll-up-3";
+
+                  // Duplicate logos for seamless infinite -50% translation loop
+                  const stream = [...colLogos, ...colLogos];
+
+                  return (
+                    <div key={colIdx} className="overflow-hidden h-full">
+                      <div className={`${animClass} gap-3 sm:gap-4 lg:gap-5`}>
+                        {stream.map((logoSrc, logoIdx) => (
+                          <div
+                            key={logoIdx}
+                            className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-3 sm:p-5 flex items-center justify-center shrink-0 shadow-xs hover:border-[#12b7d4] hover:shadow-md transition-all group/card cursor-pointer"
+                          >
+                            <img
+                              src={logoSrc}
+                              alt="Client Partner"
+                              className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain group-hover/card:scale-108 transition-transform duration-200"
+                            />
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

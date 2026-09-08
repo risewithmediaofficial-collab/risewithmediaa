@@ -202,3 +202,40 @@
 .animate-rush-ticker:hover {
   animation-play-state: paused;
 }
+
+/* ─── Continuous Vertical Upward Scroll Animation ─── */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll-up-1 {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up 22s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-up-2 {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up 29s linear infinite;
+  will-change: transform;
+}
+
+.animate-scroll-up-3 {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up 25s linear infinite;
+  will-change: transform;
+}
+
+.logo-wall-container:hover .animate-scroll-up-1,
+.logo-wall-container:hover .animate-scroll-up-2,
+.logo-wall-container:hover .animate-scroll-up-3 {
+  animation-play-state: paused;
+}

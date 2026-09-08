@@ -22,20 +22,14 @@ import kertamLogo from "../assets/clientlogo/kertamlogo.png";
 import krinbrinLogo from "../assets/clientlogo/krinbrinlogo.png";
 import zoyLogo from "../assets/clientlogo/zoylogo.png";
 
-// 3x3 Grid Logo Slots for auto-changing cards (2-second rotation like Home screen)
-const logoGridSlots = [
-  // Row 1
-  [arunamLogo, femi9Logo, mkLogo],
-  [killisBirdLogo, futureSchoolLogo, mrpLogo],
-  [royalLogo, hseihshuLogo, myHosurPropertyLogo],
-  // Row 2
-  [valsiiLogo, chocodorLogo, richiLogo],
-  [dishaLogo, sanjaySaiLogo, sanjeeviLogo],
-  [futureKidsLogo, kertamLogo, zoyLogo],
-  // Row 3
-  [krinbrinLogo, femi9Logo, royalLogo],
-  [myHosurPropertyLogo, dishaLogo, chocodorLogo],
-  [richiLogo, sanjeeviLogo, sanjaySaiLogo],
+// 3 Columns of client logos for continuous upward scrolling marquee (all 19 unique client logos)
+const logoColumns = [
+  // Column 1
+  [arunamLogo, valsiiLogo, futureKidsLogo, mkLogo, richiLogo, femi9Logo, zoyLogo],
+  // Column 2
+  [killisBirdLogo, chocodorLogo, futureSchoolLogo, mrpLogo, sanjaySaiLogo, kertamLogo, royalLogo],
+  // Column 3
+  [royalLogo, dishaLogo, hseihshuLogo, myHosurPropertyLogo, sanjeeviLogo, krinbrinLogo, femi9Logo],
 ];
 
 const stats = [
@@ -73,15 +67,6 @@ const clientReviews = [
 ];
 
 export default function Clients({ setPage }) {
-  const [activeLogoStep, setActiveLogoStep] = useState(0);
-
-  // Auto change logos every 2 seconds (Home screen animation style)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveLogoStep((prev) => (prev + 1) % 3);
-    }, 2000);
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <main className="bg-white pt-20 sm:pt-[88px]">
@@ -165,41 +150,45 @@ export default function Clients({ setPage }) {
               </p>
             </motion.div>
 
-            {/* Right Column: 3x3 Auto-Changing Logo Cards (Home screen animation style) */}
-            <div className="lg:col-span-7">
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
-                {logoGridSlots.map((slot, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.88 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: false, amount: 0.05 }}
-                    transition={{ duration: 0.5, delay: idx * 0.04, ease: rushEase }}
-                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                    className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-2 sm:p-4 flex items-center justify-center relative shadow-xs hover:border-[#12b7d4] transition-colors"
-                  >
-                    <div
-                      className="w-full h-full flex flex-col transition-transform duration-700 ease-in-out"
-                      style={{
-                        transform: `translateY(-${activeLogoStep * 100}%)`,
-                        transitionDelay: `${(idx % 3) * 60}ms`,
-                      }}
-                    >
-                      {slot.map((logoSrc, logoIdx) => (
-                        <div
-                          key={logoIdx}
-                          className="w-full h-full shrink-0 flex items-center justify-center p-2"
-                        >
-                          <img
-                            src={logoSrc}
-                            alt="Client Partner"
-                            className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain"
-                          />
-                        </div>
-                      ))}
+            {/* Right Column: 3-Column Continuous Upward Streaming Logo Wall */}
+            <div className="lg:col-span-7 relative h-[450px] sm:h-[490px] lg:h-[510px] overflow-hidden rounded-3xl logo-wall-container select-none">
+
+              {/* Top and Bottom Gradient Fades for Infinite Glass Mask Look */}
+              <div className="pointer-events-none absolute top-0 inset-x-0 h-16 sm:h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-20" />
+              <div className="pointer-events-none absolute bottom-0 inset-x-0 h-16 sm:h-20 bg-gradient-to-t from-white via-white/80 to-transparent z-20" />
+
+              {/* 3 Columns Streaming Upwards Continuously */}
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5 h-full">
+                {logoColumns.map((colLogos, colIdx) => {
+                  const animClass =
+                    colIdx === 0
+                      ? "animate-scroll-up-1"
+                      : colIdx === 1
+                      ? "animate-scroll-up-2"
+                      : "animate-scroll-up-3";
+
+                  // Duplicate logos for seamless infinite -50% translation loop
+                  const stream = [...colLogos, ...colLogos];
+
+                  return (
+                    <div key={colIdx} className="overflow-hidden h-full">
+                      <div className={`${animClass} gap-3 sm:gap-4 lg:gap-5`}>
+                        {stream.map((logoSrc, logoIdx) => (
+                          <div
+                            key={logoIdx}
+                            className="h-28 sm:h-36 lg:h-40 rounded-2xl sm:rounded-3xl border border-[#eaeaea] bg-white overflow-hidden p-3 sm:p-5 flex items-center justify-center shrink-0 shadow-xs hover:border-[#12b7d4] hover:shadow-md transition-all group/card cursor-pointer"
+                          >
+                            <img
+                              src={logoSrc}
+                              alt="Client Partner"
+                              className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain group-hover/card:scale-108 transition-transform duration-200"
+                            />
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
