@@ -20,7 +20,6 @@ import campaign3 from "../assets/clientcampaign/3.png";
 
 // Service visuals for diverse mockups
 import webFunnelImg from "../assets/services/websites_funnels.jpg";
-import contentImg from "../assets/services/content_social.jpg";
 import perfImg from "../assets/services/performance_marketing.jpg";
 import saasImg from "../assets/services/saas_technology.jpg";
 
@@ -104,16 +103,6 @@ const clientWebsites = [
     tag: "Food & Retail Brand",
     description: "Vibrant packaged food brand platform highlighting product catalogs, retail reach, and direct distributor partnerships.",
     image: campaign1,
-  },
-  {
-    id: "risewithmedia",
-    name: "Rise With Media",
-    url: "https://risewithmedia.com",
-    domain: "risewithmedia.com",
-    category: "Performance Agency",
-    tag: "Agency Platform",
-    description: "High-performance digital agency platform engineered with modern 3D interaction design, responsive typography, and fast conversions.",
-    image: contentImg,
   },
   {
     id: "royalsignsnetwork",
@@ -287,7 +276,7 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           PAGE HEADER (Short & Crisp Typography)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-10 sm:py-14 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
 
@@ -335,7 +324,7 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 1: CLIENT WEBSITES (Home Page 3D Card Deck Carousel Style)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="client-websites" className="bg-white py-16 sm:py-20 lg:py-24 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen id="client-websites" className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute -top-10 left-10 w-[450px] h-[350px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
 
@@ -414,7 +403,7 @@ export default function Works({ setPage }) {
             </div>
 
             {/* Right Column: 3D Perspective Card Deck */}
-            <div className="w-full lg:w-[62%] xl:w-[65%] relative h-[520px] sm:h-[550px] lg:h-[580px] flex items-center justify-start overflow-visible [perspective:1400px]">
+            <div className="w-full lg:w-[62%] xl:w-[65%] relative h-[450px] sm:h-[490px] lg:h-[520px] flex items-center justify-start overflow-visible [perspective:1400px]">
               <div
                 className="relative w-full h-full flex items-center [transform-style:preserve-3d]"
                 onTouchStart={handleTouchStart}
@@ -444,11 +433,11 @@ export default function Works({ setPage }) {
                           setActiveSlide(idx);
                         }
                       }}
-                      className={`absolute left-0 top-1/2 -translate-y-1/2 w-[290px] sm:w-[350px] lg:w-[380px] xl:w-[400px] h-[470px] sm:h-[510px] lg:h-[540px] xl:h-[560px] rounded-[28px] bg-[#141414] text-white overflow-hidden shadow-2xl select-none flex flex-col border border-neutral-800 ${isCurrent ? "cursor-default" : "cursor-pointer hover:border-[#12b7d4]/60"
+                      className={`absolute left-0 top-1/2 -translate-y-1/2 w-[280px] sm:w-[330px] lg:w-[360px] xl:w-[380px] h-[410px] sm:h-[450px] lg:h-[480px] xl:h-[500px] rounded-[28px] bg-[#141414] text-white overflow-hidden shadow-2xl select-none flex flex-col border border-neutral-800 ${isCurrent ? "cursor-default" : "cursor-pointer hover:border-[#12b7d4]/60"
                         }`}
                     >
                       {/* Card Top Image with Browser Mockup Header */}
-                      <div className="relative w-full h-[255px] sm:h-[285px] lg:h-[305px] xl:h-[315px] bg-[#1a1a1a] overflow-hidden flex flex-col">
+                      <div className="relative w-full h-[210px] sm:h-[240px] lg:h-[260px] xl:h-[275px] bg-[#1a1a1a] overflow-hidden flex flex-col">
 
                         {/* Browser Bar Frame */}
                         <div className="w-full bg-[#1c1c1c] px-4 py-2 flex items-center justify-between border-b border-white/10 shrink-0 z-20">
@@ -591,7 +580,7 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 2: SHORT-FORM HIGH-RETENTION REELS (Same Tilted UI Alignment)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="reels" className="relative bg-white py-16 sm:py-24 border-b border-[#eaeaea] overflow-hidden">
+      <ScrollSection fullScreen id="reels" className="relative bg-white py-8 sm:py-12 border-b border-[#eaeaea] overflow-hidden">
         
         {/* Background "RISE WITH MEDIA" Stroke Text Blend */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
@@ -607,23 +596,23 @@ export default function Works({ setPage }) {
           </span>
         </div>
 
-        <div className="rush-container relative z-10">
+        <div className="rush-container relative z-10 w-full">
 
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
+          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+            <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2 inline-block">
               Short-Form Content Engine
             </ScrollText>
-            <ScrollText as="h2" direction="up" delay={0.08} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-3">
+            <ScrollText as="h2" direction="up" delay={0.08} className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-2">
               High-Retention <span className="text-[#12b7d4]">Reels</span>
             </ScrollText>
-            <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
+            <ScrollText as="p" direction="up" delay={0.16} className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]">
               Engineered for algorithmic reach, viral watch-time & high conversion.
             </ScrollText>
           </div>
 
           {/* Tilted Staggered Video Cards (Same UI Alignment - No Numbers) */}
-          <div className="relative w-full flex items-center justify-center gap-6 sm:gap-8 lg:gap-14 flex-wrap lg:flex-nowrap pb-4 pt-4">
+          <div className="relative w-full flex items-center justify-center gap-5 sm:gap-7 lg:gap-10 flex-wrap lg:flex-nowrap pb-2 pt-2">
 
             {/* Card 01 - Left Tilted */}
             <motion.div
@@ -631,13 +620,13 @@ export default function Works({ setPage }) {
               whileInView={{ opacity: 1, y: 0, rotate: -4.5 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.8, ease: rushEase }}
-              className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
+              className="flex flex-col items-center translate-y-3 sm:translate-y-6 group"
             >
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 onClick={() => setActiveReel(reel1)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
                 <video
                   src={reel1}
@@ -675,13 +664,13 @@ export default function Works({ setPage }) {
               whileInView={{ opacity: 1, y: 0, rotate: 2.5 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.8, delay: 0.08, ease: rushEase }}
-              className="flex flex-col items-center -translate-y-2 sm:-translate-y-4 group z-10"
+              className="flex flex-col items-center -translate-y-2 sm:-translate-y-3 group z-10"
             >
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 onClick={() => setActiveReel(reel2)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
                 <video
                   src={reel2}
@@ -708,7 +697,7 @@ export default function Works({ setPage }) {
                 </div>
               </motion.div>
 
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-2.5 sm:mt-3">
                 REELS
               </span>
             </motion.div>
@@ -719,13 +708,13 @@ export default function Works({ setPage }) {
               whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.8, delay: 0.16, ease: rushEase }}
-              className="flex flex-col items-center translate-y-4 sm:translate-y-8 group"
+              className="flex flex-col items-center translate-y-3 sm:translate-y-6 group"
             >
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
                 onClick={() => setActiveReel(reel3)}
-                className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
                 <video
                   src={reel3}
@@ -757,7 +746,7 @@ export default function Works({ setPage }) {
                 </div>
               </motion.div>
 
-              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+              <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-2.5 sm:mt-3">
                 REELS
               </span>
             </motion.div>
@@ -765,7 +754,7 @@ export default function Works({ setPage }) {
           </div>
 
           {/* Quick Reel Filter Directory Pills */}
-          <div className="mt-12 sm:mt-16 pt-8 border-t border-[#eaeaea]">
+          <div className="mt-8 sm:mt-10 pt-4 sm:pt-6 border-t border-[#eaeaea]">
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-black uppercase tracking-widest text-[#888888]">
                 Select Any Reel to Play:
@@ -795,27 +784,27 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: PERFORMANCE CREATIVES & CAMPAIGNS
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="campaigns" className="py-20 lg:py-28 bg-white border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen id="campaigns" className="py-8 sm:py-12 bg-white border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="rush-container relative z-10">
+        <div className="rush-container relative z-10 w-full">
           
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
             <div>
-              <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
+              <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2 inline-block">
                 Performance Creatives
               </ScrollText>
-              <ScrollText as="h2" direction="up" delay={0.1} className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-black font-['Sansation']">
+              <ScrollText as="h2" direction="up" delay={0.1} className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-black font-['Sansation']">
                 Ad Creatives & <span className="text-[#12b7d4]">Campaigns</span>
               </ScrollText>
             </div>
-            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
+            <ScrollText as="p" direction="up" delay={0.18} className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]">
               Data-backed creative engines crafted to stop the scroll.
             </ScrollText>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {campaigns.map((camp, i) => (
               <motion.div
                 key={camp.id}
@@ -823,9 +812,9 @@ export default function Works({ setPage }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="group rounded-2xl border border-[#eaeaea] p-5 flex flex-col justify-between hover:border-black transition-all bg-white"
+                className="group rounded-2xl border border-[#eaeaea] p-4 flex flex-col justify-between hover:border-black transition-all bg-white"
               >
-                <div className="aspect-square rounded-xl overflow-hidden bg-[#f9f9f9] border border-[#eaeaea] mb-4">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden bg-[#f9f9f9] border border-[#eaeaea] mb-3">
                   <img
                     src={camp.src}
                     alt={camp.title}
@@ -833,7 +822,7 @@ export default function Works({ setPage }) {
                   />
                 </div>
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#888888]">
                       {camp.brand}
                     </span>
@@ -841,7 +830,7 @@ export default function Works({ setPage }) {
                       {camp.metric}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-black font-['Sansation']">
+                  <h3 className="text-sm sm:text-base font-bold text-black font-['Sansation']">
                     {camp.title}
                   </h3>
                 </div>
@@ -850,10 +839,10 @@ export default function Works({ setPage }) {
           </div>
 
           {/* Bottom Banner */}
-          <ScrollText as="div" direction="up" delay={0.1} className="mt-16 text-center">
+          <ScrollText as="div" direction="up" delay={0.1} className="mt-8 sm:mt-10 text-center">
             <button
               onClick={() => setPage("contact")}
-              className="btn-rush-black text-xs uppercase tracking-wider px-8 py-4 cursor-pointer"
+              className="btn-rush-black text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer"
             >
               Start Your Campaign With Us →
             </button>

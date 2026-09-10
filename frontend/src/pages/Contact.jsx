@@ -97,31 +97,28 @@ export default function Contact({ initialService = "" }) {
     <main className="bg-white pt-20 sm:pt-[88px]">
       
       {/* ─────────────────────────────────────────────────────────────────
-          HEADER (The Rush Republic Contact Header)
+          MAIN CONTACT FULL-SCREEN SECTION (Unified Header + Form)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-16 pb-12 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[350px] bg-[#12b7d4]/12 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="rush-container text-center max-w-4xl relative z-10">
-          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
-            Let's Talk Business
-          </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-3">
-            Let’s Build Something <span className="text-[#12b7d4]">Great</span>
-          </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
-            Tell us about your brand and let’s make big things happen.
-          </ScrollText>
-        </div>
-      </ScrollSection>
+        <div className="rush-container relative z-10 w-full">
 
-      {/* ─────────────────────────────────────────────────────────────────
-          MAIN FORM & CONTACT INFO SECTION
-      ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-16 lg:py-24">
-        <div className="rush-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+            <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2.5 inline-block">
+              Let's Talk Business
+            </ScrollText>
+            <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2">
+              Let’s Build Something <span className="text-[#12b7d4]">Great</span>
+            </ScrollText>
+            <ScrollText as="p" direction="up" delay={0.16} className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]">
+              Tell us about your brand and let’s make big things happen.
+            </ScrollText>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Left 7 Columns: The Rush Republic Form */}
             <motion.div

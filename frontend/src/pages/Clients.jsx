@@ -72,32 +72,26 @@ export default function Clients({ setPage }) {
     <main className="bg-white pt-20 sm:pt-[88px]">
 
       {/* ─────────────────────────────────────────────────────────────────
-          HEADER
+          SECTION 1: HEADER & KEY STATS (Full Screen Hero)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-16 pb-14 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="rush-container text-center relative z-10">
-          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-4 inline-block">
+        <div className="rush-container text-center relative z-10 w-full">
+          <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2.5 inline-block">
             Network & Partners
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-4">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2.5">
             Our Clients &<br />
             Brand <span className="text-[#12b7d4]">Partners</span>
           </ScrollText>
-          <ScrollText as="p" direction="up" delay={0.18} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]">
+          <ScrollText as="p" direction="up" delay={0.16} className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4] mb-6 sm:mb-8">
             Powering South India's high-growth brands.
           </ScrollText>
-        </div>
-      </ScrollSection>
 
-      {/* ─────────────────────────────────────────────────────────────────
-          KEY STATS
-      ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-14 border-b border-[#eaeaea]">
-        <div className="rush-container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Key Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
             {stats.map((st, i) => (
               <motion.div
                 key={i}
@@ -105,12 +99,12 @@ export default function Clients({ setPage }) {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: false, amount: 0.05 }}
                 transition={{ duration: 0.55, delay: i * 0.1, ease: rushEase }}
-                className="text-center p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors"
+                className="text-center p-4 sm:p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors shadow-xs"
               >
-                <div className="text-3xl sm:text-5xl font-black text-black font-['Sansation'] mb-2">
+                <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-black font-['Sansation'] mb-1 sm:mb-2">
                   {st.num}
                 </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[#777777]">
+                <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#777777]">
                   {st.label}
                 </div>
               </motion.div>
@@ -123,11 +117,11 @@ export default function Clients({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           CLIENT PORTFOLIO (Home Screen 3x3 Auto-Changing Animated Grid)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#12b7d4]/10 rounded-full blur-[110px] pointer-events-none" />
 
-        <div className="rush-container relative z-10">
+        <div className="rush-container relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
             {/* Left Column: Stacked Massive Headline */}
@@ -151,7 +145,7 @@ export default function Clients({ setPage }) {
             </motion.div>
 
             {/* Right Column: 3-Column Continuous Upward Streaming Logo Wall */}
-            <div className="lg:col-span-7 relative h-[450px] sm:h-[490px] lg:h-[510px] overflow-hidden rounded-3xl logo-wall-container select-none">
+            <div className="lg:col-span-7 relative h-[340px] sm:h-[400px] lg:h-[460px] xl:h-[490px] overflow-hidden rounded-3xl logo-wall-container select-none">
 
               {/* Top and Bottom Gradient Fades for Infinite Glass Mask Look */}
               <div className="pointer-events-none absolute top-0 inset-x-0 h-16 sm:h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-20" />
@@ -199,13 +193,13 @@ export default function Clients({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           CLIENT REVIEWS (The Rush Republic Card Layout)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="rush-container relative z-10">
+        <div className="rush-container relative z-10 w-full">
           
-          <div className="max-w-3xl mb-12">
+          <div className="max-w-3xl mb-6 sm:mb-8">
             <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
               Direct Feedback
             </ScrollText>
@@ -258,10 +252,10 @@ export default function Clients({ setPage }) {
           </div>
 
           {/* Bottom CTA */}
-          <ScrollText as="div" direction="up" delay={0.1} className="mt-16 text-center">
+          <ScrollText as="div" direction="up" delay={0.1} className="mt-8 sm:mt-10 text-center">
             <button
               onClick={() => setPage("contact")}
-              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-4 cursor-pointer"
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer"
             >
               Partner With Us →
             </button>

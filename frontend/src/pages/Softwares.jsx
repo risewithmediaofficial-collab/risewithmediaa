@@ -127,7 +127,7 @@ export default function Softwares({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           HEADER & 1ST: LIST OUT AVAILABLE SAAS WEBSITES (Short & Crisp)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white pt-14 pb-12 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-10 sm:py-14 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[300px] bg-[#12b7d4]/15 rounded-full blur-[100px] pointer-events-none" />
 
@@ -166,8 +166,8 @@ export default function Softwares({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <div className="divide-y divide-[#eaeaea]">
         {saasProducts.map((product, idx) => (
-          <ScrollSection key={product.id} id={product.id} className="py-16 sm:py-20 bg-white">
-            <div className="rush-container">
+          <ScrollSection fullScreen key={product.id} id={product.id} className="py-10 sm:py-14 bg-white">
+            <div className="rush-container w-full">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
                 {/* Left Column: Product Info */}
@@ -443,7 +443,7 @@ export default function Softwares({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           BOTTOM CTA
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="py-16 bg-[#f9f9f9] border-t border-[#eaeaea]">
+      <ScrollSection fullScreen className="py-10 sm:py-14 bg-[#f9f9f9] border-t border-[#eaeaea]">
         <div className="rush-container text-center max-w-2xl mx-auto">
           <ScrollText as="h2" direction="up" delay={0.05} className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2">
             Deploy Your SaaS with <span className="text-[#12b7d4]">Rise With Media</span>

@@ -293,8 +293,8 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
       </div>
 
       {/* ─── Hero Section ─── */}
-      <ScrollSection className="pb-16 sm:pb-20 border-b border-[#eaeaea]">
-        <div className="rush-container">
+      <ScrollSection fullScreen className="py-8 sm:py-12 border-b border-[#eaeaea]">
+        <div className="rush-container w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Content */}
@@ -365,8 +365,8 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
       </ScrollSection>
 
       {/* ─── What We Do / What We Build Section ─── */}
-      <ScrollSection className="py-20 lg:py-24 border-b border-[#eaeaea]">
-        <div className="rush-container">
+      <ScrollSection fullScreen className="py-10 sm:py-14 border-b border-[#eaeaea]">
+        <div className="rush-container w-full">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
             <div>
@@ -424,8 +424,8 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
       </ScrollSection>
 
       {/* ─── Process / Focus Flowchart Section ─── */}
-      <ScrollSection className="py-20 lg:py-24 border-b border-[#eaeaea] bg-[#fafafa]">
-        <div className="rush-container">
+      <ScrollSection fullScreen className="py-10 sm:py-14 border-b border-[#eaeaea] bg-[#fafafa]">
+        <div className="rush-container w-full">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="tag-bubble-cyan text-xs uppercase tracking-widest font-black mb-3 inline-block">
@@ -482,8 +482,8 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
       </ScrollSection>
 
       {/* ─── High-Conversion CTA Callout ─── */}
-      <ScrollSection className="py-20 lg:py-24 border-b border-[#eaeaea]">
-        <div className="rush-container">
+      <ScrollSection fullScreen className="py-10 sm:py-14 border-b border-[#eaeaea]">
+        <div className="rush-container w-full">
           <div className="bg-black text-white rounded-3xl sm:rounded-[36px] p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl">
             {/* Subtle glow background */}
             <div className="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-[#12b7d4]/20 blur-3xl pointer-events-none" />
@@ -521,8 +521,8 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
       </ScrollSection>
 
       {/* ─── Explore Other Services Navigation ─── */}
-      <ScrollSection className="pt-20 pb-12">
-        <div className="rush-container">
+      <ScrollSection fullScreen className="py-10 sm:py-14">
+        <div className="rush-container w-full">
           <div className="flex items-center justify-between gap-4 mb-10">
             <div>
               <span className="tag-bubble-cyan text-xs uppercase tracking-widest font-black mb-2 inline-block">

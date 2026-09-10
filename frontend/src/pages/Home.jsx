@@ -138,10 +138,10 @@ function FlolapoSkillItem({ title, onClick }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
-      className="cursor-pointer select-none py-3 sm:py-4 md:py-5 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
+      className="cursor-pointer select-none py-1.5 sm:py-2.5 md:py-3 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
     >
       <h3
-        className="text-2xl sm:text-3xl md:text-4xl lg:text-[3.4rem] xl:text-[4.2rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
+        className="text-xl sm:text-2xl md:text-3xl lg:text-[2.6rem] xl:text-[3.2rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
       >
         {title}
       </h3>
@@ -288,7 +288,7 @@ export default function Home({ setPage }) {
           SECTION 1: HERO BANNER (The Rush Republic Open Minimalist Hero)
       ───────────────────────────────────────────────────────────────── */}
       <section
-        className="bg-white pt-10 sm:pt-14 lg:pt-20 pb-16 lg:pb-20 border-b border-[#eaeaea] relative overflow-hidden"
+        className="section-fullscreen bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden"
         style={{
           backgroundImage: "radial-gradient(#e5e7eb 1.5px, transparent 1.5px)",
           backgroundSize: "32px 32px",
@@ -402,23 +402,23 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 2: WHAT WE DO (Flolapo UI Style - Kinetic Typography with Scroll Color Shift)
       ───────────────────────────────────────────────────────────────── */}
-      <section className="bg-[#000000] text-white py-24 sm:py-32 lg:py-36 relative overflow-hidden border-b border-neutral-900">
+      <section className="section-fullscreen bg-[#000000] text-white py-10 sm:py-14 relative overflow-hidden border-b border-neutral-900">
 
         {/* Ambient Blur Color Effect (Dual-Color Luminous Glow) */}
         <div className="absolute top-1/4 -left-20 w-[550px] h-[550px] bg-[#12b7d4]/15 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-1/4 -right-20 w-[550px] h-[550px] bg-[#0284c7]/15 rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="rush-container relative z-10">
+        <div className="rush-container relative z-10 w-full">
 
           {/* Header Tag matching Image 3 with cyan border and font */}
-          <div className="text-center mb-10 sm:mb-14">
+          <div className="text-center mb-6 sm:mb-8">
             <span className="tag-bubble-cyan inline-block">
               What We Cover
             </span>
           </div>
 
           {/* Kinetic Typography Vertical Stack */}
-          <div className="flex flex-col items-center justify-center gap-1 sm:gap-2 max-w-7xl mx-auto w-full">
+          <div className="flex flex-col items-center justify-center gap-1 sm:gap-1.5 max-w-7xl mx-auto w-full">
             {flolapoSkills.map((skill, idx) => (
               <FlolapoSkillItem
                 key={idx}
@@ -429,7 +429,7 @@ export default function Home({ setPage }) {
           </div>
 
           {/* Micro CTA Button */}
-          <div className="text-center mt-10 sm:mt-14">
+          <div className="text-center mt-6 sm:mt-8">
             <button
               onClick={() => setPage("contact")}
               className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Sansation']"
@@ -444,7 +444,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: OUR WORKS (Tilted Video Cards with Stroke Text Blend)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-16 sm:py-24 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
 
         {/* Ambient Blur Color Effect */}
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-[#12b7d4]/12 rounded-full blur-[100px] pointer-events-none" />
@@ -463,16 +463,16 @@ export default function Home({ setPage }) {
           </span>
         </div>
 
-        <div className="rush-container relative z-10">
+        <div className="rush-container relative z-10 w-full">
 
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.5, ease: rushEase }}
-              className="tag-bubble-cyan mb-3 inline-block"
+              className="tag-bubble-cyan mb-2 inline-block"
             >
               Our Works
             </motion.span>
@@ -481,7 +481,7 @@ export default function Home({ setPage }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-2"
             >
               Works That <span className="text-[#12b7d4]">Captivate</span>
             </motion.h2>
@@ -490,7 +490,7 @@ export default function Home({ setPage }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.6, delay: 0.16, ease: rushEase }}
-              className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4]"
+              className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]"
             >
               High-converting short-form creative, viral reels & brand storytelling.
             </motion.p>
@@ -498,7 +498,7 @@ export default function Home({ setPage }) {
 
           {/* Interactive Video Swiper Carousel with Buttons */}
           <div
-            className="relative w-full pb-4 pt-2"
+            className="relative w-full pb-2 pt-1"
             onTouchStart={handleReelTouchStart}
             onTouchEnd={handleReelTouchEnd}
           >
@@ -506,7 +506,7 @@ export default function Home({ setPage }) {
             <button
               onClick={handlePrevReel}
               aria-label="Previous reel"
-              className="absolute -left-2 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/95 border border-neutral-300 text-black hover:bg-black hover:text-white hover:border-black shadow-lg flex items-center justify-center transition-all cursor-pointer active:scale-90"
+              className="absolute -left-2 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 border border-neutral-300 text-black hover:bg-black hover:text-white hover:border-black shadow-lg flex items-center justify-center transition-all cursor-pointer active:scale-90"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
@@ -516,7 +516,7 @@ export default function Home({ setPage }) {
             <button
               onClick={handleNextReel}
               aria-label="Next reel"
-              className="absolute -right-2 sm:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/95 border border-neutral-300 text-black hover:bg-black hover:text-white hover:border-black shadow-lg flex items-center justify-center transition-all cursor-pointer active:scale-90"
+              className="absolute -right-2 sm:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 border border-neutral-300 text-black hover:bg-black hover:text-white hover:border-black shadow-lg flex items-center justify-center transition-all cursor-pointer active:scale-90"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
@@ -524,12 +524,12 @@ export default function Home({ setPage }) {
             </button>
 
             {/* Tilted Staggered Video Cards */}
-            <div className="relative w-full flex items-center justify-center gap-6 sm:gap-8 lg:gap-14 flex-wrap lg:flex-nowrap px-4 sm:px-12">
+            <div className="relative w-full flex items-center justify-center gap-5 sm:gap-7 lg:gap-10 flex-wrap lg:flex-nowrap px-4 sm:px-12">
               {[0, 1, 2].map((offset) => {
                 const reelIndex = (activeReelIndex + offset) % clientReels.length;
                 const reel = clientReels[reelIndex];
                 const rotateDeg = offset === 0 ? -4.5 : offset === 1 ? 2.5 : -3.5;
-                const translateYClass = offset === 1 ? "-translate-y-2 sm:-translate-y-4 z-10" : "translate-y-4 sm:translate-y-8";
+                const translateYClass = offset === 1 ? "-translate-y-2 sm:-translate-y-3 z-10" : "translate-y-3 sm:translate-y-6";
 
                 return (
                   <motion.div
@@ -544,7 +544,7 @@ export default function Home({ setPage }) {
                       whileHover={{ scale: 1.04, y: -4 }}
                       transition={{ type: "spring", stiffness: 280, damping: 22 }}
                       onClick={() => setActiveVideoModal(reel.src)}
-                      className="relative w-[235px] sm:w-[275px] lg:w-[305px] h-[380px] sm:h-[440px] lg:h-[485px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
+                      className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
                     >
                       <video
                         key={reel.src}
@@ -582,7 +582,7 @@ export default function Home({ setPage }) {
                     </motion.div>
 
                     {/* Caption Under Card */}
-                    <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
+                    <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-2.5 sm:mt-3">
                       {reel.subTag}
                     </span>
                   </motion.div>
@@ -591,15 +591,15 @@ export default function Home({ setPage }) {
             </div>
 
             {/* Video Carousel Controls (Bottom Pagination Dots & Quick Buttons) */}
-            <div className="flex flex-col items-center justify-center gap-3 mt-8 sm:mt-10">
+            <div className="flex flex-col items-center justify-center gap-2.5 mt-6 sm:mt-8">
               <div className="flex items-center gap-4">
                 <button
                   type="button"
                   onClick={handlePrevReel}
-                  className="w-10 h-10 rounded-full border border-black bg-white hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
+                  className="w-9 h-9 rounded-full border border-black bg-white hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
                   aria-label="Previous reel"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
@@ -623,21 +623,21 @@ export default function Home({ setPage }) {
                 <button
                   type="button"
                   onClick={handleNextReel}
-                  className="w-10 h-10 rounded-full border border-black bg-white hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
+                  className="w-9 h-9 rounded-full border border-black bg-white hover:bg-black hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-xs"
                   aria-label="Next reel"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#888888]">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-[#888888]">
                   Reel 0{activeReelIndex + 1} / 0{clientReels.length}
                 </span>
                 <span className="text-xs text-[#bbbbbb]">•</span>
-                <span className="text-xs font-semibold text-[#12b7d4]">
+                <span className="text-[11px] font-semibold text-[#12b7d4]">
                   Swipe or use buttons to explore all 5 videos
                 </span>
               </div>
@@ -650,7 +650,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 4: RESULTS SPEAK LOUDER (Direct Impact Banner - Zero Images)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 sm:py-28 lg:py-32 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-12 sm:py-16 border-b border-[#eaeaea] relative overflow-hidden">
 
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[320px] bg-gradient-to-r from-[#12b7d4]/18 via-[#38bdf8]/12 to-transparent rounded-full blur-[100px] pointer-events-none" />
@@ -711,7 +711,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 5: TRUSTED BY VISIONARIES (The Rush Republic Split 3x3 Auto-Changing Grid)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-white py-20 lg:py-28 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection fullScreen className="bg-white py-10 lg:py-14 border-b border-[#eaeaea] relative overflow-hidden">
 
         {/* Ambient Blur Color Effect */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#12b7d4]/10 rounded-full blur-[110px] pointer-events-none" />
@@ -749,7 +749,7 @@ export default function Home({ setPage }) {
             </motion.div>
 
             {/* Right Column: 3-Column Continuous Upward Streaming Logo Wall */}
-            <div className="lg:col-span-7 relative h-[450px] sm:h-[490px] lg:h-[510px] overflow-hidden rounded-3xl logo-wall-container select-none">
+            <div className="lg:col-span-7 relative h-[340px] sm:h-[400px] lg:h-[460px] xl:h-[490px] overflow-hidden rounded-3xl logo-wall-container select-none">
 
               {/* Top and Bottom Gradient Fades for Infinite Glass Mask Look */}
               <div className="pointer-events-none absolute top-0 inset-x-0 h-16 sm:h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-20" />
@@ -797,7 +797,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 6: OUR SATISFIED CLIENTS (The Rush Republic Dark Section)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection className="bg-[#000000] text-white py-20 lg:py-28 overflow-hidden relative">
+      <ScrollSection fullScreen className="bg-[#000000] text-white py-10 lg:py-16 overflow-hidden relative">
 
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[140px] pointer-events-none" />
@@ -886,7 +886,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 8: CTA FORM (LET’S CONNECT TO CREATE MAGIC!)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="CTA" className="bg-[#000000] text-white py-20 lg:py-28 relative overflow-hidden">
+      <ScrollSection fullScreen id="CTA" className="bg-[#000000] text-white py-10 lg:py-16 relative overflow-hidden">
 
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#12b7d4]/12 rounded-full blur-[140px] pointer-events-none" />

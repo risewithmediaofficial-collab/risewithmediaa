@@ -69,7 +69,7 @@ export default function Footer({ setPage }) {
                 alt="Rise With Media"
                 className="h-10 w-10 object-contain group-hover:scale-105 transition-transform"
               />
-              <span className="text-xl font-bold tracking-tight font-['League_Spartan'] text-white">
+              <span className="text-xl font-bold tracking-tight font-['League_Spartan'] text-black">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </button>

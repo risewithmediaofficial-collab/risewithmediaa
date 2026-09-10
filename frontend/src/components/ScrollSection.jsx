@@ -20,14 +20,16 @@ export function ScrollReveal({
   as = "section",
   amount = 0.05,
   once = false,
+  fullScreen = false,
 }) {
   const Component = motion[as] || motion.section;
+  const fullScreenClass = fullScreen ? "section-fullscreen" : "";
 
   return (
     <Component
       id={id}
       style={style}
-      className={className}
+      className={`${fullScreenClass} ${className}`.trim()}
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount }}
