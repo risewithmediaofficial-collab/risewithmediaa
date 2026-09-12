@@ -99,7 +99,7 @@ export default function Contact({ initialService = "" }) {
       {/* ─────────────────────────────────────────────────────────────────
           MAIN CONTACT FULL-SCREEN SECTION (Unified Header + Form)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[350px] bg-[#12b7d4]/12 rounded-full blur-[120px] pointer-events-none" />
 

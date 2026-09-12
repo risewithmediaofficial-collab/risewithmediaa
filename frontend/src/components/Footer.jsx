@@ -38,24 +38,24 @@ export default function Footer({ setPage }) {
   ];
 
   return (
-    <footer className="bg-white border-t border-[#eaeaea] pt-16 pb-10 text-[#000000]">
+    <footer className="bg-white border-t border-[#eaeaea] pt-10 sm:pt-12 pb-8 text-[#000000]">
       <div className="rush-container">
         
-        {/* Main 3-column Rush Republic Footer Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center pb-12 border-b border-[#eaeaea]">
+        {/* Main 3-section Footer Layout: Nav Links (one row) | Brand Identity | Social Icons */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center pb-10 border-b border-[#eaeaea]">
           
-          {/* Left: Navigation links */}
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-6">
+          {/* Left: Navigation links (Strictly in ONE row without wrapping) */}
+          <nav className="flex items-center justify-center lg:justify-start gap-4 sm:gap-5 md:gap-6 whitespace-nowrap overflow-x-auto">
             {links.map((link) => (
               <button
                 key={link.key}
                 onClick={() => setPage(link.key)}
-                className="text-sm font-semibold text-[#555555] hover:text-[#12b7d4] transition-colors cursor-pointer"
+                className="text-sm font-semibold text-[#555555] hover:text-[#12b7d4] transition-colors cursor-pointer shrink-0"
               >
                 {link.label}
               </button>
             ))}
-          </div>
+          </nav>
 
           {/* Center: Brand logo / identity */}
           <div className="flex justify-center">

@@ -886,7 +886,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 8: CTA FORM (LET’S CONNECT TO CREATE MAGIC!)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection fullScreen id="CTA" className="bg-[#000000] text-white py-10 lg:py-16 relative overflow-hidden">
+      <ScrollSection id="CTA" className="bg-[#000000] text-white py-12 lg:py-16 relative overflow-hidden">
 
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#12b7d4]/12 rounded-full blur-[140px] pointer-events-none" />
