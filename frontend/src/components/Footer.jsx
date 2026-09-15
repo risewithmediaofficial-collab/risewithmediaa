@@ -38,14 +38,14 @@ export default function Footer({ setPage }) {
   ];
 
   return (
-    <footer className="bg-white border-t border-[#eaeaea] pt-10 sm:pt-12 pb-8 text-[#000000]">
+    <footer className="bg-white border-t border-[#eaeaea] pt-10 sm:pt-14 pb-28 sm:pb-28 lg:pb-24 text-[#000000] relative z-10">
       <div className="rush-container">
         
         {/* Main 3-section Footer Layout: Nav Links (one row) | Brand Identity | Social Icons */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center pb-10 border-b border-[#eaeaea]">
           
-          {/* Left: Navigation links (Strictly in ONE row without wrapping) */}
-          <nav className="flex items-center justify-center lg:justify-start gap-4 sm:gap-5 md:gap-6 whitespace-nowrap overflow-x-auto">
+          {/* Left: Navigation links (Single row on desktop, cleanly wrapped on mobile without scrollbar) */}
+          <nav className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 sm:gap-5 md:gap-6">
             {links.map((link) => (
               <button
                 key={link.key}
@@ -92,8 +92,8 @@ export default function Footer({ setPage }) {
           </div>
         </div>
 
-        {/* Bottom copyright and legal disclaimer */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777]">
+        {/* Bottom copyright and legal disclaimer with clearance for floating WhatsApp button */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777] pr-16 sm:pr-24 lg:pr-28">
           <div className="flex items-center gap-6">
             <button
               onClick={() => setPage("contact")}
@@ -108,7 +108,7 @@ export default function Footer({ setPage }) {
               Privacy Policy
             </button>
           </div>
-          <div>
+          <div className="text-center sm:text-right">
             © {new Date().getFullYear()} By Rise With Media. All rights reserved.
           </div>
         </div>

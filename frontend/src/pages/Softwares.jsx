@@ -443,7 +443,7 @@ export default function Softwares({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           BOTTOM CTA
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection fullScreen className="py-10 sm:py-14 bg-[#f9f9f9] border-t border-[#eaeaea]">
+      <ScrollSection className="py-12 sm:py-16 bg-[#f9f9f9] border-t border-[#eaeaea]">
         <div className="rush-container text-center max-w-2xl mx-auto">
           <ScrollText as="h2" direction="up" delay={0.05} className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2">
             Deploy Your SaaS with <span className="text-[#12b7d4]">Rise With Media</span>

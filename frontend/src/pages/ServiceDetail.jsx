@@ -521,7 +521,7 @@ export default function ServiceDetail({ serviceId, setPage, setSelectedContactSe
       </ScrollSection>
 
       {/* ─── Explore Other Services Navigation ─── */}
-      <ScrollSection fullScreen className="py-10 sm:py-14">
+      <ScrollSection className="py-12 sm:py-16">
         <div className="rush-container w-full">
           <div className="flex items-center justify-between gap-4 mb-10">
             <div>

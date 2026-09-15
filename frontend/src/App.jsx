@@ -111,19 +111,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#0a0a0a] font-['Manrope'] selection:bg-[#12b7d4] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-white text-[#0a0a0a] font-['Manrope'] selection:bg-[#12b7d4] selection:text-white">
       <Navbar page={page} setPage={setPage} />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={page}
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-        >
-          {renderPage()}
-        </motion.div>
-      </AnimatePresence>
+      <div className="flex-grow">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={page}
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {renderPage()}
+          </motion.div>
+        </AnimatePresence>
+      </div>
       <Footer setPage={setPage} />
       <WhatsAppButton />
     </div>

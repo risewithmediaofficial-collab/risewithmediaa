@@ -784,7 +784,7 @@ export default function Works({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: PERFORMANCE CREATIVES & CAMPAIGNS
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection fullScreen id="campaigns" className="py-8 sm:py-12 bg-white border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection id="campaigns" className="py-12 sm:py-16 bg-white border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
 

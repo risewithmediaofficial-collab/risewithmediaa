@@ -193,7 +193,7 @@ export default function Clients({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           CLIENT REVIEWS (The Rush Republic Card Layout)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
+      <ScrollSection className="bg-white py-12 sm:py-16 border-b border-[#eaeaea] relative overflow-hidden">
         {/* Ambient Blur Color Effect */}
         <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
 
