@@ -45,45 +45,37 @@ export default function Footer({ setPage }) {
   ];
 
   return (
-    <footer className="bg-white border-t border-[#eaeaea] pt-10 sm:pt-14 pb-28 sm:pb-28 lg:pb-24 text-[#000000] relative z-10">
+    <footer className="bg-white border-t border-[#eaeaea] pt-10 sm:pt-14 pb-32 sm:pb-28 lg:pb-24 text-[#000000] relative z-10">
       <div className="rush-container">
         
-        {/* Main 3-section Footer Layout: Nav Links | Brand Identity | Social Icons */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center pb-8 border-b border-[#eaeaea]">
+        {/* Main 3-section Footer Layout:
+            Desktop (lg): [Nav Links | Brand Identity | Social Icons]
+            Mobile: [Brand Identity (top) -> Social Icons -> Nav Links] */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center pb-8 border-b border-[#eaeaea]">
           
-          {/* Left: Navigation links */}
-          <nav className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 sm:gap-5 md:gap-6" aria-label="Footer Primary Navigation">
-            {links.map((link) => (
-              <button
-                key={link.key}
-                onClick={() => setPage(link.key)}
-                className="text-sm font-semibold text-[#555555] hover:text-[#12b7d4] transition-colors cursor-pointer shrink-0"
-              >
-                {link.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Center: Brand logo / identity */}
-          <div className="flex justify-center">
+          {/* Brand logo / identity - Top on mobile, Center on desktop */}
+          <div className="order-1 lg:order-2 flex flex-col items-center justify-center text-center">
             <button
               onClick={() => setPage("home")}
-              className="flex items-center gap-3 cursor-pointer group"
+              className="inline-flex items-center gap-3 cursor-pointer group mb-1.5"
               aria-label="Rise With Media Home"
             >
               <img
                 src="/logo.png"
                 alt="Rise With Media"
-                className="h-10 w-10 object-contain group-hover:scale-105 transition-transform"
+                className="h-10 w-10 sm:h-11 sm:w-11 object-contain group-hover:scale-105 transition-transform"
               />
-              <span className="text-xl font-bold tracking-tight font-['League_Spartan'] text-black">
+              <span className="text-xl sm:text-2xl font-black tracking-tight font-['League_Spartan'] text-black leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
             </button>
+            <span className="text-[11px] sm:text-xs font-semibold text-[#666666] font-['League_Spartan'] tracking-widest uppercase select-none">
+              Plan · Create · Grow
+            </span>
           </div>
 
-          {/* Right: Social icons */}
-          <div className="flex items-center justify-center md:justify-end gap-3">
+          {/* Social icons - Second on mobile, Right on desktop */}
+          <div className="order-2 lg:order-3 flex items-center justify-center lg:justify-end gap-3.5">
             {socials.map((s) => (
               <a
                 key={s.name}
@@ -91,50 +83,79 @@ export default function Footer({ setPage }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.name}
-                className="w-10 h-10 rounded-full border border-[#eaeaea] bg-white text-[#000000] hover:bg-[#12b7d4] hover:border-[#12b7d4] hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-1"
+                className="w-10 h-10 rounded-full border border-[#eaeaea] bg-white text-[#000000] hover:bg-[#12b7d4] hover:border-[#12b7d4] hover:text-white flex items-center justify-center transition-all duration-200 hover:-translate-y-1 shadow-2xs"
               >
                 {s.icon}
               </a>
             ))}
           </div>
+
+          {/* Navigation links - Third on mobile, Left on desktop */}
+          <nav
+            className="order-3 lg:order-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2.5 pt-1 lg:pt-0"
+            aria-label="Footer Primary Navigation"
+          >
+            {links.map((link) => (
+              <button
+                key={link.key}
+                onClick={() => setPage(link.key)}
+                className="text-xs sm:text-sm font-bold text-[#444444] hover:text-[#12b7d4] transition-colors cursor-pointer tracking-wide"
+              >
+                {link.label}
+              </button>
+            ))}
+          </nav>
         </div>
 
         {/* Services & Local Service Footprint */}
-        <div className="py-6 border-b border-[#f0f0f0] flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[#666666]">
-            <span className="font-bold text-black uppercase tracking-wider text-[11px]">Services:</span>
-            {serviceLinks.map((s) => (
-              <button
-                key={s.key}
-                onClick={() => setPage(s.key)}
-                className="hover:text-[#12b7d4] transition-colors cursor-pointer"
-              >
-                {s.label}
-              </button>
-            ))}
+        <div className="py-7 border-b border-[#f0f0f0] flex flex-col items-center gap-5 text-center">
+          
+          {/* Services Section with Sleek Rounded Pills */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
+            <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.18em] text-[#888888] shrink-0">
+              SERVICES
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl">
+              {serviceLinks.map((s) => (
+                <button
+                  key={s.key}
+                  onClick={() => setPage(s.key)}
+                  className="bg-[#f8fafc] hover:bg-[#12b7d4] text-[#444444] hover:text-white border border-[#eaeaea] hover:border-[#12b7d4] rounded-full py-1.5 px-3.5 text-xs font-semibold transition-all duration-200 cursor-pointer shadow-2xs"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="text-[#777777] text-center md:text-right font-medium">
-            📍 Krishnagiri, Tamil Nadu — Serving Hosur, Dharmapuri, Salem, Bengaluru &amp; Pan-India
+
+          {/* Local Authority Footprint Chip */}
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 text-xs text-[#555555] font-medium bg-[#fafafa] border border-[#eeeeee] rounded-full py-2 px-4.5 text-center max-w-full">
+            <span className="text-sm">📍</span>
+            <span className="font-semibold text-black">Krishnagiri, Tamil Nadu</span>
+            <span className="text-[#999999] hidden sm:inline">•</span>
+            <span className="text-[#666666]">Serving Hosur, Dharmapuri, Salem, Bengaluru &amp; Pan-India</span>
           </div>
+
         </div>
 
-        {/* Bottom copyright and legal disclaimer with clearance for floating WhatsApp button */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777] pr-16 sm:pr-24 lg:pr-28">
-          <div className="flex items-center gap-6">
+        {/* Bottom copyright and legal disclaimer (Centered on mobile, split on desktop) */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777] pr-0 lg:pr-24">
+          <div className="flex items-center justify-center gap-5 font-medium">
             <button
               onClick={() => setPage("contact")}
               className="hover:text-[#12b7d4] transition-colors cursor-pointer"
             >
-              Terms & Conditions
+              Terms &amp; Conditions
             </button>
+            <span className="text-[#d1d5db]">·</span>
             <button
               onClick={() => setPage("contact")}
-              className="hover:text-black transition-colors cursor-pointer"
+              className="hover:text-[#12b7d4] transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>
           </div>
-          <div className="text-center sm:text-right">
+          <div className="text-center sm:text-right font-medium tracking-normal">
             © {new Date().getFullYear()} By Rise With Media. All rights reserved.
           </div>
         </div>

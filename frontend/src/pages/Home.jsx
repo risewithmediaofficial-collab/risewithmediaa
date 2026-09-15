@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection, { rushEase } from "../components/ScrollSection";
+import GravityDotsCanvas from "../components/GravityDotsCanvas";
 
 // Client Logos
 import arunamLogo from "../assets/clientlogo/Arunam Logo.png";
@@ -150,6 +151,7 @@ function FlolapoSkillItem({ title, onClick }) {
 }
 
 export default function Home({ setPage }) {
+  const heroRef = useRef(null);
   const [activeVideoModal, setActiveVideoModal] = useState(null);
   const [activeReview, setActiveReview] = useState(0);
   const [activeReelIndex, setActiveReelIndex] = useState(0);
@@ -288,12 +290,12 @@ export default function Home({ setPage }) {
           SECTION 1: HERO BANNER (The Rush Republic Open Minimalist Hero)
       ───────────────────────────────────────────────────────────────── */}
       <section
+        ref={heroRef}
         className="section-fullscreen bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden"
-        style={{
-          backgroundImage: "radial-gradient(#e5e7eb 1.5px, transparent 1.5px)",
-          backgroundSize: "32px 32px",
-        }}
       >
+        {/* Interactive Gravity Dotted Canvas Background */}
+        <GravityDotsCanvas containerRef={heroRef} />
+
         {/* Ambient Blur Color Effect (Luminous Cyan & Sky Glow) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[300px] sm:h-[380px] bg-gradient-to-tr from-[#12b7d4]/20 via-[#38bdf8]/15 to-transparent rounded-full blur-[100px] pointer-events-none -z-0" />
         <div className="absolute top-4 right-10 w-[300px] h-[300px] bg-[#12b7d4]/10 rounded-full blur-[80px] pointer-events-none" />
