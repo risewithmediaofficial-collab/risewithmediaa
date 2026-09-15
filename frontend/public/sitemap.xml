@@ -14,7 +14,7 @@
 
   <!-- Works & Case Studies -->
   <url>
-    <loc>https://risewithmedia.com/#works</loc>
+    <loc>https://risewithmedia.com/works</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -22,7 +22,7 @@
 
   <!-- Client Partners & Testimonials -->
   <url>
-    <loc>https://risewithmedia.com/#clients</loc>
+    <loc>https://risewithmedia.com/clients</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -30,7 +30,7 @@
 
   <!-- Softwares & SaaS Solutions -->
   <url>
-    <loc>https://risewithmedia.com/#softwares</loc>
+    <loc>https://risewithmedia.com/softwares</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -38,7 +38,7 @@
 
   <!-- Contact Us -->
   <url>
-    <loc>https://risewithmedia.com/#contact</loc>
+    <loc>https://risewithmedia.com/contact</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -46,7 +46,7 @@
 
   <!-- Service: Content & Social Media Marketing -->
   <url>
-    <loc>https://risewithmedia.com/#service-content-social</loc>
+    <loc>https://risewithmedia.com/services/content-social</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -54,7 +54,7 @@
 
   <!-- Service: Websites & Conversion Funnels -->
   <url>
-    <loc>https://risewithmedia.com/#service-websites-funnels</loc>
+    <loc>https://risewithmedia.com/services/websites-funnels</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -62,7 +62,7 @@
 
   <!-- Service: Performance Marketing & Meta Ads -->
   <url>
-    <loc>https://risewithmedia.com/#service-performance-marketing</loc>
+    <loc>https://risewithmedia.com/services/performance-marketing</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -70,10 +70,11 @@
 
   <!-- Service: Technology & SaaS Automation -->
   <url>
-    <loc>https://risewithmedia.com/#service-saas-technology</loc>
+    <loc>https://risewithmedia.com/services/saas-technology</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
 </urlset>
+

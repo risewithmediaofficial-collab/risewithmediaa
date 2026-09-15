@@ -41,41 +41,151 @@ const pageVariants = {
   exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
-export default function App() {
-  const [page, setPage] = useState(() => {
-    if (typeof window !== "undefined") {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && (["home", "works", "clients", "contact", "softwares"].includes(hash) || servicesData[hash])) {
-        return hash;
-      }
-    }
-    return "home";
-  });
+export const routeMeta = {
+  home: {
+    title: "Best Digital Marketing Agency in Krishnagiri & Hosur, Tamil Nadu | Rise With Media",
+    description: "Rise With Media is the #1 rated digital marketing agency in Krishnagiri and Hosur, Tamil Nadu. We deliver high-ROI Meta ads, viral Instagram reels, custom business websites, local SEO, and B2B lead generation across Hosur, Dharmapuri, Salem, Bengaluru, and all of Tamil Nadu.",
+    keywords: "digital marketing agency Krishnagiri, best digital marketing company in Krishnagiri, top digital marketing agency Hosur, digital marketing agency near me, social media marketing Krishnagiri, Meta ads agency Krishnagiri, website development company Krishnagiri, website design Hosur, கிருஷ்ணகிரி டிஜிட்டல் மார்க்கெட்டிங்",
+    canonical: "https://risewithmedia.com/",
+  },
+  works: {
+    title: "Case Studies & Client Results | Digital Marketing Krishnagiri | Rise With Media",
+    description: "Explore verified client results, 10x ROAS Meta ad campaigns, 2.5M+ viral reel views, and web design case studies from Rise With Media across Krishnagiri, Hosur, and Tamil Nadu.",
+    keywords: "digital marketing case studies Krishnagiri, Meta ads results Hosur, Instagram reels marketing Tamil Nadu, client portfolio Rise With Media",
+    canonical: "https://risewithmedia.com/works",
+  },
+  clients: {
+    title: "Our Clients & Partner Reviews | Rise With Media Krishnagiri & Hosur",
+    description: "See why 50+ businesses in Krishnagiri, Hosur, Salem, and Bengaluru trust Rise With Media for performance marketing, social media reels, and web development.",
+    keywords: "digital marketing reviews Krishnagiri, client testimonials Hosur, trusted agency Tamil Nadu, Rise With Media clients",
+    canonical: "https://risewithmedia.com/clients",
+  },
+  softwares: {
+    title: "SaaS & WhatsApp CRM Automation Software | Rise With Media Krishnagiri",
+    description: "Streamline business operations with custom SaaS tools, automated WhatsApp lead management, and agency CRM systems built by Rise With Media.",
+    keywords: "WhatsApp marketing software Krishnagiri, CRM software Tamil Nadu, business automation tools Hosur, custom SaaS development",
+    canonical: "https://risewithmedia.com/softwares",
+  },
+  contact: {
+    title: "Contact Rise With Media | #1 Digital Marketing Agency in Krishnagiri & Hosur",
+    description: "Ready to scale your business? Contact Rise With Media in Krishnagiri, Tamil Nadu. Reach us on WhatsApp at +91 9345254648 or book a free strategy call.",
+    keywords: "contact digital marketing agency Krishnagiri, hire Meta ads expert Hosur, website designer near me, WhatsApp marketing consultation",
+    canonical: "https://risewithmedia.com/contact",
+  },
+  "service-content-social": {
+    title: "Social Media Marketing & Instagram Reels Agency Krishnagiri | Rise With Media",
+    description: "Build a dominant social media brand in Krishnagiri & Hosur. Viral Instagram reel production, video editing, social media management, and content strategy.",
+    keywords: "social media marketing Krishnagiri, Instagram reels agency Hosur, video editing company near me, short form content Tamil Nadu",
+    canonical: "https://risewithmedia.com/services/content-social",
+  },
+  "service-websites-funnels": {
+    title: "Website Design & Conversion Funnels Company in Krishnagiri | Rise With Media",
+    description: "Fast, mobile-friendly business websites and high-converting lead funnels in Krishnagiri, Hosur, and Dharmapuri. SEO-optimized for Google search rankings.",
+    keywords: "website design Krishnagiri, web development company Hosur, landing page designer Dharmapuri, business website developer Tamil Nadu",
+    canonical: "https://risewithmedia.com/services/websites-funnels",
+  },
+  "service-performance-marketing": {
+    title: "Meta Ads & Performance Marketing Agency Krishnagiri & Hosur | Rise With Media",
+    description: "High-ROAS Facebook & Instagram advertising in Krishnagiri, Hosur, and Tamil Nadu. Proven lead generation funnels, precise audience targeting, and measurable ROI.",
+    keywords: "Meta ads agency Krishnagiri, Facebook advertising Hosur, performance marketing agency Tamil Nadu, lead generation specialist Salem",
+    canonical: "https://risewithmedia.com/services/performance-marketing",
+  },
+  "service-saas-technology": {
+    title: "Custom SaaS & Business Automation Software Tamil Nadu | Rise With Media",
+    description: "Custom CRM systems, WhatsApp Cloud API automation, and scalable cloud business software engineered in Krishnagiri, Tamil Nadu.",
+    keywords: "custom software development Krishnagiri, WhatsApp automation Hosur, SaaS agency Tamil Nadu, business CRM solutions",
+    canonical: "https://risewithmedia.com/services/saas-technology",
+  },
+};
 
+export const getPageFromUrl = () => {
+  if (typeof window === "undefined") return "home";
+
+  // Check pathname first
+  const pathname = window.location.pathname.replace(/^\/+|\/+$/g, "");
+  if (!pathname || pathname === "home") return "home";
+  if (["works", "clients", "contact", "softwares"].includes(pathname)) return pathname;
+  if (pathname === "services/content-social" || pathname === "service-content-social") return "service-content-social";
+  if (pathname === "services/websites-funnels" || pathname === "service-websites-funnels") return "service-websites-funnels";
+  if (pathname === "services/performance-marketing" || pathname === "service-performance-marketing") return "service-performance-marketing";
+  if (pathname === "services/saas-technology" || pathname === "service-saas-technology") return "service-saas-technology";
+
+  // Check hash fallback for backward compatibility
+  const hash = window.location.hash.replace("#", "").replace(/^\/+|\/+$/g, "");
+  if (hash) {
+    if (["home", "works", "clients", "contact", "softwares"].includes(hash) || servicesData[hash]) {
+      return hash;
+    }
+  }
+
+  return "home";
+};
+
+export const getUrlForPage = (page) => {
+  if (!page || page === "home") return "/";
+  if (["works", "clients", "contact", "softwares"].includes(page)) return `/${page}`;
+  if (page.startsWith("service-")) {
+    const slug = page.replace("service-", "");
+    return `/services/${slug}`;
+  }
+  return `/${page}`;
+};
+
+export default function App() {
+  const [page, setPage] = useState(getPageFromUrl);
   const [selectedContactService, setSelectedContactService] = useState("");
+
+  const handleNavigate = (nextPage) => {
+    setPage(nextPage);
+    const targetUrl = getUrlForPage(nextPage);
+    if (window.location.pathname !== targetUrl || window.location.hash) {
+      window.history.pushState(null, "", targetUrl);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    if (page === "home") {
-      if (window.location.hash) {
-        history.replaceState(null, "", window.location.pathname);
-      }
-    } else {
-      window.location.hash = page;
+    const targetUrl = getUrlForPage(page);
+    // Canonicalize the URL if it differs or if it contains a legacy hash
+    if (window.location.pathname !== targetUrl || window.location.hash) {
+      window.history.replaceState(null, "", targetUrl);
+    }
+
+    // Dynamic metadata for search engines & browser tabs
+    const meta = routeMeta[page] || routeMeta.home;
+    if (typeof document !== "undefined") {
+      document.title = meta.title;
+
+      const descEl = document.querySelector('meta[name="description"]');
+      if (descEl) descEl.setAttribute("content", meta.description);
+
+      const kwEl = document.querySelector('meta[name="keywords"]');
+      if (kwEl) kwEl.setAttribute("content", meta.keywords);
+
+      const canonicalEl = document.querySelector('link[rel="canonical"]');
+      if (canonicalEl) canonicalEl.setAttribute("href", meta.canonical);
+
+      const ogTitleEl = document.querySelector('meta[property="og:title"]');
+      if (ogTitleEl) ogTitleEl.setAttribute("content", meta.title);
+
+      const ogDescEl = document.querySelector('meta[property="og:description"]');
+      if (ogDescEl) ogDescEl.setAttribute("content", meta.description);
+
+      const ogUrlEl = document.querySelector('meta[property="og:url"]');
+      if (ogUrlEl) ogUrlEl.setAttribute("content", meta.canonical);
     }
   }, [page]);
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && (["home", "works", "clients", "contact", "softwares"].includes(hash) || servicesData[hash])) {
-        setPage(hash);
-      } else if (!hash) {
-        setPage("home");
-      }
+    const handleLocationChange = () => {
+      setPage(getPageFromUrl());
     };
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleLocationChange);
+    window.addEventListener("hashchange", handleLocationChange);
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("hashchange", handleLocationChange);
+    };
   }, []);
 
   const renderPage = () => {

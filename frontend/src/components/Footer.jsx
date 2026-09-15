@@ -37,15 +37,22 @@ export default function Footer({ setPage }) {
     },
   ];
 
+  const serviceLinks = [
+    { label: "Content & Social", key: "service-content-social" },
+    { label: "Websites & Funnels", key: "service-websites-funnels" },
+    { label: "Performance Marketing", key: "service-performance-marketing" },
+    { label: "SaaS & Technology", key: "service-saas-technology" },
+  ];
+
   return (
     <footer className="bg-white border-t border-[#eaeaea] pt-10 sm:pt-14 pb-28 sm:pb-28 lg:pb-24 text-[#000000] relative z-10">
       <div className="rush-container">
         
-        {/* Main 3-section Footer Layout: Nav Links (one row) | Brand Identity | Social Icons */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center pb-10 border-b border-[#eaeaea]">
+        {/* Main 3-section Footer Layout: Nav Links | Brand Identity | Social Icons */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center pb-8 border-b border-[#eaeaea]">
           
-          {/* Left: Navigation links (Single row on desktop, cleanly wrapped on mobile without scrollbar) */}
-          <nav className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 sm:gap-5 md:gap-6">
+          {/* Left: Navigation links */}
+          <nav className="flex flex-wrap sm:flex-nowrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 sm:gap-5 md:gap-6" aria-label="Footer Primary Navigation">
             {links.map((link) => (
               <button
                 key={link.key}
@@ -92,8 +99,27 @@ export default function Footer({ setPage }) {
           </div>
         </div>
 
+        {/* Services & Local Service Footprint */}
+        <div className="py-6 border-b border-[#f0f0f0] flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[#666666]">
+            <span className="font-bold text-black uppercase tracking-wider text-[11px]">Services:</span>
+            {serviceLinks.map((s) => (
+              <button
+                key={s.key}
+                onClick={() => setPage(s.key)}
+                className="hover:text-[#12b7d4] transition-colors cursor-pointer"
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+          <div className="text-[#777777] text-center md:text-right font-medium">
+            📍 Krishnagiri, Tamil Nadu — Serving Hosur, Dharmapuri, Salem, Bengaluru &amp; Pan-India
+          </div>
+        </div>
+
         {/* Bottom copyright and legal disclaimer with clearance for floating WhatsApp button */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777] pr-16 sm:pr-24 lg:pr-28">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777] pr-16 sm:pr-24 lg:pr-28">
           <div className="flex items-center gap-6">
             <button
               onClick={() => setPage("contact")}

@@ -1,6 +1,6 @@
 # Cache-Control rules for Cloudflare & Browsers
 
-# HTML Documents: Never cache HTML so users always receive latest updates instantly
+# HTML Documents & Routes: Never cache HTML so users always receive latest updates instantly
 /*.html
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
@@ -12,6 +12,31 @@
   Expires: 0
 
 /
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/works*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/clients*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/softwares*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/contact*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/services/*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
