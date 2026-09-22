@@ -95,7 +95,7 @@ export default function Contact({ initialService = "" }) {
 
   return (
     <main className="bg-white pt-20 sm:pt-[88px]">
-      
+
       {/* ─────────────────────────────────────────────────────────────────
           MAIN CONTACT FULL-SCREEN SECTION (Unified Header + Form)
       ───────────────────────────────────────────────────────────────── */}
@@ -119,7 +119,7 @@ export default function Contact({ initialService = "" }) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            
+
             {/* Left 7 Columns: The Rush Republic Form */}
             <motion.div
               className="lg:col-span-7"
@@ -129,7 +129,7 @@ export default function Contact({ initialService = "" }) {
               transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             >
               <form onSubmit={handleSubmit} className="space-y-6">
-                
+
                 {/* Name */}
                 <div>
                   <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">
@@ -217,11 +217,10 @@ export default function Contact({ initialService = "" }) {
                           key={srv}
                           type="button"
                           onClick={() => toggleService(srv)}
-                          className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${
-                            isChecked
+                          className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${isChecked
                               ? "bg-[#000000] text-white border-black"
                               : "bg-[#ffffff] text-black border-[#eaeaea] hover:border-black"
-                          }`}
+                            }`}
                         >
                           {isChecked ? "✓ " : "+ "}
                           {srv}
@@ -244,11 +243,10 @@ export default function Contact({ initialService = "" }) {
                           key={source}
                           type="button"
                           onClick={() => setFormData({ ...formData, referral: source })}
-                          className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${
-                            isSelected
+                          className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${isSelected
                               ? "bg-[#12b7d4] text-white border-[#12b7d4]"
                               : "bg-[#ffffff] text-black border-[#eaeaea] hover:border-black"
-                          }`}
+                            }`}
                         >
                           {source}
                         </button>
@@ -301,7 +299,7 @@ export default function Contact({ initialService = "" }) {
               viewport={{ once: false, amount: 0.05 }}
               transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              
+
               <div className="rounded-3xl border border-[#eaeaea] p-8 bg-[#fcfcfc]">
                 <h3 className="text-xl font-black uppercase text-black font-['Sansation'] mb-6">
                   Direct Line
@@ -360,7 +358,7 @@ export default function Contact({ initialService = "" }) {
                   Our Promise
                 </span>
                 <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Sansation']">
-                  Speed, Clarity & Zero Fluff
+                  Quality, Clarity & Zero Fluff
                 </h4>
                 <p className="text-sm text-neutral-300 leading-relaxed font-normal">
                   We review your market positioning, outline high-impact execution gaps, and provide honest answers. No long lock-in contracts.
