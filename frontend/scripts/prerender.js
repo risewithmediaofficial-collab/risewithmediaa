@@ -177,11 +177,11 @@ for (const item of routes) {
   html = html.replace(/<meta name="twitter:title" content=".*?" \/>/i, `<meta name="twitter:title" content="${item.title}" />`);
   html = html.replace(/<meta name="twitter:description" content=".*?" \/>/i, `<meta name="twitter:description" content="${item.description}" />`);
 
-  // Build Route-Specific Crawler Content for inside #root
+  // Build Route-Specific Crawler Content for inside noscript
   const highlightsHtml = item.highlights.map(h => `<li style="padding: 10px 0; border-bottom: 1px solid #f0f0f0;"><strong>✓</strong> ${h}</li>`).join('\n');
 
-  const rootContent = `
-    <div id="root">
+  const noscriptContent = `
+    <noscript>
       <header style="padding: 20px; border-bottom: 1px solid #eaeaea; max-width: 1200px; margin: 0 auto;">
         <nav aria-label="Main Navigation" style="display: flex; gap: 15px; flex-wrap: wrap;">
           <a href="/" style="color: #555; text-decoration: none;">Home</a>
@@ -229,11 +229,11 @@ for (const item of routes) {
           <a href="/contact" style="background: #000; color: #fff; padding: 12px 24px; border-radius: 9999px; text-decoration: none; font-weight: bold; display: inline-block;">Get Free Consultation →</a>
         </div>
       </main>
-    </div>
+    </noscript>
   `;
 
-  // Replace content inside <div id="root">...</div>
-  html = html.replace(/<div id="root">[\s\S]*?<\/div>/i, rootContent.trim());
+  // Replace content inside <noscript>...</noscript>
+  html = html.replace(/<noscript>[\s\S]*?<\/noscript>/i, noscriptContent.trim());
 
   fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf-8');
   generatedCount++;
