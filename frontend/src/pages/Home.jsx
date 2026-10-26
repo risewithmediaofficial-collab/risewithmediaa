@@ -525,9 +525,16 @@ export default function Home({ setPage }) {
                     <motion.div
                       whileHover={{ scale: 1.04, y: -4 }}
                       transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                      className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 gpu-smooth"
+                      onClick={() => setActiveVideoModal(reel.src)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") setActiveVideoModal(reel.src);
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Open ${reel.title} video`}
+                      className="relative aspect-[9/16] w-[190px] sm:w-[220px] lg:w-[250px] xl:w-[270px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] focus-visible:border-[#12b7d4] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#12b7d4]/25 transition-colors duration-300 cursor-pointer gpu-smooth"
                     >
-                      <ViewportVideo src={reel.src} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
+                      <ViewportVideo src={reel.src} className="absolute inset-0 h-full w-full object-contain bg-black gpu-smooth" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none" />
 
                       {/* Optional Circular Brand Badge */}

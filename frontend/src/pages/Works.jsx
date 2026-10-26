@@ -634,9 +634,14 @@ export default function Works({ setPage }) {
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                onClick={() => setActiveReel(reel1)}
+                role="button"
+                tabIndex={0}
+                aria-label="Open Saran Tiles video"
+                onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setActiveReel(reel1); }}
+                className="relative aspect-[9/16] w-[190px] sm:w-[220px] lg:w-[250px] xl:w-[270px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#12b7d4]/25 transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
-                <ViewportVideo src={reel1} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
+                <ViewportVideo src={reel1} className="absolute inset-0 h-full w-full object-contain bg-black gpu-smooth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
@@ -666,9 +671,14 @@ export default function Works({ setPage }) {
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                onClick={() => setActiveReel(reel2)}
+                role="button"
+                tabIndex={0}
+                aria-label="Open client campaign video"
+                onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setActiveReel(reel2); }}
+                className="relative aspect-[9/16] w-[190px] sm:w-[220px] lg:w-[250px] xl:w-[270px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#12b7d4]/25 transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
-                <ViewportVideo src={reel2} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
+                <ViewportVideo src={reel2} className="absolute inset-0 h-full w-full object-contain bg-black gpu-smooth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
@@ -698,9 +708,14 @@ export default function Works({ setPage }) {
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                onClick={() => setActiveReel(reel3)}
+                role="button"
+                tabIndex={0}
+                aria-label="Open social growth video"
+                onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setActiveReel(reel3); }}
+                className="relative aspect-[9/16] w-[190px] sm:w-[220px] lg:w-[250px] xl:w-[270px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#12b7d4]/25 transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
-                <ViewportVideo src={reel3} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
+                <ViewportVideo src={reel3} className="absolute inset-0 h-full w-full object-contain bg-black gpu-smooth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
                 {/* Circular Brand Badge */}
@@ -853,7 +868,7 @@ export default function Works({ setPage }) {
                 autoPlay
                 playsInline
                 preload="metadata"
-                className="w-full h-full max-h-[85vh] object-cover gpu-smooth"
+                className="w-full h-full max-h-[85vh] object-contain bg-black gpu-smooth"
               />
             </motion.div>
           </motion.div>
