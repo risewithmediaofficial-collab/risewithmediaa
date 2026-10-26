@@ -1,27 +1,34 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollSection, { ScrollText, rushEase } from "../components/ScrollSection";
+import ViewportVideo from "../components/ViewportVideo";
 
 // Video Assets
-import reel1 from "../assets/clientvideos/1.mp4";
-import reel2 from "../assets/clientvideos/2.mp4";
-import reel3 from "../assets/clientvideos/3.mp4";
-import reel4 from "../assets/clientvideos/4.mp4";
-import reel5 from "../assets/clientvideos/5.mp4";
-
-// Web Screenshots & Images
-import screenshot1 from "../assets/clientweb/1.png";
-import screenshot2 from "../assets/clientweb/2.png";
+import reel1 from "../assets/clientvideos/Saran TIles 06.mp4";
+import reel2 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 1.56.35 PM.mp4";
+import reel3 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 2.01.33 PM.mp4";
+import reel4 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 2.02.32 PM.mp4";
+import reel5 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 2.20.36 PM.mp4";
 
 // Campaign Creatives
 import campaign1 from "../assets/clientcampaign/1.png";
 import campaign2 from "../assets/clientcampaign/2.png";
 import campaign3 from "../assets/clientcampaign/3.png";
 
-// Service visuals for diverse mockups
-import webFunnelImg from "../assets/services/websites_funnels.jpg";
-import perfImg from "../assets/services/performance_marketing.jpg";
-import saasImg from "../assets/services/saas_technology.jpg";
+function WebsiteIcon({ type }) {
+  const paths = {
+    dining: <><path d="M8 3v8M5 3v5a3 3 0 0 0 6 0V3M8 11v10M16 3v18M16 3c3 2 4 5 4 9h-4" /></>,
+    industry: <><path d="M3 21V9l6 3V8l6 4V5h6v16H3Z" /><path d="M7 17h2m3 0h2m3 0h2" /></>,
+    education: <><path d="m3 10 9-5 9 5-9 5-9-5Z" /><path d="M7 12v5c3 2 7 2 10 0v-5M21 10v6" /></>,
+    property: <><path d="m3 11 9-8 9 8v10H3V11Z" /><path d="M9 21v-7h6v7" /></>,
+    commerce: <><path d="M4 7h16l-1 14H5L4 7Z" /><path d="M8 7a4 4 0 0 1 8 0" /></>,
+    legal: <><path d="M12 3v18M5 6h14M7 6l-4 7h8L7 6Zm10 0-4 7h8l-4-7ZM8 21h8" /></>,
+    food: <><path d="M12 3c5 0 9 4 9 9s-4 9-9 9-9-4-9-9" /><path d="M3 3v8a3 3 0 0 0 6 0V3M6 3v18" /></>,
+    signage: <><path d="M5 3h14v12H5zM9 15v6m6-6v6M7 21h10" /></>,
+    fashion: <><path d="m8 4 4 3 4-3 5 5-3 3-2-2v11H8V10l-2 2-3-3 5-5Z" /></>,
+  };
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[type] || paths.commerce}</svg>;
+}
 
 const clientWebsites = [
   {
@@ -32,7 +39,7 @@ const clientWebsites = [
     category: "Catering & Event Dining",
     tag: "Hospitality & Food",
     description: "Premium wedding and event catering platform with interactive menu previews and fast booking inquiry funnels.",
-    image: webFunnelImg,
+    icon: "dining",
   },
   {
     id: "atrosindia",
@@ -42,7 +49,7 @@ const clientWebsites = [
     category: "Industrial Manufacturing",
     tag: "B2B & Engineering",
     description: "High-precision fabrication and engineering portal engineered for global export inquiries and industrial specs.",
-    image: screenshot1,
+    icon: "industry",
   },
   {
     id: "futurekidsambur",
@@ -52,7 +59,7 @@ const clientWebsites = [
     category: "School & Holistic Academy",
     tag: "Education Portal",
     description: "Modern educational institution portal featuring digital admissions, campus highlights, and parent communication.",
-    image: campaign2,
+    icon: "education",
   },
   {
     id: "gyesproperty",
@@ -62,7 +69,7 @@ const clientWebsites = [
     category: "Real Estate & Developers",
     tag: "Property Showcase",
     description: "Premium property showcase with project floorplans, location blueprints, and direct broker lead routing.",
-    image: webFunnelImg,
+    icon: "property",
   },
   {
     id: "gyestraders",
@@ -72,7 +79,7 @@ const clientWebsites = [
     category: "Commercial Distribution",
     tag: "Wholesale & Hardware",
     description: "B2B commercial hardware & building materials catalog platform with instant WhatsApp bulk quote routing.",
-    image: saasImg,
+    icon: "commerce",
   },
   {
     id: "hsiehhsuindia",
@@ -82,7 +89,7 @@ const clientWebsites = [
     category: "Industrial Machinery",
     tag: "Manufacturing Leader",
     description: "World-class industrial web experience for a global machinery manufacturer, delivering +240% qualified international inquiries.",
-    image: screenshot1,
+    icon: "industry",
   },
   {
     id: "myhosurproperty",
@@ -92,7 +99,7 @@ const clientWebsites = [
     category: "Hyperlocal Property Search",
     tag: "Real Estate Portal",
     description: "Fast, search-driven real estate platform for residential plots, villas, and commercial property listings in Hosur.",
-    image: screenshot2,
+    icon: "property",
   },
   {
     id: "richifoodproducts",
@@ -102,7 +109,7 @@ const clientWebsites = [
     category: "FMCG & Confectionery",
     tag: "Food & Retail Brand",
     description: "Vibrant packaged food brand platform highlighting product catalogs, retail reach, and direct distributor partnerships.",
-    image: campaign1,
+    icon: "food",
   },
   {
     id: "royalsignsnetwork",
@@ -112,7 +119,7 @@ const clientWebsites = [
     category: "Architectural Signage",
     tag: "Outdoor Branding",
     description: "Architectural signage and commercial branding showcase featuring LED signboards, ACP cladding, and outdoor installs.",
-    image: campaign3,
+    icon: "signage",
   },
   {
     id: "sanjaysaiassociates",
@@ -122,7 +129,7 @@ const clientWebsites = [
     category: "Legal & Corporate Advisory",
     tag: "Consulting & Law",
     description: "High-trust corporate legal & financial advisory platform featuring practice breakdowns and confidential consultation bookings.",
-    image: perfImg,
+    icon: "legal",
   },
   {
     id: "valsii",
@@ -132,16 +139,16 @@ const clientWebsites = [
     category: "Fashion & Lifestyle",
     tag: "E-Commerce",
     description: "Boutique fashion apparel and lifestyle storefront crafted with mobile-first browsing, lookbook galleries, and fast checkout UX.",
-    image: screenshot2,
+    icon: "fashion",
   },
 ];
 
 const reelVideos = [
-  { id: 1, title: "Beauty & Lifestyle Reels", category: "Beauty", src: reel1 },
-  { id: 2, title: "Ed Tech Training Reels", category: "Ed Tech", src: reel2 },
-  { id: 3, title: "School Brand Reels", category: "Education", src: reel3 },
-  { id: 4, title: "Organic Brand Reels", category: "Organic", src: reel4 },
-  { id: 5, title: "Health Brand Reels", category: "Wellness", src: reel5 },
+  { id: 1, title: "Saran Tiles Film", category: "Retail", src: reel1 },
+  { id: 2, title: "Client Campaign Film", category: "Campaign", src: reel2 },
+  { id: 3, title: "Social Growth Reel", category: "Social", src: reel3 },
+  { id: 4, title: "Performance Creative", category: "Performance", src: reel4 },
+  { id: 5, title: "Latest Client Reel", category: "Brand Story", src: reel5 },
 ];
 
 const campaigns = [
@@ -455,13 +462,15 @@ export default function Works({ setPage }) {
                           <div className="w-3" />
                         </div>
 
-                        {/* Image Showcase */}
-                        <div className="relative w-full flex-1 overflow-hidden">
-                          <img
-                            src={ws.image}
-                            alt={ws.name}
-                            className="w-full h-full object-cover"
-                          />
+                        {/* Lightweight, category-specific vector artwork */}
+                        <div className="relative w-full flex-1 overflow-hidden website-icon-stage">
+                          <div className="website-icon-grid" aria-hidden="true" />
+                          <div className="absolute inset-0 flex items-center justify-center text-[#12b7d4]">
+                            <div className="website-icon-orbit" aria-hidden="true" />
+                            <div className="website-icon-wrap">
+                              <WebsiteIcon type={ws.icon} />
+                            </div>
+                          </div>
                           <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-black/25 pointer-events-none" />
 
                           {/* Category Badge on Top Left of Image */}
@@ -625,18 +634,9 @@ export default function Works({ setPage }) {
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                onClick={() => setActiveReel(reel1)}
-                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
-                <video
-                  src={reel1}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover gpu-smooth"
-                />
+                <ViewportVideo src={reel1} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
@@ -648,9 +648,6 @@ export default function Works({ setPage }) {
                   </h4>
                 </div>
 
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  ▶
-                </div>
               </motion.div>
 
               <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-3 sm:mt-4">
@@ -669,18 +666,9 @@ export default function Works({ setPage }) {
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                onClick={() => setActiveReel(reel2)}
-                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_25px_55px_rgba(0,0,0,0.22)] border-2 border-white hover:border-[#12b7d4] transition-colors group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
-                <video
-                  src={reel2}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover gpu-smooth"
-                />
+                <ViewportVideo src={reel2} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
@@ -692,9 +680,6 @@ export default function Works({ setPage }) {
                   </h4>
                 </div>
 
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  ▶
-                </div>
               </motion.div>
 
               <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-2.5 sm:mt-3">
@@ -713,18 +698,9 @@ export default function Works({ setPage }) {
               <motion.div
                 whileHover={{ scale: 1.04, y: -4 }}
                 transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                onClick={() => setActiveReel(reel3)}
-                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors cursor-pointer group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
+                className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors group-hover:shadow-[0_25px_60px_rgba(18,183,212,0.25)]"
               >
-                <video
-                  src={reel3}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover gpu-smooth"
-                />
+                <ViewportVideo src={reel3} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
                 
                 {/* Circular Brand Badge */}
@@ -741,9 +717,6 @@ export default function Works({ setPage }) {
                   </h4>
                 </div>
 
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  ▶
-                </div>
               </motion.div>
 
               <span className="text-xs font-black uppercase tracking-[0.25em] text-[#777777] mt-2.5 sm:mt-3">
@@ -765,15 +738,13 @@ export default function Works({ setPage }) {
             </div>
             <div className="flex flex-wrap gap-2.5">
               {reelVideos.map((reel) => (
-                <button
+                <span
                   key={reel.id}
-                  onClick={() => setActiveReel(reel.src)}
-                  className="px-4 py-2 rounded-full border border-[#eaeaea] bg-white text-[#333333] hover:bg-black hover:text-white hover:border-black text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-2"
+                  className="px-4 py-2 rounded-full border border-[#eaeaea] bg-white text-[#333333] text-xs font-bold shadow-xs inline-flex items-center gap-2"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-[#12b7d4]" />
                   <span>{reel.title}</span>
-                  <span className="text-[10px] text-[#888888] group-hover:text-white">▶</span>
-                </button>
+                </span>
               ))}
             </div>
           </div>
@@ -881,7 +852,7 @@ export default function Works({ setPage }) {
                 controls
                 autoPlay
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="w-full h-full max-h-[85vh] object-cover gpu-smooth"
               />
             </motion.div>

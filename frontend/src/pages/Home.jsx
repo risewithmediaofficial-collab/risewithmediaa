@@ -1,8 +1,9 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection, { rushEase } from "../components/ScrollSection";
 import GravityDotsCanvas from "../components/GravityDotsCanvas";
+import ViewportVideo from "../components/ViewportVideo";
 
 // Client Logos
 import arunamLogo from "../assets/clientlogo/Arunam Logo.png";
@@ -26,23 +27,23 @@ import krinbrinLogo from "../assets/clientlogo/krinbrinlogo.png";
 import zoyLogo from "../assets/clientlogo/zoylogo.png";
 
 // Media Assets (Reels)
-import reel1 from "../assets/clientvideos/1.mp4";
-import reel2 from "../assets/clientvideos/2.mp4";
-import reel3 from "../assets/clientvideos/3.mp4";
-import reel4 from "../assets/clientvideos/4.mp4";
-import reel5 from "../assets/clientvideos/5.mp4";
+import reel1 from "../assets/clientvideos/Saran TIles 06.mp4";
+import reel2 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 1.56.35 PM.mp4";
+import reel3 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 2.01.33 PM.mp4";
+import reel4 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 2.02.32 PM.mp4";
+import reel5 from "../assets/clientvideos/WhatsApp Video 2026-10-26 at 2.20.36 PM.mp4";
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_s15r115";
 const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
 const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
 
-// 5 Client Reels for Video Showcase with Full Swiping Support
+// Client videos are linked on demand so large files never block the initial page load.
 const clientReels = [
   {
     id: 1,
     tag: "Creators x Brands",
-    title: "Viral Food & Retail",
+    title: "Saran Tiles",
     subTag: "REELS",
     src: reel1,
     badge: null,
@@ -50,7 +51,7 @@ const clientReels = [
   {
     id: 2,
     tag: "Viral Reach",
-    title: "Creators x Brands",
+    title: "Client Campaign Film",
     subTag: "REELS",
     src: reel2,
     badge: null,
@@ -58,7 +59,7 @@ const clientReels = [
   {
     id: 3,
     tag: "Hospitality",
-    title: "Brand Influence",
+    title: "Social Growth Reel",
     subTag: "REELS",
     src: reel3,
     badge: "Rise Media",
@@ -66,15 +67,15 @@ const clientReels = [
   {
     id: 4,
     tag: "Campus Growth",
-    title: "School Brand Reels",
+    title: "Performance Creative",
     subTag: "REELS",
     src: reel4,
     badge: null,
   },
   {
     id: 5,
-    tag: "Wellness & Health",
-    title: "Organic Brand Growth",
+    tag: "Brand Story",
+    title: "Latest Client Reel",
     subTag: "REELS",
     src: reel5,
     badge: "Rise Media",
@@ -177,27 +178,6 @@ export default function Home({ setPage }) {
       handlePrevReel();
     }
   };
-
-  // Lock body scroll and listen for Escape key when video modal is active
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setActiveVideoModal(null);
-      }
-    };
-
-    if (activeVideoModal) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [activeVideoModal]);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -545,20 +525,10 @@ export default function Home({ setPage }) {
                     <motion.div
                       whileHover={{ scale: 1.04, y: -4 }}
                       transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                      onClick={() => setActiveVideoModal(reel.src)}
-                      className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 cursor-pointer gpu-smooth"
+                      className="relative w-[210px] sm:w-[245px] lg:w-[275px] xl:w-[295px] h-[330px] sm:h-[380px] lg:h-[430px] xl:h-[460px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] transition-colors duration-300 gpu-smooth"
                     >
-                      <video
-                        key={reel.src}
-                        src={reel.src}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="auto"
-                        className="w-full h-full object-cover gpu-smooth"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                      <ViewportVideo src={reel.src} className="absolute inset-0 h-full w-full object-cover gpu-smooth" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none" />
 
                       {/* Optional Circular Brand Badge */}
                       {reel.badge && (
@@ -577,10 +547,6 @@ export default function Home({ setPage }) {
                         </h4>
                       </div>
 
-                      {/* Play Hint */}
-                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                        ▶
-                      </div>
                     </motion.div>
 
                     {/* Caption Under Card */}
@@ -640,7 +606,7 @@ export default function Home({ setPage }) {
                 </span>
                 <span className="text-xs text-[#bbbbbb]">•</span>
                 <span className="text-[11px] font-semibold text-[#12b7d4]">
-                  Swipe or use buttons to explore all 5 videos
+                  Swipe or use buttons to explore all videos
                 </span>
               </div>
             </div>
@@ -1070,7 +1036,7 @@ export default function Home({ setPage }) {
                 controls
                 autoPlay
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="w-full h-full max-h-[80vh] object-contain gpu-smooth"
               />
             </motion.div>

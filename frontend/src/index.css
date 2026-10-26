@@ -65,6 +65,16 @@
     will-change: transform, opacity;
   }
 
+  /* Respect low-power devices and visitors who prefer less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   ::-webkit-scrollbar {
     width: 7px;
   }
@@ -79,6 +89,46 @@
     background: #333333;
   }
 }
+
+.website-icon-stage,
+.reel-link-art {
+  background: radial-gradient(circle at 50% 35%, rgba(18, 183, 212, 0.28), transparent 42%), #111;
+}
+
+.website-icon-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.website-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 6.5rem;
+  height: 6.5rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 2rem;
+  background: rgba(0,0,0,.45);
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+  transform: rotate(-5deg);
+}
+
+.website-icon-orbit,
+.reel-orbit {
+  position: absolute;
+  border: 1px solid rgba(18,183,212,.38);
+  border-radius: 9999px;
+}
+
+.website-icon-orbit { width: 12rem; height: 12rem; transform: rotate(18deg); }
+.reel-orbit-one { width: 18rem; height: 18rem; left: -5rem; top: 2rem; }
+.reel-orbit-two { width: 14rem; height: 14rem; right: -4rem; bottom: 1rem; border-color: rgba(255,255,255,.18); }
 
 /* ─── Typography & Utility Classes ─── */
 .font-sansation,
@@ -248,6 +298,8 @@
   justify-content: center;
   position: relative;
   width: 100%;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 
 @media (min-width: 640px) {
