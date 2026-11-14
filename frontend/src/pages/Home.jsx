@@ -114,19 +114,19 @@ function FlolapoSkillItem({ title, onClick }) {
   const scrollColor = useTransform(
     scrollYProgress,
     [0, 0.35, 0.75, 1],
-    ["#262626", "#3f3f46", "#0ea5c0", "#12b7d4"]
+    ["#71717a", "#a1a1aa", "#0ea5c0", "#12b7d4"]
   );
 
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.4, 1],
-    [0.3, 0.65, 1]
+    [0.6, 0.85, 1]
   );
 
   const scale = useTransform(
     scrollYProgress,
     [0, 1],
-    [0.96, 1]
+    [0.97, 1]
   );
 
   return (
@@ -284,10 +284,10 @@ export default function Home({ setPage }) {
 
           {/* Centered Brand Badge & Logo (Hero Section - Enlarged High Impact, No Box Bg) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.6, delay: 0, ease: rushEase }}
+            viewport={{ once: true, amount: 0.01 }}
+            transition={{ duration: 0.45, ease: rushEase }}
             className="flex items-center justify-center mb-6 sm:mb-8"
           >
             <div className="inline-flex items-center gap-3.5 sm:gap-4 group cursor-default transition-transform">
@@ -309,20 +309,20 @@ export default function Home({ setPage }) {
             <div className="overflow-hidden flex flex-wrap justify-center leading-[1.08]">
               {/* LEFT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: -60 }}
+                initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.05 }}
-                transition={{ duration: 0.75, delay: 0.05, ease: rushEase }}
+                viewport={{ once: true, amount: 0.01 }}
+                transition={{ duration: 0.5, ease: rushEase }}
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] inline-block pr-[0.18em]"
               >
                 “MARKETING THAT WORKS
               </motion.span>
               {/* RIGHT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: 60 }}
+                initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.05 }}
-                transition={{ duration: 0.75, delay: 0.05, ease: rushEase }}
+                viewport={{ once: true, amount: 0.01 }}
+                transition={{ duration: 0.5, ease: rushEase }}
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] inline-block"
               >
                 WHILE YOU SNOOZE”
@@ -333,10 +333,10 @@ export default function Home({ setPage }) {
             <div className="overflow-visible flex flex-wrap justify-center items-baseline mt-3 gap-x-3 sm:gap-x-4 pb-2 pt-1">
               {/* LEFT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: -40 }}
+                initial={{ opacity: 0, x: -25 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.05 }}
-                transition={{ duration: 0.7, delay: 0.16, ease: rushEase }}
+                viewport={{ once: true, amount: 0.01 }}
+                transition={{ duration: 0.45, ease: rushEase }}
                 className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-[#000000] inline-flex items-baseline"
               >
                 <span>Not</span>
@@ -344,10 +344,10 @@ export default function Home({ setPage }) {
               </motion.span>
               {/* RIGHT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: 40 }}
+                initial={{ opacity: 0, x: 25 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.05 }}
-                transition={{ duration: 0.7, delay: 0.16, ease: rushEase }}
+                viewport={{ once: true, amount: 0.01 }}
+                transition={{ duration: 0.45, ease: rushEase }}
                 className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-[#000000] inline-block"
               >
                 <span className="text-[#12b7d4]">visible,</span> Memorable.
@@ -358,10 +358,10 @@ export default function Home({ setPage }) {
 
           {/* Sub-Hero CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.6, delay: 0.24, ease: rushEase }}
+            viewport={{ once: true, amount: 0.01 }}
+            transition={{ duration: 0.4, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4 mt-8"
           >
             <button
@@ -450,28 +450,28 @@ export default function Home({ setPage }) {
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
             <motion.span
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.08 }}
-              transition={{ duration: 0.5, ease: rushEase }}
+              viewport={{ once: true, amount: 0.02 }}
+              transition={{ duration: 0.4, ease: rushEase }}
               className="tag-bubble-cyan mb-2 inline-block"
             >
               Our Works
             </motion.span>
             <motion.h2
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.08 }}
-              transition={{ duration: 0.6, delay: 0.06, ease: rushEase }}
+              viewport={{ once: true, amount: 0.02 }}
+              transition={{ duration: 0.45, ease: rushEase }}
               className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-2"
             >
               Works That <span className="text-[#12b7d4]">Captivate</span>
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.08 }}
-              transition={{ duration: 0.6, delay: 0.12, ease: rushEase }}
+              viewport={{ once: true, amount: 0.02 }}
+              transition={{ duration: 0.45, ease: rushEase }}
               className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]"
             >
               High-converting short-form creative, viral reels & brand storytelling.
@@ -505,21 +505,22 @@ export default function Home({ setPage }) {
               </svg>
             </button>
 
-            {/* Tilted Staggered Video Cards */}
-            <div className="relative w-full flex items-center justify-center gap-5 sm:gap-7 lg:gap-10 flex-wrap lg:flex-nowrap px-4 sm:px-12">
+            {/* Tilted Staggered Video Cards (Single focused card on mobile for max GPU speed, 3 cards on desktop) */}
+            <div className="relative w-full flex items-center justify-center gap-5 sm:gap-7 lg:gap-10 px-4 sm:px-12">
               {[0, 1, 2].map((offset) => {
                 const reelIndex = (activeReelIndex + offset) % clientReels.length;
                 const reel = clientReels[reelIndex];
-                const rotateDeg = offset === 0 ? -4.5 : offset === 1 ? 2.5 : -3.5;
-                const translateYClass = offset === 1 ? "-translate-y-2 sm:-translate-y-3 z-10" : "translate-y-3 sm:translate-y-6";
+                const rotateClass = offset === 0 ? "sm:-rotate-[4.5deg]" : offset === 1 ? "sm:rotate-[2.5deg]" : "sm:-rotate-[3.5deg]";
+                const translateYClass = offset === 1 ? "sm:-translate-y-2 sm:-translate-y-3 z-10" : "sm:translate-y-3 sm:translate-y-6";
+                const displayClass = offset > 0 ? "hidden sm:flex" : "flex";
 
                 return (
                   <motion.div
                     key={`${reel.id}-${offset}`}
                     initial={{ opacity: 0, scale: 0.94 }}
-                    animate={{ opacity: 1, scale: 1, rotate: rotateDeg }}
-                    transition={{ duration: 0.45, ease: rushEase }}
-                    className={`flex flex-col items-center group ${translateYClass}`}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.35, ease: rushEase }}
+                    className={`flex-col items-center group transition-transform ${translateYClass} ${rotateClass} ${displayClass}`}
                   >
                     {/* Video Card */}
                     <motion.div
@@ -532,7 +533,7 @@ export default function Home({ setPage }) {
                       role="button"
                       tabIndex={0}
                       aria-label={`Open ${reel.title} video`}
-                      className="relative aspect-[9/16] w-[190px] sm:w-[220px] lg:w-[250px] xl:w-[270px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] focus-visible:border-[#12b7d4] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#12b7d4]/25 transition-colors duration-300 cursor-pointer gpu-smooth"
+                      className="relative aspect-[9/16] w-[210px] sm:w-[220px] lg:w-[250px] xl:w-[270px] rounded-3xl overflow-hidden bg-black shadow-[0_20px_45px_rgba(0,0,0,0.18)] border-2 border-white hover:border-[#12b7d4] focus-visible:border-[#12b7d4] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#12b7d4]/25 transition-colors duration-300 cursor-pointer gpu-smooth"
                     >
                       <ViewportVideo src={reel.src} className="absolute inset-0 h-full w-full object-contain bg-black gpu-smooth" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none" />
@@ -633,20 +634,20 @@ export default function Home({ setPage }) {
         <div className="rush-container text-center max-w-4xl mx-auto relative z-10">
 
           <motion.span
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.08 }}
-            transition={{ duration: 0.5, ease: rushEase }}
+            viewport={{ once: true, amount: 0.02 }}
+            transition={{ duration: 0.4, ease: rushEase }}
             className="tag-bubble-cyan mb-4 inline-block"
           >
             Proven Track Record
           </motion.span>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.08 }}
-            transition={{ duration: 0.6, delay: 0.06, ease: rushEase }}
+            viewport={{ once: true, amount: 0.02 }}
+            transition={{ duration: 0.45, ease: rushEase }}
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Sansation'] mb-6"
           >
             RESULTS<br />
@@ -655,20 +656,20 @@ export default function Home({ setPage }) {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.08 }}
-            transition={{ duration: 0.6, delay: 0.12, ease: rushEase }}
+            viewport={{ once: true, amount: 0.02 }}
+            transition={{ duration: 0.45, ease: rushEase }}
             className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-8"
           >
             Real bottom-line growth, viral traction & market dominance.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.08 }}
-            transition={{ duration: 0.6, delay: 0.18, ease: rushEase }}
+            viewport={{ once: true, amount: 0.02 }}
+            transition={{ duration: 0.4, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
             <button
@@ -696,10 +697,10 @@ export default function Home({ setPage }) {
 
             {/* Left Column: Stacked Massive Headline */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.08 }}
-              transition={{ duration: 0.6, ease: rushEase }}
+              viewport={{ once: true, amount: 0.02 }}
+              transition={{ duration: 0.45, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
               <span className="tag-bubble-cyan mb-4 inline-block w-fit">
