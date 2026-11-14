@@ -175,7 +175,7 @@ export default function Softwares({ setPage }) {
                   className={"lg:col-span-5 flex flex-col items-start " + (idx % 2 === 1 ? "lg:order-2" : "")}
                   initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false, amount: 0.05 }}
+                  viewport={{ once: true, amount: 0.08 }}
                   transition={{ duration: 0.55, ease: rushEase }}
                 >
                   <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] mb-3 block">
@@ -238,7 +238,7 @@ export default function Softwares({ setPage }) {
                   className={"lg:col-span-7 " + (idx % 2 === 1 ? "lg:order-1" : "")}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.05 }}
+                  viewport={{ once: true, amount: 0.08 }}
                   transition={{ duration: 0.55, delay: 0.1, ease: rushEase }}
                 >
                   <div

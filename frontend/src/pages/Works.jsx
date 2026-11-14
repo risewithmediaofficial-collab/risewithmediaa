@@ -627,7 +627,7 @@ export default function Works({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 35, rotate: -7 }}
               whileInView={{ opacity: 1, y: 0, rotate: -4.5 }}
-              viewport={{ once: false, amount: 0.05 }}
+              viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.8, ease: rushEase }}
               className="flex flex-col items-center translate-y-3 sm:translate-y-6 group"
             >
@@ -664,7 +664,7 @@ export default function Works({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 35, rotate: 5 }}
               whileInView={{ opacity: 1, y: 0, rotate: 2.5 }}
-              viewport={{ once: false, amount: 0.05 }}
+              viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.8, delay: 0.08, ease: rushEase }}
               className="flex flex-col items-center -translate-y-2 sm:-translate-y-3 group z-10"
             >
@@ -701,7 +701,7 @@ export default function Works({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 35, rotate: -5 }}
               whileInView={{ opacity: 1, y: 0, rotate: -3.5 }}
-              viewport={{ once: false, amount: 0.05 }}
+              viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.8, delay: 0.16, ease: rushEase }}
               className="flex flex-col items-center translate-y-3 sm:translate-y-6 group"
             >
@@ -796,7 +796,7 @@ export default function Works({ setPage }) {
                 key={camp.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.05 }}
+                viewport={{ once: true, amount: 0.08 }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="group rounded-2xl border border-[#eaeaea] p-4 flex flex-col justify-between hover:border-black transition-all bg-white"
               >

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection, { rushEase } from "../components/ScrollSection";
@@ -158,6 +158,15 @@ export default function Home({ setPage }) {
   const [activeReelIndex, setActiveReelIndex] = useState(0);
   const reelTouchStartX = useRef(0);
 
+  // Pause Lenis smooth scrolling when video modal lightbox is active
+  useEffect(() => {
+    if (activeVideoModal) {
+      window.__lenis?.stop();
+    } else {
+      window.__lenis?.start();
+    }
+  }, [activeVideoModal]);
+
   const handlePrevReel = () => {
     setActiveReelIndex((prev) => (prev - 1 + clientReels.length) % clientReels.length);
   };
@@ -276,17 +285,17 @@ export default function Home({ setPage }) {
         {/* Interactive Gravity Dotted Canvas Background */}
         <GravityDotsCanvas containerRef={heroRef} />
 
-        {/* Ambient Blur Color Effect (Luminous Cyan & Sky Glow) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[300px] sm:h-[380px] bg-gradient-to-tr from-[#12b7d4]/20 via-[#38bdf8]/15 to-transparent rounded-full blur-[100px] pointer-events-none -z-0" />
-        <div className="absolute top-4 right-10 w-[300px] h-[300px] bg-[#12b7d4]/10 rounded-full blur-[80px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (Luminous Cyan & Sky Glow - GPU Accelerated) */}
+        <div className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[300px] sm:h-[380px] bg-gradient-to-tr from-[#12b7d4]/20 via-[#38bdf8]/15 to-transparent rounded-full blur-[60px] pointer-events-none -z-0" />
+        <div className="ambient-glow absolute top-4 right-10 w-[300px] h-[300px] bg-[#12b7d4]/10 rounded-full blur-[50px] pointer-events-none" />
 
         <div className="rush-container text-center relative z-10">
 
           {/* Centered Brand Badge & Logo (Hero Section - Enlarged High Impact, No Box Bg) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.88 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false, amount: 0.05 }}
+            viewport={{ once: true, amount: 0.05 }}
             transition={{ duration: 0.6, delay: 0, ease: rushEase }}
             className="flex items-center justify-center mb-6 sm:mb-8"
           >
@@ -309,20 +318,20 @@ export default function Home({ setPage }) {
             <div className="overflow-hidden flex flex-wrap justify-center leading-[1.08]">
               {/* LEFT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: -120 }}
+                initial={{ opacity: 0, x: -60 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.05 }}
-                transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.75, delay: 0.05, ease: rushEase }}
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] inline-block pr-[0.18em]"
               >
                 “MARKETING THAT WORKS
               </motion.span>
               {/* RIGHT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: 120 }}
+                initial={{ opacity: 0, x: 60 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.05 }}
-                transition={{ duration: 0.85, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.75, delay: 0.05, ease: rushEase }}
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] inline-block"
               >
                 WHILE YOU SNOOZE”
@@ -333,10 +342,10 @@ export default function Home({ setPage }) {
             <div className="overflow-visible flex flex-wrap justify-center items-baseline mt-3 gap-x-3 sm:gap-x-4 pb-2 pt-1">
               {/* LEFT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: -100 }}
+                initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.05 }}
-                transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.7, delay: 0.16, ease: rushEase }}
                 className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-[#000000] inline-flex items-baseline"
               >
                 <span>Not</span>
@@ -344,10 +353,10 @@ export default function Home({ setPage }) {
               </motion.span>
               {/* RIGHT HALF */}
               <motion.span
-                initial={{ opacity: 0, x: 100 }}
+                initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.05 }}
-                transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.7, delay: 0.16, ease: rushEase }}
                 className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] text-[#000000] inline-block"
               >
                 <span className="text-[#12b7d4]">visible,</span> Memorable.
@@ -358,10 +367,10 @@ export default function Home({ setPage }) {
 
           {/* Sub-Hero CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.65, delay: 0.28, ease: rushEase }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 0.6, delay: 0.24, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4 mt-8"
           >
             <button
@@ -386,9 +395,9 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <section className="section-fullscreen bg-[#000000] text-white py-10 sm:py-14 relative overflow-hidden border-b border-neutral-900">
 
-        {/* Ambient Blur Color Effect (Dual-Color Luminous Glow) */}
-        <div className="absolute top-1/4 -left-20 w-[550px] h-[550px] bg-[#12b7d4]/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-20 w-[550px] h-[550px] bg-[#0284c7]/15 rounded-full blur-[140px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (Dual-Color Luminous Glow - GPU Accelerated) */}
+        <div className="ambient-glow absolute top-1/4 -left-20 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[70px] pointer-events-none" />
+        <div className="ambient-glow absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-[#0284c7]/15 rounded-full blur-[70px] pointer-events-none" />
 
         <div className="rush-container relative z-10 w-full">
 
@@ -428,13 +437,13 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection fullScreen className="bg-white py-8 sm:py-12 border-b border-[#eaeaea] relative overflow-hidden">
 
-        {/* Ambient Blur Color Effect */}
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-[#12b7d4]/12 rounded-full blur-[100px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (GPU Accelerated) */}
+        <div className="ambient-glow absolute -top-10 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-[#12b7d4]/12 rounded-full blur-[60px] pointer-events-none" />
 
-        {/* Background "RISE WITH MEDIA" Stroke Text Blend (Reference UI Style) */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+        {/* Background "RISE WITH MEDIA" Stroke Text Blend (Reference UI Style - GPU Accelerated) */}
+        <div className="ambient-glow absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
           <span
-            className="text-[5.5rem] sm:text-[10rem] md:text-[14rem] lg:text-[17rem] font-black uppercase tracking-tight whitespace-nowrap leading-none select-none opacity-20"
+            className="text-[5.5rem] sm:text-[10rem] md:text-[14rem] lg:text-[17rem] font-black uppercase tracking-tight whitespace-nowrap leading-none select-none opacity-20 transform-gpu"
             style={{
               fontFamily: "'Sansation', sans-serif",
               WebkitTextStroke: "2px rgba(0, 0, 0, 0.35)",
@@ -450,28 +459,28 @@ export default function Home({ setPage }) {
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
             <motion.span
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.05 }}
+              viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.5, ease: rushEase }}
               className="tag-bubble-cyan mb-2 inline-block"
             >
               Our Works
             </motion.span>
             <motion.h2
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
+              viewport={{ once: true, amount: 0.08 }}
+              transition={{ duration: 0.6, delay: 0.06, ease: rushEase }}
               className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-2"
             >
               Works That <span className="text-[#12b7d4]">Captivate</span>
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.6, delay: 0.16, ease: rushEase }}
+              viewport={{ once: true, amount: 0.08 }}
+              transition={{ duration: 0.6, delay: 0.12, ease: rushEase }}
               className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]"
             >
               High-converting short-form creative, viral reels & brand storytelling.
@@ -627,15 +636,15 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection fullScreen className="bg-white py-12 sm:py-16 border-b border-[#eaeaea] relative overflow-hidden">
 
-        {/* Ambient Blur Color Effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[320px] bg-gradient-to-r from-[#12b7d4]/18 via-[#38bdf8]/12 to-transparent rounded-full blur-[100px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (GPU Accelerated) */}
+        <div className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[320px] bg-gradient-to-r from-[#12b7d4]/18 via-[#38bdf8]/12 to-transparent rounded-full blur-[60px] pointer-events-none" />
 
         <div className="rush-container text-center max-w-4xl mx-auto relative z-10">
 
           <motion.span
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.05 }}
+            viewport={{ once: true, amount: 0.08 }}
             transition={{ duration: 0.5, ease: rushEase }}
             className="tag-bubble-cyan mb-4 inline-block"
           >
@@ -643,10 +652,10 @@ export default function Home({ setPage }) {
           </motion.span>
 
           <motion.h2
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: rushEase }}
+            viewport={{ once: true, amount: 0.08 }}
+            transition={{ duration: 0.6, delay: 0.06, ease: rushEase }}
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Sansation'] mb-6"
           >
             RESULTS<br />
@@ -655,20 +664,20 @@ export default function Home({ setPage }) {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.6, delay: 0.16, ease: rushEase }}
+            viewport={{ once: true, amount: 0.08 }}
+            transition={{ duration: 0.6, delay: 0.12, ease: rushEase }}
             className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-8"
           >
             Real bottom-line growth, viral traction & market dominance.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.6, delay: 0.24, ease: rushEase }}
+            viewport={{ once: true, amount: 0.08 }}
+            transition={{ duration: 0.6, delay: 0.18, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
             <button
@@ -688,18 +697,18 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection fullScreen className="bg-white py-10 lg:py-14 border-b border-[#eaeaea] relative overflow-hidden">
 
-        {/* Ambient Blur Color Effect */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#12b7d4]/10 rounded-full blur-[110px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (GPU Accelerated) */}
+        <div className="ambient-glow absolute right-0 top-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#12b7d4]/10 rounded-full blur-[60px] pointer-events-none" />
 
         <div className="rush-container relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
             {/* Left Column: Stacked Massive Headline */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.05 }}
-              transition={{ duration: 0.7, ease: rushEase }}
+              viewport={{ once: true, amount: 0.08 }}
+              transition={{ duration: 0.6, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
               <span className="tag-bubble-cyan mb-4 inline-block w-fit">
@@ -774,8 +783,8 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection fullScreen className="bg-[#000000] text-white py-10 lg:py-16 overflow-hidden relative">
 
-        {/* Ambient Blur Color Effect */}
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[140px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (GPU Accelerated) */}
+        <div className="ambient-glow absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[70px] pointer-events-none" />
 
         <div className="rush-container relative z-10">
 
@@ -863,16 +872,16 @@ export default function Home({ setPage }) {
       ───────────────────────────────────────────────────────────────── */}
       <ScrollSection id="CTA" className="bg-[#000000] text-white py-12 lg:py-16 relative overflow-hidden">
 
-        {/* Ambient Blur Color Effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#12b7d4]/12 rounded-full blur-[140px] pointer-events-none" />
+        {/* Ambient Blur Color Effect (GPU-Accelerated) */}
+        <div className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-r from-[#12b7d4]/14 via-[#38bdf8]/10 to-transparent rounded-full blur-[60px] pointer-events-none" />
 
         <div className="rush-container relative z-10">
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.75, ease: rushEase }}
+            viewport={{ once: true, amount: 0.08 }}
+            transition={{ duration: 0.65, ease: rushEase }}
             className="max-w-4xl mx-auto"
           >
 

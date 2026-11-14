@@ -97,7 +97,7 @@ export default function Clients({ setPage }) {
                 key={i}
                 initial={{ opacity: 0, y: 28, scale: 0.94 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.05 }}
+                viewport={{ once: true, amount: 0.08 }}
                 transition={{ duration: 0.55, delay: i * 0.1, ease: rushEase }}
                 className="text-center p-4 sm:p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors shadow-xs"
               >
@@ -128,7 +128,7 @@ export default function Clients({ setPage }) {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.05 }}
+              viewport={{ once: true, amount: 0.08 }}
               transition={{ duration: 0.7, ease: rushEase }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
@@ -214,7 +214,7 @@ export default function Clients({ setPage }) {
                 key={i}
                 initial={{ opacity: 0, y: 30, x: i % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, y: 0, x: 0 }}
-                viewport={{ once: false, amount: 0.05 }}
+                viewport={{ once: true, amount: 0.08 }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="rounded-3xl border border-[#eaeaea] p-8 flex flex-col justify-between hover:border-[#12b7d4] transition-all bg-white"
               >

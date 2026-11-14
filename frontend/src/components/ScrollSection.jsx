@@ -8,7 +8,7 @@ export const rushEase = [0.16, 1, 0.3, 1];
 
 /**
  * ScrollReveal / ScrollSection
- * Triggers animations both scrolling down and up (once: false)
+ * Reveals once smoothly with GPU-accelerated motion to prevent flickering & layout shifts
  * Silky smooth duration and subtle initial offset
  */
 export function ScrollReveal({
@@ -18,8 +18,8 @@ export function ScrollReveal({
   style,
   delay = 0,
   as = "section",
-  amount = 0.05,
-  once = false,
+  amount = 0.08,
+  once = true,
   fullScreen = false,
 }) {
   const Component = motion[as] || motion.section;
@@ -30,11 +30,11 @@ export function ScrollReveal({
       id={id}
       style={style}
       className={`${fullScreenClass} ${className}`.trim()}
-      initial={{ opacity: 0, y: 22 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount }}
       transition={{
-        duration: 0.8,
+        duration: 0.7,
         delay,
         ease: rushEase,
       }}
@@ -46,7 +46,7 @@ export function ScrollReveal({
 
 /**
  * ScrollText: Text slide animation for headings, subtitles, and badges
- * Re-triggers on both scroll down and scroll up with soft natural glide
+ * Reveals once smoothly with soft natural glide and no flickering
  */
 export function ScrollText({
   children,
@@ -54,14 +54,15 @@ export function ScrollText({
   delay = 0,
   direction = "up",
   as = "div",
-  amount = 0.05,
+  amount = 0.08,
+  once = true,
 }) {
   const Component = motion[as] || motion.div;
   const offset =
-    direction === "up" ? 22
-    : direction === "down" ? -22
-    : direction === "left" ? 28
-    : -28;
+    direction === "up" ? 18
+    : direction === "down" ? -18
+    : direction === "left" ? 22
+    : -22;
   const axis = direction === "left" || direction === "right" ? "x" : "y";
 
   return (
@@ -69,9 +70,9 @@ export function ScrollText({
       className={className}
       initial={{ opacity: 0, [axis]: offset }}
       whileInView={{ opacity: 1, [axis]: 0 }}
-      viewport={{ once: false, amount }}
+      viewport={{ once, amount }}
       transition={{
-        duration: 0.8,
+        duration: 0.7,
         delay,
         ease: rushEase,
       }}
@@ -83,23 +84,24 @@ export function ScrollText({
 
 /**
  * ScrollImage: Image & media scale/slide animation on scroll
- * Re-triggers on both scroll down and scroll up
+ * Reveals once smoothly without flickering
  */
 export function ScrollImage({
   children,
   className = "",
   delay = 0.08,
-  scale = 0.96,
-  amount = 0.05,
+  scale = 0.97,
+  amount = 0.08,
+  once = true,
 }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, scale, y: 18 }}
+      initial={{ opacity: 0, scale, y: 14 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: false, amount }}
+      viewport={{ once, amount }}
       transition={{
-        duration: 0.85,
+        duration: 0.75,
         delay,
         ease: rushEase,
       }}

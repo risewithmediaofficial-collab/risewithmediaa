@@ -43,26 +43,56 @@
   }
 
   html {
-    scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: #0a0a0a #f5f5f5;
   }
 
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
   /* GPU-Accelerated Video Rendering & Smooth Layering */
   video {
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     will-change: transform;
   }
 
   .gpu-smooth {
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     will-change: transform, opacity;
+  }
+
+  /* Hardware-isolated Ambient Blur Glows (Prevents scroll lag & 120Hz/240Hz stutter) */
+  .ambient-glow {
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
   }
 
   /* Respect low-power devices and visitors who prefer less motion. */
@@ -253,13 +283,13 @@
   animation-play-state: paused;
 }
 
-/* ─── Continuous Vertical Upward Scroll Animation ─── */
+/* ─── Continuous Vertical Upward Scroll Animation (GPU-Layered) ─── */
 @keyframes scroll-up {
   0% {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateY(-50%);
+    transform: translate3d(0, -50%, 0);
   }
 }
 
@@ -268,6 +298,8 @@
   flex-direction: column;
   animation: scroll-up 22s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .animate-scroll-up-2 {
@@ -275,6 +307,8 @@
   flex-direction: column;
   animation: scroll-up 29s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .animate-scroll-up-3 {
@@ -282,6 +316,8 @@
   flex-direction: column;
   animation: scroll-up 25s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .logo-wall-container:hover .animate-scroll-up-1,
@@ -291,6 +327,7 @@
 }
 
 /* ─── Full-Screen Responsive Section Utilities ─── */
+/* Note: content-visibility: auto is explicitly disabled to prevent dynamic height jumps & layout shifts */
 .section-fullscreen {
   min-height: calc(100dvh - 80px);
   display: flex;
@@ -298,8 +335,6 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
 }
 
 @media (min-width: 640px) {
