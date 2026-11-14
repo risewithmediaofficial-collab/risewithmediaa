@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import ScrollSection, { rushEase } from "../components/ScrollSection";
+import ScrollSection, { rushEase, useIsMobile } from "../components/ScrollSection";
 import GravityDotsCanvas from "../components/GravityDotsCanvas";
 import ViewportVideo from "../components/ViewportVideo";
 
@@ -101,14 +101,35 @@ const flolapoSkills = [
   "SaaS & Business Automation",
 ];
 
-// Flolapo-Style Kinetic Scroll Skill Item (Smooth color shift from grey to brand cyan #12b7d4)
-function FlolapoSkillItem({ title, onClick }) {
+// Flolapo-Style Kinetic Scroll Skill Item (Mobile: zero-overhead pure GPU entrance, zero scroll listeners)
+function FlolapoSkillItemMobile({ title, onClick, index }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.35, delay: index * 0.04, ease: rushEase }}
+      onClick={onClick}
+      style={{ touchAction: "pan-y" }}
+      className="relative cursor-pointer select-none py-2 w-full text-center group active:opacity-75"
+    >
+      <h3
+        className="text-xl sm:text-2xl leading-tight uppercase tracking-tight text-center font-black text-[#12b7d4] drop-shadow-[0_2px_10px_rgba(18,183,212,0.28)] font-['Sansation'] whitespace-normal"
+      >
+        {title}
+      </h3>
+    </motion.div>
+  );
+}
+
+// Flolapo-Style Kinetic Scroll Skill Item (Desktop: smooth scroll color shift without CSS conflicts)
+function FlolapoSkillItemDesktop({ title, onClick }) {
   const itemRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: itemRef,
-    offset: ["start 92%", "center 50%"],
+    offset: ["start 90%", "center 50%"],
   });
 
   const scrollColor = useTransform(
@@ -123,32 +144,35 @@ function FlolapoSkillItem({ title, onClick }) {
     [0.6, 0.85, 1]
   );
 
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0.97, 1]
-  );
-
   return (
     <motion.div
       ref={itemRef}
       style={{
         color: isHovered ? "#12b7d4" : scrollColor,
         opacity: isHovered ? 1 : opacity,
-        scale,
       }}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.98 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
-      className="cursor-pointer select-none py-1.5 sm:py-2.5 md:py-3 transition-transform duration-300 hover:scale-[1.03] active:scale-98 group w-full"
+      className="relative cursor-pointer select-none py-2 md:py-3 group w-full"
     >
       <h3
-        className="text-xl sm:text-2xl md:text-3xl lg:text-[2.6rem] xl:text-[3.2rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm transition-colors duration-200 font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
+        className="text-2xl md:text-3xl lg:text-[2.6rem] xl:text-[3.2rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm font-['Sansation'] whitespace-normal sm:whitespace-nowrap"
       >
         {title}
       </h3>
     </motion.div>
   );
+}
+
+function FlolapoSkillItem({ title, onClick, index }) {
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return <FlolapoSkillItemMobile title={title} onClick={onClick} index={index} />;
+  }
+  return <FlolapoSkillItemDesktop title={title} onClick={onClick} />;
 }
 
 export default function Home({ setPage }) {
@@ -384,11 +408,14 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 2: WHAT WE DO (Flolapo UI Style - Kinetic Typography with Scroll Color Shift)
       ───────────────────────────────────────────────────────────────── */}
-      <section className="section-fullscreen bg-[#000000] text-white py-10 sm:py-14 relative overflow-hidden border-b border-neutral-900">
+      <section
+        className="section-fullscreen bg-[#000000] text-white py-10 sm:py-14 relative overflow-hidden border-b border-neutral-900"
+        style={{ touchAction: "pan-y" }}
+      >
 
         {/* Ambient Blur Color Effect (Dual-Color Luminous Glow - GPU Accelerated) */}
-        <div className="ambient-glow absolute top-1/4 -left-20 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[70px] pointer-events-none" />
-        <div className="ambient-glow absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-[#0284c7]/15 rounded-full blur-[70px] pointer-events-none" />
+        <div className="ambient-glow absolute top-1/4 -left-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#12b7d4]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
+        <div className="ambient-glow absolute bottom-1/4 -right-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#0284c7]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
 
         <div className="rush-container relative z-10 w-full">
 
@@ -404,6 +431,7 @@ export default function Home({ setPage }) {
             {flolapoSkills.map((skill, idx) => (
               <FlolapoSkillItem
                 key={idx}
+                index={idx}
                 title={skill}
                 onClick={() => setPage("contact")}
               />
@@ -481,6 +509,7 @@ export default function Home({ setPage }) {
           {/* Interactive Video Swiper Carousel with Buttons */}
           <div
             className="relative w-full pb-2 pt-1"
+            style={{ touchAction: "pan-y" }}
             onTouchStart={handleReelTouchStart}
             onTouchEnd={handleReelTouchEnd}
           >
