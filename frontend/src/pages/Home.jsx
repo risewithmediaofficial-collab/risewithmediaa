@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import ScrollSection, { rushEase } from "../components/ScrollSection";
@@ -157,15 +157,6 @@ export default function Home({ setPage }) {
   const [activeReview, setActiveReview] = useState(0);
   const [activeReelIndex, setActiveReelIndex] = useState(0);
   const reelTouchStartX = useRef(0);
-
-  // Pause Lenis smooth scrolling when video modal lightbox is active
-  useEffect(() => {
-    if (activeVideoModal) {
-      window.__lenis?.stop();
-    } else {
-      window.__lenis?.start();
-    }
-  }, [activeVideoModal]);
 
   const handlePrevReel = () => {
     setActiveReelIndex((prev) => (prev - 1 + clientReels.length) % clientReels.length);
@@ -781,7 +772,7 @@ export default function Home({ setPage }) {
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 6: OUR SATISFIED CLIENTS (The Rush Republic Dark Section)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection fullScreen className="bg-[#000000] text-white py-10 lg:py-16 overflow-hidden relative">
+      <section className="section-fullscreen bg-[#000000] text-white py-10 lg:py-16 overflow-hidden relative">
 
         {/* Ambient Blur Color Effect (GPU Accelerated) */}
         <div className="ambient-glow absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#12b7d4]/15 rounded-full blur-[70px] pointer-events-none" />
@@ -864,26 +855,20 @@ export default function Home({ setPage }) {
           </AnimatePresence>
 
         </div>
-      </ScrollSection>
+      </section>
 
 
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 8: CTA FORM (LET’S CONNECT TO CREATE MAGIC!)
       ───────────────────────────────────────────────────────────────── */}
-      <ScrollSection id="CTA" className="bg-[#000000] text-white py-12 lg:py-16 relative overflow-hidden">
+      <section id="CTA" className="bg-[#000000] text-white py-12 lg:py-16 relative overflow-hidden">
 
         {/* Ambient Blur Color Effect (GPU-Accelerated) */}
         <div className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-r from-[#12b7d4]/14 via-[#38bdf8]/10 to-transparent rounded-full blur-[60px] pointer-events-none" />
 
         <div className="rush-container relative z-10">
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.08 }}
-            transition={{ duration: 0.65, ease: rushEase }}
-            className="max-w-4xl mx-auto"
-          >
+          <div className="max-w-4xl mx-auto">
 
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white mb-3 font-['Sansation']">
@@ -1017,10 +1002,10 @@ export default function Home({ setPage }) {
 
             </form>
 
-          </motion.div>
+          </div>
 
         </div>
-      </ScrollSection>
+      </section>
 
       {/* Video Modal Lightbox */}
       <AnimatePresence>

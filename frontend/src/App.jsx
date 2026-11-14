@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Lenis from "lenis";
-import "lenis/dist/lenis.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -137,39 +135,6 @@ export default function App() {
   const [page, setPage] = useState(getPageFromUrl);
   const [selectedContactService, setSelectedContactService] = useState("");
 
-  // Ultra-Smooth 120Hz / 240Hz Inertial Smooth Scroll via Lenis
-  useEffect(() => {
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
-
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
-      infinite: false,
-    });
-
-    window.__lenis = lenis;
-
-    let rafId;
-    function raf(time) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-      window.__lenis = null;
-    };
-  }, []);
-
   const handleNavigate = (nextPage) => {
     setPage(nextPage);
     const targetUrl = getUrlForPage(nextPage);
@@ -179,11 +144,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (window.__lenis) {
-      window.__lenis.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
+    window.scrollTo({ top: 0, behavior: "instant" });
     const targetUrl = getUrlForPage(page);
     // Canonicalize the URL if it differs or if it contains a legacy hash
     if (window.location.pathname !== targetUrl || window.location.hash) {
