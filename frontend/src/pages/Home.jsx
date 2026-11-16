@@ -146,129 +146,56 @@ const flolapoSkills = [
   },
 ];
 
-// Section 2: What We Cover - Progressive One-by-One Reveal on Scroll with Dynamic Agency Stickers
-function SectionWhatWeCover({ setPage }) {
-  const containerRef = useRef(null);
+// Flolapo-Style Kinetic Skill Row with Agency Sticker & Smooth Reveal
+function FlolapoSkillRow({ skill, index, onClick }) {
   const isMobile = useIsMobile();
-  const [revealedCount, setRevealedCount] = useState(1);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    let count = 1;
-    if (latest >= 0.72) count = 5;
-    else if (latest >= 0.54) count = 4;
-    else if (latest >= 0.36) count = 3;
-    else if (latest >= 0.18) count = 2;
-    else count = 1;
-
-    setRevealedCount((prev) => (prev !== count ? count : prev));
-  });
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative bg-[#000000] text-white border-b border-neutral-900"
-      style={{
-        position: "relative",
-        height: isMobile ? "220vh" : "250vh",
-        touchAction: "pan-y",
+    <motion.div
+      initial={{ opacity: 0, y: isMobile ? 12 : 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: isMobile ? 0.2 : 0.35 }}
+      transition={{
+        duration: isMobile ? 0.35 : 0.5,
+        delay: isMobile ? index * 0.05 : index * 0.08,
+        ease: rushEase,
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      style={{ touchAction: "pan-y" }}
+      className="cursor-pointer select-none py-2.5 sm:py-3.5 md:py-4.5 group w-full flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 hover:scale-[1.02] active:scale-98 transition-transform duration-200"
     >
-      <div className="sticky top-0 h-[100svh] w-full flex flex-col justify-center items-center overflow-hidden py-6 sm:py-10">
-        {/* Ambient Blur Color Effect (Dual-Color Luminous Glow - GPU Accelerated) */}
-        <div className="ambient-glow absolute top-1/4 -left-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#12b7d4]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
-        <div className="ambient-glow absolute bottom-1/4 -right-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#0284c7]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
+      {/* Massive Typography Title */}
+      <h3
+        className={`text-xl sm:text-2xl md:text-3xl lg:text-[2.6rem] xl:text-[3.2rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm font-['Sansation'] whitespace-normal sm:whitespace-nowrap transition-all duration-300 ${
+          isHovered
+            ? "text-[#38bdf8] drop-shadow-[0_2px_18px_rgba(56,189,248,0.5)]"
+            : "text-[#12b7d4] drop-shadow-[0_2px_14px_rgba(18,183,212,0.35)]"
+        }`}
+      >
+        {skill.title}
+      </h3>
 
-        <div className="rush-container relative z-10 w-full flex flex-col items-center">
-          {/* Header Tag */}
-          <div className="text-center mb-4 sm:mb-6">
-            <span className="tag-bubble-cyan inline-block">
-              What We Cover
-            </span>
-          </div>
-
-          {/* Minimal Progressive Step Dots */}
-          <div className="flex items-center justify-center gap-1.5 mb-5 sm:mb-6" aria-hidden="true">
-            {[1, 2, 3, 4, 5].map((step) => (
-              <div
-                key={step}
-                className={`h-1 sm:h-1.5 rounded-full transition-all duration-300 ${
-                  step <= revealedCount
-                    ? "w-6 sm:w-8 bg-[#12b7d4] shadow-[0_0_10px_rgba(18,183,212,0.8)]"
-                    : "w-1.5 sm:w-2 bg-neutral-800"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Progressive Kinetic Typography Stack */}
-          <div className="flex flex-col items-center justify-center gap-2 sm:gap-3.5 max-w-7xl mx-auto w-full">
-            {flolapoSkills.map((skill, idx) => {
-              const isRevealed = idx < revealedCount;
-              if (!isRevealed) return null;
-
-              return (
-                <motion.div
-                  key={skill.id}
-                  layout
-                  initial={{ opacity: 0, y: 16, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{
-                    duration: 0.35,
-                    ease: rushEase,
-                    layout: { duration: 0.28, ease: rushEase },
-                  }}
-                  onClick={() => setPage("contact")}
-                  className="cursor-pointer select-none py-1 sm:py-1.5 group w-full flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3.5 hover:scale-[1.02] active:scale-98 transition-transform"
-                >
-                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] xl:text-[3rem] leading-tight uppercase tracking-tight text-center font-black drop-shadow-sm font-['Sansation'] whitespace-normal sm:whitespace-nowrap text-[#12b7d4] drop-shadow-[0_2px_12px_rgba(18,183,212,0.3)]">
-                    {skill.title}
-                  </h3>
-
-                  {/* Playful Holographic Sticker Badge */}
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0, rotate: -12 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 450,
-                      damping: 18,
-                      delay: 0.05,
-                    }}
-                    className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider border ${skill.sticker.badgeClass} ${skill.sticker.rotation} select-none pointer-events-none`}
-                  >
-                    <span className="text-xs sm:text-sm">{skill.sticker.icon}</span>
-                    <span className="font-extrabold tracking-wide">{skill.sticker.text}</span>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Micro CTA Button - Reveals when all are shown */}
-          {revealedCount >= 5 && (
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.1, ease: rushEase }}
-              className="text-center mt-5 sm:mt-7"
-            >
-              <button
-                onClick={() => setPage("contact")}
-                className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Sansation']"
-              >
-                Start A Project With Us →
-              </button>
-            </motion.div>
-          )}
-        </div>
-      </div>
-    </section>
+      {/* Playful Floating Agency Sticker */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0, rotate: -15 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true, amount: isMobile ? 0.2 : 0.35 }}
+        transition={{
+          type: "spring",
+          stiffness: 420,
+          damping: 20,
+          delay: isMobile ? index * 0.05 + 0.1 : index * 0.08 + 0.15,
+        }}
+        whileHover={{ scale: 1.12, rotate: 0 }}
+        className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider border ${skill.sticker.badgeClass} ${skill.sticker.rotation} select-none pointer-events-none transition-all duration-200`}
+      >
+        <span className="text-xs sm:text-sm">{skill.sticker.icon}</span>
+        <span className="font-extrabold tracking-wide">{skill.sticker.text}</span>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -503,9 +430,55 @@ export default function Home({ setPage }) {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 2: WHAT WE DO (Progressive Kinetic Typography with Stickers & Scroll Reveal)
+          SECTION 2: WHAT WE DO (Flolapo Agency Typography with Dynamic Stickers)
       ───────────────────────────────────────────────────────────────── */}
-      <SectionWhatWeCover setPage={setPage} />
+      <section
+        className="section-fullscreen bg-[#000000] text-white py-12 sm:py-16 md:py-20 relative overflow-hidden border-b border-neutral-900"
+        style={{ touchAction: "pan-y" }}
+      >
+        {/* Ambient Blur Color Effect (Dual-Color Luminous Glow - GPU Accelerated) */}
+        <div className="ambient-glow absolute top-1/4 -left-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#12b7d4]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
+        <div className="ambient-glow absolute bottom-1/4 -right-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#0284c7]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
+
+        <div className="rush-container relative z-10 w-full flex flex-col items-center">
+
+          {/* Header Tag */}
+          <div className="text-center mb-6 sm:mb-8 md:mb-10">
+            <span className="tag-bubble-cyan inline-block">
+              What We Cover
+            </span>
+          </div>
+
+          {/* Flolapo Kinetic Typography Vertical Stack with Agency Stickers */}
+          <div className="flex flex-col items-center justify-center gap-1 sm:gap-2 max-w-7xl mx-auto w-full">
+            {flolapoSkills.map((skill, idx) => (
+              <FlolapoSkillRow
+                key={skill.id}
+                skill={skill}
+                index={idx}
+                onClick={() => setPage("contact")}
+              />
+            ))}
+          </div>
+
+          {/* Micro CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.35, ease: rushEase }}
+            className="text-center mt-7 sm:mt-10"
+          >
+            <button
+              onClick={() => setPage("contact")}
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Sansation']"
+            >
+              Start A Project With Us →
+            </button>
+          </motion.div>
+
+        </div>
+      </section>
 
       {/* ─────────────────────────────────────────────────────────────────
           SECTION 3: OUR WORKS (Tilted Video Cards with Stroke Text Blend)
