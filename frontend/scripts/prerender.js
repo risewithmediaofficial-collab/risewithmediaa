@@ -85,6 +85,22 @@ const routes = [
     ]
   },
   {
+    route: 'careers',
+    title: 'Careers & Job Openings in Krishnagiri & Hosur | Rise With Media',
+    description: 'Join Rise With Media in Krishnagiri, Tamil Nadu. We are hiring passionate Video Editors, MERN Stack Full-Stack Developers, and Content Creators. Freshers and experienced candidates can apply.',
+    canonical: 'https://risewithmedia.com/careers',
+    keywords: 'careers Rise With Media, video editor jobs Krishnagiri, MERN stack developer jobs Tamil Nadu, content creator jobs Hosur, digital marketing careers Krishnagiri, fresher developer jobs Hosur',
+    h1: 'Careers at Rise With Media — Build Something Extraordinary',
+    tagline: 'Join a High-Energy Creative and Technology Team in Krishnagiri & Hosur',
+    bodyText: 'We are hiring passionate Video Editors, Full-Stack MERN Developers, and Content Creators. Discover open roles, real brand projects, hands-on growth, and apply directly online.',
+    highlights: [
+      'Role 01: Video Editor (Instagram Reels, YouTube & Viral Ads)',
+      'Role 02: Full-Stack Developer (MERN Stack, React & Cloud APIs)',
+      'Role 03: Content Creator (Trend Strategy, Scripting & Reels)',
+      'Culture: Creative Autonomy, Hands-On Mentorship & Fast Career Growth'
+    ]
+  },
+  {
     route: 'services/content-social',
     title: 'Social Media Marketing & Instagram Reels Agency Krishnagiri | Rise With Media',
     description: 'Build a dominant social media brand in Krishnagiri & Hosur. Viral Instagram reel production, video editing, social media management, and content strategy.',

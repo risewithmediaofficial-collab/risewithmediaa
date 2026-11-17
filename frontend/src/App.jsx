@@ -7,6 +7,7 @@ import Works from "./pages/Works";
 import Clients from "./pages/Clients";
 import Contact from "./pages/Contact";
 import Softwares from "./pages/Softwares";
+import Careers from "./pages/Careers";
 import ServiceDetail, { servicesData } from "./pages/ServiceDetail";
 
 // Floating WhatsApp Button with authentic WhatsApp branding
@@ -72,6 +73,12 @@ export const routeMeta = {
     keywords: "contact digital marketing agency Krishnagiri, hire Meta ads expert Hosur, website designer near me, WhatsApp marketing consultation",
     canonical: "https://risewithmedia.com/contact",
   },
+  careers: {
+    title: "Careers & Job Openings in Krishnagiri & Hosur | Rise With Media",
+    description: "Join Rise With Media in Krishnagiri, Tamil Nadu. We are hiring passionate Video Editors, MERN Stack Full-Stack Developers, and Content Creators. Freshers and experienced candidates can apply.",
+    keywords: "careers Rise With Media, video editor jobs Krishnagiri, MERN stack developer jobs Tamil Nadu, content creator jobs Hosur, digital marketing careers Krishnagiri, fresher developer jobs Hosur",
+    canonical: "https://risewithmedia.com/careers",
+  },
   "service-content-social": {
     title: "Social Media Marketing & Instagram Reels Agency Krishnagiri | Rise With Media",
     description: "Build a dominant social media brand in Krishnagiri & Hosur. Viral Instagram reel production, video editing, social media management, and content strategy.",
@@ -104,7 +111,7 @@ export const getPageFromUrl = () => {
   // Check pathname first
   const pathname = window.location.pathname.replace(/^\/+|\/+$/g, "");
   if (!pathname || pathname === "home") return "home";
-  if (["works", "clients", "contact", "softwares"].includes(pathname)) return pathname;
+  if (["works", "clients", "contact", "softwares", "careers"].includes(pathname)) return pathname;
   if (pathname === "services/content-social" || pathname === "service-content-social") return "service-content-social";
   if (pathname === "services/websites-funnels" || pathname === "service-websites-funnels") return "service-websites-funnels";
   if (pathname === "services/performance-marketing" || pathname === "service-performance-marketing") return "service-performance-marketing";
@@ -113,7 +120,7 @@ export const getPageFromUrl = () => {
   // Check hash fallback for backward compatibility
   const hash = window.location.hash.replace("#", "").replace(/^\/+|\/+$/g, "");
   if (hash) {
-    if (["home", "works", "clients", "contact", "softwares"].includes(hash) || servicesData[hash]) {
+    if (["home", "works", "clients", "contact", "softwares", "careers"].includes(hash) || servicesData[hash]) {
       return hash;
     }
   }
@@ -123,7 +130,7 @@ export const getPageFromUrl = () => {
 
 export const getUrlForPage = (page) => {
   if (!page || page === "home") return "/";
-  if (["works", "clients", "contact", "softwares"].includes(page)) return `/${page}`;
+  if (["works", "clients", "contact", "softwares", "careers"].includes(page)) return `/${page}`;
   if (page.startsWith("service-")) {
     const slug = page.replace("service-", "");
     return `/services/${slug}`;
@@ -208,6 +215,8 @@ export default function App() {
         return <Softwares setPage={setPage} />;
       case "clients":
         return <Clients setPage={setPage} />;
+      case "careers":
+        return <Careers setPage={setPage} />;
       case "contact":
         return (
           <Contact

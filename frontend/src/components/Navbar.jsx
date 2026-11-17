@@ -6,6 +6,7 @@ const navLinks = [
   { label: "Case Studies", key: "works" },
   { label: "Softwares", key: "softwares" },
   { label: "Clients", key: "clients" },
+  { label: "Careers", key: "careers" },
   { label: "Contact", key: "contact" },
 ];
 
