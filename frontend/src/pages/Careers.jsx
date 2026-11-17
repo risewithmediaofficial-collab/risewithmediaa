@@ -174,15 +174,39 @@ export default function Careers({ setPage }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [submittedApplicationId, setSubmittedApplicationId] = useState("");
 
-  // Lock body scroll when any modal is open
+  // Bulletproof body scroll lock when any modal is open (Desktop & Mobile)
   useEffect(() => {
     if (detailRole || applyRole) {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+      document.body.style.touchAction = "none";
     } else {
+      const scrollY = document.body.style.top;
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.touchAction = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     }
     return () => {
+      const scrollY = document.body.style.top;
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.touchAction = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     };
   }, [detailRole, applyRole]);
 
@@ -676,14 +700,14 @@ Sent via: risewithmedia.com/careers
       ───────────────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {detailRole && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto overscroll-contain">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleCloseModals}
-              className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity touch-none"
             />
 
             {/* Modal Box */}
@@ -692,7 +716,7 @@ Sent via: risewithmedia.com/careers
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.25, ease: rushEase }}
-              className="relative z-10 bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 my-auto max-h-[88vh] overflow-y-auto"
+              className="relative z-10 bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 my-auto max-h-[88vh] overflow-y-auto overscroll-contain"
             >
               {/* Header Close Button */}
               <button
@@ -811,14 +835,14 @@ Sent via: risewithmedia.com/careers
       ───────────────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {applyRole && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto overscroll-contain">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleCloseModals}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity touch-none"
             />
 
             {/* Modal Box */}
@@ -827,7 +851,7 @@ Sent via: risewithmedia.com/careers
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.25, ease: rushEase }}
-              className="relative z-10 bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 my-auto max-h-[92vh] overflow-y-auto"
+              className="relative z-10 bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 my-auto max-h-[92vh] overflow-y-auto overscroll-contain"
             >
               {/* Close Button */}
               <button
