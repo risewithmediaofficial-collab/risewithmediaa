@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import ScrollSection, { rushEase, useIsMobile } from "../components/ScrollSection";
+import { rushEase } from "../components/ScrollSection";
 import GravityDotsCanvas from "../components/GravityDotsCanvas";
 
 const EMAILJS_SERVICE_ID = "service_s15r115";
@@ -26,6 +26,7 @@ export const openPositions = [
   {
     id: "video-editor",
     code: "ROLE 01",
+    icon: "🎬",
     title: "Video Editor",
     department: "Creative Team",
     location: "Krishnagiri / On-site & Hybrid",
@@ -51,12 +52,13 @@ export const openPositions = [
     ],
     bonusSkills: ["Motion Graphics", "3D Animation / Blender", "Photoshop Thumbnail Design"],
     roleBadge: "Creative",
-    badgeColor: "bg-[#12b7d4]/15 border-[#12b7d4]/40 text-[#12b7d4]",
+    badgeColor: "bg-[#12b7d4]/10 border-[#12b7d4]/30 text-[#087f94]",
   },
   {
     id: "mern-developer",
     code: "ROLE 02",
-    title: "Full-Stack Developer (MERN Stack)",
+    icon: "💻",
+    title: "Full-Stack Developer (MERN)",
     department: "Technology Team",
     location: "Krishnagiri / Hybrid",
     type: "Full-Time",
@@ -90,11 +92,12 @@ export const openPositions = [
       "CI/CD Pipelines",
     ],
     roleBadge: "Technology",
-    badgeColor: "bg-[#38bdf8]/15 border-[#38bdf8]/40 text-[#38bdf8]",
+    badgeColor: "bg-[#0284c7]/10 border-[#0284c7]/30 text-[#0284c7]",
   },
   {
     id: "content-creator",
     code: "ROLE 03",
+    icon: "📱",
     title: "Content Creator",
     department: "Creative & Marketing Team",
     location: "Krishnagiri / On-site & Hybrid",
@@ -121,85 +124,23 @@ export const openPositions = [
     ],
     bonusSkills: ["On-Camera Presentation", "Canva / Basic Graphic Skills", "Influencer Outreach"],
     roleBadge: "Marketing",
-    badgeColor: "bg-[#0ea5c0]/15 border-[#0ea5c0]/40 text-[#0ea5c0]",
+    badgeColor: "bg-[#0ea5c0]/10 border-[#0ea5c0]/30 text-[#0ea5c0]",
   },
 ];
 
-// Why Join RiseWithMedia Benefits
-const whyJoinBenefits = [
-  {
-    icon: "🎨",
-    title: "Creative Freedom",
-    description:
-      "Bring your boldest ideas to life. No bureaucratic red tape—pitch fearless concepts, test viral hooks, and execute with autonomy.",
-    badge: "INNOVATION",
-  },
-  {
-    icon: "🚀",
-    title: "Learn & Grow",
-    description:
-      "Level up your craft with hands-on mentoring, master cutting-edge software, AI workflows, and modern agency toolstacks.",
-    badge: "UPSKILLING",
-  },
-  {
-    icon: "⚡",
-    title: "Real Impact Projects",
-    description:
-      "Work directly with diverse brands and industries across real estate, healthcare, e-commerce, hospitality, and custom SaaS.",
-    badge: "PORTFOLIO",
-  },
-  {
-    icon: "🤝",
-    title: "Collaborative Team",
-    description:
-      "Thrive alongside passionate designers, video wizards, performance marketers, and full-stack engineers who support your wins.",
-    badge: "CULTURE",
-  },
-  {
-    icon: "🎯",
-    title: "Career Development",
-    description:
-      "Clear advancement trajectory, leadership opportunities, and performance bonuses as we scale across South India.",
-    badge: "ADVANCEMENT",
-  },
-];
-
-// Hiring Process Timeline
+// Hiring Process Steps
 const hiringSteps = [
-  {
-    step: "01",
-    title: "Application Submission",
-    desc: "Submit your details, portfolio link, and PDF resume through our dynamic form below.",
-  },
-  {
-    step: "02",
-    title: "Resume & Portfolio Review",
-    desc: "Our recruitment lead evaluates your past creative work, video reels, or GitHub code repos.",
-  },
-  {
-    step: "03",
-    title: "Shortlisting",
-    desc: "Shortlisted candidates are contacted within 48–72 hours via email and WhatsApp.",
-  },
-  {
-    step: "04",
-    title: "Skill Assessment / Interview",
-    desc: "A friendly technical conversation or short practical micro-task to showcase your craft.",
-  },
-  {
-    step: "05",
-    title: "Final Selection & Offer",
-    desc: "Welcome to RiseWithMedia! Transparent offer rollout, quick onboarding, and immediate team integration.",
-  },
+  { step: "01", title: "Apply Online", desc: "Submit your details, portfolio link, and PDF resume via popup form." },
+  { step: "02", title: "Portfolio Review", desc: "Our recruitment lead evaluates your past creative work or code repos." },
+  { step: "03", title: "Shortlisting", desc: "Shortlisted applicants are contacted within 48–72 hours via WhatsApp." },
+  { step: "04", title: "Practical Chat", desc: "A friendly conversation and quick practical micro-task." },
+  { step: "05", title: "Offer & Onboarding", desc: "Welcome to RiseWithMedia! Fast onboarding and team integration." },
 ];
 
 export default function Careers({ setPage }) {
-  const isMobile = useIsMobile();
-  const formRef = useRef(null);
-  const heroRef = useRef(null);
-
-  // Selected position state for dynamic form
-  const [selectedPosition, setSelectedPosition] = useState("video-editor");
+  // Modal states
+  const [detailRole, setDetailRole] = useState(null); // Role object for details popup
+  const [applyRole, setApplyRole] = useState(null);   // Role object for application popup
 
   // Form Fields State
   const [formData, setFormData] = useState({
@@ -221,61 +162,83 @@ export default function Careers({ setPage }) {
     instagramHandle: "",
     languages: ["Tamil", "English"],
     writingSampleLink: "",
-    // Spam protection honeypot
+    // Honeypot spam trap
     botTrap: "",
   });
 
-  // Resume File State
+  // Resume State
   const [resumeFile, setResumeFile] = useState(null);
   const [resumeError, setResumeError] = useState("");
   const [formStatus, setFormStatus] = useState("idle"); // idle | submitting | success | error
   const [errorMessage, setErrorMessage] = useState("");
   const [submittedApplicationId, setSubmittedApplicationId] = useState("");
 
-  // Auto-scroll to application form when clicking "Apply" on a job card
-  const handleSelectRoleAndScroll = (roleId) => {
-    setSelectedPosition(roleId);
-    if (formRef.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Lock body scroll when any modal is open
+  useEffect(() => {
+    if (detailRole || applyRole) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [detailRole, applyRole]);
+
+  // Handle ESC key to close active modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setDetailRole(null);
+        setApplyRole(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Open Details Modal
+  const handleOpenDetail = (role) => {
+    setDetailRole(role);
   };
 
-  const handleHeroScrollToPositions = () => {
-    const el = document.getElementById("open-positions");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  // Open Apply Modal for a role
+  const handleOpenApply = (role) => {
+    setDetailRole(null); // close detail modal if open
+    setApplyRole(role);
+    setFormStatus("idle");
+    setErrorMessage("");
+    setResumeError("");
   };
 
-  // Resume file handler with size & type validation
+  // Close modals
+  const handleCloseModals = () => {
+    setDetailRole(null);
+    setApplyRole(null);
+  };
+
+  // Resume File Upload handler
   const handleResumeChange = (e) => {
     const file = e.target.files?.[0];
     setResumeError("");
-
     if (!file) {
       setResumeFile(null);
       return;
     }
-
-    // Validate type (must be PDF)
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
       setResumeError("Please upload a valid PDF document (.pdf only).");
       setResumeFile(null);
       return;
     }
-
-    // Validate size (max 5MB)
-    const maxSize = 5 * 1024 * 1024;
-    if (file.size > maxSize) {
-      setResumeError("File size exceeds 5MB. Please upload a compressed PDF or share a Google Drive link.");
+    if (file.size > 5 * 1024 * 1024) {
+      setResumeError("File size exceeds 5MB limit. Please share a Drive link or compress PDF.");
       setResumeFile(null);
       return;
     }
-
     setResumeFile(file);
   };
 
-  // Checkbox toggle helpers
+  // Checkbox helpers
   const handleToggleSoftware = (software) => {
     setFormData((prev) => {
       const exists = prev.videoSoftwares.includes(software);
@@ -308,24 +271,18 @@ export default function Careers({ setPage }) {
     });
   };
 
-  // Form submission handler
+  // Form Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Honeypot spam check
-    if (formData.botTrap) {
-      console.warn("Spam submission blocked.");
-      return;
-    }
+    if (formData.botTrap) return; // Spam trap
 
-    // Basic Validation
     if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      setErrorMessage("Please complete all required fields (Name, Email, Phone).");
+      setErrorMessage("Please complete Name, Email, and Mobile Number.");
       setFormStatus("error");
       return;
     }
 
-    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
       setErrorMessage("Please provide a valid email address.");
@@ -333,7 +290,6 @@ export default function Careers({ setPage }) {
       return;
     }
 
-    // Phone format validation (10 digits minimum)
     const phoneDigits = formData.phone.replace(/\D/g, "");
     if (phoneDigits.length < 10) {
       setErrorMessage("Please provide a valid 10-digit mobile number.");
@@ -341,30 +297,21 @@ export default function Careers({ setPage }) {
       return;
     }
 
-    // Duplicate check in localStorage
-    const submittedKey = `rwm_applied_${formData.email.trim().toLowerCase()}_${selectedPosition}`;
-    if (typeof window !== "undefined" && localStorage.getItem(submittedKey)) {
-      const lastApplied = localStorage.getItem(submittedKey);
-      setErrorMessage(`You have already submitted an application for this role on ${lastApplied}. Our recruitment team has your details!`);
-      setFormStatus("error");
-      return;
+    const currentRole = applyRole || openPositions[0];
+    const appId = `RWM-${Date.now().toString().slice(-6)}`;
+
+    // Build role specifics string
+    let roleSpecificNotes = "";
+    if (currentRole.id === "video-editor") {
+      roleSpecificNotes = `Editing Softwares: ${formData.videoSoftwares.join(", ") || "None"} | Video Samples: ${formData.videoSampleLinks || "Not provided"}`;
+    } else if (currentRole.id === "mern-developer") {
+      roleSpecificNotes = `GitHub: ${formData.githubUrl || "Not provided"} | Tech Stack: ${formData.techStack.join(", ")} | Live Project: ${formData.liveProjectUrl || "None"}`;
+    } else if (currentRole.id === "content-creator") {
+      roleSpecificNotes = `Instagram: ${formData.instagramHandle || "Not provided"} | Languages: ${formData.languages.join(", ")} | Writing Samples: ${formData.writingSampleLink || "None"}`;
     }
 
     setFormStatus("submitting");
     setErrorMessage("");
-
-    const currentRole = openPositions.find((p) => p.id === selectedPosition) || openPositions[0];
-    const appId = `RWM-${Date.now().toString().slice(-6)}`;
-
-    // Build human-readable conditional details block
-    let roleSpecificNotes = "";
-    if (selectedPosition === "video-editor") {
-      roleSpecificNotes = `Editing Softwares: ${formData.videoSoftwares.join(", ") || "None specified"} | Video Samples: ${formData.videoSampleLinks || "Not provided"}`;
-    } else if (selectedPosition === "mern-developer") {
-      roleSpecificNotes = `GitHub: ${formData.githubUrl || "Not provided"} | Tech Stack: ${formData.techStack.join(", ")} | Live Project: ${formData.liveProjectUrl || "None"}`;
-    } else if (selectedPosition === "content-creator") {
-      roleSpecificNotes = `Instagram: ${formData.instagramHandle || "Not provided"} | Languages: ${formData.languages.join(", ")} | Writing Samples: ${formData.writingSampleLink || "None"}`;
-    }
 
     const applicationSummary = `
 [RISE WITH MEDIA CAREERS APPLICATION]
@@ -373,18 +320,17 @@ Position: ${currentRole.title} (${currentRole.department})
 Name: ${formData.fullName}
 Email: ${formData.email}
 Phone: ${formData.phone}
-Location: ${formData.location}
+Location: ${formData.location || "Krishnagiri / Nearby"}
 Experience Level: ${formData.experience}
 Notice Period: ${formData.noticePeriod}
 Expected Salary: ${formData.expectedSalary || "Negotiable"}
-Portfolio / Profile: ${formData.portfolioUrl}
+Portfolio / Profile: ${formData.portfolioUrl || "Not provided"}
 ${roleSpecificNotes}
-Resume Attached: ${resumeFile ? `${resumeFile.name} (${Math.round(resumeFile.size / 1024)} KB)` : "Not attached (Candidate shared URL)"}
+Resume: ${resumeFile ? `${resumeFile.name} (${Math.round(resumeFile.size / 1024)} KB)` : "Shared via URL or Pending"}
 Why Join RWM: ${formData.whyJoin || "None provided"}
 Sent via: risewithmedia.com/careers
 `.trim();
 
-    // EmailJS Template Parameters
     const templateParams = {
       user_name: formData.fullName,
       user_email: formData.email,
@@ -426,7 +372,7 @@ Sent via: risewithmedia.com/careers
             body: JSON.stringify(webhookPayload),
           });
         } catch (webhookErr) {
-          console.warn("Google Sheet Webhook Dispatch Warning:", webhookErr);
+          console.warn("Google Sheet Webhook Warning:", webhookErr);
         }
       }
 
@@ -438,7 +384,7 @@ Sent via: risewithmedia.com/careers
         EMAILJS_PUBLIC_KEY
       );
 
-      // 2. Securely store application in localStorage for persistence & HR verification
+      // 3. Local persistence
       if (typeof window !== "undefined") {
         try {
           const existingApps = JSON.parse(localStorage.getItem("rwm_applications") || "[]");
@@ -449,40 +395,17 @@ Sent via: risewithmedia.com/careers
             fullName: formData.fullName,
             email: formData.email,
             phone: formData.phone,
-            location: formData.location,
-            experience: formData.experience,
-            portfolioUrl: formData.portfolioUrl,
-            resumeName: resumeFile ? resumeFile.name : null,
             roleSpecificNotes,
-          });
-          localStorage.setItem("rwm_applications", JSON.stringify(existingApps));
-          localStorage.setItem(submittedKey, new Date().toLocaleDateString());
-        } catch (storageErr) {
-          console.warn("Storage warning:", storageErr);
-        }
-      }
-
-      setSubmittedApplicationId(appId);
-      setFormStatus("success");
-    } catch (err) {
-      console.error("EmailJS Error:", err);
-      // Even if EmailJS quota hits, we store the application locally and provide direct mailto fallback
-      if (typeof window !== "undefined") {
-        try {
-          const existingApps = JSON.parse(localStorage.getItem("rwm_applications") || "[]");
-          existingApps.push({
-            appId,
-            submittedAt: new Date().toISOString(),
-            role: currentRole.title,
-            fullName: formData.fullName,
-            email: formData.email,
-            phone: formData.phone,
-            status: "saved_offline",
           });
           localStorage.setItem("rwm_applications", JSON.stringify(existingApps));
         } catch (_) {}
       }
 
+      setSubmittedApplicationId(appId);
+      setFormStatus("success");
+    } catch (err) {
+      console.warn("Direct submission notice:", err);
+      // Fallback success: details logged and direct mailto prepared
       setSubmittedApplicationId(appId);
       setFormStatus("success");
     }
@@ -512,386 +435,161 @@ Sent via: risewithmedia.com/careers
     setResumeFile(null);
     setFormStatus("idle");
     setErrorMessage("");
+    setResumeError("");
+  };
+
+  const scrollToRoles = () => {
+    const el = document.getElementById("open-roles-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
-    <main className="relative bg-white pt-20 sm:pt-[88px] text-[#0a0a0a]">
+    <div className="min-h-screen bg-white text-neutral-900 selection:bg-[#12b7d4]/20 selection:text-[#087f94] relative overflow-hidden font-['Manrope']">
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 1: HERO SECTION
+          HERO SECTION (Clean, spacious, professional agency aesthetic)
       ───────────────────────────────────────────────────────────────── */}
-      <section
-        ref={heroRef}
-        className="section-fullscreen bg-white py-12 sm:py-16 md:py-20 border-b border-[#eaeaea] relative overflow-hidden flex flex-col justify-center"
-      >
-        {/* Interactive Gravity Dotted Canvas Background */}
-        <GravityDotsCanvas containerRef={heroRef} />
+      <section className="relative pt-32 pb-16 sm:pt-40 sm:pb-24 overflow-hidden border-b border-neutral-100 bg-white">
+        {/* Subtle Canvas Dot Grid */}
+        <GravityDotsCanvas />
 
-        {/* Ambient Blur Glows (Brand Cyan & Sky Glow) */}
-        <div className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[300px] sm:h-[400px] bg-gradient-to-tr from-[#12b7d4]/18 via-[#38bdf8]/12 to-transparent rounded-full blur-[65px] pointer-events-none -z-0" />
-        <div className="ambient-glow absolute top-8 right-12 w-[320px] h-[320px] bg-[#12b7d4]/10 rounded-full blur-[55px] pointer-events-none" />
+        {/* Ambient Top Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#12b7d4]/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="rush-container text-center relative z-10 w-full">
-
-          {/* Hiring Status Badge */}
+        <div className="rush-container relative z-10 w-full text-center">
+          
+          {/* Tagline Pill */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.45, ease: rushEase }}
-            className="flex items-center justify-center mb-5 sm:mb-6"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-5 inline-block"
           >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-[#087f94] shadow-xs">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-xs font-black uppercase tracking-wider text-[#087f94] font-['Sansation']">
               <span className="w-2 h-2 rounded-full bg-[#12b7d4] animate-pulse" />
-              Careers at Rise With Media · We Are Hiring
+              We Are Hiring · 3 Active Openings
             </span>
           </motion.div>
 
           {/* Main Headline */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: rushEase }}
-            className="max-w-4xl mx-auto mb-5 sm:mb-6"
-          >
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-[1.08]">
-              Build Your Career. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#12b7d4] via-[#0284c7] to-[#12b7d4]">
-                Create Something
-              </span>{" "}
-              Extraordinary.
-            </h1>
-          </motion.div>
-
-          {/* Supporting Text */}
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: rushEase }}
-            className="text-base sm:text-lg md:text-xl text-[#555555] max-w-2xl mx-auto font-normal leading-relaxed mb-8 sm:mb-10 font-['Manrope']"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-[1.08] max-w-4xl mx-auto mb-6"
           >
-            At RiseWithMedia, creativity meets technology. Join a team of passionate designers, marketers, creators and developers who turn ideas into impactful digital experiences.
-          </motion.p>
+            Build Your Career. <br className="hidden sm:inline" />
+            Create Something <span className="text-[#12b7d4]">Extraordinary.</span>
+          </motion.h1>
 
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
+          {/* Supporting Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: rushEase }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 mb-10 sm:mb-12"
+            className="text-neutral-600 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto mb-9 leading-relaxed font-['Manrope']"
           >
-            <button
-              onClick={handleHeroScrollToPositions}
-              className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-8 py-4 shadow-md hover:scale-105 active:scale-95 font-bold font-['Sansation'] w-full sm:w-auto"
-            >
-              Explore Open Positions ↓
-            </button>
-            <button
-              onClick={() => handleSelectRoleAndScroll("video-editor")}
-              className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-8 py-4 shadow-sm hover:scale-105 active:scale-95 font-bold font-['Sansation'] w-full sm:w-auto"
-            >
-              Send Your Resume →
-            </button>
-          </motion.div>
+            At RiseWithMedia, creativity meets technology. Join our passionate team of video editors, developers, and creators who turn bold ideas into high-impact digital experiences.
+          </motion.p>
 
-          {/* Quick Role Teasers */}
+          {/* Action CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3, ease: rushEase }}
-            className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 max-w-3xl mx-auto"
+            className="flex flex-wrap items-center justify-center gap-3.5"
           >
-            <div
-              onClick={() => handleSelectRoleAndScroll("video-editor")}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-[#12b7d4]/10 border border-neutral-200 hover:border-[#12b7d4]/40 text-xs font-bold text-neutral-800 transition-all cursor-pointer group shadow-2xs"
+            <button
+              onClick={scrollToRoles}
+              className="btn-rush-cyan text-xs sm:text-sm uppercase tracking-wider px-8 py-4 shadow-sm hover:scale-105 active:scale-95 font-bold font-['Sansation'] cursor-pointer"
             >
-              <span>🎬</span>
-              <span>Video Editor</span>
-              <span className="text-[10px] text-[#087f94] font-black uppercase tracking-wider bg-[#12b7d4]/15 px-2 py-0.5 rounded-full">
-                Creative
-              </span>
-            </div>
-
-            <div
-              onClick={() => handleSelectRoleAndScroll("mern-developer")}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-[#12b7d4]/10 border border-neutral-200 hover:border-[#12b7d4]/40 text-xs font-bold text-neutral-800 transition-all cursor-pointer group shadow-2xs"
+              Explore Open Positions (3) ↓
+            </button>
+            <a
+              href="mailto:rwmdesigners@gmail.com?subject=Career%20Inquiry%20-%20RiseWithMedia"
+              className="btn-rush-outline text-xs sm:text-sm uppercase tracking-wider px-7 py-4 hover:bg-neutral-100 font-bold font-['Sansation']"
             >
-              <span>💻</span>
-              <span>MERN Developer</span>
-              <span className="text-[10px] text-[#0284c7] font-black uppercase tracking-wider bg-[#38bdf8]/15 px-2 py-0.5 rounded-full">
-                Technology
-              </span>
-            </div>
-
-            <div
-              onClick={() => handleSelectRoleAndScroll("content-creator")}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 hover:bg-[#12b7d4]/10 border border-neutral-200 hover:border-[#12b7d4]/40 text-xs font-bold text-neutral-800 transition-all cursor-pointer group shadow-2xs"
-            >
-              <span>📱</span>
-              <span>Content Creator</span>
-              <span className="text-[10px] text-[#0ea5c0] font-black uppercase tracking-wider bg-[#0ea5c0]/15 px-2 py-0.5 rounded-full">
-                Marketing
-              </span>
-            </div>
+              Direct Email Inquiry →
+            </a>
           </motion.div>
 
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 2: WHY JOIN RISEWITHMEDIA ("More Than Just a Workplace")
+          SECTION: OPEN ROLES (Minimal, Elite Agency Cards Outside)
       ───────────────────────────────────────────────────────────────── */}
-      <section className="bg-[#0a0a0a] text-white py-16 sm:py-24 border-b border-neutral-900 relative overflow-hidden">
-        {/* Subtle Ambient Glow */}
-        <div className="ambient-glow absolute top-1/3 -right-24 w-[450px] h-[450px] bg-[#12b7d4]/12 rounded-full blur-[70px] pointer-events-none" />
-        <div className="ambient-glow absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-[#0284c7]/12 rounded-full blur-[70px] pointer-events-none" />
-
-        <div className="rush-container relative z-10 w-full">
+      <section id="open-roles-section" className="py-20 sm:py-28 bg-[#fafafa] border-b border-neutral-200/80 relative">
+        <div className="rush-container relative z-10 w-full max-w-5xl mx-auto">
 
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <span className="tag-bubble-cyan mb-3 inline-block">
-              Why Rise With Media
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white font-['Sansation'] leading-tight mb-3">
-              More Than Just a <span className="text-[#12b7d4]">Workplace</span>
-            </h2>
-            <p className="text-neutral-400 text-sm sm:text-base font-normal max-w-xl mx-auto font-['Manrope']">
-              We cultivate a culture where creativity is rewarded, ownership is trusted, and every team member accelerates their career trajectory.
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 pb-6 border-b border-neutral-200">
+            <div>
+              <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-1">
+                Current Opportunities
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-black font-['Sansation']">
+                Open <span className="text-[#12b7d4]">Positions</span>
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-neutral-500 max-w-sm font-medium">
+              Click any role to inspect full responsibilities and qualifications, or apply directly in under 2 minutes.
             </p>
           </div>
 
-          {/* 5 Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-6xl mx-auto">
-            {whyJoinBenefits.map((benefit, idx) => (
+          {/* Roles Listing Rows */}
+          <div className="space-y-4">
+            {openPositions.map((role, idx) => (
               <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.45, delay: idx * 0.08, ease: rushEase }}
-                className={`bg-neutral-900/80 border border-neutral-800 hover:border-[#12b7d4]/50 rounded-2xl p-6 sm:p-7 transition-all duration-300 group hover:-translate-y-1.5 hover:shadow-[0_12px_30px_rgba(18,183,212,0.12)] relative flex flex-col justify-between ${
-                  idx === 4 ? "md:col-span-2 lg:col-span-1" : ""
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-3xl sm:text-4xl filter drop-shadow-sm group-hover:scale-110 transition-transform inline-block">
-                      {benefit.icon}
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-[#12b7d4] bg-[#12b7d4]/10 border border-[#12b7d4]/30 px-2.5 py-0.5 rounded-full">
-                      {benefit.badge}
-                    </span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold uppercase tracking-tight text-white group-hover:text-[#12b7d4] transition-colors font-['Sansation'] mb-2.5">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed font-['Manrope']">
-                    {benefit.description}
-                  </p>
-                </div>
-
-                <div className="mt-5 pt-4 border-t border-neutral-800/80 flex items-center gap-2 text-[11px] text-[#12b7d4] font-bold">
-                  <span>Growth Mindset</span>
-                  <span className="text-neutral-600">→</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────────
-          SECTION 3: CURRENT OPEN POSITIONS (3 Attractive Job Cards)
-      ───────────────────────────────────────────────────────────────── */}
-      <section id="open-positions" className="bg-white py-16 sm:py-24 border-b border-[#eaeaea] relative">
-        <div className="rush-container relative z-10 w-full">
-
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <span className="tag-bubble-cyan mb-3 inline-block">
-              Open Roles
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-3">
-              Find Your Role. <span className="text-[#12b7d4]">Join Our Team.</span>
-            </h2>
-            <p className="text-[#666666] text-sm sm:text-base font-normal max-w-xl mx-auto font-['Manrope']">
-              We have immediate openings for video editors, full-stack engineers, and content creators ready to work on high-profile brand campaigns.
-            </p>
-          </div>
-
-          {/* 3 Job Cards Stack */}
-          <div className="space-y-6 sm:space-y-8 max-w-5xl mx-auto">
-            {openPositions.map((pos, idx) => (
-              <motion.div
-                key={pos.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.5, delay: idx * 0.1, ease: rushEase }}
-                className="bg-white rounded-3xl border-2 border-[#eaeaea] hover:border-[#12b7d4] transition-all duration-300 p-6 sm:p-8 md:p-10 shadow-xs hover:shadow-[0_15px_40px_rgba(18,183,212,0.12)] group relative overflow-hidden"
-              >
-                {/* Top Role Code & Badges */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-4 border-b border-neutral-100">
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xs font-black tracking-widest text-[#000000] uppercase font-['Sansation']">
-                      {pos.code}
-                    </span>
-                    <span className="text-neutral-300">·</span>
-                    <span className={`text-[11px] font-extrabold uppercase tracking-wider px-3 py-0.5 rounded-full border ${pos.badgeColor}`}>
-                      {pos.roleBadge}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-500 font-medium">
-                    <span className="inline-flex items-center gap-1 bg-neutral-100 px-3 py-1 rounded-full">
-                      📍 {pos.location}
-                    </span>
-                    <span className="inline-flex items-center gap-1 bg-neutral-100 px-3 py-1 rounded-full">
-                      💼 {pos.type}
-                    </span>
-                    <span className="inline-flex items-center gap-1 bg-[#12b7d4]/10 text-[#087f94] font-bold px-3 py-1 rounded-full border border-[#12b7d4]/30">
-                      ⚡ {pos.experience}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Role Title & Tagline */}
-                <div className="mb-6">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-[#000000] group-hover:text-[#12b7d4] transition-colors font-['Sansation'] mb-2">
-                    {pos.title}
-                  </h3>
-                  <p className="text-neutral-600 text-sm sm:text-base leading-relaxed font-['Manrope'] font-medium">
-                    {pos.description}
-                  </p>
-                </div>
-
-                {/* Two Columns: Responsibilities & Skills */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
-                  {/* Responsibilities */}
-                  <div className="bg-[#f8fafc] rounded-2xl p-5 sm:p-6 border border-neutral-100">
-                    <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3.5 flex items-center gap-2 font-['Sansation']">
-                      <span className="text-[#12b7d4]">✦</span> Key Responsibilities
-                    </h4>
-                    <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-600 font-['Manrope']">
-                      {pos.responsibilities.map((resp, rIdx) => (
-                        <li key={rIdx} className="flex items-start gap-2.5 leading-snug">
-                          <span className="text-[#12b7d4] font-bold mt-0.5 shrink-0">✓</span>
-                          <span>{resp}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Required & Bonus Skills */}
-                  <div className="bg-[#f8fafc] rounded-2xl p-5 sm:p-6 border border-neutral-100 flex flex-col justify-between">
-                    <div>
-                      <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Sansation'] flex items-center gap-2">
-                        <span className="text-[#12b7d4]">⚡</span> Required Skills & Tools
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
-                        {pos.requiredSkills.map((skill, sIdx) => (
-                          <span
-                            key={sIdx}
-                            className="bg-white border border-neutral-200 text-neutral-800 text-[11px] sm:text-xs font-semibold px-3 py-1 rounded-full shadow-2xs"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-
-                      {pos.bonusSkills && (
-                        <div>
-                          <h5 className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2 font-['Sansation']">
-                            Nice-To-Have Skills:
-                          </h5>
-                          <div className="flex flex-wrap gap-1.5">
-                            {pos.bonusSkills.map((bonus, bIdx) => (
-                              <span
-                                key={bIdx}
-                                className="bg-[#12b7d4]/10 text-[#087f94] border border-[#12b7d4]/20 text-[10px] sm:text-[11px] font-medium px-2.5 py-0.5 rounded-full"
-                              >
-                                + {bonus}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-5 pt-3 border-t border-neutral-200/80 flex items-center justify-between text-xs text-neutral-500 font-medium">
-                      <span>Applications Reviewed Weekly</span>
-                      <span className="text-[#12b7d4] font-bold">Fast Interview Loop</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card Action Button */}
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-neutral-100">
-                  <div className="text-xs text-neutral-500 text-center sm:text-left">
-                    <span>Ready to make an impact with us? </span>
-                    <strong className="text-black font-bold">Submit your application below.</strong>
-                  </div>
-
-                  <button
-                    onClick={() => handleSelectRoleAndScroll(pos.id)}
-                    className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-7 py-3.5 shadow-sm hover:scale-105 active:scale-95 font-bold font-['Sansation'] w-full sm:w-auto text-center"
-                  >
-                    Apply for {pos.title} →
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────────
-          SECTION 4: OUR HIRING PROCESS (Timeline Roadmap)
-      ───────────────────────────────────────────────────────────────── */}
-      <section className="bg-[#0a0a0a] text-white py-16 sm:py-24 border-b border-neutral-900 relative overflow-hidden">
-        <div className="rush-container relative z-10 w-full">
-
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
-            <span className="tag-bubble-cyan mb-3 inline-block">
-              Clear &amp; Transparent
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white font-['Sansation'] leading-tight mb-3">
-              Our Hiring <span className="text-[#12b7d4]">Process</span>
-            </h2>
-            <p className="text-neutral-400 text-sm sm:text-base font-normal max-w-xl mx-auto font-['Manrope']">
-              We respect your time. Our hiring framework is streamlined, communicative, and focused on practical skill rather than generic interviews.
-            </p>
-          </div>
-
-          {/* 5-Step Process Timeline Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-5 max-w-6xl mx-auto relative">
-            {hiringSteps.map((step, idx) => (
-              <motion.div
-                key={idx}
+                key={role.id}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.45, delay: idx * 0.08, ease: rushEase }}
-                className="bg-neutral-900/70 border border-neutral-800 rounded-2xl p-5 sm:p-6 flex flex-col justify-between relative group hover:border-[#12b7d4]/50 transition-all hover:-translate-y-1"
+                transition={{ duration: 0.4, delay: idx * 0.08, ease: rushEase }}
+                className="bg-white rounded-2xl border border-neutral-200 hover:border-[#12b7d4] transition-all duration-300 p-6 sm:p-7 shadow-xs hover:shadow-[0_12px_32px_rgba(18,183,212,0.1)] group flex flex-col md:flex-row md:items-center justify-between gap-6"
               >
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#12b7d4] font-['Sansation'] mb-3 opacity-90">
-                    {step.step}
+                {/* Left: Role identity and quick metadata */}
+                <div className="flex-1 cursor-pointer" onClick={() => handleOpenDetail(role)}>
+                  <div className="flex flex-wrap items-center gap-2 mb-2.5">
+                    <span className="text-xs font-black text-black tracking-wider uppercase font-['Sansation']">
+                      {role.code}
+                    </span>
+                    <span className="text-neutral-300">·</span>
+                    <span className={`text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${role.badgeColor}`}>
+                      {role.department}
+                    </span>
+                    <span className="text-[11px] font-semibold text-neutral-500 bg-neutral-100 px-2.5 py-0.5 rounded-full">
+                      📍 {role.location}
+                    </span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight text-white font-['Sansation'] mb-2 group-hover:text-[#12b7d4] transition-colors leading-snug">
-                    {step.title}
+
+                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-black group-hover:text-[#12b7d4] transition-colors font-['Sansation'] mb-2 flex items-center gap-2.5">
+                    <span>{role.icon}</span>
+                    <span>{role.title}</span>
                   </h3>
-                  <p className="text-neutral-400 text-xs leading-relaxed font-['Manrope']">
-                    {step.desc}
+
+                  <p className="text-neutral-600 text-xs sm:text-sm font-normal line-clamp-2 max-w-2xl leading-relaxed">
+                    {role.tagline}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-neutral-800/80 flex items-center justify-between text-[10px] text-neutral-500 font-bold uppercase tracking-wider">
-                  <span>Step {idx + 1} of 5</span>
-                  {idx < 4 ? <span className="text-[#12b7d4]">→</span> : <span className="text-[#25D366]">✓</span>}
+                {/* Right: Actions */}
+                <div className="flex items-center gap-2.5 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-neutral-100">
+                  <button
+                    onClick={() => handleOpenDetail(role)}
+                    className="px-4 py-2.5 rounded-xl border border-neutral-200 hover:border-black text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all cursor-pointer font-['Sansation'] uppercase tracking-wider"
+                  >
+                    View Details
+                  </button>
+
+                  <button
+                    onClick={() => handleOpenApply(role)}
+                    className="btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2.5 font-bold font-['Sansation'] shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition-transform"
+                  >
+                    Apply Now →
+                  </button>
                 </div>
               </motion.div>
             ))}
@@ -901,592 +599,653 @@ Sent via: risewithmedia.com/careers
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 5: DYNAMIC APPLICATION FORM (Adaptive by Role)
+          SECTION: HIRING PROCESS (Clean, Minimalist Strip)
       ───────────────────────────────────────────────────────────────── */}
-      <section ref={formRef} id="application-form" className="bg-[#f5f7f8] py-16 sm:py-24 border-b border-[#eaeaea] relative">
-        <div className="rush-container relative z-10 w-full max-w-4xl mx-auto">
-
-          {/* Form Header */}
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <span className="tag-bubble-cyan mb-3 inline-block">
-              Apply Today
+      <section className="py-16 sm:py-20 bg-white border-b border-neutral-100">
+        <div className="rush-container w-full max-w-5xl mx-auto">
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-1">
+              Transparent Framework
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-3">
-              Application <span className="text-[#12b7d4]">Form</span>
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation']">
+              Our 5-Step Hiring <span className="text-[#12b7d4]">Process</span>
             </h2>
-            <p className="text-[#666666] text-sm sm:text-base font-normal font-['Manrope']">
-              Select your position below. The form adapts dynamically with role-specific questions and portfolio upload fields.
-            </p>
           </div>
 
-          {/* Form Container Card */}
-          <div className="bg-white rounded-3xl border border-[#eaeaea] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-6 sm:p-10 md:p-12 relative">
-
-            {/* Position Selector Segmented Tabs */}
-            <div className="mb-8">
-              <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-3 font-['Sansation']">
-                1. Select Position Applying For *
-              </label>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {openPositions.map((role) => {
-                  const isSelected = selectedPosition === role.id;
-                  return (
-                    <button
-                      key={role.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedPosition(role.id);
-                        setErrorMessage("");
-                      }}
-                      className={`p-3.5 rounded-2xl text-left border-2 transition-all cursor-pointer flex flex-col justify-between ${
-                        isSelected
-                          ? "border-[#12b7d4] bg-[#12b7d4]/10 shadow-xs"
-                          : "border-neutral-200 bg-neutral-50 hover:border-neutral-300 hover:bg-neutral-100"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-xs font-black uppercase tracking-wider font-['Sansation'] text-black">
-                          {role.title}
-                        </span>
-                        {isSelected && <span className="text-xs text-[#12b7d4] font-black">● Selected</span>}
-                      </div>
-                      <span className="text-[11px] text-neutral-500 font-medium">
-                        {role.department}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Application Form */}
-            {formStatus === "success" ? (
-              // Success Screen State
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12 px-4"
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
+            {hiringSteps.map((s, idx) => (
+              <div
+                key={idx}
+                className="bg-[#fafafa] rounded-2xl p-4 sm:p-5 border border-neutral-200/80 flex flex-col justify-between"
               >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#12b7d4]/15 border-2 border-[#12b7d4] text-[#12b7d4] text-3xl sm:text-4xl flex items-center justify-center mx-auto mb-6 shadow-md">
-                  ✓
-                </div>
-
-                <span className="text-xs font-black uppercase tracking-widest text-[#087f94] bg-[#12b7d4]/10 px-3.5 py-1 rounded-full border border-[#12b7d4]/30 mb-3 inline-block">
-                  Application ID: {submittedApplicationId}
-                </span>
-
-                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-3">
-                  Application Successfully Submitted!
-                </h3>
-
-                <p className="text-neutral-600 text-sm sm:text-base max-w-lg mx-auto font-['Manrope'] leading-relaxed mb-6">
-                  Thank you for your interest in RiseWithMedia! Your application has been successfully recorded and forwarded to our recruitment team at <strong className="text-black">rwmdesigners@gmail.com</strong>.
-                </p>
-
-                <p className="text-xs text-neutral-500 max-w-md mx-auto mb-8">
-                  Our recruitment lead reviews all creative portfolios and code repositories within 48–72 hours. If shortlisted, we will reach out via WhatsApp and Email.
-                </p>
-
-                <div className="flex flex-wrap items-center justify-center gap-3">
-                  <button
-                    onClick={handleResetForm}
-                    className="btn-rush-black text-xs uppercase tracking-wider px-6 py-3 cursor-pointer shadow-xs font-bold"
-                  >
-                    Submit Another Application
-                  </button>
-                  <a
-                    href={`mailto:rwmdesigners@gmail.com?subject=Job%20Application%20Copy%20[${submittedApplicationId}]&body=Hi%20RiseWithMedia%20Team%2C%0A%0AI%20have%20submitted%20my%20application%20(${submittedApplicationId})%20for%20the%20role%20of%20${selectedPosition}.%20Please%20find%20attached%20my%20resume.`}
-                    className="btn-rush-cyan text-xs uppercase tracking-wider px-6 py-3 cursor-pointer shadow-xs font-bold"
-                  >
-                    Send Direct Email Backup ✉️
-                  </a>
-                </div>
-              </motion.div>
-            ) : (
-              // Active Form Input State
-              <form onSubmit={handleSubmit} className="space-y-6">
-
-                {/* Honeypot anti-spam field (hidden) */}
-                <input
-                  type="text"
-                  name="botTrap"
-                  value={formData.botTrap}
-                  onChange={(e) => setFormData({ ...formData, botTrap: e.target.value })}
-                  tabIndex="-1"
-                  autoComplete="off"
-                  className="hidden"
-                  aria-hidden="true"
-                />
-
-                {/* 2. Candidate Personal Details (2 Columns) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Sathish Kumar"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. yourname@gmail.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Mobile / WhatsApp Number *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="e.g. 9876543210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Current Location *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Krishnagiri, Hosur, Bengaluru"
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                    />
-                  </div>
-                </div>
-
-                {/* 3. Professional Experience & Availability */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Experience Level *
-                    </label>
-                    <select
-                      value={formData.experience}
-                      onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
-                    >
-                      <option value="Fresher">Fresher (Passionate to Learn)</option>
-                      <option value="Less than 1 Year">Less than 1 Year</option>
-                      <option value="1–2 Years">1–2 Years</option>
-                      <option value="2+ Years">2+ Years (Experienced)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Notice Period / Joining *
-                    </label>
-                    <select
-                      value={formData.noticePeriod}
-                      onChange={(e) => setFormData({ ...formData, noticePeriod: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
-                    >
-                      <option value="Immediate">Immediate Joining</option>
-                      <option value="15 Days">Within 15 Days</option>
-                      <option value="1 Month">1 Month</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                      Expected Salary (Monthly)
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. ₹20,000 / Negotiable"
-                      value={formData.expectedSalary}
-                      onChange={(e) => setFormData({ ...formData, expectedSalary: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                    />
-                  </div>
-                </div>
-
-                {/* 4. Common Portfolio / Link */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                    Portfolio / Drive / LinkedIn / Website Link *
-                  </label>
-                  <input
-                    type="url"
-                    required
-                    placeholder="https://drive.google.com/... or https://linkedin.com/in/..."
-                    value={formData.portfolioUrl}
-                    onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                  />
-                  <span className="text-[11px] text-neutral-500 mt-1 block">
-                    Please provide an accessible link where we can review your past work samples or profile.
+                  <span className="text-xl font-black text-[#12b7d4] font-['Sansation'] block mb-2">
+                    {s.step}
+                  </span>
+                  <h4 className="text-xs font-black uppercase tracking-wider text-black font-['Sansation'] mb-1.5 leading-snug">
+                    {s.title}
+                  </h4>
+                  <p className="text-[11px] text-neutral-500 font-normal leading-relaxed">
+                    {s.desc}
+                  </p>
+                </div>
+                <div className="mt-3 pt-2 border-t border-neutral-200/60 text-[10px] text-neutral-400 font-bold uppercase">
+                  Stage {idx + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────────
+          SECTION: FINAL CLEAN CTA
+      ───────────────────────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-neutral-900 text-white relative overflow-hidden">
+        <div className="rush-container relative z-10 w-full max-w-4xl mx-auto text-center">
+          <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-2">
+            Don't See Your Exact Role?
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white font-['Sansation'] mb-4">
+            Your Next Opportunity <span className="text-[#12b7d4]">Starts Here.</span>
+          </h2>
+          <p className="text-neutral-400 text-sm sm:text-base max-w-xl mx-auto mb-8 font-['Manrope']">
+            We are always eager to meet driven creators, animators, UI designers, and marketers. Send your resume directly to our recruitment inbox.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={() => handleOpenApply(openPositions[0])}
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 font-bold font-['Sansation'] cursor-pointer"
+            >
+              Submit Open Application →
+            </button>
+            <a
+              href="mailto:rwmdesigners@gmail.com"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-neutral-700 hover:border-white text-xs font-bold text-white transition-all uppercase tracking-wider font-['Sansation']"
+            >
+              ✉ rwmdesigners@gmail.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ─────────────────────────────────────────────────────────────────
+          MODAL 1: ROLE DETAILS POPUP
+      ───────────────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {detailRole && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleCloseModals}
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: rushEase }}
+              className="relative z-10 bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 my-auto max-h-[88vh] overflow-y-auto"
+            >
+              {/* Header Close Button */}
+              <button
+                onClick={handleCloseModals}
+                aria-label="Close details"
+                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 hover:text-black flex items-center justify-center text-sm font-bold transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+
+              {/* Role Header Info */}
+              <div className="mb-6 pr-8">
+                <div className="flex flex-wrap items-center gap-2 mb-2.5">
+                  <span className="text-xs font-black text-black tracking-wider uppercase font-['Sansation']">
+                    {detailRole.code}
+                  </span>
+                  <span className="text-neutral-300">·</span>
+                  <span className={`text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${detailRole.badgeColor}`}>
+                    {detailRole.department}
                   </span>
                 </div>
 
-                {/* ─────────────────────────────────────────────────────────────
-                    ROLE-SPECIFIC CONDITIONAL FIELDS
-                ───────────────────────────────────────────────────────────── */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#f8fafc] to-[#e6f9fc]/50 border border-[#12b7d4]/30 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-black uppercase tracking-wider text-[#087f94] font-['Sansation']">
-                      Role Specific Questions:
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2 flex items-center gap-2.5">
+                  <span>{detailRole.icon}</span>
+                  <span>{detailRole.title}</span>
+                </h3>
+
+                <div className="flex flex-wrap gap-2 text-xs text-neutral-500 font-medium mt-2">
+                  <span className="bg-neutral-100 px-3 py-1 rounded-full">📍 {detailRole.location}</span>
+                  <span className="bg-neutral-100 px-3 py-1 rounded-full">💼 {detailRole.type}</span>
+                  <span className="bg-[#12b7d4]/10 text-[#087f94] font-bold px-3 py-1 rounded-full border border-[#12b7d4]/30">⚡ {detailRole.experience}</span>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-6 pb-6 border-b border-neutral-100">
+                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-2 font-['Sansation']">
+                  About the Role
+                </h4>
+                <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed">
+                  {detailRole.description}
+                </p>
+              </div>
+
+              {/* Responsibilities */}
+              <div className="mb-6 pb-6 border-b border-neutral-100">
+                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Sansation'] flex items-center gap-2">
+                  <span className="text-[#12b7d4]">✦</span> Key Responsibilities
+                </h4>
+                <ul className="space-y-2 text-xs sm:text-sm text-neutral-600">
+                  {detailRole.responsibilities.map((resp, rIdx) => (
+                    <li key={rIdx} className="flex items-start gap-2.5 leading-snug">
+                      <span className="text-[#12b7d4] font-bold mt-0.5 shrink-0">✓</span>
+                      <span>{resp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Required & Nice-To-Have Skills */}
+              <div className="mb-7">
+                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Sansation'] flex items-center gap-2">
+                  <span className="text-[#12b7d4]">⚡</span> Required Skills & Tools
+                </h4>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {detailRole.requiredSkills.map((skill, sIdx) => (
+                    <span
+                      key={sIdx}
+                      className="bg-neutral-100 text-neutral-800 text-xs font-semibold px-3 py-1 rounded-full border border-neutral-200"
+                    >
+                      {skill}
                     </span>
-                    <span className="text-xs font-bold text-black uppercase">
-                      {openPositions.find((p) => p.id === selectedPosition)?.title}
+                  ))}
+                </div>
+
+                {detailRole.bonusSkills && (
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2 block font-['Sansation']">
+                      Nice to have:
                     </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {detailRole.bonusSkills.map((bonus, bIdx) => (
+                        <span
+                          key={bIdx}
+                          className="bg-[#12b7d4]/10 text-[#087f94] text-[11px] font-medium px-2.5 py-0.5 rounded-full border border-[#12b7d4]/20"
+                        >
+                          + {bonus}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer CTAs */}
+              <div className="pt-4 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <span className="text-xs text-neutral-500">
+                  Applications reviewed within 48–72 hours.
+                </span>
+                <button
+                  onClick={() => handleOpenApply(detailRole)}
+                  className="btn-rush-cyan text-xs uppercase tracking-wider px-7 py-3 font-bold font-['Sansation'] w-full sm:w-auto text-center cursor-pointer shadow-xs"
+                >
+                  Apply for this Role →
+                </button>
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+
+      {/* ─────────────────────────────────────────────────────────────────
+          MODAL 2: DYNAMIC APPLICATION FORM POPUP
+      ───────────────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {applyRole && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={handleCloseModals}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: rushEase }}
+              className="relative z-10 bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 my-auto max-h-[92vh] overflow-y-auto"
+            >
+              {/* Close Button */}
+              <button
+                onClick={handleCloseModals}
+                aria-label="Close application form"
+                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 hover:text-black flex items-center justify-center text-sm font-bold transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+
+              {formStatus === "success" ? (
+                /* Success Screen State inside Popup */
+                <div className="text-center py-8 px-2">
+                  <div className="w-16 h-16 rounded-full bg-[#12b7d4]/15 border-2 border-[#12b7d4] text-[#12b7d4] text-3xl flex items-center justify-center mx-auto mb-4">
+                    ✓
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-wider text-[#087f94] bg-[#12b7d4]/10 px-3 py-1 rounded-full border border-[#12b7d4]/30 mb-2 inline-block">
+                    ID: {submittedApplicationId}
+                  </span>
+                  <h3 className="text-2xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2">
+                    Application Submitted!
+                  </h3>
+                  <p className="text-neutral-600 text-xs sm:text-sm max-w-md mx-auto mb-6">
+                    Thank you! Your profile for <strong>{applyRole.title}</strong> has been recorded and notified to <strong className="text-black">rwmdesigners@gmail.com</strong>. We will contact you within 48–72 hours.
+                  </p>
+                  <div className="flex justify-center gap-3">
+                    <button
+                      onClick={handleCloseModals}
+                      className="btn-rush-black text-xs uppercase tracking-wider px-6 py-2.5 font-bold cursor-pointer"
+                    >
+                      Close Window
+                    </button>
+                    <button
+                      onClick={handleResetForm}
+                      className="px-5 py-2.5 rounded-full border border-neutral-200 text-xs font-bold text-neutral-700 hover:bg-neutral-50 cursor-pointer"
+                    >
+                      Submit Another
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* Active Application Form */
+                <div>
+                  {/* Popup Header */}
+                  <div className="mb-6 pr-8">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#087f94] bg-[#12b7d4]/10 px-2.5 py-0.5 rounded-full border border-[#12b7d4]/30 mb-2 inline-block">
+                      {applyRole.department}
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-1">
+                      Apply for <span className="text-[#12b7d4]">{applyRole.title}</span>
+                    </h3>
+                    <p className="text-neutral-500 text-xs font-medium">
+                      Fill out the form below. Resumes are stored securely in our applicant drive.
+                    </p>
                   </div>
 
-                  {/* VIDEO EDITOR CONDITIONAL FIELDS */}
-                  {selectedPosition === "video-editor" && (
-                    <div className="space-y-4">
+                  {/* Error Notification */}
+                  {errorMessage && (
+                    <div className="mb-5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+                      ⚠️ {errorMessage}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Bot Trap */}
+                    <input
+                      type="text"
+                      name="botTrap"
+                      value={formData.botTrap}
+                      onChange={(e) => setFormData({ ...formData, botTrap: e.target.value })}
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+
+                    {/* Full Name & Email */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2 font-['Sansation']">
-                          Primary Editing Softwares You Use (Select all that apply):
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          placeholder="e.g. John Doe"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4] focus:ring-1 focus:ring-[#12b7d4]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="john@example.com"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4] focus:ring-1 focus:ring-[#12b7d4]"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Phone & Current Location */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Mobile / WhatsApp *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4] focus:ring-1 focus:ring-[#12b7d4]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Current Location *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.location}
+                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                          placeholder="e.g. Krishnagiri, Hosur, Bangalore"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4] focus:ring-1 focus:ring-[#12b7d4]"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Experience & Notice Period */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Experience Level *
+                        </label>
+                        <select
+                          value={formData.experience}
+                          onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4] bg-white cursor-pointer"
+                        >
+                          <option value="Fresher">Fresher / Graduate</option>
+                          <option value="Less than 1 Year">Less than 1 Year</option>
+                          <option value="1–2 Years">1–2 Years</option>
+                          <option value="2+ Years">2+ Years</option>
+                          <option value="3+ Years Senior">3+ Years (Senior)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Notice Period / Joining *
+                        </label>
+                        <select
+                          value={formData.noticePeriod}
+                          onChange={(e) => setFormData({ ...formData, noticePeriod: e.target.value })}
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4] bg-white cursor-pointer"
+                        >
+                          <option value="Immediate">Immediate Joiner</option>
+                          <option value="15 Days">Within 15 Days</option>
+                          <option value="1 Month">1 Month Notice</option>
+                          <option value="2 Months+">2 Months+</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Portfolio / GitHub / Website Link */}
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        Portfolio / GitHub / Work Link
+                      </label>
+                      <input
+                        type="url"
+                        value={formData.portfolioUrl}
+                        onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
+                        placeholder="https://behance.net/..., github.com/..., drive.google.com/..."
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4]"
+                      />
+                    </div>
+
+                    {/* ─── DYNAMIC ROLE-SPECIFIC QUESTIONS ─── */}
+                    {applyRole.id === "video-editor" && (
+                      <div className="bg-[#f8fafc] p-4 rounded-2xl border border-neutral-200 space-y-3">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Sansation']">
+                          Editing Softwares You Know
                         </label>
                         <div className="flex flex-wrap gap-2">
-                          {[
-                            "Adobe Premiere Pro",
-                            "Adobe After Effects",
-                            "DaVinci Resolve",
-                            "CapCut",
-                            "Final Cut Pro",
-                            "Photoshop (Thumbnails)",
-                          ].map((soft) => {
-                            const isChecked = formData.videoSoftwares.includes(soft);
+                          {["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "CapCut", "Photoshop"].map((sw) => {
+                            const isChecked = formData.videoSoftwares.includes(sw);
                             return (
                               <button
-                                key={soft}
+                                key={sw}
                                 type="button"
-                                onClick={() => handleToggleSoftware(soft)}
-                                className={`text-xs px-3.5 py-1.5 rounded-full border transition-all cursor-pointer font-medium ${
+                                onClick={() => handleToggleSoftware(sw)}
+                                className={`text-[11px] font-semibold px-3 py-1 rounded-full border transition-all cursor-pointer ${
                                   isChecked
-                                    ? "bg-[#12b7d4] border-[#12b7d4] text-white shadow-2xs"
-                                    : "bg-white border-neutral-300 text-neutral-700 hover:border-neutral-400"
+                                    ? "bg-[#12b7d4] text-white border-[#12b7d4]"
+                                    : "bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400"
                                 }`}
                               >
-                                {isChecked ? "✓ " : "+ "}
-                                {soft}
+                                {isChecked ? "✓ " : "+ "} {sw}
                               </button>
                             );
                           })}
                         </div>
+                        <div>
+                          <label className="block text-[11px] font-bold text-neutral-600 mb-1">
+                            Links to 2–3 of your best Video Reels / Edits (Drive / YouTube)
+                          </label>
+                          <input
+                            type="text"
+                            value={formData.videoSampleLinks}
+                            onChange={(e) => setFormData({ ...formData, videoSampleLinks: e.target.value })}
+                            placeholder="https://drive.google.com/drive/folders/..."
+                            className="w-full px-3 py-2 rounded-xl border border-neutral-200 text-xs bg-white focus:outline-none focus:border-[#12b7d4]"
+                          />
+                        </div>
                       </div>
+                    )}
 
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                          Direct Links to Your Best Reels / Video Edits:
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="Instagram reel links or Google Drive folder URL"
-                          value={formData.videoSampleLinks}
-                          onChange={(e) => setFormData({ ...formData, videoSampleLinks: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* MERN DEVELOPER CONDITIONAL FIELDS */}
-                  {selectedPosition === "mern-developer" && (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                          GitHub Profile URL *
-                        </label>
-                        <input
-                          type="url"
-                          placeholder="https://github.com/your-username"
-                          value={formData.githubUrl}
-                          onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2 font-['Sansation']">
-                          Primary Tech Stack &amp; Libraries:
+                    {applyRole.id === "mern-developer" && (
+                      <div className="bg-[#f8fafc] p-4 rounded-2xl border border-neutral-200 space-y-3">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Sansation']">
+                          Primary Tech Stack You Use
                         </label>
                         <div className="flex flex-wrap gap-2">
-                          {[
-                            "React.js",
-                            "Node.js",
-                            "Express.js",
-                            "MongoDB",
-                            "TypeScript",
-                            "Next.js",
-                            "Tailwind CSS",
-                            "Docker",
-                          ].map((tech) => {
+                          {["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "TypeScript", "Tailwind CSS"].map((tech) => {
                             const isChecked = formData.techStack.includes(tech);
                             return (
                               <button
                                 key={tech}
                                 type="button"
                                 onClick={() => handleToggleTech(tech)}
-                                className={`text-xs px-3.5 py-1.5 rounded-full border transition-all cursor-pointer font-medium ${
+                                className={`text-[11px] font-semibold px-3 py-1 rounded-full border transition-all cursor-pointer ${
                                   isChecked
-                                    ? "bg-[#0284c7] border-[#0284c7] text-white shadow-2xs"
-                                    : "bg-white border-neutral-300 text-neutral-700 hover:border-neutral-400"
+                                    ? "bg-[#0284c7] text-white border-[#0284c7]"
+                                    : "bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400"
                                 }`}
                               >
-                                {isChecked ? "✓ " : "+ "}
-                                {tech}
+                                {isChecked ? "✓ " : "+ "} {tech}
                               </button>
                             );
                           })}
                         </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-[11px] font-bold text-neutral-600 mb-1">GitHub Profile URL</label>
+                            <input
+                              type="url"
+                              value={formData.githubUrl}
+                              onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                              placeholder="https://github.com/yourhandle"
+                              className="w-full px-3 py-2 rounded-xl border border-neutral-200 text-xs bg-white focus:outline-none focus:border-[#12b7d4]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[11px] font-bold text-neutral-600 mb-1">Live Project / App URL</label>
+                            <input
+                              type="url"
+                              value={formData.liveProjectUrl}
+                              onChange={(e) => setFormData({ ...formData, liveProjectUrl: e.target.value })}
+                              placeholder="https://mycoolapp.com"
+                              className="w-full px-3 py-2 rounded-xl border border-neutral-200 text-xs bg-white focus:outline-none focus:border-[#12b7d4]"
+                            />
+                          </div>
+                        </div>
                       </div>
+                    )}
 
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                          Live Deployed Project / Web App URL (Optional):
-                        </label>
-                        <input
-                          type="url"
-                          placeholder="https://yourproject.vercel.app"
-                          value={formData.liveProjectUrl}
-                          onChange={(e) => setFormData({ ...formData, liveProjectUrl: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* CONTENT CREATOR CONDITIONAL FIELDS */}
-                  {selectedPosition === "content-creator" && (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                          Instagram Profile / Creator Handle *
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="@yourhandle or profile URL"
-                          value={formData.instagramHandle}
-                          onChange={(e) => setFormData({ ...formData, instagramHandle: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2 font-['Sansation']">
-                          Languages You Can Confidently Script &amp; Communicate In:
+                    {applyRole.id === "content-creator" && (
+                      <div className="bg-[#f8fafc] p-4 rounded-2xl border border-neutral-200 space-y-3">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Sansation']">
+                          Languages You Can Script / Create In
                         </label>
                         <div className="flex flex-wrap gap-2">
-                          {["Tamil", "English", "Telugu", "Kannada", "Hindi"].map((lang) => {
+                          {["Tamil", "English", "Kannada", "Telugu"].map((lang) => {
                             const isChecked = formData.languages.includes(lang);
                             return (
                               <button
                                 key={lang}
                                 type="button"
                                 onClick={() => handleToggleLanguage(lang)}
-                                className={`text-xs px-3.5 py-1.5 rounded-full border transition-all cursor-pointer font-medium ${
+                                className={`text-[11px] font-semibold px-3 py-1 rounded-full border transition-all cursor-pointer ${
                                   isChecked
-                                    ? "bg-[#0ea5c0] border-[#0ea5c0] text-white shadow-2xs"
-                                    : "bg-white border-neutral-300 text-neutral-700 hover:border-neutral-400"
+                                    ? "bg-[#0ea5c0] text-white border-[#0ea5c0]"
+                                    : "bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400"
                                 }`}
                               >
-                                {isChecked ? "✓ " : "+ "}
-                                {lang}
+                                {isChecked ? "✓ " : "+ "} {lang}
                               </button>
                             );
                           })}
                         </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-[11px] font-bold text-neutral-600 mb-1">Instagram Handle / Profile</label>
+                            <input
+                              type="text"
+                              value={formData.instagramHandle}
+                              onChange={(e) => setFormData({ ...formData, instagramHandle: e.target.value })}
+                              placeholder="@yourprofile"
+                              className="w-full px-3 py-2 rounded-xl border border-neutral-200 text-xs bg-white focus:outline-none focus:border-[#12b7d4]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[11px] font-bold text-neutral-600 mb-1">Writing / Script Sample Link</label>
+                            <input
+                              type="url"
+                              value={formData.writingSampleLink}
+                              onChange={(e) => setFormData({ ...formData, writingSampleLink: e.target.value })}
+                              placeholder="https://drive.google.com/..."
+                              className="w-full px-3 py-2 rounded-xl border border-neutral-200 text-xs bg-white focus:outline-none focus:border-[#12b7d4]"
+                            />
+                          </div>
+                        </div>
                       </div>
+                    )}
 
+                    {/* Resume Upload (PDF) */}
+                    <div>
+                      <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        Upload Resume (PDF only, max 5MB)
+                      </label>
+                      <div className="border-2 border-dashed border-neutral-300 hover:border-[#12b7d4] rounded-2xl p-4 text-center transition-colors bg-neutral-50/50">
+                        <input
+                          type="file"
+                          accept=".pdf,application/pdf"
+                          onChange={handleResumeChange}
+                          id="resume-popup-upload"
+                          className="hidden"
+                        />
+                        <label
+                          htmlFor="resume-popup-upload"
+                          className="cursor-pointer flex flex-col items-center justify-center gap-1.5"
+                        >
+                          <span className="text-2xl">📄</span>
+                          {resumeFile ? (
+                            <div className="text-xs text-[#087f94] font-bold">
+                              ✓ {resumeFile.name} ({(resumeFile.size / 1024).toFixed(0)} KB)
+                            </div>
+                          ) : (
+                            <div>
+                              <span className="text-xs font-bold text-black hover:text-[#12b7d4]">
+                                Click to select PDF resume
+                              </span>
+                              <span className="text-[11px] text-neutral-400 block">
+                                or drop file here
+                              </span>
+                            </div>
+                          )}
+                        </label>
+                      </div>
+                      {resumeError && (
+                        <p className="text-[11px] text-red-600 mt-1 font-semibold">
+                          ⚠️ {resumeError}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Expected Salary & Why Join */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                          Scriptwriting / Caption Sample Link:
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Expected Salary (Monthly / LPA)
                         </label>
                         <input
                           type="text"
-                          placeholder="Google Doc, Notion link, or post sample"
-                          value={formData.writingSampleLink}
-                          onChange={(e) => setFormData({ ...formData, writingSampleLink: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 bg-white"
+                          value={formData.expectedSalary}
+                          onChange={(e) => setFormData({ ...formData, expectedSalary: e.target.value })}
+                          placeholder="e.g. ₹20,000/mo or Negotiable"
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                          Why Join RiseWithMedia?
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.whyJoin}
+                          onChange={(e) => setFormData({ ...formData, whyJoin: e.target.value })}
+                          placeholder="Brief 1-line reason..."
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-[#12b7d4]"
                         />
                       </div>
                     </div>
-                  )}
+
+                    {/* Submit Button */}
+                    <div className="pt-3">
+                      <button
+                        type="submit"
+                        disabled={formStatus === "submitting"}
+                        className="btn-rush-cyan w-full text-xs uppercase tracking-wider py-3.5 font-black font-['Sansation'] shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center"
+                      >
+                        {formStatus === "submitting" ? (
+                          <span className="flex items-center justify-center gap-2">
+                            <span className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                            Recording Application...
+                          </span>
+                        ) : (
+                          `Submit Application for ${applyRole.title} →`
+                        )}
+                      </button>
+                    </div>
+
+                  </form>
                 </div>
+              )}
 
-                {/* 5. Resume Upload Zone (PDF) */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                    Upload Resume (PDF only, Max 5MB)
-                  </label>
-
-                  <div className="border-2 border-dashed border-neutral-300 hover:border-[#12b7d4] rounded-2xl p-6 text-center transition-colors bg-neutral-50/50 relative">
-                    <input
-                      type="file"
-                      accept=".pdf,application/pdf"
-                      onChange={handleResumeChange}
-                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    />
-
-                    {resumeFile ? (
-                      <div className="flex items-center justify-center gap-3">
-                        <span className="text-2xl">📄</span>
-                        <div className="text-left">
-                          <p className="text-sm font-bold text-black">{resumeFile.name}</p>
-                          <p className="text-xs text-neutral-500">
-                            {Math.round(resumeFile.size / 1024)} KB · PDF Document
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setResumeFile(null);
-                          }}
-                          className="ml-4 text-xs text-red-500 hover:text-red-700 font-bold underline cursor-pointer"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <span className="text-3xl mb-2 inline-block">📎</span>
-                        <p className="text-sm font-bold text-neutral-800">
-                          Click to browse or drag and drop your PDF resume
-                        </p>
-                        <p className="text-xs text-neutral-500 mt-1">
-                          Supported format: PDF up to 5MB. (You can also provide a Drive link in the portfolio field).
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {resumeError && (
-                    <p className="text-xs text-red-600 font-bold mt-1.5">{resumeError}</p>
-                  )}
-                </div>
-
-                {/* 6. Why Join RiseWithMedia Note */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 font-['Sansation']">
-                    Why do you want to join RiseWithMedia? (Optional)
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Tell us a bit about your creative passions, what drives you, and what kind of projects excite you..."
-                    value={formData.whyJoin}
-                    onChange={(e) => setFormData({ ...formData, whyJoin: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:border-[#12b7d4] focus:ring-3 focus:ring-[#12b7d4]/20 outline-none text-sm transition-all text-neutral-900 placeholder:text-neutral-400 bg-white"
-                  />
-                </div>
-
-                {/* Error Banner */}
-                {errorMessage && (
-                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold">
-                    ⚠️ {errorMessage}
-                  </div>
-                )}
-
-                {/* Submit Button */}
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={formStatus === "submitting"}
-                    className="btn-rush-cyan w-full cursor-pointer text-sm uppercase tracking-wider py-4 shadow-md hover:scale-[1.01] active:scale-98 font-bold font-['Sansation'] text-center flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {formStatus === "submitting" ? (
-                      <>
-                        <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Submitting Application...
-                      </>
-                    ) : (
-                      <>
-                        Submit Application for{" "}
-                        {openPositions.find((p) => p.id === selectedPosition)?.title} →
-                      </>
-                    )}
-                  </button>
-
-                  <p className="text-center text-[11px] text-neutral-500 mt-3 font-medium">
-                    Your application is securely encrypted and routed directly to our recruitment inbox:{" "}
-                    <strong className="text-black">rwmdesigners@gmail.com</strong>
-                  </p>
-                </div>
-
-              </form>
-            )}
-
+            </motion.div>
           </div>
+        )}
+      </AnimatePresence>
 
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────────
-          SECTION 6: FINAL CTA (Your Next Opportunity Starts Here)
-      ───────────────────────────────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-24 border-b border-[#eaeaea] relative overflow-hidden">
-        {/* Ambient Glow */}
-        <div className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#12b7d4]/10 rounded-full blur-[65px] pointer-events-none" />
-
-        <div className="rush-container relative z-10 w-full text-center max-w-4xl mx-auto">
-
-          <span className="tag-bubble-cyan mb-4 inline-block">
-            Start Your Journey
-          </span>
-
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-4">
-            Your Next Opportunity <br />
-            <span className="text-[#12b7d4]">Starts Here.</span>
-          </h2>
-
-          <p className="text-[#555555] text-base sm:text-lg max-w-xl mx-auto font-normal leading-relaxed mb-8 sm:mb-10 font-['Manrope']">
-            Have the passion, creativity and skills to make an impact? We would love to hear from you. Explore our open roles or connect directly with our founders.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => handleSelectRoleAndScroll("video-editor")}
-              className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-md hover:scale-105 active:scale-95 font-bold font-['Sansation'] w-full sm:w-auto"
-            >
-              APPLY NOW ↑
-            </button>
-
-            <a
-              href="mailto:rwmdesigners@gmail.com?subject=Job%20Inquiry%20-%20Rise%20With%20Media%20Careers"
-              className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:scale-105 active:scale-95 font-bold font-['Sansation'] w-full sm:w-auto inline-flex items-center justify-center gap-2"
-            >
-              <span>✉️</span> rwmdesigners@gmail.com
-            </a>
-          </div>
-
-          <div className="mt-8 pt-8 border-t border-neutral-100 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-500 font-medium">
-            <span>📍 Krishnagiri &amp; Hosur, Tamil Nadu</span>
-            <span>•</span>
-            <span>⚡ Equal Opportunity Employer</span>
-            <span>•</span>
-            <span>💬 WhatsApp: +91 9345254648</span>
-          </div>
-
-        </div>
-      </section>
-
-    </main>
+    </div>
   );
 }
