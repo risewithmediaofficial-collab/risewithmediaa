@@ -30,7 +30,7 @@ export const openPositions = [
     icon: "🎬",
     title: "Video Editor",
     department: "Creative Team",
-    location: "Krishnagiri / On-site & Hybrid",
+    location: "Krishnagiri (On-site)",
     type: "Full-Time / Contract",
     experience: "Freshers & Experienced",
     tagline: "Transform raw footage into viral, high-retention visual stories.",
@@ -61,7 +61,7 @@ export const openPositions = [
     icon: "💻",
     title: "Full-Stack Developer (MERN)",
     department: "Technology Team",
-    location: "Krishnagiri / Hybrid",
+    location: "Krishnagiri (On-site)",
     type: "Full-Time",
     experience: "Freshers with Strong Fundamentals & Experienced",
     tagline: "Build modern, scalable and responsive web applications.",
@@ -101,7 +101,7 @@ export const openPositions = [
     icon: "📱",
     title: "Content Creator",
     department: "Creative & Marketing Team",
-    location: "Krishnagiri / On-site & Hybrid",
+    location: "Krishnagiri (On-site)",
     type: "Full-Time",
     experience: "Freshers & Experienced",
     tagline: "Drive social media trends, viral scripts, and brand communication.",
@@ -546,11 +546,11 @@ Sent via: risewithmedia.com/careers
       {/* ─────────────────────────────────────────────────────────────────
           SECTION: OPEN ROLES (Minimal, Elite Agency Cards Outside)
       ───────────────────────────────────────────────────────────────── */}
-      <section id="open-roles-section" className="py-20 sm:py-28 bg-[#fafafa] border-b border-neutral-200/80 relative">
+      <section id="open-roles-section" className="py-20 sm:py-28 bg-[#fafafa] border-b border-neutral-200/80 relative scroll-mt-24">
         <div className="rush-container relative z-10 w-full max-w-5xl mx-auto">
 
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 pb-6 border-b border-neutral-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-12 pb-6 border-b border-neutral-200">
             <div>
               <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-1">
                 Current Opportunities
@@ -573,7 +573,7 @@ Sent via: risewithmedia.com/careers
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.4, delay: idx * 0.08, ease: rushEase }}
-                className="bg-white rounded-2xl border border-neutral-200 hover:border-[#12b7d4] transition-all duration-300 p-6 sm:p-7 shadow-xs hover:shadow-[0_12px_32px_rgba(18,183,212,0.1)] group flex flex-col md:flex-row md:items-center justify-between gap-6"
+                className="bg-white rounded-2xl border border-neutral-200 hover:border-[#12b7d4] transition-all duration-300 p-5 sm:p-7 shadow-xs hover:shadow-[0_12px_32px_rgba(18,183,212,0.1)] group flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6"
               >
                 {/* Left: Role identity and quick metadata */}
                 <div className="flex-1 cursor-pointer" onClick={() => handleOpenDetail(role)}>
@@ -600,20 +600,22 @@ Sent via: risewithmedia.com/careers
                   </p>
                 </div>
 
-                {/* Right: Actions */}
-                <div className="flex items-center gap-2.5 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-neutral-100">
+                {/* Right: Actions (100% Responsive, Clean Single Line) */}
+                <div className="grid grid-cols-2 gap-2.5 w-full md:w-auto md:flex md:items-center shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-neutral-100">
                   <button
                     onClick={() => handleOpenDetail(role)}
-                    className="px-4 py-2.5 rounded-xl border border-neutral-200 hover:border-black text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all cursor-pointer font-['Sansation'] uppercase tracking-wider"
+                    className="w-full md:w-auto px-4 py-2.5 rounded-xl border border-neutral-200 hover:border-black text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all cursor-pointer font-['Sansation'] uppercase tracking-wider whitespace-nowrap text-center justify-center flex items-center"
                   >
-                    View Details
+                    <span className="sm:hidden">Details</span>
+                    <span className="hidden sm:inline">View Details</span>
                   </button>
 
                   <button
                     onClick={() => handleOpenApply(role)}
-                    className="btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2.5 font-bold font-['Sansation'] shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition-transform"
+                    className="w-full md:w-auto btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2.5 font-bold font-['Sansation'] shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition-transform whitespace-nowrap text-center justify-center flex items-center"
                   >
-                    Apply Now →
+                    <span className="sm:hidden">Apply →</span>
+                    <span className="hidden sm:inline">Apply Now →</span>
                   </button>
                 </div>
               </motion.div>
