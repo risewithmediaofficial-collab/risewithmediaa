@@ -8,9 +8,10 @@ const EMAILJS_SERVICE_ID = "service_s15r115";
 const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
 const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
 
-// Optional Google Apps Script Webhook URL for Google Sheets + Drive resume storage
+// Google Apps Script Webhook URL for Google Sheets + Drive resume storage
 const GOOGLE_SHEET_WEBHOOK_URL =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_CAREERS_WEBHOOK_URL) || "";
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_CAREERS_WEBHOOK_URL) ||
+  "https://script.google.com/macros/s/AKfycbw_YbHJZbNyYcH4rpuh0nm-wpjxlOl8Djgr83btEAKiCWmePZZarmD68ih8eXFZTWQVzA/exec";
 
 const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
