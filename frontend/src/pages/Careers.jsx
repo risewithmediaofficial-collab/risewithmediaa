@@ -8,6 +8,19 @@ const EMAILJS_SERVICE_ID = "service_s15r115";
 const EMAILJS_TEMPLATE_ID = "template_hpylv7f";
 const EMAILJS_PUBLIC_KEY = "srGKTSrmIkawAjpyy";
 
+// Optional Google Apps Script Webhook URL for Google Sheets + Drive resume storage
+const GOOGLE_SHEET_WEBHOOK_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_CAREERS_WEBHOOK_URL) || "";
+
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (err) => reject(err);
+  });
+};
+
 // 3 Open Roles Data
 export const openPositions = [
   {
@@ -381,7 +394,43 @@ Sent via: risewithmedia.com/careers
     };
 
     try {
-      // 1. Send via EmailJS to rwmdesigners@gmail.com
+      // 1. Send to Google Sheets Webhook (if configured)
+      if (GOOGLE_SHEET_WEBHOOK_URL) {
+        try {
+          let resumeBase64 = null;
+          if (resumeFile) {
+            resumeBase64 = await fileToBase64(resumeFile);
+          }
+          const webhookPayload = {
+            appId,
+            timestamp: new Date().toISOString(),
+            role: currentRole.title,
+            fullName: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            location: formData.location,
+            experience: formData.experience,
+            expectedSalary: formData.expectedSalary || "Negotiable",
+            noticePeriod: formData.noticePeriod,
+            portfolioUrl: formData.portfolioUrl || "",
+            roleSpecificNotes,
+            whyJoin: formData.whyJoin || "",
+            resumeData: resumeBase64,
+            resumeName: resumeFile ? resumeFile.name : "",
+          };
+
+          await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(webhookPayload),
+          });
+        } catch (webhookErr) {
+          console.warn("Google Sheet Webhook Dispatch Warning:", webhookErr);
+        }
+      }
+
+      // 2. Send via EmailJS to rwmdesigners@gmail.com
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
