@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import ScrollSection, { rushEase, useIsMobile } from "../components/ScrollSection";
+import ScrollSection, { rushEase } from "../components/ScrollSection";
 import GravityDotsCanvas from "../components/GravityDotsCanvas";
 import ViewportVideo from "../components/ViewportVideo";
 
@@ -92,7 +92,7 @@ const logoColumns = [
   [royalLogo, dishaLogo, hseihshuLogo, myHosurPropertyLogo, sanjeeviLogo, krinbrinLogo, femi9Logo],
 ];
 
-// Flolapo-Style Skills List with Dynamic Agency Stickers
+// Agency Capabilities Skills List with Static Stickers (Zero-Lag Optimized)
 const flolapoSkills = [
   {
     id: 1,
@@ -100,8 +100,8 @@ const flolapoSkills = [
     sticker: {
       text: "10x ROI Ads",
       icon: "🚀",
-      badgeClass: "bg-[#12b7d4]/15 border-[#12b7d4]/50 text-[#12b7d4] shadow-[0_0_15px_rgba(18,183,212,0.3)]",
-      rotation: "-rotate-2 sm:-rotate-3",
+      badgeClass: "bg-[#12b7d4]/15 border-[#12b7d4]/50 text-[#12b7d4]",
+      rotation: "sm:-rotate-2",
     },
   },
   {
@@ -110,8 +110,8 @@ const flolapoSkills = [
     sticker: {
       text: "Viral Reach",
       icon: "📱",
-      badgeClass: "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8] shadow-[0_0_15px_rgba(56,189,248,0.3)]",
-      rotation: "rotate-2 sm:rotate-3",
+      badgeClass: "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]",
+      rotation: "sm:rotate-2",
     },
   },
   {
@@ -120,8 +120,8 @@ const flolapoSkills = [
     sticker: {
       text: "4K Viral Reels",
       icon: "🎬",
-      badgeClass: "bg-[#12b7d4]/15 border-[#12b7d4]/50 text-[#12b7d4] shadow-[0_0_15px_rgba(18,183,212,0.3)]",
-      rotation: "-rotate-3 sm:-rotate-2",
+      badgeClass: "bg-[#12b7d4]/15 border-[#12b7d4]/50 text-[#12b7d4]",
+      rotation: "sm:-rotate-2",
     },
   },
   {
@@ -130,8 +130,8 @@ const flolapoSkills = [
     sticker: {
       text: "High-Speed Funnels",
       icon: "💻",
-      badgeClass: "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8] shadow-[0_0_15px_rgba(56,189,248,0.3)]",
-      rotation: "rotate-3 sm:rotate-2",
+      badgeClass: "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]",
+      rotation: "sm:rotate-2",
     },
   },
   {
@@ -140,62 +140,32 @@ const flolapoSkills = [
     sticker: {
       text: "Smart Automation",
       icon: "⚙️",
-      badgeClass: "bg-[#12b7d4]/15 border-[#12b7d4]/50 text-[#12b7d4] shadow-[0_0_15px_rgba(18,183,212,0.3)]",
-      rotation: "-rotate-2 sm:-rotate-3",
+      badgeClass: "bg-[#12b7d4]/15 border-[#12b7d4]/50 text-[#12b7d4]",
+      rotation: "sm:-rotate-2",
     },
   },
 ];
 
-// Flolapo-Style Kinetic Skill Row with Agency Sticker & Smooth Reveal
-function FlolapoSkillRow({ skill, index, onClick }) {
-  const isMobile = useIsMobile();
-  const [isHovered, setIsHovered] = useState(false);
-
+// Zero-Lag Skill Row (Instant Render, Pure CSS Hover Transitions, No Heavy Scroll Observers/Filters)
+function FlolapoSkillRow({ skill, onClick }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: isMobile ? 12 : 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: isMobile ? 0.2 : 0.35 }}
-      transition={{
-        duration: isMobile ? 0.35 : 0.5,
-        delay: isMobile ? index * 0.05 : index * 0.08,
-        ease: rushEase,
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <div
       onClick={onClick}
-      style={{ touchAction: "pan-y" }}
-      className="cursor-pointer select-none py-2.5 sm:py-3.5 md:py-4.5 group w-full flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 hover:scale-[1.02] active:scale-98 transition-transform duration-200"
+      className="cursor-pointer select-none py-3 sm:py-3.5 md:py-4 group w-full flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4"
     >
-      {/* Massive Typography Title */}
-      <h3
-        className={`text-xl sm:text-2xl md:text-3xl lg:text-[2.35rem] xl:text-[2.85rem] leading-tight uppercase tracking-[-0.015em] text-center font-bold drop-shadow-sm font-['Outfit'] whitespace-normal sm:whitespace-nowrap transition-all duration-300 ${
-          isHovered
-            ? "text-[#38bdf8] drop-shadow-[0_2px_18px_rgba(56,189,248,0.5)]"
-            : "text-[#12b7d4] drop-shadow-[0_2px_14px_rgba(18,183,212,0.35)]"
-        }`}
-      >
+      {/* Crisp Typography Title */}
+      <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.35rem] xl:text-[2.85rem] leading-tight uppercase tracking-[-0.015em] text-center font-bold font-['Outfit'] whitespace-normal sm:whitespace-nowrap text-[#12b7d4] group-hover:text-[#38bdf8] transition-colors duration-150">
         {skill.title}
       </h3>
 
-      {/* Playful Floating Agency Sticker */}
-      <motion.div
-        initial={{ scale: 0, opacity: 0, rotate: -15 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true, amount: isMobile ? 0.2 : 0.35 }}
-        transition={{
-          type: "spring",
-          stiffness: 420,
-          damping: 20,
-          delay: isMobile ? index * 0.05 + 0.1 : index * 0.08 + 0.15,
-        }}
-        whileHover={{ scale: 1.12, rotate: 0 }}
-        className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider border ${skill.sticker.badgeClass} ${skill.sticker.rotation} select-none pointer-events-none transition-all duration-200`}
+      {/* Lightweight Agency Sticker */}
+      <div
+        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider border ${skill.sticker.badgeClass} ${skill.sticker.rotation} select-none pointer-events-none transition-transform duration-150 sm:group-hover:rotate-0`}
       >
         <span className="text-xs sm:text-sm">{skill.sticker.icon}</span>
-        <span className="font-extrabold tracking-wide">{skill.sticker.text}</span>
-      </motion.div>
-    </motion.div>
+        <span className="tracking-wide">{skill.sticker.text}</span>
+      </div>
+    </div>
   );
 }
 
@@ -430,16 +400,15 @@ export default function Home({ setPage }) {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────────
-          SECTION 2: WHAT WE DO (Flolapo Agency Typography with Dynamic Stickers)
+          SECTION 2: WHAT WE DO (Fast, Zero-Lag Capabilities Section)
       ───────────────────────────────────────────────────────────────── */}
       <section
         className="section-fullscreen bg-[#000000] text-white py-12 sm:py-16 md:py-20 relative overflow-hidden border-b border-neutral-900"
-        style={{ touchAction: "pan-y" }}
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 12% 30%, rgba(18, 183, 212, 0.14), transparent 45%), radial-gradient(circle at 88% 75%, rgba(2, 132, 199, 0.14), transparent 45%)",
+        }}
       >
-        {/* Ambient Blur Color Effect (Dual-Color Luminous Glow - GPU Accelerated) */}
-        <div className="ambient-glow absolute top-1/4 -left-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#12b7d4]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
-        <div className="ambient-glow absolute bottom-1/4 -right-20 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-[#0284c7]/15 rounded-full blur-[40px] sm:blur-[70px] pointer-events-none" />
-
         <div className="rush-container relative z-10 w-full flex flex-col items-center">
 
           {/* Header Tag */}
@@ -449,33 +418,26 @@ export default function Home({ setPage }) {
             </span>
           </div>
 
-          {/* Flolapo Kinetic Typography Vertical Stack with Agency Stickers */}
-          <div className="flex flex-col items-center justify-center gap-1 sm:gap-2 max-w-7xl mx-auto w-full">
-            {flolapoSkills.map((skill, idx) => (
+          {/* Skills Vertical Stack with Agency Stickers */}
+          <div className="flex flex-col items-center justify-center gap-1.5 sm:gap-2 max-w-7xl mx-auto w-full">
+            {flolapoSkills.map((skill) => (
               <FlolapoSkillRow
                 key={skill.id}
                 skill={skill}
-                index={idx}
                 onClick={() => setPage("contact")}
               />
             ))}
           </div>
 
           {/* Micro CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.45, delay: 0.35, ease: rushEase }}
-            className="text-center mt-7 sm:mt-10"
-          >
+          <div className="text-center mt-8 sm:mt-10">
             <button
               onClick={() => setPage("contact")}
               className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Outfit']"
             >
               Start A Project With Us →
             </button>
-          </motion.div>
+          </div>
 
         </div>
       </section>
