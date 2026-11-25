@@ -1,45 +1,62 @@
-# Cache-Control rules for Cloudflare & Browsers
+# Cache-Control & Crawler Headers for Cloudflare Pages / Workers
 
-# HTML Documents & Routes: Never cache HTML so users always receive latest updates instantly
+# HTML Documents & Routes: Never cache HTML so users & crawlers receive latest updates
 /*.html
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
+  Link: <https://risewithmedia.com/llms.txt>; rel="alternate"; type="text/plain"
 
 /index.html
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
+  Link: <https://risewithmedia.com/llms.txt>; rel="alternate"; type="text/plain"
 
 /
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
+  Link: <https://risewithmedia.com/llms.txt>; rel="alternate"; type="text/plain"
 
 /works*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
 
 /clients*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
 
 /softwares*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
+
+/careers*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
 
 /contact*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
 
 /services/*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1
 
 # Hashed assets: 1 year immutable cache (safe because filename hashes change on rebuild)
 /assets/*
@@ -48,6 +65,7 @@
 # Sitemap and robots
 /sitemap.xml
   Cache-Control: public, max-age=3600, must-revalidate
+  X-Robots-Tag: all
 
 /robots.txt
   Cache-Control: public, max-age=3600, must-revalidate
@@ -56,8 +74,9 @@
 /llms.txt
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=3600, must-revalidate
+  X-Robots-Tag: all
 
 /llms-full.txt
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=3600, must-revalidate
-
+  X-Robots-Tag: all

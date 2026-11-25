@@ -492,7 +492,7 @@ Sent via: risewithmedia.com/careers
             transition={{ duration: 0.4 }}
             className="mb-5 inline-block"
           >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-xs font-black uppercase tracking-wider text-[#087f94] font-['Sansation']">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12b7d4]/10 border border-[#12b7d4]/30 text-xs font-black uppercase tracking-wider text-[#087f94] font-['Outfit']">
               <span className="w-2 h-2 rounded-full bg-[#12b7d4] animate-pulse" />
               We Are Hiring · 3 Active Openings
             </span>
@@ -503,7 +503,7 @@ Sent via: risewithmedia.com/careers
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: rushEase }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-[1.08] max-w-4xl mx-auto mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#000000] font-['Outfit'] leading-[1.08] max-w-4xl mx-auto mb-6"
           >
             Build Your Career. <br className="hidden sm:inline" />
             Create Something <span className="text-[#12b7d4]">Extraordinary.</span>
@@ -528,13 +528,13 @@ Sent via: risewithmedia.com/careers
           >
             <button
               onClick={scrollToRoles}
-              className="btn-rush-cyan text-xs sm:text-sm uppercase tracking-wider px-8 py-4 shadow-sm hover:scale-105 active:scale-95 font-bold font-['Sansation'] cursor-pointer"
+              className="btn-rush-cyan text-xs sm:text-sm uppercase tracking-wider px-8 py-4 shadow-sm hover:scale-105 active:scale-95 font-bold font-['Outfit'] cursor-pointer"
             >
               Explore Open Positions (3) ↓
             </button>
             <a
               href="mailto:rwmdesigners@gmail.com?subject=Career%20Inquiry%20-%20RiseWithMedia"
-              className="btn-rush-outline text-xs sm:text-sm uppercase tracking-wider px-7 py-4 hover:bg-neutral-100 font-bold font-['Sansation']"
+              className="btn-rush-outline text-xs sm:text-sm uppercase tracking-wider px-7 py-4 hover:bg-neutral-100 font-bold font-['Outfit']"
             >
               Direct Email Inquiry →
             </a>
@@ -552,10 +552,10 @@ Sent via: risewithmedia.com/careers
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-12 pb-6 border-b border-neutral-200">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-1">
+              <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Outfit'] block mb-1">
                 Current Opportunities
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-black font-['Sansation']">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-black font-['Outfit']">
                 Open <span className="text-[#12b7d4]">Positions</span>
               </h2>
             </div>
@@ -578,7 +578,7 @@ Sent via: risewithmedia.com/careers
                 {/* Left: Role identity and quick metadata */}
                 <div className="flex-1 cursor-pointer" onClick={() => handleOpenDetail(role)}>
                   <div className="flex flex-wrap items-center gap-2 mb-2.5">
-                    <span className="text-xs font-black text-black tracking-wider uppercase font-['Sansation']">
+                    <span className="text-xs font-black text-black tracking-wider uppercase font-['Outfit']">
                       {role.code}
                     </span>
                     <span className="text-neutral-300">·</span>
@@ -590,7 +590,7 @@ Sent via: risewithmedia.com/careers
                     </span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-black group-hover:text-[#12b7d4] transition-colors font-['Sansation'] mb-2 flex items-center gap-2.5">
+                  <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-black group-hover:text-[#12b7d4] transition-colors font-['Outfit'] mb-2 flex items-center gap-2.5">
                     <span>{role.icon}</span>
                     <span>{role.title}</span>
                   </h3>
@@ -604,7 +604,7 @@ Sent via: risewithmedia.com/careers
                 <div className="grid grid-cols-2 gap-2.5 w-full md:w-auto md:flex md:items-center shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-neutral-100">
                   <button
                     onClick={() => handleOpenDetail(role)}
-                    className="w-full md:w-auto px-4 py-2.5 rounded-xl border border-neutral-200 hover:border-black text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all cursor-pointer font-['Sansation'] uppercase tracking-wider whitespace-nowrap text-center justify-center flex items-center"
+                    className="w-full md:w-auto px-4 py-2.5 rounded-xl border border-neutral-200 hover:border-black text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all cursor-pointer font-['Outfit'] uppercase tracking-wider whitespace-nowrap text-center justify-center flex items-center"
                   >
                     <span className="sm:hidden">Details</span>
                     <span className="hidden sm:inline">View Details</span>
@@ -612,7 +612,7 @@ Sent via: risewithmedia.com/careers
 
                   <button
                     onClick={() => handleOpenApply(role)}
-                    className="w-full md:w-auto btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2.5 font-bold font-['Sansation'] shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition-transform whitespace-nowrap text-center justify-center flex items-center"
+                    className="w-full md:w-auto btn-rush-cyan text-xs uppercase tracking-wider px-5 py-2.5 font-bold font-['Outfit'] shadow-xs cursor-pointer hover:scale-105 active:scale-95 transition-transform whitespace-nowrap text-center justify-center flex items-center"
                   >
                     <span className="sm:hidden">Apply →</span>
                     <span className="hidden sm:inline">Apply Now →</span>
@@ -631,10 +631,10 @@ Sent via: risewithmedia.com/careers
       <section className="py-16 sm:py-20 bg-white border-b border-neutral-100">
         <div className="rush-container w-full max-w-5xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-1">
+            <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Outfit'] block mb-1">
               Transparent Framework
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation']">
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Outfit']">
               Our 5-Step Hiring <span className="text-[#12b7d4]">Process</span>
             </h2>
           </div>
@@ -646,10 +646,10 @@ Sent via: risewithmedia.com/careers
                 className="bg-[#fafafa] rounded-2xl p-4 sm:p-5 border border-neutral-200/80 flex flex-col justify-between"
               >
                 <div>
-                  <span className="text-xl font-black text-[#12b7d4] font-['Sansation'] block mb-2">
+                  <span className="text-xl font-black text-[#12b7d4] font-['Outfit'] block mb-2">
                     {s.step}
                   </span>
-                  <h4 className="text-xs font-black uppercase tracking-wider text-black font-['Sansation'] mb-1.5 leading-snug">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-black font-['Outfit'] mb-1.5 leading-snug">
                     {s.title}
                   </h4>
                   <p className="text-[11px] text-neutral-500 font-normal leading-relaxed">
@@ -670,10 +670,10 @@ Sent via: risewithmedia.com/careers
       ───────────────────────────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-neutral-900 text-white relative overflow-hidden">
         <div className="rush-container relative z-10 w-full max-w-4xl mx-auto text-center">
-          <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Sansation'] block mb-2">
+          <span className="text-xs font-black uppercase tracking-widest text-[#12b7d4] font-['Outfit'] block mb-2">
             Don't See Your Exact Role?
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white font-['Sansation'] mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white font-['Outfit'] mb-4">
             Your Next Opportunity <span className="text-[#12b7d4]">Starts Here.</span>
           </h2>
           <p className="text-neutral-400 text-sm sm:text-base max-w-xl mx-auto mb-8 font-['Manrope']">
@@ -682,13 +682,13 @@ Sent via: risewithmedia.com/careers
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={() => handleOpenApply(openPositions[0])}
-              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 font-bold font-['Sansation'] cursor-pointer"
+              className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 font-bold font-['Outfit'] cursor-pointer"
             >
               Submit Open Application →
             </button>
             <a
               href="mailto:rwmdesigners@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-neutral-700 hover:border-white text-xs font-bold text-white transition-all uppercase tracking-wider font-['Sansation']"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-neutral-700 hover:border-white text-xs font-bold text-white transition-all uppercase tracking-wider font-['Outfit']"
             >
               ✉ rwmdesigners@gmail.com
             </a>
@@ -732,7 +732,7 @@ Sent via: risewithmedia.com/careers
               {/* Role Header Info */}
               <div className="mb-6 pr-8">
                 <div className="flex flex-wrap items-center gap-2 mb-2.5">
-                  <span className="text-xs font-black text-black tracking-wider uppercase font-['Sansation']">
+                  <span className="text-xs font-black text-black tracking-wider uppercase font-['Outfit']">
                     {detailRole.code}
                   </span>
                   <span className="text-neutral-300">·</span>
@@ -741,7 +741,7 @@ Sent via: risewithmedia.com/careers
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2 flex items-center gap-2.5">
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Outfit'] mb-2 flex items-center gap-2.5">
                   <span>{detailRole.icon}</span>
                   <span>{detailRole.title}</span>
                 </h3>
@@ -755,7 +755,7 @@ Sent via: risewithmedia.com/careers
 
               {/* Description */}
               <div className="mb-6 pb-6 border-b border-neutral-100">
-                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-2 font-['Sansation']">
+                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-2 font-['Outfit']">
                   About the Role
                 </h4>
                 <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed">
@@ -765,7 +765,7 @@ Sent via: risewithmedia.com/careers
 
               {/* Responsibilities */}
               <div className="mb-6 pb-6 border-b border-neutral-100">
-                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Sansation'] flex items-center gap-2">
+                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Outfit'] flex items-center gap-2">
                   <span className="text-[#12b7d4]">✦</span> Key Responsibilities
                 </h4>
                 <ul className="space-y-2 text-xs sm:text-sm text-neutral-600">
@@ -780,7 +780,7 @@ Sent via: risewithmedia.com/careers
 
               {/* Required & Nice-To-Have Skills */}
               <div className="mb-7">
-                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Sansation'] flex items-center gap-2">
+                <h4 className="text-xs font-black uppercase tracking-wider text-neutral-900 mb-3 font-['Outfit'] flex items-center gap-2">
                   <span className="text-[#12b7d4]">⚡</span> Required Skills & Tools
                 </h4>
                 <div className="flex flex-wrap gap-1.5 mb-4">
@@ -796,7 +796,7 @@ Sent via: risewithmedia.com/careers
 
                 {detailRole.bonusSkills && (
                   <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2 block font-['Sansation']">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2 block font-['Outfit']">
                       Nice to have:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
@@ -820,7 +820,7 @@ Sent via: risewithmedia.com/careers
                 </span>
                 <button
                   onClick={() => handleOpenApply(detailRole)}
-                  className="btn-rush-cyan text-xs uppercase tracking-wider px-7 py-3 font-bold font-['Sansation'] w-full sm:w-auto text-center cursor-pointer shadow-xs"
+                  className="btn-rush-cyan text-xs uppercase tracking-wider px-7 py-3 font-bold font-['Outfit'] w-full sm:w-auto text-center cursor-pointer shadow-xs"
                 >
                   Apply for this Role →
                 </button>
@@ -873,7 +873,7 @@ Sent via: risewithmedia.com/careers
                   <span className="text-xs font-black uppercase tracking-wider text-[#087f94] bg-[#12b7d4]/10 px-3 py-1 rounded-full border border-[#12b7d4]/30 mb-2 inline-block">
                     ID: {submittedApplicationId}
                   </span>
-                  <h3 className="text-2xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-2">
+                  <h3 className="text-2xl font-black uppercase tracking-tight text-black font-['Outfit'] mb-2">
                     Application Submitted!
                   </h3>
                   <p className="text-neutral-600 text-xs sm:text-sm max-w-md mx-auto mb-6">
@@ -902,7 +902,7 @@ Sent via: risewithmedia.com/careers
                     <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#087f94] bg-[#12b7d4]/10 px-2.5 py-0.5 rounded-full border border-[#12b7d4]/30 mb-2 inline-block">
                       {applyRole.department}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Sansation'] mb-1">
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-black font-['Outfit'] mb-1">
                       Apply for <span className="text-[#12b7d4]">{applyRole.title}</span>
                     </h3>
                     <p className="text-neutral-500 text-xs font-medium">
@@ -932,7 +932,7 @@ Sent via: risewithmedia.com/careers
                     {/* Full Name & Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Full Name *
                         </label>
                         <input
@@ -945,7 +945,7 @@ Sent via: risewithmedia.com/careers
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Email Address *
                         </label>
                         <input
@@ -962,7 +962,7 @@ Sent via: risewithmedia.com/careers
                     {/* Phone & Current Location */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Mobile / WhatsApp *
                         </label>
                         <input
@@ -975,7 +975,7 @@ Sent via: risewithmedia.com/careers
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Current Location *
                         </label>
                         <input
@@ -992,7 +992,7 @@ Sent via: risewithmedia.com/careers
                     {/* Experience & Notice Period */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Experience Level *
                         </label>
                         <select
@@ -1009,7 +1009,7 @@ Sent via: risewithmedia.com/careers
                       </div>
 
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Notice Period / Joining *
                         </label>
                         <select
@@ -1027,7 +1027,7 @@ Sent via: risewithmedia.com/careers
 
                     {/* Portfolio / GitHub / Website Link */}
                     <div>
-                      <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                      <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                         Portfolio / GitHub / Work Link
                       </label>
                       <input
@@ -1042,7 +1042,7 @@ Sent via: risewithmedia.com/careers
                     {/* ─── DYNAMIC ROLE-SPECIFIC QUESTIONS ─── */}
                     {applyRole.id === "video-editor" && (
                       <div className="bg-[#f8fafc] p-4 rounded-2xl border border-neutral-200 space-y-3">
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Outfit']">
                           Editing Softwares You Know
                         </label>
                         <div className="flex flex-wrap gap-2">
@@ -1081,7 +1081,7 @@ Sent via: risewithmedia.com/careers
 
                     {applyRole.id === "mern-developer" && (
                       <div className="bg-[#f8fafc] p-4 rounded-2xl border border-neutral-200 space-y-3">
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Outfit']">
                           Primary Tech Stack You Use
                         </label>
                         <div className="flex flex-wrap gap-2">
@@ -1130,7 +1130,7 @@ Sent via: risewithmedia.com/careers
 
                     {applyRole.id === "content-creator" && (
                       <div className="bg-[#f8fafc] p-4 rounded-2xl border border-neutral-200 space-y-3">
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-800 font-['Outfit']">
                           Languages You Can Script / Create In
                         </label>
                         <div className="flex flex-wrap gap-2">
@@ -1179,7 +1179,7 @@ Sent via: risewithmedia.com/careers
 
                     {/* Resume Upload (PDF) */}
                     <div>
-                      <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                      <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                         Upload Resume (PDF only, max 5MB)
                       </label>
                       <div className="border-2 border-dashed border-neutral-300 hover:border-[#12b7d4] rounded-2xl p-4 text-center transition-colors bg-neutral-50/50">
@@ -1221,7 +1221,7 @@ Sent via: risewithmedia.com/careers
                     {/* Expected Salary & Why Join */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Expected Salary (Monthly / LPA)
                         </label>
                         <input
@@ -1233,7 +1233,7 @@ Sent via: risewithmedia.com/careers
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Sansation']">
+                        <label className="block text-xs font-black uppercase tracking-wider text-neutral-700 mb-1 font-['Outfit']">
                           Why Join RiseWithMedia?
                         </label>
                         <input
@@ -1251,7 +1251,7 @@ Sent via: risewithmedia.com/careers
                       <button
                         type="submit"
                         disabled={formStatus === "submitting"}
-                        className="btn-rush-cyan w-full text-xs uppercase tracking-wider py-3.5 font-black font-['Sansation'] shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center"
+                        className="btn-rush-cyan w-full text-xs uppercase tracking-wider py-3.5 font-black font-['Outfit'] shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center"
                       >
                         {formStatus === "submitting" ? (
                           <span className="flex items-center justify-center gap-2">

@@ -291,7 +291,7 @@ export default function Works({ setPage }) {
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
             Case Studies
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2.5">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#000000] font-['Outfit'] mb-2.5">
             Case Studies & <span className="text-[#12b7d4]">Works</span>
           </ScrollText>
           <ScrollText as="p" direction="up" delay={0.16} className="font-script text-xl sm:text-2xl md:text-3xl text-[#12b7d4] mb-6">
@@ -344,7 +344,7 @@ export default function Works({ setPage }) {
                 Client Showcase
               </span>
               <div className="relative inline-block">
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Sansation']">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Outfit']">
                   CLIENT<br />
                   WEBSITES<br />
                   <span className="text-[#12b7d4]">LIVE</span>
@@ -527,7 +527,7 @@ export default function Works({ setPage }) {
                             </span>
                           </div>
 
-                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Sansation'] tracking-tight leading-tight">
+                          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-['Outfit'] tracking-tight leading-tight">
                             {ws.name}
                           </h3>
                         </div>
@@ -596,7 +596,7 @@ export default function Works({ setPage }) {
           <span
             className="text-[5.5rem] sm:text-[10rem] md:text-[14rem] lg:text-[17rem] font-black uppercase tracking-tight whitespace-nowrap leading-none select-none opacity-20"
             style={{
-              fontFamily: "'Sansation', sans-serif",
+              fontFamily: "'Outfit', sans-serif",
               WebkitTextStroke: "2px rgba(0, 0, 0, 0.35)",
               color: "transparent",
             }}
@@ -612,7 +612,7 @@ export default function Works({ setPage }) {
             <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2 inline-block">
               Short-Form Content Engine
             </ScrollText>
-            <ScrollText as="h2" direction="up" delay={0.08} className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] font-['Sansation'] leading-tight mb-2">
+            <ScrollText as="h2" direction="up" delay={0.08} className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#000000] font-['Outfit'] leading-tight mb-2">
               High-Retention <span className="text-[#12b7d4]">Reels</span>
             </ScrollText>
             <ScrollText as="p" direction="up" delay={0.16} className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]">
@@ -648,7 +648,7 @@ export default function Works({ setPage }) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
                     Creators x Brands
                   </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Outfit'] drop-shadow-md">
                     Beauty & Lifestyle
                   </h4>
                 </div>
@@ -685,7 +685,7 @@ export default function Works({ setPage }) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
                     Viral Reach
                   </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Outfit'] drop-shadow-md">
                     Creators x Brands
                   </h4>
                 </div>
@@ -727,7 +727,7 @@ export default function Works({ setPage }) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#12b7d4] bg-black/60 px-2 py-0.5 rounded-md mb-1.5 inline-block">
                     Hospitality
                   </span>
-                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Sansation'] drop-shadow-md">
+                  <h4 className="font-black text-lg sm:text-xl text-white leading-tight font-['Outfit'] drop-shadow-md">
                     Brand Influence
                   </h4>
                 </div>
@@ -781,7 +781,7 @@ export default function Works({ setPage }) {
               <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2 inline-block">
                 Performance Creatives
               </ScrollText>
-              <ScrollText as="h2" direction="up" delay={0.1} className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-black font-['Sansation']">
+              <ScrollText as="h2" direction="up" delay={0.1} className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-black font-['Outfit']">
                 Ad Creatives & <span className="text-[#12b7d4]">Campaigns</span>
               </ScrollText>
             </div>
@@ -816,7 +816,7 @@ export default function Works({ setPage }) {
                       {camp.metric}
                     </span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-black font-['Sansation']">
+                  <h3 className="text-sm sm:text-base font-bold text-black font-['Outfit']">
                     {camp.title}
                   </h3>
                 </div>

@@ -110,7 +110,7 @@ export default function Contact({ initialService = "" }) {
             <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2.5 inline-block">
               Let's Talk Business
             </ScrollText>
-            <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2">
+            <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] font-['Outfit'] mb-2">
               Let’s Build Something <span className="text-[#12b7d4]">Great</span>
             </ScrollText>
             <ScrollText as="p" direction="up" delay={0.16} className="font-script text-lg sm:text-xl md:text-2xl text-[#12b7d4]">
@@ -301,7 +301,7 @@ export default function Contact({ initialService = "" }) {
             >
 
               <div className="rounded-3xl border border-[#eaeaea] p-8 bg-[#fcfcfc]">
-                <h3 className="text-xl font-black uppercase text-black font-['Sansation'] mb-6">
+                <h3 className="text-xl font-black uppercase text-black font-['Outfit'] mb-6">
                   Direct Line
                 </h3>
 
@@ -357,7 +357,7 @@ export default function Contact({ initialService = "" }) {
                 <span className="tag-bubble-cyan mb-3">
                   Our Promise
                 </span>
-                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Sansation']">
+                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-2 font-['Outfit']">
                   Quality, Clarity & Zero Fluff
                 </h4>
                 <p className="text-sm text-neutral-300 leading-relaxed font-normal">

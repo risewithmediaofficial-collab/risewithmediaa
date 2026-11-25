@@ -1,18 +1,39 @@
-# Allow standard search engine web crawlers
+# Standard Search Engine Crawlers
 User-agent: *
 Allow: /
 
-# Allow AI Search Engines & LLM Crawlers (ChatGPT, Claude, Gemini, Perplexity, Apple, Meta)
-User-agent: GPTBot
+# OpenAI / ChatGPT Crawlers (Search Indexing + Live Fetch + Training)
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+
+# Perplexity AI Crawlers
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Anthropic / Claude Crawlers
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 User-agent: anthropic-ai
+Allow: /
+
+# Google / Gemini Crawlers
+User-agent: Googlebot
 Allow: /
 
 User-agent: Google-Extended
@@ -21,16 +42,39 @@ Allow: /
 User-agent: GoogleOther
 Allow: /
 
-User-agent: PerplexityBot
+# Microsoft / Bing / Copilot Crawlers (Used alongside OAI-SearchBot for ChatGPT Search)
+User-agent: Bingbot
 Allow: /
 
+User-agent: msnbot
+Allow: /
+
+# Apple / DuckDuckGo / Meta / Other AI Search Crawlers
 User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
 
+User-agent: DuckAssistBot
+Allow: /
+
 User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: meta-externalfetcher
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
 
 User-agent: Bytespider
@@ -39,12 +83,9 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-User-agent: cohere-ai
-Allow: /
-
 User-agent: Diffbot
 Allow: /
 
-# Sitemap & LLM context
+# Sitemap & AI LLM Discovery Files
 Sitemap: https://risewithmedia.com/sitemap.xml
 Host: https://risewithmedia.com

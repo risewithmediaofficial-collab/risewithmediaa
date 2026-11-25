@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fredoka:wght@300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=League+Spartan:wght@400..900&family=Outfit:wght@100..900&family=Questrial&display=swap');
-@import "@fontsource/sansation";
-@import "@fontsource/sansation/700.css";
 @import "tailwindcss";
 
 @layer base {
@@ -39,7 +37,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sansation', sans-serif;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
   ::selection {
@@ -155,13 +155,30 @@
 .reel-orbit-two { width: 14rem; height: 14rem; right: -4rem; bottom: 1rem; border-color: rgba(255,255,255,.18); }
 
 /* ─── Typography & Utility Classes ─── */
+.font-outfit,
+.font-\[\'Outfit\'\],
+.font-michroma,
+.font-\[\'Michroma\'\],
+.font-oswald,
+.font-\[\'Oswald\'\],
 .font-sansation,
 .font-\[\'Sansation\'\],
 .font-heading,
 .font-title,
 .font-varela,
 .font-\[\'Varela_Round\'\] {
-  font-family: 'Sansation', sans-serif !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+/* Crisp geometric weight balance (SemiBold / Bold matching Givonic specimen) */
+h1.font-black, h2.font-black, h3.font-black, h4.font-black,
+.font-\[\'Outfit\'\].font-black {
+  font-weight: 700 !important;
+}
+
+h1.font-bold, h2.font-bold, h3.font-bold, h4.font-bold,
+.font-\[\'Outfit\'\].font-bold {
+  font-weight: 600 !important;
 }
 
 .font-spartan,

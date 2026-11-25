@@ -82,7 +82,7 @@ export default function Clients({ setPage }) {
           <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-2.5 inline-block">
             Network & Partners
           </ScrollText>
-          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] font-['Sansation'] mb-2.5">
+          <ScrollText as="h1" direction="up" delay={0.08} className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] font-['Outfit'] mb-2.5">
             Our Clients &<br />
             Brand <span className="text-[#12b7d4]">Partners</span>
           </ScrollText>
@@ -101,7 +101,7 @@ export default function Clients({ setPage }) {
                 transition={{ duration: 0.55, delay: i * 0.1, ease: rushEase }}
                 className="text-center p-4 sm:p-6 rounded-2xl border border-[#eaeaea] bg-white hover:border-[#12b7d4] transition-colors shadow-xs"
               >
-                <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-black font-['Sansation'] mb-1 sm:mb-2">
+                <div className="text-2xl sm:text-4xl lg:text-5xl font-black text-black font-['Outfit'] mb-1 sm:mb-2">
                   {st.num}
                 </div>
                 <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#777777]">
@@ -135,7 +135,7 @@ export default function Clients({ setPage }) {
               <span className="tag-bubble-cyan mb-4 inline-block w-fit self-start">
                 Client Brands
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Sansation'] mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.2rem] font-black uppercase tracking-tight text-[#000000] leading-[0.95] font-['Outfit'] mb-4">
                 Trusted by<br />
                 Top <span className="text-[#12b7d4]">Brands</span>
               </h2>
@@ -203,7 +203,7 @@ export default function Clients({ setPage }) {
             <ScrollText as="span" direction="up" delay={0} className="tag-bubble-cyan mb-3 inline-block">
               Direct Feedback
             </ScrollText>
-            <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-black font-['Sansation']">
+            <ScrollText as="h2" direction="up" delay={0.1} className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-black font-['Outfit']">
               What Founders <span className="text-[#12b7d4]">Say</span>
             </ScrollText>
           </div>
@@ -225,11 +225,11 @@ export default function Clients({ setPage }) {
                   </div>
 
                   <div className="flex items-center gap-4 mb-6">
-                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${rev.bg} flex items-center justify-center text-white text-xl font-black font-['Sansation'] shadow-sm flex-shrink-0`}>
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${rev.bg} flex items-center justify-center text-white text-xl font-black font-['Outfit'] shadow-sm flex-shrink-0`}>
                       {rev.initial}
                     </div>
                     <div>
-                      <h4 className="font-bold text-base text-black font-['Sansation']">
+                      <h4 className="font-bold text-base text-black font-['Outfit']">
                         {rev.name}
                       </h4>
                       <p className="text-xs text-[#777777]">

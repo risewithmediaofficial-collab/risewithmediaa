@@ -193,63 +193,64 @@ for (const item of routes) {
   html = html.replace(/<meta name="twitter:title" content=".*?" \/>/i, `<meta name="twitter:title" content="${item.title}" />`);
   html = html.replace(/<meta name="twitter:description" content=".*?" \/>/i, `<meta name="twitter:description" content="${item.description}" />`);
 
-  // Build Route-Specific Crawler Content for inside noscript
+  // Build Route-Specific Crawler Content directly inside #root (visible to OAI-SearchBot & non-JS crawlers)
   const highlightsHtml = item.highlights.map(h => `<li style="padding: 10px 0; border-bottom: 1px solid #f0f0f0;"><strong>✓</strong> ${h}</li>`).join('\n');
 
-  const noscriptContent = `
-    <noscript>
-      <header style="padding: 20px; border-bottom: 1px solid #eaeaea; max-width: 1200px; margin: 0 auto;">
-        <nav aria-label="Main Navigation" style="display: flex; gap: 15px; flex-wrap: wrap;">
-          <a href="/" style="color: #555; text-decoration: none;">Home</a>
-          <a href="/works" style="color: #555; text-decoration: none;">Case Studies</a>
-          <a href="/clients" style="color: #555; text-decoration: none;">Clients</a>
-          <a href="/softwares" style="color: #555; text-decoration: none;">Softwares</a>
-          <a href="/contact" style="color: #555; text-decoration: none;">Contact</a>
-          <a href="/services/content-social" style="color: #12b7d4; text-decoration: none;">Social Media</a>
-          <a href="/services/websites-funnels" style="color: #12b7d4; text-decoration: none;">Websites</a>
-          <a href="/services/performance-marketing" style="color: #12b7d4; text-decoration: none;">Meta Ads</a>
-          <a href="/services/saas-technology" style="color: #12b7d4; text-decoration: none;">SaaS</a>
-        </nav>
-      </header>
+  const ssrContent = `<!-- SSR_CONTENT_START -->
+      <div id="rwm-ssr-content">
+        <header style="padding: 20px; border-bottom: 1px solid #eaeaea; max-width: 1200px; margin: 0 auto;">
+          <nav aria-label="Main Navigation" style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <a href="/" style="color: #555; text-decoration: none;">Home</a>
+            <a href="/works" style="color: #555; text-decoration: none;">Case Studies</a>
+            <a href="/clients" style="color: #555; text-decoration: none;">Clients</a>
+            <a href="/softwares" style="color: #555; text-decoration: none;">Softwares</a>
+            <a href="/careers" style="color: #555; text-decoration: none;">Careers</a>
+            <a href="/contact" style="color: #555; text-decoration: none;">Contact</a>
+            <a href="/services/content-social" style="color: #12b7d4; text-decoration: none;">Social Media</a>
+            <a href="/services/websites-funnels" style="color: #12b7d4; text-decoration: none;">Websites</a>
+            <a href="/services/performance-marketing" style="color: #12b7d4; text-decoration: none;">Meta Ads</a>
+            <a href="/services/saas-technology" style="color: #12b7d4; text-decoration: none;">SaaS</a>
+          </nav>
+        </header>
 
-      <main style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6;">
-        <p style="text-transform: uppercase; font-size: 0.85rem; font-weight: bold; color: #12b7d4; margin-bottom: 8px;">
-          Rise With Media • Krishnagiri &amp; Hosur, Tamil Nadu
-        </p>
-        <h1 style="font-size: 2.4rem; font-weight: 900; color: #000; margin-bottom: 12px; line-height: 1.2;">
-          ${item.h1}
-        </h1>
-        <p style="font-size: 1.2rem; color: #12b7d4; font-weight: 600; margin-bottom: 20px;">
-          ${item.tagline}
-        </p>
-        <p style="color: #444; font-size: 1.05rem; margin-bottom: 25px; max-width: 800px;">
-          ${item.bodyText}
-        </p>
-
-        <div style="background: #fafafa; border: 1px solid #eaeaea; border-radius: 16px; padding: 25px; margin-bottom: 30px; max-width: 800px;">
-          <h2 style="font-size: 1.3rem; margin-top: 0; color: #000;">Key Capabilities &amp; Highlights</h2>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            ${highlightsHtml}
-          </ul>
-        </div>
-
-        <section style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 25px; margin-bottom: 30px; max-width: 800px;">
-          <h2 style="font-size: 1.2rem; color: #166534; margin-top: 0;">Local Service Locations</h2>
-          <p style="color: #15803d; font-size: 0.95rem; margin: 0;">
-            Serving businesses with dedicated digital marketing in <strong>Krishnagiri</strong>, <strong>Hosur</strong>, <strong>Dharmapuri</strong>, <strong>Salem</strong>, <strong>Bengaluru</strong>, <strong>Chennai</strong>, and across <strong>Tamil Nadu</strong>.
+        <main style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6;">
+          <p style="text-transform: uppercase; font-size: 0.85rem; font-weight: bold; color: #12b7d4; margin-bottom: 8px;">
+            Rise With Media • Digital Marketing Agency in Krishnagiri &amp; Hosur, Tamil Nadu
           </p>
-        </section>
+          <h1 style="font-size: 2.4rem; font-weight: 900; color: #000; margin-bottom: 12px; line-height: 1.2;">
+            ${item.h1}
+          </h1>
+          <p style="font-size: 1.2rem; color: #12b7d4; font-weight: 600; margin-bottom: 20px;">
+            ${item.tagline}
+          </p>
+          <p style="color: #444; font-size: 1.05rem; margin-bottom: 25px; max-width: 800px;">
+            ${item.bodyText}
+          </p>
 
-        <div style="margin-top: 25px;">
-          <a href="https://wa.me/919345254648" style="background: #25D366; color: #fff; padding: 12px 24px; border-radius: 9999px; text-decoration: none; font-weight: bold; display: inline-block; margin-right: 12px;">Chat on WhatsApp (+91 9345254648)</a>
-          <a href="/contact" style="background: #000; color: #fff; padding: 12px 24px; border-radius: 9999px; text-decoration: none; font-weight: bold; display: inline-block;">Get Free Consultation →</a>
-        </div>
-      </main>
-    </noscript>
-  `;
+          <div style="background: #fafafa; border: 1px solid #eaeaea; border-radius: 16px; padding: 25px; margin-bottom: 30px; max-width: 800px;">
+            <h2 style="font-size: 1.3rem; margin-top: 0; color: #000;">Key Capabilities &amp; Highlights</h2>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              ${highlightsHtml}
+            </ul>
+          </div>
 
-  // Replace content inside <noscript>...</noscript>
-  html = html.replace(/<noscript>[\s\S]*?<\/noscript>/i, noscriptContent.trim());
+          <section style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 25px; margin-bottom: 30px; max-width: 800px;">
+            <h2 style="font-size: 1.2rem; color: #166534; margin-top: 0;">Local Service Locations</h2>
+            <p style="color: #15803d; font-size: 0.95rem; margin: 0;">
+              Serving businesses with dedicated digital marketing in <strong>Krishnagiri</strong>, <strong>Hosur</strong>, <strong>Dharmapuri</strong>, <strong>Salem</strong>, <strong>Bengaluru</strong>, <strong>Chennai</strong>, and across <strong>Tamil Nadu</strong>.
+            </p>
+          </section>
+
+          <div style="margin-top: 25px;">
+            <a href="https://wa.me/919345254648" style="background: #25D366; color: #fff; padding: 12px 24px; border-radius: 9999px; text-decoration: none; font-weight: bold; display: inline-block; margin-right: 12px;">Chat on WhatsApp (+91 9345254648)</a>
+            <a href="/contact" style="background: #000; color: #fff; padding: 12px 24px; border-radius: 9999px; text-decoration: none; font-weight: bold; display: inline-block;">Get Free Consultation →</a>
+          </div>
+        </main>
+      </div>
+      <!-- SSR_CONTENT_END -->`;
+
+  // Replace primary SSR crawler block inside #root
+  html = html.replace(/<!-- SSR_CONTENT_START -->[\s\S]*?<!-- SSR_CONTENT_END -->/i, ssrContent.trim());
 
   fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf-8');
   generatedCount++;
