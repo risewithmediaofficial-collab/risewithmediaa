@@ -4,6 +4,7 @@ import emailjs from "@emailjs/browser";
 import ScrollSection, { rushEase } from "../components/ScrollSection";
 import GravityDotsCanvas from "../components/GravityDotsCanvas";
 import ViewportVideo from "../components/ViewportVideo";
+import { getUrlForPage, handleSpaClick } from "../routes";
 
 // Client Logos
 import arunamLogo from "../assets/clientlogo/Arunam Logo.png";
@@ -311,7 +312,8 @@ export default function Home({ setPage }) {
             <div className="inline-flex items-center gap-3.5 sm:gap-4 group cursor-default transition-transform">
               <img
                 src="/logo.png"
-                alt="Rise With Media Logo"
+                alt="Rise With Media Official Logo"
+                fetchPriority="high"
                 className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain group-hover:scale-105 transition-transform"
               />
               <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-[#000000] font-['League_Spartan'] leading-none">
@@ -382,18 +384,20 @@ export default function Home({ setPage }) {
             transition={{ duration: 0.4, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4 mt-8"
           >
-            <button
-              onClick={() => setPage("contact")}
+            <a
+              href={getUrlForPage("contact")}
+              onClick={(e) => handleSpaClick(e, "contact", setPage)}
               className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:bg-[#12b7d4] hover:text-white transition-all hover:scale-105 active:scale-95"
             >
               Get Started
-            </button>
-            <button
-              onClick={() => setPage("works")}
+            </a>
+            <a
+              href={getUrlForPage("works")}
+              onClick={(e) => handleSpaClick(e, "works", setPage)}
               className="btn-rush-cyan cursor-pointer text-xs uppercase tracking-wider px-9 py-4 shadow-sm hover:scale-105 active:scale-95"
             >
               View Case Studies
-            </button>
+            </a>
           </motion.div>
 
         </div>
@@ -431,12 +435,13 @@ export default function Home({ setPage }) {
 
           {/* Micro CTA Button */}
           <div className="text-center mt-8 sm:mt-10">
-            <button
-              onClick={() => setPage("contact")}
+            <a
+              href={getUrlForPage("contact")}
+              onClick={(e) => handleSpaClick(e, "contact", setPage)}
               className="btn-rush-cyan text-xs uppercase tracking-wider px-8 py-3.5 cursor-pointer shadow-lg hover:scale-105 active:scale-95 font-bold font-['Outfit']"
             >
               Start A Project With Us →
-            </button>
+            </a>
           </div>
 
         </div>
@@ -692,13 +697,14 @@ export default function Home({ setPage }) {
             transition={{ duration: 0.4, ease: rushEase }}
             className="flex flex-wrap items-center justify-center gap-4"
           >
-            <button
-              onClick={() => setPage("works")}
+            <a
+              href={getUrlForPage("works")}
+              onClick={(e) => handleSpaClick(e, "works", setPage)}
               className="btn-rush-black text-xs sm:text-sm uppercase tracking-wider px-9 py-4 cursor-pointer hover:bg-[#12b7d4] hover:text-white transition-all shadow-md hover:scale-105 active:scale-95 font-bold flex items-center gap-2"
             >
               <span>View In Case Studies</span>
               <span className="text-[#12b7d4] group-hover:text-white">→</span>
-            </button>
+            </a>
           </motion.div>
 
         </div>
@@ -734,13 +740,14 @@ export default function Home({ setPage }) {
                 Powering market leaders and fast-growing businesses across South India.
               </p>
               <div>
-                <button
-                  onClick={() => setPage("clients")}
+                <a
+                  href={getUrlForPage("clients")}
+                  onClick={(e) => handleSpaClick(e, "clients", setPage)}
                   className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black hover:text-[#12b7d4] transition-colors inline-flex items-center gap-2 group cursor-pointer"
                 >
                   <span>Explore All Clients</span>
                   <span className="group-hover:translate-x-1 transition-transform text-[#12b7d4]">→</span>
-                </button>
+                </a>
               </div>
             </motion.div>
 
@@ -774,7 +781,8 @@ export default function Home({ setPage }) {
                           >
                             <img
                               src={logoSrc}
-                              alt="Client Partner"
+                              alt="Client brand featured by Rise With Media"
+                              loading="lazy"
                               className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain group-hover/card:scale-108 transition-transform duration-200"
                             />
                           </div>

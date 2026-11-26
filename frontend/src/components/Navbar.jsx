@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getUrlForPage, handleSpaClick } from "../routes";
 
 const navLinks = [
   { label: "Home", key: "home" },
@@ -29,14 +30,16 @@ export default function Navbar({ page, setPage }) {
         <div className="flex h-20 sm:h-[88px] items-center justify-between">
 
           {/* Brand Logo */}
-          <button
-            onClick={() => handleNav("home")}
+          <a
+            href={getUrlForPage("home")}
+            onClick={(e) => handleSpaClick(e, "home", setPage, () => setMenuOpen(false))}
             className="flex items-center gap-3 text-left group cursor-pointer"
             aria-label="Go to home"
           >
             <img
               src="/logo.png"
-              alt="Rise With Media"
+              alt="Rise With Media Official Logo"
+              fetchPriority="high"
               className="h-11 w-11 sm:h-13 sm:w-13 md:h-14 md:w-14 object-contain group-hover:scale-105 transition-transform shrink-0"
             />
             <div className="flex flex-col justify-center">
@@ -47,16 +50,17 @@ export default function Navbar({ page, setPage }) {
                 Plan . Create . Grow
               </span>
             </div>
-          </button>
+          </a>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 lg:gap-10" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = page === link.key;
               return (
-                <button
+                <a
                   key={link.key}
-                  onClick={() => handleNav(link.key)}
+                  href={getUrlForPage(link.key)}
+                  onClick={(e) => handleSpaClick(e, link.key, setPage, () => setMenuOpen(false))}
                   className={`text-sm transition-colors cursor-pointer relative py-2 ${isActive ? "text-[#12b7d4] font-black" : "text-[#555555] hover:text-[#12b7d4] font-bold"
                     }`}
                 >
@@ -68,19 +72,20 @@ export default function Navbar({ page, setPage }) {
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                </button>
+                </a>
               );
             })}
           </nav>
 
           {/* Right CTA Button */}
           <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={() => handleNav("contact")}
+            <a
+              href={getUrlForPage("contact")}
+              onClick={(e) => handleSpaClick(e, "contact", setPage, () => setMenuOpen(false))}
               className="btn-rush-black cursor-pointer text-xs uppercase tracking-wider px-7 py-3 hover:bg-[#12b7d4] hover:text-white transition-all shadow-xs"
             >
               Contact
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,23 +122,25 @@ export default function Navbar({ page, setPage }) {
           >
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.key}
-                  onClick={() => handleNav(link.key)}
+                  href={getUrlForPage(link.key)}
+                  onClick={(e) => handleSpaClick(e, link.key, setPage, () => setMenuOpen(false))}
                   className={`text-left py-3 text-base font-bold uppercase tracking-wide border-b border-[#f5f5f5] transition-colors ${page === link.key ? "text-[#12b7d4] pl-3 border-l-2 border-l-[#12b7d4] bg-[#e6f9fc]/50" : "text-[#555555] hover:text-[#12b7d4]"
                     }`}
                 >
                   {link.label}
-                </button>
+                </a>
               ))}
 
               <div className="pt-4 flex flex-col gap-2.5">
-                <button
-                  onClick={() => handleNav("contact")}
+                <a
+                  href={getUrlForPage("contact")}
+                  onClick={(e) => handleSpaClick(e, "contact", setPage, () => setMenuOpen(false))}
                   className="btn-rush-black w-full text-center py-3.5 text-xs uppercase tracking-wider hover:bg-[#12b7d4]"
                 >
                   Contact Us
-                </button>
+                </a>
                 <a
                   href="https://wa.me/919345254648"
                   target="_blank"

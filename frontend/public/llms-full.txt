@@ -9,9 +9,10 @@ Serving key economic hubs across South India—primarily Krishnagiri, Hosur, Dha
 
 ## 2. Business Entity Information
 - **Name**: Rise With Media
+- **Official Logo URL**: https://risewithmedia.com/logo.png
 - **Classification**: Digital Marketing Agency, Creative Studio, Web Engineering Agency
 - **Established Focus**: Scaling local SMBs, retail stores, educational institutions, industrial B2B manufacturers, and healthcare centers.
-- **Physical Address**: Krishnagiri Main Road, Krishnagiri, Tamil Nadu 635001, India
+- **Physical Address**: 164A, 14, Thiruvannamalai Rd, near Maharishi School, Rukmani Nagar, Giddampatti, Krishnagiri, Tamil Nadu 635001, India
 - **Primary Telephone**: +91 9345254648
 - **Primary Email**: hello@risewithmedia.com
 - **Official Domain**: https://risewithmedia.com

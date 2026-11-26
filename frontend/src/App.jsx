@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import Softwares from "./pages/Softwares";
 import Careers from "./pages/Careers";
 import ServiceDetail, { servicesData } from "./pages/ServiceDetail";
+import { getUrlForPage } from "./routes";
+export { getUrlForPage };
 
 // Floating WhatsApp Button with authentic WhatsApp branding
 function WhatsAppButton() {
@@ -126,16 +128,6 @@ export const getPageFromUrl = () => {
   }
 
   return "home";
-};
-
-export const getUrlForPage = (page) => {
-  if (!page || page === "home") return "/";
-  if (["works", "clients", "contact", "softwares", "careers"].includes(page)) return `/${page}`;
-  if (page.startsWith("service-")) {
-    const slug = page.replace("service-", "");
-    return `/services/${slug}`;
-  }
-  return `/${page}`;
 };
 
 export default function App() {

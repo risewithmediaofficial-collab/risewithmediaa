@@ -193,12 +193,41 @@ for (const item of routes) {
   html = html.replace(/<meta name="twitter:title" content=".*?" \/>/i, `<meta name="twitter:title" content="${item.title}" />`);
   html = html.replace(/<meta name="twitter:description" content=".*?" \/>/i, `<meta name="twitter:description" content="${item.description}" />`);
 
+  // Inject route-specific WebPage + BreadcrumbList JSON-LD
+  const routeSchema = `<!-- ROUTE_WEBPAGE_SCHEMA_START -->
+    <script type="application/ld+json">
+    ${JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${item.canonical}#webpage`,
+      "url": item.canonical,
+      "name": item.title,
+      "description": item.description,
+      "isPartOf": { "@id": "https://risewithmedia.com/#website" },
+      "about": { "@id": "https://risewithmedia.com/#organization" },
+      "primaryImageOfPage": { "@id": "https://risewithmedia.com/#logo" },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://risewithmedia.com/" },
+          { "@type": "ListItem", "position": 2, "name": item.h1, "item": item.canonical }
+        ]
+      }
+    })}
+    </script>
+    <!-- ROUTE_WEBPAGE_SCHEMA_END -->`;
+  html = html.replace(/<!-- ROUTE_WEBPAGE_SCHEMA_START -->[\s\S]*?<!-- ROUTE_WEBPAGE_SCHEMA_END -->/i, routeSchema);
+
   // Build Route-Specific Crawler Content directly inside #root (visible to OAI-SearchBot & non-JS crawlers)
   const highlightsHtml = item.highlights.map(h => `<li style="padding: 10px 0; border-bottom: 1px solid #f0f0f0;"><strong>✓</strong> ${h}</li>`).join('\n');
 
   const ssrContent = `<!-- SSR_CONTENT_START -->
       <div id="rwm-ssr-content">
-        <header style="padding: 20px; border-bottom: 1px solid #eaeaea; max-width: 1200px; margin: 0 auto;">
+        <header style="padding: 20px; border-bottom: 1px solid #eaeaea; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <a href="/" style="display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #000; font-weight: bold;">
+            <img src="https://risewithmedia.com/logo.png" alt="Rise With Media Official Logo" width="64" height="64" style="width: 64px; height: 64px; object-fit: contain;" />
+            <span>Rise With Media — Digital Marketing Agency</span>
+          </a>
           <nav aria-label="Main Navigation" style="display: flex; gap: 15px; flex-wrap: wrap;">
             <a href="/" style="color: #555; text-decoration: none;">Home</a>
             <a href="/works" style="color: #555; text-decoration: none;">Case Studies</a>
@@ -215,7 +244,7 @@ for (const item of routes) {
 
         <main style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6;">
           <p style="text-transform: uppercase; font-size: 0.85rem; font-weight: bold; color: #12b7d4; margin-bottom: 8px;">
-            Rise With Media • Digital Marketing Agency in Krishnagiri &amp; Hosur, Tamil Nadu
+            Rise With Media • 164A, 14, Thiruvannamalai Rd, near Maharishi School, Krishnagiri, Tamil Nadu 635001
           </p>
           <h1 style="font-size: 2.4rem; font-weight: 900; color: #000; margin-bottom: 12px; line-height: 1.2;">
             ${item.h1}

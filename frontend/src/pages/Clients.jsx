@@ -174,7 +174,8 @@ export default function Clients({ setPage }) {
                           >
                             <img
                               src={logoSrc}
-                              alt="Client Partner"
+                              alt="Client brand featured by Rise With Media"
+                              loading="lazy"
                               className="max-h-12 sm:max-h-16 lg:max-h-20 w-auto max-w-[85%] object-contain group-hover/card:scale-108 transition-transform duration-200"
                             />
                           </div>

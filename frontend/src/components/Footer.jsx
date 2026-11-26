@@ -1,3 +1,5 @@
+import { getUrlForPage, handleSpaClick } from "../routes";
+
 export default function Footer({ setPage }) {
   const links = [
     { label: "Home", key: "home" },
@@ -56,20 +58,21 @@ export default function Footer({ setPage }) {
           
           {/* Brand logo / identity - Top on mobile, Center on desktop */}
           <div className="order-1 lg:order-2 flex flex-col items-center justify-center text-center">
-            <button
-              onClick={() => setPage("home")}
+            <a
+              href={getUrlForPage("home")}
+              onClick={(e) => handleSpaClick(e, "home", setPage)}
               className="inline-flex items-center gap-3 cursor-pointer group mb-1.5"
               aria-label="Rise With Media Home"
             >
               <img
                 src="/logo.png"
-                alt="Rise With Media"
+                alt="Rise With Media Official Logo"
                 className="h-10 w-10 sm:h-11 sm:w-11 object-contain group-hover:scale-105 transition-transform"
               />
               <span className="text-xl sm:text-2xl font-black tracking-tight font-['League_Spartan'] text-black leading-none">
                 Rise With <span className="text-[#12b7d4]">Media</span>
               </span>
-            </button>
+            </a>
             <span className="text-[11px] sm:text-xs font-semibold text-[#666666] font-['League_Spartan'] tracking-widest uppercase select-none">
               Plan · Create · Grow
             </span>
@@ -97,13 +100,14 @@ export default function Footer({ setPage }) {
             aria-label="Footer Primary Navigation"
           >
             {links.map((link) => (
-              <button
+              <a
                 key={link.key}
-                onClick={() => setPage(link.key)}
+                href={getUrlForPage(link.key)}
+                onClick={(e) => handleSpaClick(e, link.key, setPage)}
                 className="text-xs sm:text-sm font-bold text-[#444444] hover:text-[#12b7d4] transition-colors cursor-pointer tracking-wide"
               >
                 {link.label}
-              </button>
+              </a>
             ))}
           </nav>
         </div>
@@ -118,13 +122,14 @@ export default function Footer({ setPage }) {
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl">
               {serviceLinks.map((s) => (
-                <button
+                <a
                   key={s.key}
-                  onClick={() => setPage(s.key)}
+                  href={getUrlForPage(s.key)}
+                  onClick={(e) => handleSpaClick(e, s.key, setPage)}
                   className="bg-[#f8fafc] hover:bg-[#12b7d4] text-[#444444] hover:text-white border border-[#eaeaea] hover:border-[#12b7d4] rounded-full py-1.5 px-3.5 text-xs font-semibold transition-all duration-200 cursor-pointer shadow-2xs"
                 >
                   {s.label}
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -132,7 +137,7 @@ export default function Footer({ setPage }) {
           {/* Local Authority Footprint Chip */}
           <div className="inline-flex flex-wrap items-center justify-center gap-1.5 text-xs text-[#555555] font-medium bg-[#fafafa] border border-[#eeeeee] rounded-full py-2 px-4.5 text-center max-w-full">
             <span className="text-sm">📍</span>
-            <span className="font-semibold text-black">Krishnagiri, Tamil Nadu</span>
+            <span className="font-semibold text-black">164A, Thiruvannamalai Rd, Krishnagiri, Tamil Nadu 635001</span>
             <span className="text-[#999999] hidden sm:inline">•</span>
             <span className="text-[#666666]">Serving Hosur, Dharmapuri, Salem, Bengaluru &amp; Pan-India</span>
           </div>
@@ -142,19 +147,21 @@ export default function Footer({ setPage }) {
         {/* Bottom copyright and legal disclaimer (Centered on mobile, split on desktop) */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#777777] pr-0 lg:pr-24">
           <div className="flex items-center justify-center gap-5 font-medium">
-            <button
-              onClick={() => setPage("contact")}
+            <a
+              href={getUrlForPage("contact")}
+              onClick={(e) => handleSpaClick(e, "contact", setPage)}
               className="hover:text-[#12b7d4] transition-colors cursor-pointer"
             >
               Terms &amp; Conditions
-            </button>
+            </a>
             <span className="text-[#d1d5db]">·</span>
-            <button
-              onClick={() => setPage("contact")}
+            <a
+              href={getUrlForPage("contact")}
+              onClick={(e) => handleSpaClick(e, "contact", setPage)}
               className="hover:text-[#12b7d4] transition-colors cursor-pointer"
             >
               Privacy Policy
-            </button>
+            </a>
           </div>
           <div className="text-center sm:text-right font-medium tracking-normal">
             © {new Date().getFullYear()} By Rise With Media. All rights reserved.

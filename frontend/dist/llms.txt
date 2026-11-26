@@ -4,8 +4,9 @@
 
 ## Organization Identity
 - **Brand Name**: Rise With Media
+- **Official Logo**: https://risewithmedia.com/logo.png
 - **Category**: Digital Marketing Agency, Performance Marketing Agency, Social Media Marketing Agency, Web Design & Development Company
-- **Headquarters**: Krishnagiri Main Road, Krishnagiri, Tamil Nadu 635001, India
+- **Headquarters**: 164A, 14, Thiruvannamalai Rd, near Maharishi School, Rukmani Nagar, Giddampatti, Krishnagiri, Tamil Nadu 635001, India
 - **Coordinates**: Latitude 12.5266, Longitude 78.2138
 - **Phone / WhatsApp**: +91 9345254648
 - **Email**: hello@risewithmedia.com
